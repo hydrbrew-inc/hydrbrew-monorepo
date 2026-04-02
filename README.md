@@ -12,15 +12,17 @@ npx create-turbo@latest
 
 ## What's inside?
 
-This Turborepo includes the following packages/apps:
+HydrBrew monorepo layout:
 
 ### Apps and Packages
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+- `web`: main public site — pre-launch homepage first; later the same app gains headless Shopify sections (hero, footer, etc.) on the same routes
+- `arc`: ARC / HydraCore experience (Next.js)
+- `scan`: future QR scan app (scaffold only)
+- `@repo/ui`: shared React components
+- `@repo/lib`: shared utilities and product constants (e.g. `site-config`)
+- `@repo/eslint-config`: ESLint configurations
+- `@repo/typescript-config`: shared `tsconfig` presets
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
@@ -52,12 +54,12 @@ You can build a specific package by using a [filter](https://turborepo.dev/docs/
 
 ```
 # With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
+turbo build --filter=web
 
 # Without [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
+npx turbo build --filter=web
+yarn exec turbo build --filter=web
+pnpm exec turbo build --filter=web
 ```
 
 ### Develop

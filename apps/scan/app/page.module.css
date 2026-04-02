@@ -1,0 +1,53 @@
+.root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: #0c0c0c;
+  color: #e8e8e8;
+}
+
+.card {
+  max-width: 26rem;
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.label {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin: 0 0 0.75rem;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0 0 1rem;
+  letter-spacing: -0.02em;
+}
+
+.note {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  opacity: 0.85;
+  margin: 0 0 1rem;
+}
+
+.note:last-of-type {
+  margin-bottom: 1.25rem;
+}
+
+.link {
+  color: #f87171;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.button {
+  margin-top: 0.25rem;
+}

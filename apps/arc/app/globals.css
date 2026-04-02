@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* HYDRACORE page animations (from legacy styled-jsx) */
+.text-glow-red {
+  text-shadow: 0 0 15px rgba(220, 38, 38, 0.6);
+}
+
+@keyframes brand-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 2px rgba(220, 38, 38, 0.4));
+  }
+  50% {
+    opacity: 0.8;
+    filter: drop-shadow(0 0 12px rgba(220, 38, 38, 0.8));
+  }
+}
+
+.animate-brand-pulse {
+  animation: brand-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes progress {
+  0% {
+    transform: scaleX(0);
+    opacity: 0.3;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    transform: scaleX(0.5);
+    filter: brightness(1.2);
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes flicker {
+  0%,
+  19.999%,
+  22%,
+  62.999%,
+  64%,
+  64.999%,
+  70%,
+  100% {
+    opacity: 1;
+  }
+  20%,
+  21.999%,
+  63%,
+  63.999%,
+  65%,
+  69.999% {
+    opacity: 0.4;
+  }
+}
+
+.animate-progress {
+  animation: progress 3s ease-in-out forwards;
+  transform-origin: left;
+}
+
+.animate-flicker {
+  animation: flicker 2s infinite;
+}

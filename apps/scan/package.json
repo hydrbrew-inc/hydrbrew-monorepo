@@ -1,12 +1,12 @@
 {
-  "name": "web",
+  "name": "scan",
   "version": "0.1.0",
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 3000",
+    "dev": "next dev --port 3005",
     "build": "next build",
-    "start": "next start",
+    "start": "next start --port 3005",
     "lint": "eslint --max-warnings 0",
     "check-types": "next typegen && tsc --noEmit"
   },
