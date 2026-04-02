@@ -193,7 +193,7 @@ const handleTerminalSync = () => {
 
 {/* --- HERO REEL & BASE LORE --- */}
       <section className="pt-24 text-center px-4 max-w-6xl mx-auto">
-        <h1 className="text-6xl md:text-9xl font-black italic tracking-tighter mb-8 uppercase text-glow-red italic">HYDRACORE</h1>
+        <h1 className="text-6xl md:text-9xl font-black italic tracking-tighter mb-8 uppercase text-glow-red italic">HYDRCORE BASE</h1>
         
 {/* --- HERO REEL CONTAINER: RESTORED ORIGINAL BOX LOOK --- */}
 <div className="relative w-full max-w-5xl mx-auto mb-16 rounded-[2.5rem] overflow-hidden border border-white/10 bg-black shadow-2xl aspect-video group">

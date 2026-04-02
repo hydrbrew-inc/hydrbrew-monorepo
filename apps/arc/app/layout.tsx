@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "HydrBrew · ARC",
-  description: "HydrBrew ARC experience (HydraCore).",
+  description: "HydrBrew ARC experience (HYDRCORE BASE).",
 };
 
 export default function RootLayout({
