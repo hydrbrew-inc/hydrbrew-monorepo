@@ -1,20 +1,18 @@
 "use client";
 
-import { ReactNode } from "react";
+import { forwardRef, type ButtonHTMLAttributes } from "react";
 
-interface ButtonProps {
-  children: ReactNode;
-  className?: string;
-  appName: string;
-}
-
-export const Button = ({ children, className, appName }: ButtonProps) => {
+/** Shared button primitive for all apps; compose with Tailwind `className` in each app. */
+export const Button = forwardRef<
+  HTMLButtonElement,
+  ButtonHTMLAttributes<HTMLButtonElement>
+>(function Button({ className = "", type = "button", ...props }, ref) {
   return (
     <button
-      className={className}
-      onClick={() => alert(`Hello from your ${appName} app!`)}
-    >
-      {children}
-    </button>
+      ref={ref}
+      type={type}
+      className={["cursor-pointer", className].filter(Boolean).join(" ")}
+      {...props}
+    />
   );
-};
+});

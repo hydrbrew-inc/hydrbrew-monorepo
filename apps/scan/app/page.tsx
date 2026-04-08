@@ -23,7 +23,7 @@ export default function Page() {
             ARC (dev)
           </Link>
         </p>
-        <Button appName="scan" className={styles.button}>
+        <Button type="button" className={styles.button}>
           Shared UI smoke test
         </Button>
       </div>

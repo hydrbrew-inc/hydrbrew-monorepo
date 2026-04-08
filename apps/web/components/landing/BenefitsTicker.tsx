@@ -1,10 +1,10 @@
 import { motion } from 'motion/react';
 
-export function ProtocolTicker() {
-  const tickerContent = 'HYDRATION SUPPORT // CLEAN ENERGY SUBSTRATE // FULL COGNITIVE STACK // CALM RESPONSE // FLOW-STATE // ';
+export function BenefitsTicker() {
+  const tickerContent = 'NEURAL STABILIZATION // HRV FLOW // AFTERNOON CLARITY // CELLULAR RECOVERY // RITUALIZED // + 1 YOU // ';
 
   return (
-    <div className="relative h-[40px] bg-black/80 border-y border-cyan-500/20 overflow-hidden">
+    <div className="relative h-[40px] bg-black/80 border-y border-cyan-500/20 overflow-hidden mt-32">
       {/* Subtle background grid pattern */}
       <div 
         className="absolute inset-0 opacity-[0.02]"
