@@ -209,7 +209,7 @@ export function ProductShowcase() {
             </div>
 
             <h2 className="text-4xl md:text-5xl lg:text-6xl mb-6 text-white">
-              Subtle Cold-Brew.
+              Smart Hydration + Focus.
               <br />
               <span className="inline-flex flex-wrap items-center gap-3 md:gap-4 mt-2">
                 <span>Zero Compromise.</span>
