@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
-import { getKlaviyoSubscribeUrl } from '@repo/lib/klaviyo';
+import { subscribeToMainKlaviyoList } from '@repo/lib/klaviyo';
+import { getEmailDomain, scrollToSection, showSignupToast, trackSignupEvent } from './signupFlow';
 
 export function FloatingNav() {
   const [isVisible, setIsVisible] = useState(false);
@@ -25,35 +26,51 @@ export function FloatingNav() {
 
     try {
       // Klaviyo API integration
-      const klaviyoData = {
-        profiles: [
-          {
-            email: email
-          }
-        ]
-      };
-
-      const response = await fetch(getKlaviyoSubscribeUrl(), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(klaviyoData)
+      const result = await subscribeToMainKlaviyoList({
+        email,
+        signup_source: 'floating_nav',
       });
 
-      if (response.ok) {
+      if (result.ok) {
         console.log('✅ Successfully subscribed to Klaviyo (FloatingNav):', { email });
+        trackSignupEvent('waitlist_join_success', {
+          source: 'floating_nav',
+          status: result.status,
+          emailDomain: getEmailDomain(email),
+        });
+        showSignupToast({
+          variant: 'success',
+          message: "You're in. Check your inbox for next steps.",
+        });
         setSubmitted(true);
         setEmail('');
+        // Nudge users to the next narrative section after join.
+        setTimeout(() => scrollToSection('manifesto'), 300);
         setTimeout(() => setSubmitted(false), 3000);
       } else {
-        const errorData = await response.json();
-        console.error('❌ Klaviyo subscription failed:', errorData);
-        alert('Failed to join waitlist. Please try again.');
+        console.error('❌ Klaviyo subscription failed:', result.error);
+        trackSignupEvent('waitlist_join_failed', {
+          source: 'floating_nav',
+          status: result.status,
+          reason: 'upstream_rejected',
+          emailDomain: getEmailDomain(email),
+        });
+        showSignupToast({
+          variant: 'error',
+          message: 'Join failed. Please try again.',
+        });
       }
     } catch (error) {
       console.error('❌ Error submitting to Klaviyo:', error);
-      alert('Failed to join waitlist. Please try again.');
+      trackSignupEvent('waitlist_join_failed', {
+        source: 'floating_nav',
+        reason: 'network_or_runtime_error',
+        emailDomain: getEmailDomain(email),
+      });
+      showSignupToast({
+        variant: 'error',
+        message: 'Network issue. Please try again in a moment.',
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -81,7 +98,7 @@ export function FloatingNav() {
               <form onSubmit={handleSubmit} className="hidden md:flex items-center gap-2">
                 {submitted ? (
                   <div className="flex items-center gap-2 px-4 py-2 bg-cyan-500/10 border border-cyan-500/50 rounded-lg">
-                    <span className="text-cyan-400 text-sm font-mono">✓ JOINED</span>
+                    <span className="text-cyan-400 text-sm font-mono">✓ YOU'RE IN. CHECK INBOX.</span>
                   </div>
                 ) : (
                   <>

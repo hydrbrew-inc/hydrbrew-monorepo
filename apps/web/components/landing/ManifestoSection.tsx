@@ -2,7 +2,8 @@ import { motion, useMotionValue, useTransform, animate } from 'motion/react';
 import { useInView } from 'motion/react';
 import { useRef, useState, useEffect } from 'react';
 import { TrendingUp, Activity } from 'lucide-react';
-import { getKlaviyoOuraSubscribeUrl } from '@repo/lib/klaviyo';
+import { subscribeToOuraKlaviyoList } from '@repo/lib/klaviyo';
+import { getEmailDomain, scrollToSection, showSignupToast, trackSignupEvent } from './signupFlow';
 
 // Animated Number Counter Component
 function AnimatedCounter({ from, to, duration, delay, isInView }: { from: number, to: number, duration: number, delay: number, isInView: boolean }) {
@@ -138,37 +139,60 @@ export function ManifestoSection() {
     e.preventDefault();
 
     if (!email || !name) {
-      alert('Please enter both name and email');
+      showSignupToast({
+        variant: 'info',
+        message: 'Please enter both name and email.',
+      });
       return;
     }
 
     setIsSubmitting(true);
 
     try {
-      const klaviyoData = {
-        profiles: [{
-          email: email,
-          first_name: name
-        }]
-      };
-
-      const response = await fetch(getKlaviyoOuraSubscribeUrl(), {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(klaviyoData)
+      const result = await subscribeToOuraKlaviyoList({
+        email,
+        first_name: name,
+        signup_source: 'oura_beta_form',
       });
 
-      if (response.ok) {
+      if (result.ok) {
+        trackSignupEvent('waitlist_join_success', {
+          source: 'oura_beta_form',
+          status: result.status,
+          emailDomain: getEmailDomain(email),
+        });
+        showSignupToast({
+          variant: 'success',
+          message: 'Beta interest recorded. Watch your inbox.',
+        });
         setShowSuccess(true);
         setName('');
         setEmail('');
+        setTimeout(() => scrollToSection('metrics-section'), 250);
         setTimeout(() => setShowSuccess(false), 5000);
       } else {
-        alert('Something went wrong. Please try again.');
+        trackSignupEvent('waitlist_join_failed', {
+          source: 'oura_beta_form',
+          status: result.status,
+          reason: 'upstream_rejected',
+          emailDomain: getEmailDomain(email),
+        });
+        showSignupToast({
+          variant: 'error',
+          message: 'Join failed. Please try again.',
+        });
       }
     } catch (error) {
       console.error('Klaviyo subscription error:', error);
-      alert('Unable to connect. Please try again later.');
+      trackSignupEvent('waitlist_join_failed', {
+        source: 'oura_beta_form',
+        reason: 'network_or_runtime_error',
+        emailDomain: getEmailDomain(email),
+      });
+      showSignupToast({
+        variant: 'error',
+        message: 'Unable to connect. Please try again later.',
+      });
     } finally {
       setIsSubmitting(false);
     }

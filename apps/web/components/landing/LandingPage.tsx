@@ -17,6 +17,7 @@ import { ProductDNATicker } from "./ProductDNATicker";
 import { ProductShowcase } from "./ProductShowcase";
 import { ProtocolSection } from "./ProtocolSection";
 import { ProtocolTicker } from "./ProtocolTicker";
+import { SignupToast } from "./SignupToast";
 import { TwoWaysToPlay } from "./TwoWaysToPlay";
 import { UnitScanEvent } from "./UnitScanEvent";
 import { VideoShowcase } from "./VideoShowcase";
@@ -26,6 +27,7 @@ export function LandingPage() {
     <div className="min-h-screen w-full overflow-x-hidden bg-black text-white antialiased">
       <CyberpunkMenu />
       <FloatingNav />
+      <SignupToast />
       <NeuralBriefing />
       <div id="hero">
         <HeroBifurcation />

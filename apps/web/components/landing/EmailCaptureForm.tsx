@@ -1,15 +1,22 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Check } from 'lucide-react';
-import { getKlaviyoSubscribeUrl } from '@repo/lib/klaviyo';
+import { subscribeToMainKlaviyoList } from '@repo/lib/klaviyo';
+import { getEmailDomain, scrollToSection, showSignupToast, trackSignupEvent } from './signupFlow';
 
 interface EmailCaptureFormProps {
   variant?: 'hero' | 'final' | 'referral';
   className?: string;
   remainingCount?: number;
+  source?: string;
 }
 
-export function EmailCaptureForm({ variant = 'hero', className = '', remainingCount = 1000 }: EmailCaptureFormProps) {
+export function EmailCaptureForm({
+  variant = 'hero',
+  className = '',
+  remainingCount = 1000,
+  source,
+}: EmailCaptureFormProps) {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [submitted, setSubmitted] = useState(false);
@@ -25,38 +32,64 @@ export function EmailCaptureForm({ variant = 'hero', className = '', remainingCo
 
     try {
       // Klaviyo API integration
-      const klaviyoData = {
-        profiles: [
-          {
-            email: email,
-            ...(name && { first_name: name })
-          }
-        ]
-      };
+      const sourceByVariant = {
+        hero: 'video_showcase_capture',
+        final: 'final_cta',
+        referral: 'referral_capture',
+      } as const;
+      const signupSource = source ?? sourceByVariant[variant];
 
-      const response = await fetch(getKlaviyoSubscribeUrl(), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(klaviyoData),
+      const result = await subscribeToMainKlaviyoList({
+        email,
+        ...(name && { first_name: name }),
+        signup_source: signupSource,
       });
 
-      if (response.ok) {
+      if (result.ok) {
         console.log('✅ Successfully subscribed to Klaviyo:', { email, name });
+        trackSignupEvent('waitlist_join_success', {
+          source: signupSource,
+          status: result.status,
+          emailDomain: getEmailDomain(email),
+        });
+        showSignupToast({
+          variant: 'success',
+          message: "You're in. Check your inbox for next steps.",
+        });
         setSubmitted(true);
         setTimeout(() => setSubmitted(false), 3000);
+        if (variant === 'hero') {
+          setTimeout(() => scrollToSection('product'), 300);
+        } else if (variant === 'final') {
+          setTimeout(() => scrollToSection('manifesto'), 300);
+        }
         // Reset form
         setEmail('');
         setName('');
       } else {
-        const errorData = await response.json();
-        console.error('❌ Klaviyo subscription failed:', errorData);
-        alert('Failed to join waitlist. Please try again.');
+        console.error('❌ Klaviyo subscription failed:', result.error);
+        trackSignupEvent('waitlist_join_failed', {
+          source: signupSource,
+          status: result.status,
+          reason: 'upstream_rejected',
+          emailDomain: getEmailDomain(email),
+        });
+        showSignupToast({
+          variant: 'error',
+          message: 'Join failed. Please try again.',
+        });
       }
     } catch (error) {
       console.error('❌ Error submitting to Klaviyo:', error);
-      alert('Failed to join waitlist. Please try again.');
+      trackSignupEvent('waitlist_join_failed', {
+        source: source ?? `variant_${variant}`,
+        reason: 'network_or_runtime_error',
+        emailDomain: getEmailDomain(email),
+      });
+      showSignupToast({
+        variant: 'error',
+        message: 'Network issue. Please try again in a moment.',
+      });
     } finally {
       setIsSubmitting(false);
     }

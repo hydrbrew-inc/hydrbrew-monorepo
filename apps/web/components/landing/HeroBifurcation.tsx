@@ -10,6 +10,14 @@ function stable01(row: number, col: number): number {
   return x - Math.floor(x);
 }
 
+function fmtPx(value: number): string {
+  return `${value.toFixed(4)}px`;
+}
+
+function fmtPct(value: number): string {
+  return `${value.toFixed(4)}%`;
+}
+
 export function HeroBifurcation() {
   const [hoveredSide, setHoveredSide] = useState<'product' | 'lore' | null>(null);
   const [touchedSide, setTouchedSide] = useState<'product' | 'lore' | null>(null);
@@ -182,10 +190,10 @@ export function HeroBifurcation() {
                 key={`large-${i}`}
                 className="absolute rounded-full bg-cyan-400/20 blur-xl"
                 style={{
-                  width: `${60 + stable01(i, 1) * 80}px`,
-                  height: `${60 + stable01(i, 2) * 80}px`,
-                  left: `${stable01(i, 3) * 100}%`,
-                  top: `${stable01(i, 4) * 100}%`,
+                  width: fmtPx(60 + stable01(i, 1) * 80),
+                  height: fmtPx(60 + stable01(i, 2) * 80),
+                  left: fmtPct(stable01(i, 3) * 100),
+                  top: fmtPct(stable01(i, 4) * 100),
                 }}
                 animate={{
                   x: [0, stable01(i, 5) * 100 - 50, 0],
@@ -210,10 +218,10 @@ export function HeroBifurcation() {
                 key={`medium-${i}`}
                 className="absolute rounded-full blur-md"
                 style={{
-                  width: `${20 + stable01(r, 1) * 40}px`,
-                  height: `${20 + stable01(r, 2) * 40}px`,
-                  left: `${stable01(r, 3) * 100}%`,
-                  top: `${stable01(r, 4) * 100}%`,
+                  width: fmtPx(20 + stable01(r, 1) * 40),
+                  height: fmtPx(20 + stable01(r, 2) * 40),
+                  left: fmtPct(stable01(r, 3) * 100),
+                  top: fmtPct(stable01(r, 4) * 100),
                   backgroundImage:
                     i % 2 === 0
                       ? 'radial-gradient(circle, rgba(34, 211, 238, 0.3) 0%, transparent 70%)'

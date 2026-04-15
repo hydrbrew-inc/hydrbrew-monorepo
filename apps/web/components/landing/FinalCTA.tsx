@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, useInView } from 'motion/react';
 import { Zap, Eye, Users, TrendingUp, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { PathSeparator } from './PathSeparator';
+import { EmailCaptureForm } from './EmailCaptureForm';
 
 // Intel Briefing Button Component
 function IntelButton({ 
@@ -654,59 +655,11 @@ export function FinalCTA() {
 
                 {/* Form */}
                 <div className="mb-6">
-                  <form className="w-full">
-                    <div className="flex flex-col gap-3">
-                      <div className="flex flex-col sm:flex-row gap-3">
-                        <input
-                          type="text"
-                          placeholder="Name"
-                          className="flex-1 px-4 py-3 bg-neutral-900/50 border border-neutral-700 rounded-lg text-white placeholder:text-neutral-500 focus:outline-none focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 transition-all"
-                        />
-                        <input
-                          type="email"
-                          placeholder="your.email@protocol.com"
-                          required
-                          className="flex-1 px-4 py-3 bg-neutral-900/50 border border-neutral-700 rounded-lg text-white placeholder:text-neutral-500 focus:outline-none focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 transition-all"
-                        />
-                      </div>
-
-                      <button
-                        type="submit"
-                        className="w-full px-8 py-4 md:py-5 relative bg-cyan-500 hover:bg-cyan-400 text-black rounded-lg transition-colors group whitespace-nowrap overflow-hidden flex items-center justify-center"
-                      >
-                        {/* Border glow */}
-                        <motion.div
-                          className="absolute inset-0 rounded-lg"
-                          style={{
-                            border: '2px solid rgba(34, 211, 238, 0.6)',
-                          }}
-                          animate={{
-                            boxShadow: [
-                              '0 0 20px rgba(34, 211, 238, 0.6), 0 0 20px rgba(34, 211, 238, 0.3) inset',
-                              '0 0 30px rgba(34, 211, 238, 0.8), 0 0 30px rgba(34, 211, 238, 0.4) inset',
-                              '0 0 20px rgba(34, 211, 238, 0.6), 0 0 20px rgba(34, 211, 238, 0.3) inset',
-                            ]
-                          }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "easeInOut"
-                          }}
-                        />
-                        
-                        {/* Corner brackets */}
-                        <div className="absolute w-6 h-6" style={{ inset: '0 auto auto 0', borderTop: '2px solid rgba(34, 211, 238, 0.9)', borderLeft: '2px solid rgba(34, 211, 238, 0.9)' }} />
-                        <div className="absolute w-6 h-6" style={{ inset: '0 0 auto auto', borderTop: '2px solid rgba(34, 211, 238, 0.9)', borderRight: '2px solid rgba(34, 211, 238, 0.9)' }} />
-                        <div className="absolute w-6 h-6" style={{ inset: 'auto auto 0 0', borderBottom: '2px solid rgba(34, 211, 238, 0.9)', borderLeft: '2px solid rgba(34, 211, 238, 0.9)' }} />
-                        <div className="absolute w-6 h-6" style={{ inset: 'auto 0 0 auto', borderBottom: '2px solid rgba(34, 211, 238, 0.9)', borderRight: '2px solid rgba(34, 211, 238, 0.9)' }} />
-
-                        <div className="relative z-10 flex items-center justify-center gap-2 w-full">
-                          <span className="font-mono tracking-wide text-base md:text-lg font-bold">MINT YOUR ASSET</span>
-                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        </div>
-                      </button>
-                    </div>
-                  </form>
+                  <EmailCaptureForm
+                    variant="final"
+                    source="final_cta_primary"
+                    remainingCount={Math.max(1, 10000 - count)}
+                  />
                 </div>
 
                 <p className="text-center text-sm md:text-sm text-neutral-500 font-mono">
@@ -1022,80 +975,11 @@ export function FinalCTA() {
 
                 {/* Email Form */}
                 <div className="mb-4">
-                  <form className="w-full">
-                    <div className="flex flex-col gap-3">
-                      <div className="flex flex-col sm:flex-row gap-3">
-                        <input
-                          type="text"
-                          placeholder="Name"
-                          className="flex-1 px-4 py-3 bg-neutral-900/50 border border-neutral-700 rounded-lg text-white placeholder:text-neutral-500 focus:outline-none focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 transition-all"
-                        />
-                        <input
-                          type="email"
-                          placeholder="your.email@protocol.com"
-                          required
-                          className="flex-1 px-4 py-3 bg-neutral-900/50 border border-neutral-700 rounded-lg text-white placeholder:text-neutral-500 focus:outline-none focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 transition-all"
-                        />
-                      </div>
-                      <button
-                        type="submit"
-                        className="w-full px-8 py-4 md:py-5 relative bg-cyan-500 hover:bg-cyan-400 text-black rounded-lg transition-colors group whitespace-nowrap overflow-hidden flex items-center justify-center"
-                      >
-                        {/* Outer glow border */}
-                        <div 
-                          className="absolute inset-0 rounded-lg" 
-                          style={{
-                            border: '2px solid rgba(34, 211, 238, 0.6)',
-                            boxShadow: '0 0 28px rgba(34, 211, 238, 0.75), inset 0 0 28px rgba(34, 211, 238, 0.37)'
-                          }}
-                        ></div>
-                        
-                        {/* Corner brackets */}
-                        <div 
-                          className="absolute w-6 h-6" 
-                          style={{
-                            top: 0,
-                            left: 0,
-                            borderTop: '2px solid rgba(34, 211, 238, 0.9)',
-                            borderLeft: '2px solid rgba(34, 211, 238, 0.9)'
-                          }}
-                        ></div>
-                        <div 
-                          className="absolute w-6 h-6" 
-                          style={{
-                            top: 0,
-                            right: 0,
-                            borderTop: '2px solid rgba(34, 211, 238, 0.9)',
-                            borderRight: '2px solid rgba(34, 211, 238, 0.9)'
-                          }}
-                        ></div>
-                        <div 
-                          className="absolute w-6 h-6" 
-                          style={{
-                            bottom: 0,
-                            left: 0,
-                            borderBottom: '2px solid rgba(34, 211, 238, 0.9)',
-                            borderLeft: '2px solid rgba(34, 211, 238, 0.9)'
-                          }}
-                        ></div>
-                        <div 
-                          className="absolute w-6 h-6" 
-                          style={{
-                            bottom: 0,
-                            right: 0,
-                            borderBottom: '2px solid rgba(34, 211, 238, 0.9)',
-                            borderRight: '2px solid rgba(34, 211, 238, 0.9)'
-                          }}
-                        ></div>
-                        
-                        {/* Button content */}
-                        <div className="relative z-10 flex items-center justify-center gap-2 w-full">
-                          <span className="font-mono tracking-wide text-base md:text-lg font-bold">MINT YOUR ASSET</span>
-                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        </div>
-                      </button>
-                    </div>
-                  </form>
+                  <EmailCaptureForm
+                    variant="final"
+                    source="final_cta_nft"
+                    remainingCount={Math.max(1, 2000 - nftCount)}
+                  />
                 </div>
 
                 <p className="text-sm text-neutral-600 text-center font-mono">
