@@ -36,3 +36,10 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
+
+# Supabase CLI cache (per-developer state)
+supabase/.temp/
+
+# Claude Code local overrides (shared project settings can be committed; local ones cannot)
+.claude/settings.local.json
+CLAUDE.md
