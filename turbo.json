@@ -1,6 +1,19 @@
 {
   "$schema": "https://turborepo.dev/schema.json",
   "ui": "tui",
+  "globalEnv": [
+    "NEXT_PUBLIC_SUPABASE_URL",
+    "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+    "SUPABASE_SECRET_KEY",
+    "KLAVIYO_PRIVATE_KEY",
+    "KLAVIYO_LIST_ID",
+    "KLAVIYO_API_REVISION",
+    "VIRAL_LOOPS_API_TOKEN",
+    "NEXT_PUBLIC_VIRAL_LOOPS_CAMPAIGN_ID",
+    "CROSSMINT_API_KEY",
+    "CROSSMINT_PROJECT_ID",
+    "NEXT_PUBLIC_CROSSMINT_CLIENT_KEY"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
