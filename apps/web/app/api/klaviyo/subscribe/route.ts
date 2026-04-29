@@ -120,7 +120,7 @@ export async function POST(request: Request) {
       method: "POST",
       headers: {
         Authorization: `Klaviyo-API-Key ${privateApiKey}`,
-        revision: process.env.KLAVIYO_API_REVISION ?? "2024-06-15",
+        revision: process.env.KLAVIYO_API_REVISION?.trim() || "2026-04-15",
         Accept: "application/json",
         "Content-Type": "application/json",
       },
