@@ -31,6 +31,19 @@ function getPrivateApiKey(): string | undefined {
   return key;
 }
 
+function getKlaviyoApiRevision(): string {
+  const fallback = "2026-04-15";
+  let raw = process.env.KLAVIYO_API_REVISION?.trim();
+  if (!raw) return fallback;
+  if (
+    (raw.startsWith('"') && raw.endsWith('"')) ||
+    (raw.startsWith("'") && raw.endsWith("'"))
+  ) {
+    raw = raw.slice(1, -1).trim();
+  }
+  return raw || fallback;
+}
+
 function normalizeProfiles(input: unknown): KlaviyoProfile[] {
   if (!Array.isArray(input)) {
     return [];
@@ -120,7 +133,7 @@ export async function POST(request: Request) {
       method: "POST",
       headers: {
         Authorization: `Klaviyo-API-Key ${privateApiKey}`,
-        revision: process.env.KLAVIYO_API_REVISION?.trim() || "2026-04-15",
+        revision: getKlaviyoApiRevision(),
         Accept: "application/json",
         "Content-Type": "application/json",
       },
