@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { supabaseServer } from "@repo/lib/supabase-server";
-import { subscribeToMainKlaviyoList } from "@repo/lib/klaviyo";
 import { registerViralLoopsParticipant } from "@repo/lib/viral-loops";
+import { upsertKlaviyoProfileProperties } from "@repo/lib/klaviyo-profile";
 
 type SignupBody = {
   email?: string;
@@ -40,8 +40,25 @@ export async function POST(request: Request) {
     );
   }
 
-  const supabase = supabaseServer();
+  // 1. Register with Viral Loops first. VL's native Klaviyo integration pushes
+  //    Name/Email/Referral Link into Klaviyo automatically. Failure here doesn't
+  //    block — the profile still saves and the webhook can reconcile later.
+  let referralCode: string | null = null;
+  try {
+    const participant = await registerViralLoopsParticipant({
+      email,
+      firstName: body.firstName,
+      referrerCode: body.referrerCode,
+    });
+    referralCode = participant.referralCode;
+  } catch (err) {
+    console.error("[signup] viral loops register failed", err);
+  }
 
+  // 2. Upsert into Supabase. The default on `operative_number` assigns the
+  //    next HB-XXXX value via sequence on insert; on conflict the existing
+  //    operative_number is preserved.
+  const supabase = supabaseServer();
   const { data: profile, error: upsertError } = await supabase
     .from("profiles")
     .upsert(
@@ -50,6 +67,9 @@ export async function POST(request: Request) {
         first_name: body.firstName ?? null,
         signup_source: body.signupSource ?? null,
         referrer_code: body.referrerCode ?? null,
+        ...(referralCode
+          ? { referral_code: referralCode, operative_id: referralCode }
+          : {}),
         utm_source: body.utm?.source ?? null,
         utm_medium: body.utm?.medium ?? null,
         utm_campaign: body.utm?.campaign ?? null,
@@ -69,51 +89,31 @@ export async function POST(request: Request) {
     );
   }
 
-  // Viral Loops registration. Failures don't block the signup — the profile
-  // exists and the webhook (or a retry) can reconcile referral state later.
-  let referralCode: string | null = null;
+  // 3. Push operative_number into Klaviyo. profile-import is idempotent — if
+  //    VL native sync hasn't created the profile yet, this creates it; otherwise
+  //    merges. The Initialization Email waits on this property to exist.
   try {
-    const participant = await registerViralLoopsParticipant({
+    await upsertKlaviyoProfileProperties({
       email,
       firstName: body.firstName,
-      referrerCode: body.referrerCode,
-    });
-    referralCode = participant.referralCode;
-
-    await supabase
-      .from("profiles")
-      .update({
-        referral_code: referralCode,
-        operative_id: referralCode,
-      })
-      .eq("id", profile.id);
-  } catch (err) {
-    console.error("[signup] viral loops register failed", err);
-  }
-
-  // Klaviyo identify + list subscribe. Reuses the existing helper, which the
-  // browser-side flow already pointed at /api/klaviyo/subscribe.
-  try {
-    await subscribeToMainKlaviyoList({
-      email,
-      ...(body.firstName ? { first_name: body.firstName } : {}),
-      signup_source: body.signupSource ?? "unknown",
-      ...(body.referrerCode ? { referrer_code: body.referrerCode } : {}),
-      ...(referralCode ? { operative_referral_code: referralCode } : {}),
+      properties: {
+        operative_number: profile.operative_number,
+        signup_source: body.signupSource ?? "unknown",
+        referrer_code: body.referrerCode,
+      },
     });
   } catch (err) {
-    console.error("[signup] klaviyo identify failed", err);
+    console.error("[signup] klaviyo enrichment failed", err);
   }
 
-  // TODO: queue Crossmint mint for the first 2,000 signups.
-  // Blocked on collection ID — populate `nft_action_id` + transition
-  // `nft_status` to 'queued' once Louis creates the collection.
+  // TODO: queue Crossmint mint for the first 2,000 signups once the collection exists.
 
   return NextResponse.json({
     ok: true,
     profile: {
       id: profile.id,
       email: profile.email,
+      operativeNumber: profile.operative_number,
       referralCode,
       milestoneLevel: profile.milestone_level,
     },
