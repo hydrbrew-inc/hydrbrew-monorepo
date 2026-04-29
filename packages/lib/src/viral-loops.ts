@@ -1,8 +1,11 @@
 // Viral Loops Public API helper. Used server-side from /api/signup.
 //
 // Endpoint: POST https://app.viral-loops.com/api/v3/campaign/participant
-// Auth:     `publicToken` body field accepts either the publicToken or the
-//           secret apiToken — we pass the apiToken from server context.
+// Auth:     `publicToken` body field carries the per-campaign public token
+//           (= NEXT_PUBLIC_VIRAL_LOOPS_CAMPAIGN_ID). The secret apiToken is
+//           kept in env for other endpoints (Participant Data, etc.) but is
+//           not needed for participant registration — VL returns 406 if you
+//           pass the apiToken value here.
 // Returns:  { referralCode, isNew }. Level + referralCount need a separate
 //           Participant Data GET (not used at signup time — fresh signups
 //           default to milestone_level=1 in the DB).
@@ -24,13 +27,13 @@ export type RegisterParticipantInput = {
 export async function registerViralLoopsParticipant(
   input: RegisterParticipantInput,
 ): Promise<ViralLoopsRegistration> {
-  const apiToken = process.env.VIRAL_LOOPS_API_TOKEN;
-  if (!apiToken) {
-    throw new Error("Missing VIRAL_LOOPS_API_TOKEN");
+  const campaignId = process.env.NEXT_PUBLIC_VIRAL_LOOPS_CAMPAIGN_ID;
+  if (!campaignId) {
+    throw new Error("Missing NEXT_PUBLIC_VIRAL_LOOPS_CAMPAIGN_ID");
   }
 
   const body = {
-    publicToken: apiToken,
+    publicToken: campaignId,
     user: {
       email: input.email,
       ...(input.firstName ? { firstname: input.firstName } : {}),
