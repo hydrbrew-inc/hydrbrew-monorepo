@@ -134,8 +134,8 @@ export async function POST(request: Request) {
       headers: {
         Authorization: `Klaviyo-API-Key ${privateApiKey}`,
         revision: getKlaviyoApiRevision(),
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: "application/vnd.api+json",
+        "Content-Type": "application/vnd.api+json",
       },
       body: JSON.stringify(toBulkSubscribePayload(listId, profiles)),
       cache: "no-store",
