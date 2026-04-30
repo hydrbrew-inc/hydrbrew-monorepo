@@ -1,3 +1,63 @@
+export type SignupRequest = {
+  email: string;
+  firstName?: string;
+  signupSource: string;
+  referrerCode?: string;
+  utm?: {
+    source?: string;
+    medium?: string;
+    campaign?: string;
+    content?: string;
+    term?: string;
+  };
+};
+
+export type SignupProfile = {
+  id: string;
+  email: string;
+  operativeNumber: string;
+  referralCode: string | null;
+  milestoneLevel: number;
+};
+
+export type SignupResult = {
+  ok: boolean;
+  status: number;
+  profile?: SignupProfile;
+  error?: string;
+};
+
+export async function submitSignup(
+  request: SignupRequest,
+): Promise<SignupResult> {
+  let response: Response;
+  try {
+    response = await fetch("/api/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(request),
+    });
+  } catch {
+    return { ok: false, status: 0, error: "network_error" };
+  }
+
+  let data:
+    | { ok?: boolean; profile?: SignupProfile; error?: string }
+    | undefined;
+  try {
+    data = (await response.json()) as typeof data;
+  } catch {
+    data = undefined;
+  }
+
+  return {
+    ok: !!data?.ok,
+    status: response.status,
+    profile: data?.profile,
+    error: data?.error,
+  };
+}
+
 type SignupEventName = "waitlist_join_success" | "waitlist_join_failed";
 type ToastVariant = "success" | "error" | "info";
 

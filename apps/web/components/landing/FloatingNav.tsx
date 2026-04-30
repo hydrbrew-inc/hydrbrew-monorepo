@@ -1,8 +1,13 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
-import { subscribeToMainKlaviyoList } from '@repo/lib/klaviyo';
-import { getEmailDomain, scrollToSection, showSignupToast, trackSignupEvent } from './signupFlow';
+import {
+  getEmailDomain,
+  scrollToSection,
+  showSignupToast,
+  submitSignup,
+  trackSignupEvent,
+} from './signupFlow';
 
 export function FloatingNav() {
   const [isVisible, setIsVisible] = useState(false);
@@ -24,56 +29,42 @@ export function FloatingNav() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    try {
-      // Klaviyo API integration
-      const result = await subscribeToMainKlaviyoList({
-        email,
-        signup_source: 'floating_nav',
-      });
+    const result = await submitSignup({
+      email,
+      signupSource: 'floating_nav',
+    });
 
-      if (result.ok) {
-        console.log('✅ Successfully subscribed to Klaviyo (FloatingNav):', { email });
-        trackSignupEvent('waitlist_join_success', {
-          source: 'floating_nav',
-          status: result.status,
-          emailDomain: getEmailDomain(email),
-        });
-        showSignupToast({
-          variant: 'success',
-          message: "You're in. Check your inbox for next steps.",
-        });
-        setSubmitted(true);
-        setEmail('');
-        // Nudge users to the next narrative section after join.
-        setTimeout(() => scrollToSection('manifesto'), 300);
-        setTimeout(() => setSubmitted(false), 3000);
-      } else {
-        console.error('❌ Klaviyo subscription failed:', result.error);
-        trackSignupEvent('waitlist_join_failed', {
-          source: 'floating_nav',
-          status: result.status,
-          reason: 'upstream_rejected',
-          emailDomain: getEmailDomain(email),
-        });
-        showSignupToast({
-          variant: 'error',
-          message: 'Join failed. Please try again.',
-        });
-      }
-    } catch (error) {
-      console.error('❌ Error submitting to Klaviyo:', error);
+    if (result.ok && result.profile) {
+      trackSignupEvent('waitlist_join_success', {
+        source: 'floating_nav',
+        status: result.status,
+        emailDomain: getEmailDomain(email),
+      });
+      showSignupToast({
+        variant: 'success',
+        message: `You're in, operative ${result.profile.operativeNumber}. Check your inbox.`,
+      });
+      setSubmitted(true);
+      setEmail('');
+      setTimeout(() => scrollToSection('manifesto'), 300);
+      setTimeout(() => setSubmitted(false), 3000);
+    } else {
       trackSignupEvent('waitlist_join_failed', {
         source: 'floating_nav',
-        reason: 'network_or_runtime_error',
+        status: result.status,
+        reason: result.error ?? 'upstream_rejected',
         emailDomain: getEmailDomain(email),
       });
       showSignupToast({
         variant: 'error',
-        message: 'Network issue. Please try again in a moment.',
+        message:
+          result.status === 0
+            ? 'Network issue. Please try again in a moment.'
+            : 'Join failed. Please try again.',
       });
-    } finally {
-      setIsSubmitting(false);
     }
+
+    setIsSubmitting(false);
   };
 
   return (
