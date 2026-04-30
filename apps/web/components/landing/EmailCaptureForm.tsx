@@ -1,8 +1,13 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Check } from 'lucide-react';
-import { subscribeToMainKlaviyoList } from '@repo/lib/klaviyo';
-import { getEmailDomain, scrollToSection, showSignupToast, trackSignupEvent } from './signupFlow';
+import {
+  getEmailDomain,
+  scrollToSection,
+  showSignupToast,
+  submitSignup,
+  trackSignupEvent,
+} from './signupFlow';
 
 interface EmailCaptureFormProps {
   variant?: 'hero' | 'final' | 'referral';
@@ -30,69 +35,55 @@ export function EmailCaptureForm({
     e.preventDefault();
     setIsSubmitting(true);
 
-    try {
-      // Klaviyo API integration
-      const sourceByVariant = {
-        hero: 'video_showcase_capture',
-        final: 'final_cta',
-        referral: 'referral_capture',
-      } as const;
-      const signupSource = source ?? sourceByVariant[variant];
+    const sourceByVariant = {
+      hero: 'video_showcase_capture',
+      final: 'final_cta',
+      referral: 'referral_capture',
+    } as const;
+    const signupSource = source ?? sourceByVariant[variant];
 
-      const result = await subscribeToMainKlaviyoList({
-        email,
-        ...(name && { first_name: name }),
-        signup_source: signupSource,
+    const result = await submitSignup({
+      email,
+      ...(name && { firstName: name }),
+      signupSource,
+    });
+
+    if (result.ok && result.profile) {
+      trackSignupEvent('waitlist_join_success', {
+        source: signupSource,
+        status: result.status,
+        emailDomain: getEmailDomain(email),
       });
-
-      if (result.ok) {
-        console.log('✅ Successfully subscribed to Klaviyo:', { email, name });
-        trackSignupEvent('waitlist_join_success', {
-          source: signupSource,
-          status: result.status,
-          emailDomain: getEmailDomain(email),
-        });
-        showSignupToast({
-          variant: 'success',
-          message: "You're in. Check your inbox for next steps.",
-        });
-        setSubmitted(true);
-        setTimeout(() => setSubmitted(false), 3000);
-        if (variant === 'hero') {
-          setTimeout(() => scrollToSection('product'), 300);
-        } else if (variant === 'final') {
-          setTimeout(() => scrollToSection('manifesto'), 300);
-        }
-        // Reset form
-        setEmail('');
-        setName('');
-      } else {
-        console.error('❌ Klaviyo subscription failed:', result.error);
-        trackSignupEvent('waitlist_join_failed', {
-          source: signupSource,
-          status: result.status,
-          reason: 'upstream_rejected',
-          emailDomain: getEmailDomain(email),
-        });
-        showSignupToast({
-          variant: 'error',
-          message: 'Join failed. Please try again.',
-        });
+      showSignupToast({
+        variant: 'success',
+        message: `You're in, operative ${result.profile.operativeNumber}. Check your inbox.`,
+      });
+      setSubmitted(true);
+      setTimeout(() => setSubmitted(false), 3000);
+      if (variant === 'hero') {
+        setTimeout(() => scrollToSection('product'), 300);
+      } else if (variant === 'final') {
+        setTimeout(() => scrollToSection('manifesto'), 300);
       }
-    } catch (error) {
-      console.error('❌ Error submitting to Klaviyo:', error);
+      setEmail('');
+      setName('');
+    } else {
       trackSignupEvent('waitlist_join_failed', {
-        source: source ?? `variant_${variant}`,
-        reason: 'network_or_runtime_error',
+        source: signupSource,
+        status: result.status,
+        reason: result.error ?? 'upstream_rejected',
         emailDomain: getEmailDomain(email),
       });
       showSignupToast({
         variant: 'error',
-        message: 'Network issue. Please try again in a moment.',
+        message:
+          result.status === 0
+            ? 'Network issue. Please try again in a moment.'
+            : 'Join failed. Please try again.',
       });
-    } finally {
-      setIsSubmitting(false);
     }
+
+    setIsSubmitting(false);
   };
 
   if (submitted) {
