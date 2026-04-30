@@ -1,7 +1,3 @@
-const DEFAULT_PUBLIC_KEY = "VkyzV4";
-const DEFAULT_LIST_ID = "R2CKPU";
-const DEFAULT_OURA_LIST_ID = "V9Sj87";
-
 export type KlaviyoProfileInput = {
   email: string;
   first_name?: string;
@@ -23,7 +19,7 @@ type KlaviyoEnvelope = {
 
 const LOCAL_SUBSCRIBE_PATH = "/api/klaviyo/subscribe";
 
-function readPublicEnv(key: string, fallback: string): string {
+function readPublicEnv(key: string): string | undefined {
   if (
     typeof process !== "undefined" &&
     process.env &&
@@ -32,7 +28,13 @@ function readPublicEnv(key: string, fallback: string): string {
   ) {
     return process.env[key] as string;
   }
-  return fallback;
+  return undefined;
+}
+
+function readRequiredPublicEnv(key: string): string {
+  const value = readPublicEnv(key);
+  if (value) return value;
+  throw new Error(`Missing required env var: ${key}`);
 }
 
 /**
@@ -40,14 +42,14 @@ function readPublicEnv(key: string, fallback: string): string {
  * Set `NEXT_PUBLIC_KLAVIYO_PUBLIC_KEY`, `NEXT_PUBLIC_KLAVIYO_LIST_ID` in the app.
  */
 export function getKlaviyoSubscribeUrl(listId?: string): string {
-  const apiKey = readPublicEnv("NEXT_PUBLIC_KLAVIYO_PUBLIC_KEY", DEFAULT_PUBLIC_KEY);
-  const list = listId ?? readPublicEnv("NEXT_PUBLIC_KLAVIYO_LIST_ID", DEFAULT_LIST_ID);
+  const apiKey = readRequiredPublicEnv("NEXT_PUBLIC_KLAVIYO_PUBLIC_KEY");
+  const list = listId ?? readRequiredPublicEnv("NEXT_PUBLIC_KLAVIYO_LIST_ID");
   return `https://a.klaviyo.com/api/v2/list/${list}/subscribe?api_key=${apiKey}`;
 }
 
 /** Oura / secondary signup list (e.g. ManifestoSection). */
 export function getKlaviyoOuraSubscribeUrl(): string {
-  const ouraList = readPublicEnv("NEXT_PUBLIC_KLAVIYO_OURA_LIST_ID", DEFAULT_OURA_LIST_ID);
+  const ouraList = readRequiredPublicEnv("NEXT_PUBLIC_KLAVIYO_OURA_LIST_ID");
   return getKlaviyoSubscribeUrl(ouraList);
 }
 
@@ -124,6 +126,6 @@ export async function subscribeToMainKlaviyoList(
 export async function subscribeToOuraKlaviyoList(
   profile: KlaviyoProfileInput,
 ): Promise<KlaviyoSubscribeResult> {
-  const ouraList = readPublicEnv("NEXT_PUBLIC_KLAVIYO_OURA_LIST_ID", DEFAULT_OURA_LIST_ID);
+  const ouraList = readRequiredPublicEnv("NEXT_PUBLIC_KLAVIYO_OURA_LIST_ID");
   return subscribeToKlaviyoList(profile, ouraList);
 }
