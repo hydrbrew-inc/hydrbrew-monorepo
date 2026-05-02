@@ -19,19 +19,34 @@ type KlaviyoEnvelope = {
 
 const LOCAL_SUBSCRIBE_PATH = "/api/klaviyo/subscribe";
 
-function readPublicEnv(key: string): string | undefined {
-  if (
-    typeof process !== "undefined" &&
-    process.env &&
-    typeof process.env[key] === "string" &&
-    process.env[key] !== ""
-  ) {
-    return process.env[key] as string;
+/** Keys must be read with static `process.env.NEXT_PUBLIC_*` so Next.js can inline them in the client bundle. */
+type KlaviyoPublicEnvKey =
+  | "NEXT_PUBLIC_KLAVIYO_PUBLIC_KEY"
+  | "NEXT_PUBLIC_KLAVIYO_LIST_ID"
+  | "NEXT_PUBLIC_KLAVIYO_OURA_LIST_ID";
+
+function readPublicEnv(key: KlaviyoPublicEnvKey): string | undefined {
+  if (typeof process === "undefined" || !process.env) return undefined;
+  let value: string | undefined;
+  switch (key) {
+    case "NEXT_PUBLIC_KLAVIYO_PUBLIC_KEY":
+      value = process.env.NEXT_PUBLIC_KLAVIYO_PUBLIC_KEY;
+      break;
+    case "NEXT_PUBLIC_KLAVIYO_LIST_ID":
+      value = process.env.NEXT_PUBLIC_KLAVIYO_LIST_ID;
+      break;
+    case "NEXT_PUBLIC_KLAVIYO_OURA_LIST_ID":
+      value = process.env.NEXT_PUBLIC_KLAVIYO_OURA_LIST_ID;
+      break;
+    default: {
+      const _exhaustive: never = key;
+      return _exhaustive;
+    }
   }
-  return undefined;
+  return typeof value === "string" && value !== "" ? value : undefined;
 }
 
-function readRequiredPublicEnv(key: string): string {
+function readRequiredPublicEnv(key: KlaviyoPublicEnvKey): string {
   const value = readPublicEnv(key);
   if (value) return value;
   throw new Error(`Missing required env var: ${key}`);
