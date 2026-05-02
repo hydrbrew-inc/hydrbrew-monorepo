@@ -1,3 +1,4 @@
+import { upsertKlaviyoProfileProperties } from "@repo/lib/klaviyo-profile";
 import { NextResponse } from "next/server";
 
 type SubscribeRequestBody = {
@@ -54,21 +55,63 @@ function normalizeProfiles(input: unknown): KlaviyoProfile[] {
   );
 }
 
+/**
+ * Nested profiles on profile-subscription-bulk-create-jobs only allow a small
+ * attribute set (e.g. email + subscriptions). first_name / properties belong
+ * on create-or-update flows; we enrich after subscribe via profile-bulk-import.
+ */
+function toProfileSubscriptionAttributes(profile: KlaviyoProfile): Record<string, unknown> {
+  const email = typeof profile.email === "string" ? profile.email : undefined;
+  return {
+    email,
+    subscriptions: {
+      email: {
+        marketing: {
+          consent: "SUBSCRIBED",
+        },
+      },
+    },
+  };
+}
+
+async function enrichProfilesAfterSubscribe(profiles: KlaviyoProfile[]): Promise<void> {
+  for (const profile of profiles) {
+    const email = typeof profile.email === "string" ? profile.email.trim() : "";
+    if (!email) continue;
+
+    const firstName =
+      typeof profile.first_name === "string" && profile.first_name.trim() !== ""
+        ? profile.first_name.trim()
+        : undefined;
+    const signupSource =
+      typeof profile.signup_source === "string" && profile.signup_source.trim() !== ""
+        ? profile.signup_source.trim()
+        : undefined;
+
+    if (!firstName && !signupSource) continue;
+
+    try {
+      await upsertKlaviyoProfileProperties({
+        email,
+        ...(firstName ? { firstName } : {}),
+        properties: signupSource ? { signup_source: signupSource } : {},
+      });
+    } catch (err) {
+      console.error("[klaviyo/subscribe] profile enrich after list subscribe failed:", err);
+    }
+  }
+}
+
 function toBulkSubscribePayload(listId: string, profiles: KlaviyoProfile[]) {
   return {
     data: {
       type: "profile-subscription-bulk-create-job",
       attributes: {
         profiles: {
-          data: profiles.map((profile) => {
-            const email = typeof profile.email === "string" ? profile.email : undefined;
-            return {
-              type: "profile",
-              attributes: {
-                email,
-              },
-            };
-          }),
+          data: profiles.map((profile) => ({
+            type: "profile",
+            attributes: toProfileSubscriptionAttributes(profile),
+          })),
         },
       },
       relationships: {
@@ -163,6 +206,10 @@ export async function POST(request: Request) {
             statusText: klaviyoResponse.statusText,
             body: rawText && rawText.length > 0 ? rawText : undefined,
           };
+
+    if (klaviyoResponse.ok) {
+      await enrichProfilesAfterSubscribe(profiles);
+    }
 
     return NextResponse.json(
       {
