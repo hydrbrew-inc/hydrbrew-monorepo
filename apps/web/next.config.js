@@ -7,6 +7,8 @@ const nextConfig = {
       { protocol: "https", hostname: "images.unsplash.com", pathname: "/**" },
       { protocol: "https", hostname: "stream.mux.com", pathname: "/**" },
       { protocol: "https", hostname: "image.mux.com", pathname: "/**" },
+      { protocol: "https", hostname: "cdn.builder.io", pathname: "/**" },
+      { protocol: "https", hostname: "www.builder.io", pathname: "/**" },
     ],
   },
 };
