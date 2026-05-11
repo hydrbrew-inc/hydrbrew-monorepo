@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { siteMetadata } from "@repo/lib/site-config";
+import { MetaPixel } from "../components/analytics/MetaPixel";
 import "./globals.css";
 
 const inter = Inter({
@@ -30,6 +31,7 @@ export default function RootLayout({
         className={`${inter.className} ${jetbrainsMono.variable} antialiased`}
       >
         {children}
+        <MetaPixel />
       </body>
     </html>
   );

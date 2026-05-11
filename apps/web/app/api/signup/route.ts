@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { supabaseServer } from "@repo/lib/supabase-server";
 import { registerViralLoopsParticipant } from "@repo/lib/viral-loops";
 import { upsertKlaviyoProfileProperties } from "@repo/lib/klaviyo-profile";
+import { sendMetaCapiEvent } from "@repo/lib/meta-capi";
 
 type SignupBody = {
   email?: string;
@@ -106,7 +107,36 @@ export async function POST(request: Request) {
     console.error("[signup] klaviyo enrichment failed", err);
   }
 
-  // TODO: queue Crossmint mint for the first 2,000 signups once the collection exists.
+  // 4. Fire Meta Conversions API Lead event. event_id matches the client-side
+  //    fbq('track','Lead',...,{eventID}) call so Meta dedupes the two signals.
+  //    Failure is logged but doesn't block — ad attribution degrades, signup
+  //    still succeeds.
+  try {
+    const forwardedFor = request.headers.get("x-forwarded-for") ?? "";
+    const ipAddress = forwardedFor.split(",")[0]?.trim() || undefined;
+    const userAgent = request.headers.get("user-agent") ?? undefined;
+    const requestUrl = new URL(request.url);
+
+    await sendMetaCapiEvent({
+      eventName: "Lead",
+      eventId: `signup-${profile.id}`,
+      eventSourceUrl: `${requestUrl.origin}/`,
+      userData: {
+        email,
+        firstName: body.firstName,
+        ipAddress,
+        userAgent,
+        externalId: profile.operative_number,
+      },
+      customData: {
+        operative_number: profile.operative_number,
+        signup_source: body.signupSource ?? "unknown",
+        referrer_code: body.referrerCode,
+      },
+    });
+  } catch (err) {
+    console.error("[signup] meta capi event failed", err);
+  }
 
   return NextResponse.json({
     ok: true,
