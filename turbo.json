@@ -23,7 +23,10 @@
     "SENTRY_ORG",
     "SENTRY_PROJECT",
     "NEXT_RUNTIME",
-    "CI"
+    "CI",
+    "NEXT_PUBLIC_META_PIXEL_ID",
+    "META_CAPI_ACCESS_TOKEN",
+    "META_CAPI_TEST_EVENT_CODE"
   ],
   "tasks": {
     "build": {

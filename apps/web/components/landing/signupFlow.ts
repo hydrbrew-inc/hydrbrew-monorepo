@@ -50,6 +50,23 @@ export async function submitSignup(
     data = undefined;
   }
 
+  // Fire Meta Pixel Lead event on success. event_id matches the server-side
+  // CAPI call so Meta dedupes the two signals.
+  if (data?.ok && data.profile && typeof window !== "undefined") {
+    const fbq = (window as Window & { fbq?: (...args: unknown[]) => void }).fbq;
+    if (typeof fbq === "function") {
+      fbq(
+        "track",
+        "Lead",
+        {
+          content_name: "Operative Signup",
+          content_category: request.signupSource,
+        },
+        { eventID: `signup-${data.profile.id}` },
+      );
+    }
+  }
+
   return {
     ok: !!data?.ok,
     status: response.status,
