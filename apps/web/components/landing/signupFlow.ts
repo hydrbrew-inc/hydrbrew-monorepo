@@ -65,6 +65,20 @@ export async function submitSignup(
         { eventID: `signup-${data.profile.id}` },
       );
     }
+
+    // Identify the visitor in Klaviyo Onsite so subsequent page views are
+    // attributed to this profile — feeds the "Active on Site" criterion in
+    // the [Engine] High-Intent Leads segment.
+    void import("../analytics/klaviyo-track").then(
+      ({ identifyKlaviyoVisitor }) => {
+        if (data?.profile) {
+          identifyKlaviyoVisitor({
+            $email: data.profile.email,
+            ...(request.firstName ? { $first_name: request.firstName } : {}),
+          });
+        }
+      },
+    );
   }
 
   return {
