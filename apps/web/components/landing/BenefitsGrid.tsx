@@ -599,6 +599,12 @@ export function BenefitsGrid() {
         >
           <motion.button
             onClick={() => {
+              void import('../analytics/klaviyo-track').then(({ trackKlaviyoEvent }) => {
+                trackKlaviyoEvent('Clicked High-Value Link', {
+                  link: 'Pre-order Waitlist',
+                  section: 'benefits',
+                });
+              });
               window.open('https://hydrbrew.com/store', '_blank');
             }}
             className="relative group px-6 py-3 border-2 border-cyan-400 hover:border-cyan-300 rounded-lg bg-cyan-500/5 hover:bg-cyan-500/10 transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.6),0_0_40px_rgba(6,182,212,0.3),0_0_60px_rgba(6,182,212,0.1)]"

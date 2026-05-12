@@ -697,6 +697,12 @@ export function ProtocolSection() {
             <motion.div className="relative">
               <motion.button
                 onClick={() => {
+                  void import('../analytics/klaviyo-track').then(({ trackKlaviyoEvent }) => {
+                    trackKlaviyoEvent('Clicked High-Value Link', {
+                      link: 'Pre-order Waitlist',
+                      section: 'protocol',
+                    });
+                  });
                   window.open('https://hydrbrew.com/store', '_blank');
                 }}
                 className="relative group px-8 py-4 border-2 border-cyan-400 hover:border-cyan-300 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/15 transition-all duration-300 shadow-[0_0_25px_rgba(6,182,212,0.7),0_0_50px_rgba(6,182,212,0.4),0_0_75px_rgba(6,182,212,0.2)]"
