@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { siteMetadata } from "@repo/lib/site-config";
+import { GoogleAnalytics } from "../components/analytics/GoogleAnalytics";
 import { KlaviyoOnsite } from "../components/analytics/KlaviyoOnsite";
 import { MetaPixel } from "../components/analytics/MetaPixel";
 import "./globals.css";
@@ -32,6 +33,7 @@ export default function RootLayout({
         className={`${inter.className} ${jetbrainsMono.variable} antialiased`}
       >
         {children}
+        <GoogleAnalytics />
         <KlaviyoOnsite />
         <MetaPixel />
       </body>
