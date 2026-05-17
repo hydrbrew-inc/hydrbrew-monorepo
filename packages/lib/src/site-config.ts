@@ -1,7 +1,4 @@
-/**
- * Shared product defaults. Commerce (headless Shopify) is not integrated yet;
- * flip {@link launchMode} when the public homepage should show storefront sections.
- */
+/** Shared marketing defaults. Commerce lives on Hydrogen (`apps/store`); link via {@link getStoreUrl}. */
 export const siteConfig = {
   name: "HydrBrew",
   /** Display wordmark (hydrbrew°) — use in footer / chrome */
@@ -9,6 +6,7 @@ export const siteConfig = {
   wordmarkLead: "hydr",
   wordmarkAccent: "brew°",
   tagline: "Optimized Human Protocol",
+  /** Reserved for future homepage storefront embeds (commerce is on Oxygen, not Next). */
   launchMode: false,
 } as const;
 
@@ -22,6 +20,7 @@ export const siteMetadata = {
 /** Local dev origins for sibling Next apps (adjust for deployment). */
 export const devAppOrigins = {
   web: "http://localhost:3000",
+  store: "http://127.0.0.1:3456",
   arc: "http://localhost:3002",
   scan: "http://localhost:3005",
 } as const;

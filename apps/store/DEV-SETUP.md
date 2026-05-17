@@ -46,3 +46,27 @@ With `npm run dev` running, open:
 ## Env list in the terminal
 
 `Environment variables injected into MiniOxygen` is informational (values loaded from `.env`), not an error.
+
+## Oxygen shows "An unexpected error occurred"
+
+Deploy can succeed while the live URL still 500s. Common causes:
+
+1. **Env vars not on Oxygen** — local `.env` is not uploaded automatically. Push them:
+
+   ```powershell
+   npx shopify hydrogen env push --env production
+   ```
+
+   Confirm **Yes**. Required at minimum: `SESSION_SECRET`, `WEAVERSE_PROJECT_ID`, `WEAVERSE_API_KEY`.
+
+2. **`PUBLIC_CHECKOUT_DOMAIN`** — use hostname only (no `https://`), e.g. `your-store.o2.myshopify.dev`.
+
+3. **Mismatched Shopify credentials** — `PUBLIC_STORE_DOMAIN`, `PUBLIC_STOREFRONT_API_TOKEN`, and `SHOP_ID` must all be from the same store. Fix with `npx shopify hydrogen link` + `env pull` for Hydrbrew, then push again.
+
+4. **Redeploy** after env changes:
+
+   ```powershell
+   npx shopify hydrogen deploy --force
+   ```
+
+5. **Logs** — Shopify Admin → Hydrogen → your storefront → **Deployments** → open latest → view logs.

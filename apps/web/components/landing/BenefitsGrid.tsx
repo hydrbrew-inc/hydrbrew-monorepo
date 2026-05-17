@@ -1,3 +1,4 @@
+import { getStorePreOrderUrl } from '@repo/lib/store-url';
 import { motion } from 'motion/react';
 import { useInView } from 'motion/react';
 import type { ReactElement } from 'react';
@@ -605,7 +606,7 @@ export function BenefitsGrid() {
                   section: 'benefits',
                 });
               });
-              window.open('https://hydrbrew.com/store', '_blank');
+              window.open(getStorePreOrderUrl(), '_blank', 'noopener,noreferrer');
             }}
             className="relative group px-6 py-3 border-2 border-cyan-400 hover:border-cyan-300 rounded-lg bg-cyan-500/5 hover:bg-cyan-500/10 transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.6),0_0_40px_rgba(6,182,212,0.3),0_0_60px_rgba(6,182,212,0.1)]"
             whileHover={{ scale: 1.02 }}

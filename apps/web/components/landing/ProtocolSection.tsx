@@ -1,3 +1,4 @@
+import { getStorePreOrderUrl } from '@repo/lib/store-url';
 import { motion } from 'motion/react';
 import { useInView } from 'motion/react';
 import { useRef } from 'react';
@@ -703,7 +704,7 @@ export function ProtocolSection() {
                       section: 'protocol',
                     });
                   });
-                  window.open('https://hydrbrew.com/store', '_blank');
+                  window.open(getStorePreOrderUrl(), '_blank', 'noopener,noreferrer');
                 }}
                 className="relative group px-8 py-4 border-2 border-cyan-400 hover:border-cyan-300 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/15 transition-all duration-300 shadow-[0_0_25px_rgba(6,182,212,0.7),0_0_50px_rgba(6,182,212,0.4),0_0_75px_rgba(6,182,212,0.2)]"
                 whileHover={{ scale: 1.05 }}

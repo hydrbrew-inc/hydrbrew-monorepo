@@ -17,7 +17,8 @@
     "CROSSMINT_PROJECT_ID",
     "NEXT_PUBLIC_CROSSMINT_CLIENT_KEY",
     "LEVEL_UP_WEBHOOK_SECRET",
-    "NEXT_PUBLIC_BUILDER_API_KEY",
+    "NEXT_PUBLIC_STORE_URL",
+    "NEXT_PUBLIC_STORE_PREORDER_HANDLE",
     "NEXT_PUBLIC_SENTRY_DSN",
     "SENTRY_AUTH_TOKEN",
     "SENTRY_ORG",
@@ -33,7 +34,7 @@
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
     "lint": {
       "dependsOn": ["^lint"]

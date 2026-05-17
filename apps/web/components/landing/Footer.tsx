@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { Twitter, Instagram, Youtube } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { siteConfig } from '@repo/lib/site-config';
+import { getStorePreOrderUrl } from '@repo/lib/store-url';
 import { Container } from '@repo/ui/container';
 import { VRPortalModal } from './VRPortalModal';
 
@@ -99,6 +100,14 @@ export function Footer() {
 
           {/* Links */}
           <div className="flex items-center gap-6 text-sm">
+            <a
+              href={getStorePreOrderUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-neutral-400 hover:text-cyan-400 transition-colors"
+            >
+              Shop
+            </a>
             <a href="#" className="text-neutral-400 hover:text-cyan-400 transition-colors">
               Privacy
             </a>
