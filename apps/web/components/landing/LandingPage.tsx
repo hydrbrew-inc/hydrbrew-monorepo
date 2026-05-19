@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { BenefitsGrid } from "./BenefitsGrid";
 import { BenefitsTicker } from "./BenefitsTicker";
 import { CyberpunkMenu } from "./CyberpunkMenu";
@@ -23,8 +25,11 @@ import { UnitScanEvent } from "./UnitScanEvent";
 import { VideoShowcase } from "./VideoShowcase";
 
 export function LandingPage() {
+  const [missionIntelOpen, setMissionIntelOpen] = useState(false);
+  const [scanEventOpen, setScanEventOpen] = useState(false);
+
   return (
-    <div className="min-h-screen w-full overflow-x-hidden bg-black text-white antialiased">
+    <div className="min-h-screen bg-black text-white antialiased overflow-x-hidden w-full">
       <CyberpunkMenu />
       <FloatingNav />
       <SignupToast />
@@ -37,27 +42,62 @@ export function LandingPage() {
         <ProductShowcase />
       </div>
       <ProtocolTicker />
-      <ProtocolSection />
+      <div id="protocol">
+        <ProtocolSection />
+      </div>
       <BenefitsTicker />
-      <BenefitsGrid />
+      <div id="benefits">
+        <BenefitsGrid />
+      </div>
       <PathSeparator />
       <div id="email-capture">
         <FinalCTA />
       </div>
-      <PathSeparator />
-      <div id="manifesto">
+      <div className="hidden md:block">
+        <PathSeparator />
+      </div>
+      <div id="manifesto" className="hidden md:block">
         <ManifestoSection />
       </div>
       <div id="faq">
         <FAQ />
       </div>
-      <TwoWaysToPlay />
-      <div id="mission-intel-section">
-        <VideoShowcase />
+      <div id="two-ways-to-play">
+        <TwoWaysToPlay
+          onToggleMissionIntel={() => setMissionIntelOpen(!missionIntelOpen)}
+          onToggleScanEvent={() => setScanEventOpen(!scanEventOpen)}
+          missionIntelOpen={missionIntelOpen}
+          scanEventOpen={scanEventOpen}
+        />
       </div>
-      <div id="scan-event">
-        <UnitScanEvent />
-      </div>
+      <AnimatePresence>
+        {missionIntelOpen && (
+          <motion.div
+            id="mission-intel-section"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            style={{ overflow: "hidden" }}
+          >
+            <VideoShowcase />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {scanEventOpen && (
+          <motion.div
+            id="scan-event"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            style={{ overflow: "hidden" }}
+          >
+            <UnitScanEvent />
+          </motion.div>
+        )}
+      </AnimatePresence>
       <DualWaveDivider />
       <div id="founder-closing">
         <FounderClosing />

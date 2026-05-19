@@ -1,51 +1,41 @@
-import { motion } from 'motion/react';
+import { motion } from "motion/react";
 
 export function ProtocolTicker() {
-  const tickerContent = 'HYDRATION SUPPORT // CLEAN ENERGY SUBSTRATE // FULL COGNITIVE STACK // CALM RESPONSE // FLOW-STATE // ';
+  const tickerContent =
+    "HYDRATION SUPPORT // CLEAN ENERGY SUBSTRATE // FULL COGNITIVE STACK // CALM RESPONSE // FLOW-STATE // ";
 
   return (
-    <div className="relative h-[40px] bg-black/80 border-y border-cyan-500/20 overflow-hidden">
-      {/* Subtle background grid pattern */}
-      <div 
-        className="absolute inset-0 opacity-[0.02]"
-        style={{
-          backgroundImage: `linear-gradient(90deg, rgba(34, 211, 238, 0.1) 1px, transparent 1px),
-                           linear-gradient(rgba(34, 211, 238, 0.1) 1px, transparent 1px)`,
-          backgroundSize: '20px 20px'
-        }}
-      />
-
-      {/* Scrolling ticker text */}
-      <div className="relative h-full flex items-center">
-        <motion.div
-          className="flex whitespace-nowrap"
-          animate={{
-            x: [0, '-50%']
-          }}
-          transition={{
-            duration: 35,
-            repeat: Infinity,
-            ease: "linear"
+    <div className="relative" style={{ backgroundColor: "#0B0B0B" }}>
+      {/* Founder Directive */}
+      <div className="relative flex items-center justify-center py-12 md:py-20 lg:py-[100px]">
+        {/* Left bracket */}
+        <div
+          className="hidden md:block absolute left-[15%] top-1/2 -translate-y-1/2"
+          style={{
+            fontSize: "80px",
+            lineHeight: "1",
+            fontWeight: "100",
+            color: "#00FFFF",
           }}
         >
-          {/* Repeat the content twice for seamless loop */}
-          <span 
-            className="font-mono text-xs tracking-wider px-4 text-cyan-400/60"
+          [
+        </div>
+
+        {/* Main text */}
+        <div className="max-w-4xl px-8 text-center">
+          <p
+            className="text-white"
             style={{
-              textShadow: '0 0 5px rgba(34, 211, 238, 0.2)'
+              fontFamily: "Source Sans Pro, sans-serif",
+              fontSize: "32px",
+              fontWeight: "300",
+              lineHeight: "1.4",
             }}
           >
-            {tickerContent}
-          </span>
-          <span 
-            className="font-mono text-xs tracking-wider px-4 text-white/60"
-            style={{
-              textShadow: '0 0 5px rgba(255, 255, 255, 0.2)'
-            }}
-          >
-            {tickerContent}
-          </span>
-        </motion.div>
+            We aren't in the business of exhaustion; we are in the business of
+            Sustained Clarity.
+          </p>
+        </div>
       </div>
     </div>
   );

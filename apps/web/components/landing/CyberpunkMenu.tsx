@@ -1,24 +1,93 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { X, Menu, Zap, Activity, Users, Package, Radio, Skull, FileText, Award, HelpCircle, Share2, Terminal } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import {
+  X,
+  Menu,
+  Zap,
+  Activity,
+  Users,
+  Package,
+  Radio,
+  Skull,
+  FileText,
+  Award,
+  HelpCircle,
+  Share2,
+  Terminal,
+} from "lucide-react";
 
 interface MenuLink {
   id: string;
   label: string;
   sector: string;
   icon: any;
-  color: 'cyan' | 'red';
+  color: "cyan" | "red";
 }
 
 const menuLinks: MenuLink[] = [
-  { id: 'hero', label: 'MISSION START', sector: 'SECTOR_00', icon: Zap, color: 'cyan' },
-  { id: 'product', label: 'THE PRODUCT', sector: 'SECTOR_01', icon: Package, color: 'cyan' },
-  { id: 'email-capture', label: 'SECURE YOUR POSITION', sector: 'SECTOR_02', icon: Users, color: 'cyan' },
-  { id: 'referral', label: 'PROTOCOL AMPLIFICATION', sector: 'SECTOR_03', icon: Share2, color: 'cyan' },
-  { id: 'manifesto', label: 'MANIFESTO', sector: 'SECTOR_04', icon: FileText, color: 'cyan' },
-  { id: 'faq', label: 'PROTOCOL ARCHIVE', sector: 'SECTOR_05', icon: HelpCircle, color: 'cyan' },
-  { id: 'two-ways-to-play', label: 'TWO WAYS TO PLAY', sector: 'SECTOR_06', icon: Activity, color: 'red' },
-  { id: 'founder-closing', label: 'BRIEFING CONCLUDED', sector: 'SECTOR_07', icon: Terminal, color: 'cyan' },
+  {
+    id: "hero",
+    label: "INITIALIZE IDENTITY",
+    sector: "SECTION 00",
+    icon: Zap,
+    color: "cyan",
+  },
+  {
+    id: "product",
+    label: "THE PRODUCT",
+    sector: "SECTION 01",
+    icon: Package,
+    color: "cyan",
+  },
+  {
+    id: "protocol",
+    label: "THE PRECURSOR MODEL",
+    sector: "SECTION 02",
+    icon: Activity,
+    color: "cyan",
+  },
+  {
+    id: "benefits",
+    label: "THE UPGRADE",
+    sector: "SECTION 03",
+    icon: Award,
+    color: "cyan",
+  },
+  {
+    id: "email-capture",
+    label: "RESERVE FOUNDER ACCESS",
+    sector: "SECTION 04",
+    icon: Users,
+    color: "cyan",
+  },
+  {
+    id: "referral",
+    label: "PROTOCOL AMPLIFICATION",
+    sector: "SECTION 05",
+    icon: Share2,
+    color: "cyan",
+  },
+  {
+    id: "manifesto",
+    label: "MANIFESTO",
+    sector: "SECTION 06",
+    icon: FileText,
+    color: "cyan",
+  },
+  {
+    id: "faq",
+    label: "PROTOCOL ARCHIVE",
+    sector: "SECTION 07",
+    icon: HelpCircle,
+    color: "cyan",
+  },
+  {
+    id: "founder-closing",
+    label: "BRIEFING CONCLUDED",
+    sector: "SECTION 08",
+    icon: Terminal,
+    color: "cyan",
+  },
 ];
 
 export function CyberpunkMenu() {
@@ -47,19 +116,24 @@ export function CyberpunkMenu() {
   // Play typewriter sound effect
   const playTypewriterSound = () => {
     // Create a simple beep sound using Web Audio API
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const audioContext = new (
+      window.AudioContext || (window as any).webkitAudioContext
+    )();
     const oscillator = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
-    
+
     oscillator.connect(gainNode);
     gainNode.connect(audioContext.destination);
-    
+
     oscillator.frequency.value = 800;
-    oscillator.type = 'square';
-    
+    oscillator.type = "square";
+
     gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
-    
+    gainNode.gain.exponentialRampToValueAtTime(
+      0.01,
+      audioContext.currentTime + 0.05,
+    );
+
     oscillator.start(audioContext.currentTime);
     oscillator.stop(audioContext.currentTime + 0.05);
   };
@@ -72,7 +146,7 @@ export function CyberpunkMenu() {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
       setIsOpen(false);
     }
   };
@@ -85,19 +159,18 @@ export function CyberpunkMenu() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed top-20 right-4 md:top-6 md:right-6 z-[100] w-14 h-14 flex items-center justify-center border-2 transition-all duration-300 shadow-lg ${
-          isOpen 
-            ? 'bg-black border-cyan-400 text-cyan-400 shadow-cyan-500/50' 
-            : 'bg-black/95 backdrop-blur-md border-cyan-400 text-cyan-400 hover:border-cyan-300 shadow-cyan-500/30 hover:shadow-cyan-500/60'
-        }`}
+        className="fixed top-20 right-4 md:top-6 md:right-6 z-[100] w-14 h-14 flex items-center justify-center border-2 transition-all duration-300 shadow-lg bg-black/95 backdrop-blur-md"
         style={{
-          boxShadow: isOpen 
-            ? '0 0 40px rgba(34, 211, 238, 0.8), 0 0 60px rgba(34, 211, 238, 0.4), inset 0 0 25px rgba(34, 211, 238, 0.15)' 
-            : '0 0 30px rgba(34, 211, 238, 0.6), 0 0 50px rgba(34, 211, 238, 0.3), inset 0 0 15px rgba(34, 211, 238, 0.1)'
+          borderColor: "#00FFFF",
+          color: "#00FFFF",
+          boxShadow: isOpen
+            ? "0 0 40px rgba(0, 255, 255, 0.8), 0 0 60px rgba(0, 255, 255, 0.4), inset 0 0 25px rgba(0, 255, 255, 0.15)"
+            : "0 0 30px rgba(0, 255, 255, 0.6), 0 0 50px rgba(0, 255, 255, 0.3), inset 0 0 15px rgba(0, 255, 255, 0.1)",
         }}
         whileHover={{
           scale: 1.05,
-          boxShadow: '0 0 50px rgba(34, 211, 238, 0.9), 0 0 80px rgba(34, 211, 238, 0.5), inset 0 0 30px rgba(34, 211, 238, 0.2)'
+          boxShadow:
+            "0 0 50px rgba(0, 255, 255, 0.9), 0 0 80px rgba(0, 255, 255, 0.5), inset 0 0 30px rgba(0, 255, 255, 0.2)",
         }}
         whileTap={{ scale: 0.95 }}
       >
@@ -135,14 +208,14 @@ export function CyberpunkMenu() {
         }}
         transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
         style={{
-          perspective: '2000px',
-          transformStyle: 'preserve-3d',
+          perspective: "2000px",
+          transformStyle: "preserve-3d",
         }}
         className="relative"
       >
         <motion.div
           animate={{
-            filter: isOpen ? 'blur(4px)' : 'blur(0px)',
+            filter: isOpen ? "blur(4px)" : "blur(0px)",
           }}
           transition={{ duration: 0.4 }}
         >
@@ -166,29 +239,32 @@ export function CyberpunkMenu() {
 
             {/* Sidebar */}
             <motion.div
-              initial={{ x: '100%', opacity: 0 }}
-              animate={{ 
-                x: 0, 
+              initial={{ x: "100%", opacity: 0 }}
+              animate={{
+                x: 0,
                 opacity: 1,
                 transition: {
                   x: { duration: 0.5, ease: [0.32, 0.72, 0, 1] },
-                  opacity: { duration: 0.3 }
-                }
+                  opacity: { duration: 0.3 },
+                },
               }}
-              exit={{ 
-                x: '100%', 
+              exit={{
+                x: "100%",
                 opacity: 0,
-                transition: { duration: 0.4 }
+                transition: { duration: 0.4 },
               }}
               className="fixed top-0 right-0 h-full w-full md:w-96 z-50 bg-black/40 backdrop-blur-md border-l-2 border-cyan-500/30 shadow-[0_0_50px_rgba(6,182,212,0.2)]"
             >
               {/* Flicker effect overlay */}
               <motion.div
                 initial={{ opacity: 0 }}
-                animate={{ 
+                animate={{
                   opacity: [0, 0.3, 0, 0.5, 0, 0.2, 0],
                 }}
-                transition={{ duration: 0.8, times: [0, 0.1, 0.2, 0.4, 0.5, 0.7, 1] }}
+                transition={{
+                  duration: 0.8,
+                  times: [0, 0.1, 0.2, 0.4, 0.5, 0.7, 1],
+                }}
                 className="absolute inset-0 bg-cyan-500/10 pointer-events-none"
               />
 
@@ -201,7 +277,7 @@ export function CyberpunkMenu() {
                   transition={{
                     duration: 2,
                     repeat: Infinity,
-                    ease: "easeInOut"
+                    ease: "easeInOut",
                   }}
                   className="absolute inset-0 border border-cyan-400/40 shadow-[inset_0_0_20px_rgba(6,182,212,0.3)]"
                 />
@@ -216,11 +292,87 @@ export function CyberpunkMenu() {
                   className="mb-12"
                 >
                   <div className="flex items-center gap-3 mb-2">
-                    <Radio className="w-5 h-5 text-cyan-400 animate-pulse" />
-                    <span className="font-mono text-xs text-cyan-400 tracking-widest">SYSTEM NAVIGATION</span>
+                    <Radio
+                      className="w-5 h-5 animate-pulse"
+                      style={{ color: "#00FFFF" }}
+                    />
+                    <span
+                      className="font-mono text-xs tracking-widest"
+                      style={{ color: "#00FFFF" }}
+                    >
+                      SYSTEM NAVIGATION
+                    </span>
                   </div>
-                  <h2 className="text-3xl font-mono text-white">NEURAL_ROOT</h2>
-                  <div className="h-px bg-gradient-to-r from-cyan-500 to-transparent mt-3" />
+                  <h2 className="text-3xl font-mono text-white">SYSTEM MAP</h2>
+                  <div
+                    className="h-px mt-3"
+                    style={{
+                      background:
+                        "linear-gradient(to right, #00FFFF, transparent)",
+                    }}
+                  />
+                </motion.div>
+
+                {/* System Status Readouts */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                  className="mb-8 pb-6 border-b border-neutral-800"
+                >
+                  <div
+                    className="font-mono text-xs mb-4 tracking-widest"
+                    style={{ color: "#00FFFF" }}
+                  >
+                    SYSTEM STATUS
+                  </div>
+
+                  <div className="space-y-3">
+                    {/* CPU Status */}
+                    <div>
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="font-mono text-xs text-neutral-500">
+                          CPU LOAD
+                        </span>
+                        <span
+                          className="font-mono text-xs"
+                          style={{ color: "#00FFFF" }}
+                        >
+                          {systemStats.cpu}%
+                        </span>
+                      </div>
+                      <div className="h-1 bg-neutral-900 overflow-hidden">
+                        <motion.div
+                          animate={{ width: `${systemStats.cpu}%` }}
+                          transition={{ duration: 0.5 }}
+                          className="h-full"
+                          style={{
+                            background:
+                              "linear-gradient(to right, #00FFFF, #3b82f6)",
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Sync Status */}
+                    <div>
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="font-mono text-xs text-neutral-500">
+                          SYNC RATE
+                        </span>
+                        <span className="font-mono text-xs text-green-400">
+                          {systemStats.sync}%
+                        </span>
+                      </div>
+                      <div className="h-1 bg-neutral-900 overflow-hidden">
+                        <motion.div
+                          animate={{ width: `${systemStats.sync}%` }}
+                          transition={{ duration: 0.5 }}
+                          className="h-full bg-gradient-to-r from-green-500 to-emerald-500"
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </motion.div>
 
                 {/* Navigation Links with Vertical Text */}
@@ -234,27 +386,53 @@ export function CyberpunkMenu() {
                       onMouseEnter={() => handleLinkHover(link.id)}
                       onMouseLeave={() => setHoveredLink(null)}
                       onClick={() => scrollToSection(link.id)}
-                      className={`relative cursor-pointer group transition-all duration-300`}
+                      className={`relative cursor-pointer group transition-all duration-300 ${link.id === "manifesto" ? "hidden md:block" : ""}`}
                     >
-                      <div className={`flex items-center gap-4 p-4 border transition-all duration-300 ${
-                        hoveredLink === link.id
-                          ? link.color === 'cyan'
-                            ? 'border-cyan-500 bg-cyan-500/10 shadow-[0_0_20px_rgba(6,182,212,0.3)]'
-                            : 'border-red-500 bg-red-500/10 shadow-[0_0_20px_rgba(239,68,68,0.3)]'
-                          : 'border-neutral-800 bg-black/20'
-                      }`}>
-                        <link.icon className={`w-5 h-5 transition-colors ${
+                      <div
+                        className="flex items-center gap-4 p-4 border transition-all duration-300"
+                        style={
                           hoveredLink === link.id
-                            ? link.color === 'cyan' ? 'text-cyan-400' : 'text-red-400'
-                            : 'text-neutral-500'
-                        }`} />
-                        
+                            ? link.color === "cyan"
+                              ? {
+                                  borderColor: "#00FFFF",
+                                  backgroundColor: "rgba(0, 255, 255, 0.1)",
+                                  boxShadow: "0 0 20px rgba(0, 255, 255, 0.3)",
+                                }
+                              : {
+                                  borderColor: "rgb(239, 68, 68)",
+                                  backgroundColor: "rgba(239, 68, 68, 0.1)",
+                                  boxShadow: "0 0 20px rgba(239, 68, 68, 0.3)",
+                                }
+                            : {
+                                borderColor: "rgb(38, 38, 38)",
+                                backgroundColor: "rgba(0, 0, 0, 0.2)",
+                              }
+                        }
+                      >
+                        <link.icon
+                          className="w-5 h-5 transition-colors"
+                          style={{
+                            color:
+                              hoveredLink === link.id
+                                ? link.color === "cyan"
+                                  ? "#00FFFF"
+                                  : "rgb(248, 113, 113)"
+                                : "rgb(115, 115, 115)",
+                          }}
+                        />
+
                         <div className="flex-1">
-                          <div className={`font-mono text-sm tracking-wider transition-colors ${
-                            hoveredLink === link.id
-                              ? link.color === 'cyan' ? 'text-cyan-400' : 'text-red-400'
-                              : 'text-neutral-400'
-                          }`}>
+                          <div
+                            className="font-mono text-sm tracking-wider transition-colors"
+                            style={{
+                              color:
+                                hoveredLink === link.id
+                                  ? link.color === "cyan"
+                                    ? "#00FFFF"
+                                    : "rgb(248, 113, 113)"
+                                  : "rgb(163, 163, 163)",
+                            }}
+                          >
                             {link.label}
                           </div>
                           <div className="font-mono text-xs text-neutral-600 mt-0.5">
@@ -269,9 +447,13 @@ export function CyberpunkMenu() {
                               initial={{ opacity: 0, scale: 0.8 }}
                               animate={{ opacity: 1, scale: 1 }}
                               exit={{ opacity: 0, scale: 0.8 }}
-                              className={`absolute -left-16 top-1/2 -translate-y-1/2 w-12 h-12 border ${
-                                link.color === 'cyan' ? 'border-cyan-500/50' : 'border-red-500/50'
-                              }`}
+                              className="absolute -left-16 top-1/2 -translate-y-1/2 w-12 h-12 border"
+                              style={{
+                                borderColor:
+                                  link.color === "cyan"
+                                    ? "rgba(0, 255, 255, 0.5)"
+                                    : "rgba(239, 68, 68, 0.5)",
+                              }}
                             >
                               {/* Wireframe grid */}
                               <div className="w-full h-full grid grid-cols-3 grid-rows-3 gap-px">
@@ -281,9 +463,12 @@ export function CyberpunkMenu() {
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 0.3 }}
                                     transition={{ delay: i * 0.02 }}
-                                    className={`${
-                                      link.color === 'cyan' ? 'bg-cyan-500' : 'bg-red-500'
-                                    }`}
+                                    style={{
+                                      backgroundColor:
+                                        link.color === "cyan"
+                                          ? "#00FFFF"
+                                          : "rgb(239, 68, 68)",
+                                    }}
                                   />
                                 ))}
                               </div>
@@ -296,88 +481,23 @@ export function CyberpunkMenu() {
                       {hoveredLink === link.id && (
                         <motion.div
                           layoutId="activeLink"
-                          className={`absolute -inset-1 -z-10 blur-md ${
-                            link.color === 'cyan' ? 'bg-cyan-500/20' : 'bg-red-500/20'
-                          }`}
-                          transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                          className="absolute -inset-1 -z-10 blur-md"
+                          style={{
+                            backgroundColor:
+                              link.color === "cyan"
+                                ? "rgba(0, 255, 255, 0.2)"
+                                : "rgba(239, 68, 68, 0.2)",
+                          }}
+                          transition={{
+                            type: "spring",
+                            bounce: 0.2,
+                            duration: 0.6,
+                          }}
                         />
                       )}
                     </motion.div>
                   ))}
                 </nav>
-
-                {/* System Status Readouts */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
-                  className="mt-8 pt-6 border-t border-neutral-800"
-                >
-                  <div className="font-mono text-xs text-cyan-400 mb-4 tracking-widest">
-                    SYSTEM STATUS
-                  </div>
-                  
-                  <div className="space-y-3">
-                    {/* CPU Status */}
-                    <div>
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="font-mono text-xs text-neutral-500">CPU_LOAD</span>
-                        <span className="font-mono text-xs text-cyan-400">{systemStats.cpu}%</span>
-                      </div>
-                      <div className="h-1 bg-neutral-900 overflow-hidden">
-                        <motion.div
-                          animate={{ width: `${systemStats.cpu}%` }}
-                          transition={{ duration: 0.5 }}
-                          className="h-full bg-gradient-to-r from-cyan-500 to-blue-500"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Sync Status */}
-                    <div>
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="font-mono text-xs text-neutral-500">SYNC_RATE</span>
-                        <span className="font-mono text-xs text-green-400">{systemStats.sync}%</span>
-                      </div>
-                      <div className="h-1 bg-neutral-900 overflow-hidden">
-                        <motion.div
-                          animate={{ width: `${systemStats.sync}%` }}
-                          transition={{ duration: 0.5 }}
-                          className="h-full bg-gradient-to-r from-green-500 to-emerald-500"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Cohort Population */}
-                    <div className="flex items-center justify-between pt-2 border-t border-neutral-900">
-                      <span className="font-mono text-xs text-neutral-500">COHORT_POP</span>
-                      <motion.span
-                        key={systemStats.cohort}
-                        initial={{ opacity: 0.5 }}
-                        animate={{ opacity: 1 }}
-                        className="font-mono text-sm text-red-400 font-bold"
-                      >
-                        {systemStats.cohort.toLocaleString()}
-                      </motion.span>
-                    </div>
-                  </div>
-
-                  {/* Status Indicator */}
-                  <div className="flex items-center gap-2 mt-4 pt-4 border-t border-neutral-900">
-                    <motion.div
-                      animate={{
-                        opacity: [0.3, 1, 0.3],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
-                      className="w-2 h-2 bg-green-500 rounded-full"
-                    />
-                    <span className="font-mono text-xs text-green-400">OPERATIONAL</span>
-                  </div>
-                </motion.div>
               </div>
             </motion.div>
           </>
