@@ -18,6 +18,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
+import { getStorePreOrderUrl } from "@repo/lib/store-url";
 
 export function ProductShowcase() {
   const ref = useRef(null);
@@ -645,7 +646,11 @@ export function ProductShowcase() {
                   });
                 },
               );
-              window.open("https://hydrbrew.com/store", "_blank");
+              window.open(
+                getStorePreOrderUrl(),
+                "_blank",
+                "noopener,noreferrer",
+              );
             }}
             className="px-12 py-4 text-black font-bold text-lg rounded-md transition-colors duration-200"
             style={{ backgroundColor: "#00FFFF" }}

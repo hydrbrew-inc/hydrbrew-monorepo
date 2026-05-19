@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { useInView } from "motion/react";
 import React, { useRef, useState, useEffect } from "react";
+import { getStorePreOrderUrl } from "@repo/lib/store-url";
 
 // Intel Briefing Button Component
 function IntelButton({
@@ -615,7 +616,11 @@ export function BenefitsGrid() {
                   });
                 },
               );
-              window.open("https://hydrbrew.com/store", "_blank");
+              window.open(
+                getStorePreOrderUrl(),
+                "_blank",
+                "noopener,noreferrer",
+              );
             }}
             className="px-12 py-4 text-black font-bold text-lg rounded-md transition-colors duration-200"
             style={{ backgroundColor: "#00FFFF" }}

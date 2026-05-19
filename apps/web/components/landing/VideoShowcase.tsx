@@ -9,6 +9,7 @@ import { ShoppingCart } from "lucide-react";
 import { Eye } from "lucide-react";
 import { VRPortalModal } from "./VRPortalModal";
 import { EmailCaptureForm } from "./EmailCaptureForm";
+import { getStorePreOrderUrl } from '@repo/lib/store-url';
 
 export function VideoShowcase() {
   const ref = useRef(null);
@@ -803,7 +804,7 @@ export function VideoShowcase() {
                     <div className="text-xs text-neutral-500 font-mono">OR</div>
                   </div>
                   <a
-                    href="https://hydrbrew.com/shop"
+                    href={getStorePreOrderUrl()}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block w-full py-3 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-black font-mono font-bold tracking-wider text-center text-xs rounded-lg transition-all hover:shadow-[0_0_20px_rgba(6,182,212,0.5)] relative overflow-hidden group animate-pulse"
