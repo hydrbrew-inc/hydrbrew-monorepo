@@ -616,6 +616,14 @@ export function BenefitsGrid() {
                   });
                 },
               );
+              void import("../analytics/posthog-track").then(
+                ({ capturePostHogEvent }) => {
+                  capturePostHogEvent("clicked_high_value_link", {
+                    link: "Pre-order Waitlist",
+                    section: "benefits",
+                  });
+                },
+              );
               window.open(
                 getStorePreOrderUrl(),
                 "_blank",

@@ -4,6 +4,7 @@ import { siteMetadata } from "@repo/lib/site-config";
 import { GoogleAnalytics } from "../components/analytics/GoogleAnalytics";
 import { KlaviyoOnsite } from "../components/analytics/KlaviyoOnsite";
 import { MetaPixel } from "../components/analytics/MetaPixel";
+import { PostHog } from "../components/analytics/PostHog";
 import "./globals.css";
 
 const inter = Inter({
@@ -36,6 +37,7 @@ export default function RootLayout({
         <GoogleAnalytics />
         <KlaviyoOnsite />
         <MetaPixel />
+        <PostHog />
       </body>
     </html>
   );
