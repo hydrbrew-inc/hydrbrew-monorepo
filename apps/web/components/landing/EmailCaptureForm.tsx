@@ -1,29 +1,29 @@
-import { useState } from 'react';
-import { motion } from 'motion/react';
-import { ArrowRight, Check } from 'lucide-react';
+import { useState } from "react";
+import { motion } from "motion/react";
+import { ArrowRight, Check } from "lucide-react";
 import {
   getEmailDomain,
   scrollToSection,
   showSignupToast,
   submitSignup,
   trackSignupEvent,
-} from './signupFlow';
+} from "./signupFlow";
 
 interface EmailCaptureFormProps {
-  variant?: 'hero' | 'final' | 'referral';
+  variant?: "hero" | "final" | "referral";
   className?: string;
   remainingCount?: number;
   source?: string;
 }
 
 export function EmailCaptureForm({
-  variant = 'hero',
-  className = '',
+  variant = "hero",
+  className = "",
   remainingCount = 1000,
   source,
 }: EmailCaptureFormProps) {
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -36,9 +36,9 @@ export function EmailCaptureForm({
     setIsSubmitting(true);
 
     const sourceByVariant = {
-      hero: 'video_showcase_capture',
-      final: 'final_cta',
-      referral: 'referral_capture',
+      hero: "video_showcase_capture",
+      final: "final_cta",
+      referral: "referral_capture",
     } as const;
     const signupSource = source ?? sourceByVariant[variant];
 
@@ -49,37 +49,37 @@ export function EmailCaptureForm({
     });
 
     if (result.ok && result.profile) {
-      trackSignupEvent('waitlist_join_success', {
+      trackSignupEvent("waitlist_join_success", {
         source: signupSource,
         status: result.status,
         emailDomain: getEmailDomain(email),
       });
       showSignupToast({
-        variant: 'success',
-        message: `You're in, operative ${result.profile.operativeNumber}. Check your inbox.`,
+        variant: "success",
+        message: `You're in, member ${result.profile.operativeNumber}. Check your inbox.`,
       });
       setSubmitted(true);
       setTimeout(() => setSubmitted(false), 3000);
-      if (variant === 'hero') {
-        setTimeout(() => scrollToSection('product'), 300);
-      } else if (variant === 'final') {
-        setTimeout(() => scrollToSection('manifesto'), 300);
+      if (variant === "hero") {
+        setTimeout(() => scrollToSection("product"), 300);
+      } else if (variant === "final") {
+        setTimeout(() => scrollToSection("manifesto"), 300);
       }
-      setEmail('');
-      setName('');
+      setEmail("");
+      setName("");
     } else {
-      trackSignupEvent('waitlist_join_failed', {
+      trackSignupEvent("waitlist_join_failed", {
         source: signupSource,
         status: result.status,
-        reason: result.error ?? 'upstream_rejected',
+        reason: result.error ?? "upstream_rejected",
         emailDomain: getEmailDomain(email),
       });
       showSignupToast({
-        variant: 'error',
+        variant: "error",
         message:
           result.status === 0
-            ? 'Network issue. Please try again in a moment.'
-            : 'Join failed. Please try again.',
+            ? "Network issue. Please try again in a moment."
+            : "Join failed. Please try again.",
       });
     }
 
@@ -98,7 +98,9 @@ export function EmailCaptureForm({
         </div>
         <div>
           <p className="text-cyan-400 font-mono text-sm">POSITION SECURED</p>
-          <p className="text-neutral-400 text-xs">Check your inbox for NFT access</p>
+          <p className="text-neutral-400 text-xs">
+            Check your inbox for NFT access
+          </p>
         </div>
       </motion.div>
     );
@@ -106,8 +108,18 @@ export function EmailCaptureForm({
 
   return (
     <form onSubmit={handleSubmit} className={`w-full ${className}`}>
-      <div className={variant === 'final' ? 'flex flex-col gap-3' : 'flex flex-col sm:flex-row gap-3'}>
-        <div className={variant === 'final' ? 'flex flex-col sm:flex-row gap-3' : 'contents'}>
+      <div
+        className={
+          variant === "final"
+            ? "flex flex-col gap-3"
+            : "flex flex-col sm:flex-row gap-3"
+        }
+      >
+        <div
+          className={
+            variant === "final" ? "flex flex-col sm:flex-row gap-3" : "contents"
+          }
+        >
           <input
             type="text"
             placeholder="Name"
@@ -132,47 +144,63 @@ export function EmailCaptureForm({
           whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
           whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
           className={`${
-            variant === 'final'
-              ? 'w-full px-8 py-4 md:py-5'
-              : 'w-full sm:w-auto px-8 py-3.5'
-          } relative bg-cyan-500 hover:bg-cyan-400 text-black rounded-lg transition-colors group overflow-hidden flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed`}
+            variant === "final"
+              ? "w-full px-8 py-4 md:py-5"
+              : "w-full sm:w-auto px-8 py-3.5"
+          } relative text-black rounded-lg transition-colors group overflow-hidden flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed`}
+          style={{ backgroundColor: "#00FFFF" }}
+          onMouseEnter={(e) =>
+            !isSubmitting && (e.currentTarget.style.backgroundColor = "#00CCCC")
+          }
+          onMouseLeave={(e) =>
+            !isSubmitting && (e.currentTarget.style.backgroundColor = "#00FFFF")
+          }
         >
           {/* Animated pulsing border that speeds up as count drops */}
           <motion.div
             className="absolute inset-0 rounded-lg"
             style={{
-              border: '2px solid rgba(34, 211, 238, 0.6)',
-              boxShadow: '0 0 20px rgba(34, 211, 238, 0.4), inset 0 0 20px rgba(34, 211, 238, 0.2)'
+              border: "2px solid rgba(34, 211, 238, 0.6)",
+              boxShadow:
+                "0 0 20px rgba(34, 211, 238, 0.4), inset 0 0 20px rgba(34, 211, 238, 0.2)",
             }}
             animate={{
               opacity: [0.4, 1, 0.4],
               boxShadow: [
-                '0 0 10px rgba(34, 211, 238, 0.3), inset 0 0 10px rgba(34, 211, 238, 0.1)',
-                '0 0 30px rgba(34, 211, 238, 0.8), inset 0 0 30px rgba(34, 211, 238, 0.4)',
-                '0 0 10px rgba(34, 211, 238, 0.3), inset 0 0 10px rgba(34, 211, 238, 0.1)'
-              ]
+                "0 0 10px rgba(34, 211, 238, 0.3), inset 0 0 10px rgba(34, 211, 238, 0.1)",
+                "0 0 30px rgba(34, 211, 238, 0.8), inset 0 0 30px rgba(34, 211, 238, 0.4)",
+                "0 0 10px rgba(34, 211, 238, 0.3), inset 0 0 10px rgba(34, 211, 238, 0.1)",
+              ],
             }}
             transition={{
               duration: pulseDuration,
               repeat: Infinity,
-              ease: "easeInOut"
+              ease: "easeInOut",
             }}
           />
-          
+
           {/* Corner scan lines */}
           {[0, 1, 2, 3].map((corner) => (
             <motion.div
               key={corner}
               className="absolute w-6 h-6"
               style={{
-                top: corner < 2 ? 0 : 'auto',
-                bottom: corner >= 2 ? 0 : 'auto',
-                left: corner % 2 === 0 ? 0 : 'auto',
-                right: corner % 2 === 1 ? 0 : 'auto',
-                borderTop: corner < 2 ? '2px solid rgba(34, 211, 238, 0.9)' : 'none',
-                borderBottom: corner >= 2 ? '2px solid rgba(34, 211, 238, 0.9)' : 'none',
-                borderLeft: corner % 2 === 0 ? '2px solid rgba(34, 211, 238, 0.9)' : 'none',
-                borderRight: corner % 2 === 1 ? '2px solid rgba(34, 211, 238, 0.9)' : 'none',
+                top: corner < 2 ? 0 : "auto",
+                bottom: corner >= 2 ? 0 : "auto",
+                left: corner % 2 === 0 ? 0 : "auto",
+                right: corner % 2 === 1 ? 0 : "auto",
+                borderTop:
+                  corner < 2 ? "2px solid rgba(34, 211, 238, 0.9)" : "none",
+                borderBottom:
+                  corner >= 2 ? "2px solid rgba(34, 211, 238, 0.9)" : "none",
+                borderLeft:
+                  corner % 2 === 0
+                    ? "2px solid rgba(34, 211, 238, 0.9)"
+                    : "none",
+                borderRight:
+                  corner % 2 === 1
+                    ? "2px solid rgba(34, 211, 238, 0.9)"
+                    : "none",
               }}
               animate={{
                 opacity: [0.6, 1, 0.6],
@@ -181,24 +209,32 @@ export function EmailCaptureForm({
                 duration: pulseDuration * 0.8,
                 repeat: Infinity,
                 ease: "easeInOut",
-                delay: corner * (pulseDuration / 8)
+                delay: corner * (pulseDuration / 8),
               }}
             />
           ))}
 
           <div className="relative z-10 flex items-center justify-center gap-2 w-full">
-            <span className={`font-mono tracking-wide ${variant === 'final' ? 'text-base md:text-lg font-bold' : 'text-sm'}`}>
-              {isSubmitting ? 'SUBMITTING...' : (variant === 'final' ? 'MINT YOUR ASSET' : 'JOIN WAITLIST')}
+            <span
+              className={`font-mono tracking-wide ${variant === "final" ? "text-base md:text-lg font-bold" : "text-sm"}`}
+            >
+              {isSubmitting
+                ? "SUBMITTING..."
+                : variant === "final"
+                  ? "MINT YOUR ASSET"
+                  : "JOIN WAITLIST"}
             </span>
             {!isSubmitting && (
-              <ArrowRight className={`${variant === 'final' ? 'w-4 h-4' : 'w-4 h-4'} group-hover:translate-x-1 transition-transform`} />
+              <ArrowRight
+                className={`${variant === "final" ? "w-4 h-4" : "w-4 h-4"} group-hover:translate-x-1 transition-transform`}
+              />
             )}
           </div>
         </motion.button>
       </div>
-      {variant === 'hero' && (
+      {variant === "hero" && (
         <p className="mt-3 text-xs text-neutral-500 text-center sm:text-left">
-          Early access + NFT identity + free drop. Zero spam protocol.
+          Early access + NFT identity. Zero spam protocol.
         </p>
       )}
     </form>

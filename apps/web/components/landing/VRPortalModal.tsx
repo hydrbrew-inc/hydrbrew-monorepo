@@ -1,6 +1,6 @@
-import { motion, AnimatePresence } from 'motion/react';
-import { X, ExternalLink, Zap } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from "motion/react";
+import { X, ExternalLink, Zap } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface VRPortalModalProps {
   isOpen: boolean;
@@ -40,10 +40,10 @@ export function VRPortalModal({ isOpen, onClose }: VRPortalModalProps) {
   // ESC key to close
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === "Escape") onClose();
     };
-    window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
   }, [onClose]);
 
   return (
@@ -71,7 +71,7 @@ export function VRPortalModal({ isOpen, onClose }: VRPortalModalProps) {
             <div className="relative h-full bg-black border border-cyan-500/30 rounded-xl shadow-[0_0_50px_rgba(6,182,212,0.3)] overflow-hidden">
               {/* Animated border glow */}
               <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-cyan-500/20 rounded-xl blur opacity-75 animate-pulse" />
-              
+
               {/* Content */}
               <div className="relative h-full flex flex-col bg-black rounded-xl overflow-hidden">
                 {/* Header */}
@@ -121,47 +121,49 @@ export function VRPortalModal({ isOpen, onClose }: VRPortalModalProps) {
                     {/* Terminal log */}
                     <div className="w-full max-w-md bg-neutral-950 border border-cyan-500/20 rounded-lg p-4 font-mono text-xs text-cyan-400/80 space-y-1">
                       <div className="flex items-start gap-2">
-                        <span className="text-cyan-500">{'>'}</span>
+                        <span className="text-cyan-500">{">"}</span>
                         <span>Accessing HydraCore mainframe...</span>
                       </div>
                       {loadingProgress > 20 && (
-                        <motion.div 
-                          initial={{ opacity: 0 }} 
+                        <motion.div
+                          initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           className="flex items-start gap-2"
                         >
-                          <span className="text-cyan-500">{'>'}</span>
+                          <span className="text-cyan-500">{">"}</span>
                           <span>Decrypting Sector 7 coordinates...</span>
                         </motion.div>
                       )}
                       {loadingProgress > 40 && (
-                        <motion.div 
-                          initial={{ opacity: 0 }} 
+                        <motion.div
+                          initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           className="flex items-start gap-2"
                         >
-                          <span className="text-cyan-500">{'>'}</span>
+                          <span className="text-cyan-500">{">"}</span>
                           <span>Quantum entanglement verified...</span>
                         </motion.div>
                       )}
                       {loadingProgress > 60 && (
-                        <motion.div 
-                          initial={{ opacity: 0 }} 
+                        <motion.div
+                          initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           className="flex items-start gap-2"
                         >
-                          <span className="text-cyan-500">{'>'}</span>
+                          <span className="text-cyan-500">{">"}</span>
                           <span>Establishing dimensional bridge...</span>
                         </motion.div>
                       )}
                       {loadingProgress > 80 && (
-                        <motion.div 
-                          initial={{ opacity: 0 }} 
+                        <motion.div
+                          initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           className="flex items-start gap-2 text-emerald-400"
                         >
                           <span className="text-emerald-500">✓</span>
-                          <span>Portal breach successful. Welcome, Operative.</span>
+                          <span>
+                            Portal breach successful. Welcome, Operative.
+                          </span>
                         </motion.div>
                       )}
                     </div>
@@ -179,9 +181,16 @@ export function VRPortalModal({ isOpen, onClose }: VRPortalModalProps) {
                     {/* Lore Message */}
                     <div className="px-6 py-4 bg-gradient-to-r from-purple-950/30 to-cyan-950/30 border-b border-cyan-500/20">
                       <p className="text-sm text-cyan-100/90 leading-relaxed">
-                        <span className="text-cyan-400 font-mono">[CLASSIFIED]</span> You've breached the perimeter. 
-                        Sector 7 is undergoing quantum reconstruction. The HydraCore Base extends beyond conventional reality. 
-                        <span className="text-purple-400"> Proceed with caution.</span>
+                        <span className="text-cyan-400 font-mono">
+                          [CLASSIFIED]
+                        </span>{" "}
+                        You've breached the perimeter. Sector 7 is undergoing
+                        quantum reconstruction. The HydraCore Base extends
+                        beyond conventional reality.
+                        <span className="text-purple-400">
+                          {" "}
+                          Proceed with caution.
+                        </span>
                       </p>
                     </div>
 
@@ -202,15 +211,19 @@ export function VRPortalModal({ isOpen, onClose }: VRPortalModalProps) {
                           />
                           {/* Dark overlay */}
                           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
-                          
+
                           {/* Cyan glow overlay on hover */}
                           <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 via-purple-500/0 to-cyan-500/0 group-hover:from-cyan-500/20 group-hover:via-purple-500/10 group-hover:to-cyan-500/20 transition-all duration-500" />
                         </div>
 
                         {/* Scanline effect */}
-                        <div className="absolute inset-0 opacity-20 pointer-events-none" style={{
-                          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(6, 182, 212, 0.1) 2px, rgba(6, 182, 212, 0.1) 4px)'
-                        }} />
+                        <div
+                          className="absolute inset-0 opacity-20 pointer-events-none"
+                          style={{
+                            backgroundImage:
+                              "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(6, 182, 212, 0.1) 2px, rgba(6, 182, 212, 0.1) 4px)",
+                          }}
+                        />
 
                         {/* Center content */}
                         <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 p-8">
@@ -228,7 +241,10 @@ export function VRPortalModal({ isOpen, onClose }: VRPortalModalProps) {
 
                           {/* Text */}
                           <div className="text-center space-y-2">
-                            <h4 className="text-2xl font-bold text-cyan-400 font-mono tracking-wider">
+                            <h4
+                              className="text-2xl font-bold font-mono tracking-wider"
+                              style={{ color: "#00FFFF" }}
+                            >
                               SECTOR 7
                             </h4>
                             <p className="text-sm text-purple-300/80 max-w-md">
@@ -244,7 +260,9 @@ export function VRPortalModal({ isOpen, onClose }: VRPortalModalProps) {
                           >
                             <div className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-lg shadow-[0_0_30px_rgba(6,182,212,0.5)] group-hover:shadow-[0_0_50px_rgba(6,182,212,0.8)] transition-shadow">
                               <div className="flex items-center gap-3">
-                                <span className="text-black font-bold text-lg">ENTER VR PORTAL</span>
+                                <span className="text-black font-bold text-lg">
+                                  ENTER VR PORTAL
+                                </span>
                                 <ExternalLink className="w-5 h-5 text-black group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                               </div>
                               <div className="text-xs text-black/70 font-mono text-center mt-1">
@@ -259,7 +277,9 @@ export function VRPortalModal({ isOpen, onClose }: VRPortalModalProps) {
                               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
                               <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500" />
                             </div>
-                            <span className="text-xs text-red-400/90 font-mono">RESTRICTED ACCESS - OPERATIVES ONLY</span>
+                            <span className="text-xs text-red-400/90 font-mono">
+                              RESTRICTED ACCESS - OPERATIVES ONLY
+                            </span>
                           </div>
                         </div>
 
@@ -280,7 +300,7 @@ export function VRPortalModal({ isOpen, onClose }: VRPortalModalProps) {
                         </div>
                         <span>RECONSTRUCTION ACTIVE</span>
                       </div>
-                      
+
                       <div className="text-xs text-cyan-400/60 font-mono">
                         POWERED BY MARBLE VR
                       </div>
