@@ -54,7 +54,7 @@ export default function JudgemeReviewSummary(props: JudgemeReviewSummaryProps) {
             </div>
 
             {/* Column 2 - Ratings Breakdown Skeleton */}
-            <div className="border-gray-200 border-r border-l px-8 py-2">
+            <div className="border-line border-r border-l px-8 py-2">
               <div className="w-full space-y-4">
                 {[...new Array(5)].map((_, i) => (
                   <div key={i} className="flex w-full items-center gap-3">
@@ -85,13 +85,13 @@ export default function JudgemeReviewSummary(props: JudgemeReviewSummaryProps) {
                   rating={data.averageRating}
                   className="[&>svg]:size-10"
                 />
-                <span className="font-semibold text-gray-900 text-xl">
+                <span className="font-semibold text-body text-xl">
                   {parseTemplate(averageRatingText, {
                     avgRating: data.averageRating.toFixed(2),
                   })}
                 </span>
               </div>
-              <div className="text-gray-600 text-sm">
+              <div className="text-body-subtle text-sm">
                 {parseTemplate(totalReviewsText, {
                   totalReviews: data.totalReviews,
                 })}
@@ -99,7 +99,7 @@ export default function JudgemeReviewSummary(props: JudgemeReviewSummaryProps) {
             </div>
 
             {/* Column 2 - Ratings Breakdown */}
-            <div className="border-gray-200 px-8 py-2 md:border-x md:px-12">
+            <div className="border-line px-8 py-2 md:border-x md:px-12">
               <div className="w-full space-y-0.5">
                 {data.ratingDistribution.map(
                   ({ rating, frequency, percentage }) => (
@@ -133,12 +133,12 @@ export default function JudgemeReviewSummary(props: JudgemeReviewSummaryProps) {
       ) : (
         // No reviews state
         <div className="space-y-12 pt-6">
-          <div className="grid grid-cols-1 gap-6 divide-x divide-gray-200 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-6 divide-x divide-line md:grid-cols-2">
             {/* Column 1 - Empty Star Rating */}
             <div className="flex items-center justify-end space-y-3 pr-14">
               <div className="flex flex-col gap-2">
                 <StarRating rating={0} className="[&>svg]:size-10" />
-                <span className="text-gray-500 text-sm">{noReviewsText}</span>
+                <span className="text-body-subtle text-sm">{noReviewsText}</span>
               </div>
             </div>
             {/* Column 3 - Write Review Button */}
