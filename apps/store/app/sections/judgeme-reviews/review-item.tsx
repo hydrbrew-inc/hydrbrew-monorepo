@@ -54,12 +54,12 @@ export function ReviewItem({
         <StarRating rating={review.rating} className="[&>svg]:size-4.5" />
         <div className="space-y-1">
           {showReviewerName && (
-            <h5 className="font-semibold text-gray-900 text-lg/none">
+            <h5 className="font-semibold text-body text-lg/none">
               {review.reviewer.name}
             </h5>
           )}
           {showReviewerEmail && (
-            <div className="font-medium text-gray-500">
+            <div className="font-medium text-body-subtle">
               {reviewerEmailFormat === "full"
                 ? review.reviewer.email
                 : truncateEmail(review.reviewer.email)}
@@ -71,13 +71,13 @@ export function ReviewItem({
       {/* Right column - Review content */}
       <div className="grow space-y-4">
         {showReviewTitle && review.title && (
-          <h4 className="font-semibold text-gray-900 text-lg leading-none">
+          <h4 className="font-semibold text-body text-lg leading-none">
             {review.title}
           </h4>
         )}
         {/* Review body */}
         {review.body && (
-          <p className="whitespace-pre-wrap text-base text-gray-700 leading-relaxed">
+          <p className="whitespace-pre-wrap text-base text-body leading-relaxed">
             {review.body}
           </p>
         )}
@@ -112,7 +112,7 @@ export function ReviewItem({
           </div>
         )}
         {showReviewDate && (
-          <p className="shrink-0 truncate text-gray-500 text-sm">
+          <p className="shrink-0 truncate text-body-subtle text-sm">
             {formatDate(review.created_at)}
           </p>
         )}

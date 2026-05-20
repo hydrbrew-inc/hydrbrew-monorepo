@@ -10,7 +10,7 @@ export function RatingProgressBar({
     <div className="grid grid-cols-[30px_1fr_80px] gap-4 py-1 transition-colors">
       {/* Star icon */}
       <div className="flex shrink-0 items-center gap-1">
-        <span className="text-gray-700">{rating}</span>
+        <span className="text-body">{rating}</span>
         <StarIcon
           weight="fill"
           className="h-4 w-4 text-(--color-product-reviews)"
@@ -19,7 +19,7 @@ export function RatingProgressBar({
 
       {/* Progress bar */}
       <div className="flex items-center">
-        <div className="h-2.5 w-full overflow-hidden bg-gray-200 rounded-md">
+        <div className="h-2.5 w-full overflow-hidden bg-line rounded-md">
           <div
             className="h-full bg-(--color-product-reviews) transition-all duration-300 ease-out"
             style={{ width: `${percentage}%` }}
@@ -32,7 +32,7 @@ export function RatingProgressBar({
       </div>
 
       {/* Count */}
-      <div className="min-w-12 shrink-0 text-gray-600">
+      <div className="min-w-12 shrink-0 text-body-subtle">
         {frequency} {frequency === 1 ? "review" : "reviews"}
       </div>
     </div>

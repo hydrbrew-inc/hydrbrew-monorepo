@@ -83,7 +83,7 @@ export function ReviewsPagination() {
 
       {visiblePages.map((page, index) =>
         page === "..." ? (
-          <span key={`dots-${index}`} className="p-2 text-gray-500">
+          <span key={`dots-${index}`} className="p-2 text-body-subtle">
             ...
           </span>
         ) : (
@@ -153,7 +153,7 @@ export default function ReviewList(props: ReviewListProps) {
     return (
       <div {...rest}>
         <div className="flex w-full flex-col gap-6 py-6 md:col-span-2">
-          <div className="relative space-y-8 divide-y divide-gray-200">
+          <div className="relative space-y-8 divide-y divide-line">
             {data.reviews.map((review) => (
               <ReviewItem
                 key={review.id}
@@ -167,7 +167,7 @@ export default function ReviewList(props: ReviewListProps) {
               />
             ))}
             {status === "page-loading" && (
-              <div className="absolute inset-0 z-10 bg-white/80" />
+              <div className="absolute inset-0 z-10 bg-background/80" />
             )}
           </div>
           <ReviewsPagination />
