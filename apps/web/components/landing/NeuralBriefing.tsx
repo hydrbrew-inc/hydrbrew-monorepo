@@ -403,19 +403,6 @@ export function NeuralBriefing() {
     };
   }, [activeBriefingId, isButtonHovered, lockedBriefingId]);
 
-  // Auto-open on first page visit
-  useEffect(() => {
-    const hasSeenBriefing = localStorage.getItem("hasSeenNeuralBriefing");
-    if (!hasSeenBriefing) {
-      // Delay the auto-open slightly for better UX
-      const timer = setTimeout(() => {
-        setIsOpen(true);
-        localStorage.setItem("hasSeenNeuralBriefing", "true");
-      }, 1500);
-      return () => clearTimeout(timer);
-    }
-  }, []);
-
   // Generate waveform bars (simulated audio visualization)
   const waveformBars = Array.from({ length: 40 }, (_, i) => {
     const baseHeight = Math.sin(i * 0.5) * 30 + 40;
