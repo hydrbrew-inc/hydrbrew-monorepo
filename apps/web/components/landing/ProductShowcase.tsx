@@ -646,6 +646,14 @@ export function ProductShowcase() {
                   });
                 },
               );
+              void import("../analytics/posthog-track").then(
+                ({ capturePostHogEvent }) => {
+                  capturePostHogEvent("clicked_high_value_link", {
+                    link: "Pre-order Waitlist",
+                    section: "product",
+                  });
+                },
+              );
               window.open(
                 getStorePreOrderUrl(),
                 "_blank",

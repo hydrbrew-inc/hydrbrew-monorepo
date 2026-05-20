@@ -79,6 +79,31 @@ export async function submitSignup(
         }
       },
     );
+
+    void import("../analytics/posthog-track").then(
+      ({ identifyPostHogVisitor, capturePostHogEvent }) => {
+        if (!data?.profile) return;
+        identifyPostHogVisitor(data.profile.operativeNumber, {
+          email: data.profile.email,
+          operative_number: data.profile.operativeNumber,
+          signup_source: request.signupSource,
+          ...(request.referrerCode
+            ? { referrer_code: request.referrerCode }
+            : {}),
+          ...(data.profile.referralCode
+            ? { referral_code: data.profile.referralCode }
+            : {}),
+          milestone_level: data.profile.milestoneLevel,
+        });
+        capturePostHogEvent("waitlist_signup", {
+          signup_source: request.signupSource,
+          operative_number: data.profile.operativeNumber,
+          ...(request.referrerCode
+            ? { referrer_code: request.referrerCode }
+            : {}),
+        });
+      },
+    );
   }
 
   return {
