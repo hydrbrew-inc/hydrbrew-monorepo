@@ -312,34 +312,12 @@ export function FAQ() {
                         />
 
                         {/* Content with left cyan border */}
-                        <div className="relative border-l border-cyan-500 pl-6 pr-6 pb-6 pt-4">
-                          {/* Header */}
-                          <div className="mb-4">
-                            <span
-                              className="text-cyan-400 tracking-wider"
-                              style={{
-                                fontFamily: "Roboto Mono, monospace",
-                                fontSize: "12px",
-                                fontWeight: 400,
-                              }}
-                            >
-                              [STAGING ENVIRONMENT // BETA]
-                            </span>
-                          </div>
-
+                        <div className="relative border-l border-cyan-500 pl-6 pr-6 pb-6">
                           {/* Body text */}
                           <div
-                            className="mb-6 text-neutral-300 leading-relaxed"
+                            className="text-neutral-300 leading-relaxed"
                             style={{ fontSize: "15px" }}
                           >
-                            <p className="mb-4">
-                              This is a beta sandbox environment accessible only
-                              to{" "}
-                              <span className="text-cyan-400">
-                                Founding Operatives
-                              </span>
-                              .
-                            </p>
                             <p className="mb-4">
                               <span className="font-semibold text-white">
                                 HydrCore Base
@@ -359,36 +337,6 @@ export function FAQ() {
                               else did—and built the antidote.
                             </p>
                           </div>
-
-                          {/* CTA Button */}
-                          <motion.a
-                            href="https://arc.hydrbrew.com/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            whileHover={{
-                              scale: 1.02,
-                              boxShadow: "0 0 20px rgba(6,182,212,0.6)",
-                            }}
-                            whileTap={{ scale: 0.98 }}
-                            className="inline-block px-8 py-3 text-black rounded-full transition-all duration-300"
-                            style={{
-                              fontFamily: "Roboto Mono, monospace",
-                              fontSize: "14px",
-                              fontWeight: 600,
-                              letterSpacing: "0.5px",
-                              backgroundColor: "#00FFFF",
-                            }}
-                            onMouseEnter={(e) =>
-                              (e.currentTarget.style.backgroundColor =
-                                "#00CCCC")
-                            }
-                            onMouseLeave={(e) =>
-                              (e.currentTarget.style.backgroundColor =
-                                "#00FFFF")
-                            }
-                          >
-                            [INITIALIZE UPLINK]
-                          </motion.a>
                         </div>
                       </div>
                     ) : (
