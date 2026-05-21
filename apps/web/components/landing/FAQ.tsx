@@ -312,10 +312,10 @@ export function FAQ() {
                         />
 
                         {/* Content with left cyan border */}
-                        <div className="relative border-l border-cyan-500 pl-6 pr-6 pb-6 pt-4">
+                        <div className="relative border-l border-cyan-500 pl-6 pr-6 pb-6">
                           {/* Body text */}
                           <div
-                            className="mb-6 text-neutral-300 leading-relaxed"
+                            className="text-neutral-300 leading-relaxed"
                             style={{ fontSize: "15px" }}
                           >
                             <p className="mb-4">
