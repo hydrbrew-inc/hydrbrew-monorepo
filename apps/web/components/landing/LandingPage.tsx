@@ -20,7 +20,6 @@ import { ProductShowcase } from "./ProductShowcase";
 import { ProtocolSection } from "./ProtocolSection";
 import { ProtocolTicker } from "./ProtocolTicker";
 import { SignupToast } from "./SignupToast";
-import { TwoWaysToPlay } from "./TwoWaysToPlay";
 import { UnitScanEvent } from "./UnitScanEvent";
 import { VideoShowcase } from "./VideoShowcase";
 
@@ -61,14 +60,6 @@ export function LandingPage() {
       </div>
       <div id="faq">
         <FAQ />
-      </div>
-      <div id="two-ways-to-play">
-        <TwoWaysToPlay
-          onToggleMissionIntel={() => setMissionIntelOpen(!missionIntelOpen)}
-          onToggleScanEvent={() => setScanEventOpen(!scanEventOpen)}
-          missionIntelOpen={missionIntelOpen}
-          scanEventOpen={scanEventOpen}
-        />
       </div>
       <AnimatePresence>
         {missionIntelOpen && (
