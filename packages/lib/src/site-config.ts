@@ -12,8 +12,10 @@ export const siteConfig = {
 
 /** Default SEO strings for the marketing homepage (apps/web). */
 export const siteMetadata = {
-  title: "HydrBrew — Launch",
-  description: "Pre-launch landing for hydrbrew° — shop the product.",
+  title:
+    "hydrbrew° — Functional Iced Coffee | Zero Systemic Debt | Pre-Order Now",
+  description:
+    "hydrbrew° is a functional iced coffee with 85mg buffered caffeine, 200mg L-Theanine and Lion's Mane. No jitter. No crash. Pre-order now — launching July 2026.",
 } as const;
 
 /** Local dev origins for sibling Next apps (adjust for deployment). */
