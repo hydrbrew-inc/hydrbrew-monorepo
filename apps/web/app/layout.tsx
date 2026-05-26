@@ -21,6 +21,18 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: siteMetadata.title,
   description: siteMetadata.description,
+  openGraph: {
+    title: siteMetadata.ogTitle,
+    description: siteMetadata.ogDescription,
+    type: "website",
+    siteName: "hydrbrew°",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteMetadata.ogTitle,
+    description: siteMetadata.ogDescription,
+  },
 };
 
 export default function RootLayout({

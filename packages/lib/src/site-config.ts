@@ -10,12 +10,22 @@ export const siteConfig = {
   launchMode: false,
 } as const;
 
-/** Default SEO strings for the marketing homepage (apps/web). */
+/**
+ * Default SEO strings for the marketing homepage (apps/web).
+ *
+ * `title` + `description` are the keyword-focused versions shown in Google
+ * SERPs and the browser tab. `ogTitle` + `ogDescription` are the CTA-forward
+ * versions used by Open Graph + Twitter Cards — i.e. when the URL is shared
+ * on Facebook / Instagram / LinkedIn / iMessage / Slack / X.
+ */
 export const siteMetadata = {
-  title:
-    "hydrbrew° — Functional Iced Coffee | Zero Systemic Debt | Pre-Order Now",
+  title: "Functional Iced Coffee for Afternoon Focus | hydrbrew°",
   description:
-    "hydrbrew° is a functional iced coffee with 85mg buffered caffeine, 200mg L-Theanine and Lion's Mane. No jitter. No crash. Pre-order now — launching July 2026.",
+    "hydrbrew° is a functional iced coffee with 85mg buffered caffeine, 200mg L-Theanine, and Lion's Mane — engineered for clean, sustained afternoon focus. Zero systemic debt. Pre-order now, launching July 2026.",
+  ogTitle:
+    "hydrbrew° — Functional Iced Coffee | Zero Systemic Debt | Pre-Order Now",
+  ogDescription:
+    "hydrbrew° is a functional iced coffee with 85mg buffered caffeine, 200mg L-Theanine, and Lion's Mane — engineered for clean, sustained afternoon focus. Zero systemic debt. Pre-order now, launching July 2026.",
 } as const;
 
 /** Local dev origins for sibling Next apps (adjust for deployment). */
