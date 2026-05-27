@@ -1321,7 +1321,7 @@ export function UnitScanEvent() {
 
               <img
                 src="https://i.imgur.com/i6XOdah.png"
-                alt="HydrBrew Scan Game Visual"
+                alt="hydrbrew° Scan Game Visual"
                 className="w-full h-auto"
               />
 
