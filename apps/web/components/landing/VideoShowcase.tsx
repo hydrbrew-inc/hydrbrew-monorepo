@@ -725,7 +725,7 @@ export function VideoShowcase() {
                     {/* Medallion Image */}
                     <img
                       src="https://i.imgur.com/4JfT8q9.jpeg"
-                      alt="HydrBrew Phygital Medallion"
+                      alt="hydrbrew° Phygital Medallion"
                       className="relative w-32 h-32 rounded-full object-cover border-4 border-cyan-500/70 shadow-2xl transition-all duration-300 group-hover/medallion:scale-150 group-hover/medallion:shadow-[0_0_50px_rgba(6,182,212,0.8)] group-hover/medallion:z-50"
                       style={{
                         animation: "medallion-pulse 3s ease-in-out infinite",

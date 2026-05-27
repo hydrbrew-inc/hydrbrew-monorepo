@@ -1,6 +1,6 @@
 /** Shared marketing defaults. Commerce lives on Hydrogen (`apps/store`); link via {@link getStoreUrl}. */
 export const siteConfig = {
-  name: "HydrBrew",
+  name: "hydrbrew°",
   /** Display wordmark (hydrbrew°) — use in footer / chrome */
   wordmarkPlain: "hydrbrew°",
   wordmarkLead: "hydr",

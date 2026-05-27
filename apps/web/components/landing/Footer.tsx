@@ -164,7 +164,7 @@ export function Footer() {
 
         <div className="mt-8 pt-8 border-t border-neutral-900 text-center">
           <p className="text-xs text-neutral-600 font-mono">
-            © 2026 HydrBrew, Inc. Engineered in Leucadia, CA.
+            © 2026 Hydrbrew, Inc. Engineered in Leucadia, CA.
             <br className="md:hidden" />
             <span className="md:ml-2">All rights reserved.</span>
           </p>

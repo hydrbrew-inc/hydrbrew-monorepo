@@ -155,7 +155,7 @@ const briefings: Record<string, BriefingConfig> = {
       },
       {
         time: 47,
-        text: "Through our Oura integration, you can monitor the relationship between Hydrbrew and your recovery metrics. Gain a clearer picture of your HRV and sleep architecture patterns. No more guessing, just better visibility into your biology.",
+        text: "Through our Oura integration, you can monitor the relationship between hydrbrew° and your recovery metrics. Gain a clearer picture of your HRV and sleep architecture patterns. No more guessing, just better visibility into your biology.",
       },
       {
         time: 65,
