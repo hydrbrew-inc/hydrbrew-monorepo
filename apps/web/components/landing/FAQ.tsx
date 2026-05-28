@@ -42,17 +42,38 @@ export function FAQ() {
       ),
       answer: (
         <>
-          We don't compete with energy drinks because we aren't in the business
-          of exhaustion; we are in the business of Biological Arbitrage. While
-          the legacy market redlines on sugar and synthetic debt,{" "}
-          <span style={{ color: "#00FFFF" }}>hydr</span>
-          <span className="text-white">brew°</span> provides the clean substrate
-          for your evolution. The ritual you crave, re-engineered for zero
-          friction and maximum clarity. As the world accelerates toward the
-          singularity, your baseline is your only competitive advantage. We
-          build for the +1 You—the optimized version of yourself that doesn't
-          just survive the future, but dominates it. Live forever. Arrive
-          optimized.
+          <p className="mb-4">
+            Not exactly. Energy drinks are built around a spike — high-dose
+            caffeine, stimulatory compounds, and a hard exit that leaves you
+            managing the back half of the day instead of owning it.{" "}
+            <span style={{ color: "#00FFFF" }}>hydr</span>
+            <span className="text-white">brew°</span> was built from a
+            completely different premise.
+          </p>
+          <p className="mb-4">
+            Where energy drinks maximize the initial hit,{" "}
+            <span style={{ color: "#00FFFF" }}>hydr</span>
+            <span className="text-white">brew°</span> engineers the full arc.
+            85mg of buffered caffeine delivers clean activation below the
+            cortisol spike threshold. 200mg L-Theanine converts that activation
+            into sustained precision focus — no edge, no scatter. 200mg Lion's
+            Mane supports executive function depth for the third and fourth
+            hours, not just the first. 255mg ionic electrolytes maintain the
+            hydration baseline that everything else depends on.
+          </p>
+          <p className="mb-4">
+            The result is not a better spike. It is a different relationship
+            with the afternoon entirely. Less amplitude, more resolution. Clean
+            entry, clean exit. Zero systemic debt.
+          </p>
+          <p>
+            If you are looking for a caffeine hit that peaks hard and exits
+            loud, there are plenty of options on the market.{" "}
+            <span style={{ color: "#00FFFF" }}>hydr</span>
+            <span className="text-white">brew°</span> is for the professional
+            who has already learned what that costs — and decided the afternoon
+            is worth more than that.
+          </p>
         </>
       ),
     },
@@ -64,12 +85,7 @@ export function FAQ() {
     {
       question: "When does it ship?",
       answer:
-        "We're in pre-launch waitlist phase. First shipments go out to early adopters in late Q2 2026. Waitlist members get priority access and free samples.",
-    },
-    {
-      question: "What is HydrCore Base, and who is Zevon?",
-      answer: "special", // Special marker for custom rendering
-      isSpecial: true,
+        "We're in pre-launch waitlist phase. First shipments go out to early access members in mid-July 2026. Waitlist members get priority access and free samples.",
     },
   ];
 
@@ -246,14 +262,7 @@ export function FAQ() {
                     }
                     className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-neutral-900/50 transition-colors"
                   >
-                    <span
-                      className={`pr-4 text-white ${faq.isSpecial ? "text-lg" : "text-lg"}`}
-                      style={
-                        faq.isSpecial
-                          ? { fontWeight: 600, fontSize: "18px" }
-                          : {}
-                      }
-                    >
+                    <span className="pr-4 text-white text-lg">
                       {faq.question}
                     </span>
                     <div className="flex items-center gap-3 flex-shrink-0">
@@ -299,51 +308,9 @@ export function FAQ() {
                     transition={{ duration: 0.3 }}
                     className="overflow-hidden"
                   >
-                    {faq.isSpecial ? (
-                      <div className="relative">
-                        {/* Scan-line texture overlay */}
-                        <div
-                          className="absolute inset-0 pointer-events-none z-20"
-                          style={{
-                            backgroundImage:
-                              "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(6,182,212,0.02) 2px, rgba(6,182,212,0.02) 4px)",
-                            opacity: 0.02,
-                          }}
-                        />
-
-                        {/* Content with left cyan border */}
-                        <div className="relative border-l border-cyan-500 pl-6 pr-6 pb-6">
-                          {/* Body text */}
-                          <div
-                            className="text-neutral-300 leading-relaxed"
-                            style={{ fontSize: "15px" }}
-                          >
-                            <p className="mb-4">
-                              <span className="font-semibold text-white">
-                                HydrCore Base
-                              </span>{" "}
-                              is the experimental lore layer—a gamified
-                              narrative world where your identity evolves
-                              through ritual, choice, and alignment. It's where
-                              you don't just consume the product; you become
-                              part of its story.
-                            </p>
-                            <p>
-                              <span className="font-semibold text-white">
-                                Zevon
-                              </span>{" "}
-                              is the architect. The voice behind the protocol.
-                              The one who saw the system's cracks before anyone
-                              else did—and built the antidote.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="px-6 pb-5 text-neutral-400 leading-relaxed">
-                        {faq.answer}
-                      </div>
-                    )}
+                    <div className="px-6 pb-5 text-neutral-400 leading-relaxed">
+                      {faq.answer}
+                    </div>
                   </motion.div>
                 </div>
               </motion.div>

@@ -1071,14 +1071,13 @@ export function NeuralBriefing() {
                         </div>
                         <div>
                           <div
-                            className="text-xs font-mono tracking-wider"
+                            className="text-xs font-mono tracking-wider uppercase"
                             style={{ color: "#00FFFF" }}
                           >
-                            NEURAL BRIEFING
+                            Zevon Protocols
                           </div>
-                          <div className="text-sm text-white font-mono">
-                            {currentBriefing.characterName} //{" "}
-                            {currentBriefing.characterTitle}
+                          <div className="text-sm text-white font-mono uppercase">
+                            Reclaim the Afternoon
                           </div>
                         </div>
                       </div>
