@@ -203,7 +203,7 @@ export function ProductDNATicker() {
                 fontSize: "20px",
               }}
             >
-              Arbitrage the slump.
+              Engineer the Exit.
             </span>
             <span
               className="text-[#00FFFF]/40"
@@ -402,7 +402,7 @@ export function ProductDNATicker() {
                 fontSize: "20px",
               }}
             >
-              Arbitrage the slump.
+              Engineer the Exit.
             </span>
             <span
               className="text-[#00FFFF]/40"

@@ -310,7 +310,7 @@ export function BenefitsGrid() {
       title: "The High-Performance Edge",
       originalTitle: "Future-Proof Performance",
       description:
-        "Engineered for those who can't afford a 'down' afternoon. Arbitrage the slump while the rest of the world crashes. Become a +1 you (badge)",
+        "Engineered for those who can't afford a 'down' afternoon. Become a +1 you (badge)",
       metric: "+1",
       metricLabel: "optimized",
       reference: {
