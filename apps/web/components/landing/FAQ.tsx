@@ -84,8 +84,19 @@ export function FAQ() {
     },
     {
       question: "When does it ship?",
-      answer:
-        "We're in pre-launch waitlist phase. First shipments go out to early access members in mid-July 2026. Waitlist members get priority access and free samples.",
+      answer: (
+        <>
+          Pre-order your 12-pack now at{" "}
+          <a
+            href="https://hydrbrew.com"
+            style={{ color: "#00FFFF" }}
+          >
+            hydrbrew.com
+          </a>
+          . Sign up with your email to lock in your pre-sale discount. First
+          shipments go out mid-July 2026.
+        </>
+      ),
     },
   ];
 
