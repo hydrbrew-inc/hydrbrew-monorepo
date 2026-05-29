@@ -431,7 +431,7 @@ export function ProtocolSection() {
                         precursor.name === "L-Theanine") && (
                         <div className="inline-block px-2 py-0.5 border border-orange-400/60 rounded bg-orange-400/5">
                           <span
-                            className="text-[9px] font-mono text-orange-200 tracking-widest font-bold"
+                            className="text-[14px] md:text-[9px] font-mono text-orange-200 tracking-widest font-bold"
                             style={{
                               textShadow: "0 0 8px rgba(251, 146, 60, 0.4)",
                             }}
@@ -443,7 +443,7 @@ export function ProtocolSection() {
                       {precursor.name === "Lion's Mane" && (
                         <div className="inline-block px-2 py-0.5 border border-purple-400/60 rounded bg-purple-400/5">
                           <span
-                            className="text-[9px] font-mono text-purple-200 tracking-widest font-bold"
+                            className="text-[14px] md:text-[9px] font-mono text-purple-200 tracking-widest font-bold"
                             style={{
                               textShadow: "0 0 8px rgba(192, 132, 252, 0.4)",
                             }}
@@ -455,7 +455,7 @@ export function ProtocolSection() {
                       {precursor.name === "Hydration Layer" && (
                         <div className="inline-block px-2 py-0.5 border border-emerald-400/60 rounded bg-emerald-400/5">
                           <span
-                            className="text-[9px] font-mono text-emerald-200 tracking-widest font-bold"
+                            className="text-[14px] md:text-[9px] font-mono text-emerald-200 tracking-widest font-bold"
                             style={{
                               textShadow: "0 0 8px rgba(52, 211, 153, 0.4)",
                             }}
@@ -479,7 +479,7 @@ export function ProtocolSection() {
                     </h3>
 
                     {/* Dosage - muted gray */}
-                    <div className="text-sm text-neutral-500 font-mono mb-4">
+                    <div className="text-[18px] md:text-sm text-white font-mono mb-4">
                       {precursor.dose}
                     </div>
 
