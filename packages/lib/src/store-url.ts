@@ -25,8 +25,12 @@ export function getStorePreOrderHandle(): string {
   );
 }
 
-/** Pre-order PDP on the Hydrogen shop. */
-export function getStorePreOrderUrl(): string {
+/** Pre-order PDP on the Hydrogen shop. Pass `ref` to attribute the click. */
+export function getStorePreOrderUrl(opts?: { ref?: string }): string {
   const handle = getStorePreOrderHandle();
-  return new URL(`products/${handle}`, getStoreUrl()).href;
+  const url = new URL(`products/${handle}`, getStoreUrl());
+  if (opts?.ref) {
+    url.searchParams.set("ref", opts.ref);
+  }
+  return url.href;
 }
