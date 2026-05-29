@@ -625,7 +625,7 @@ export function BenefitsGrid() {
                 },
               );
               window.open(
-                getStorePreOrderUrl(),
+                getStorePreOrderUrl({ ref: "lp_footer_cta" }),
                 "_blank",
                 "noopener,noreferrer",
               );

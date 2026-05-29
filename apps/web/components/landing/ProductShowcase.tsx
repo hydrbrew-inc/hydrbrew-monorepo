@@ -655,7 +655,7 @@ export function ProductShowcase() {
                 },
               );
               window.open(
-                getStorePreOrderUrl(),
+                getStorePreOrderUrl({ ref: "lp_hero_cta" }),
                 "_blank",
                 "noopener,noreferrer",
               );
