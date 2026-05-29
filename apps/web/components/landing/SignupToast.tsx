@@ -31,7 +31,7 @@ export function SignupToast() {
           : "info";
 
       setToast({ message: detail.message, variant });
-      window.setTimeout(() => setToast(null), 3200);
+      window.setTimeout(() => setToast(null), 5000);
     };
 
     window.addEventListener("hydrbrew:toast", handler);
