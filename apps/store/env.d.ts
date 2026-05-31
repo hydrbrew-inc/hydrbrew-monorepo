@@ -18,6 +18,7 @@ declare global {
     // declare additional Env parameter use in the fetch handler and Remix loader context here
     PUBLIC_GOOGLE_GTM_ID: string;
     PUBLIC_META_PIXEL_ID: string;
+    META_CAPI_ACCESS_TOKEN: string;
     PUBLIC_GA_MEASUREMENT_ID: string;
     PUBLIC_POSTHOG_KEY: string;
     PUBLIC_POSTHOG_HOST: string;

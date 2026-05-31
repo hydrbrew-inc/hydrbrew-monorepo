@@ -10,6 +10,7 @@ import type { LoaderFunctionArgs, MetaArgs } from "react-router";
 import { useLoaderData } from "react-router";
 import type { ProductQuery } from "storefront-api.generated";
 import invariant from "tiny-invariant";
+import { extractUserData, sendCapiEvent } from "~/.server/meta-capi";
 import { redirectIfHandleIsLocalized } from "~/.server/redirect";
 import { seoPayload } from "~/.server/seo";
 import { PRODUCT_QUERY } from "~/graphql/queries";
@@ -43,6 +44,29 @@ export async function loader({ params, request, context }: LoaderFunctionArgs) {
     throw new Response("product", { status: 404 });
   }
   redirectIfHandleIsLocalized(request, { handle, data: product });
+
+  const { PUBLIC_META_PIXEL_ID: pixelId, META_CAPI_ACCESS_TOKEN: accessToken } = context.env;
+  if (pixelId && accessToken) {
+    const variant = product.selectedOrFirstAvailableVariant;
+    sendCapiEvent(
+      {
+        eventName: "ViewContent",
+        eventSourceUrl: request.url,
+        userData: extractUserData(request),
+        customData: {
+          content_ids: variant?.id ?? product.id,
+          content_type: "product",
+          content_name: product.title,
+          value: variant?.price?.amount
+            ? parseFloat(variant.price.amount)
+            : undefined,
+          currency: variant?.price?.currencyCode ?? "USD",
+        },
+      },
+      pixelId,
+      accessToken,
+    );
+  }
 
   // Use Hydrogen/Remix streaming for recommended products
   const recommended = getRecommendedProducts(storefront, product.id);

@@ -1,0 +1,82 @@
+import crypto from "node:crypto";
+
+const META_GRAPH_VERSION = "v21.0";
+
+type UserData = {
+  ipAddress?: string;
+  userAgent?: string;
+  fbp?: string;
+  fbc?: string;
+};
+
+type CapiEvent = {
+  eventName: string;
+  eventId?: string;
+  eventSourceUrl: string;
+  userData: UserData;
+  customData?: Record<string, string | number | undefined>;
+};
+
+function sha256(value: string) {
+  return crypto.createHash("sha256").update(value.trim().toLowerCase()).digest("hex");
+}
+
+function getCookie(request: Request, name: string) {
+  const header = request.headers.get("Cookie") ?? "";
+  const match = header.match(new RegExp(`(?:^|;\\s*)${name}=([^;]*)`));
+  return match?.[1];
+}
+
+export function extractUserData(request: Request): UserData {
+  return {
+    ipAddress:
+      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+      undefined,
+    userAgent: request.headers.get("user-agent") ?? undefined,
+    fbp: getCookie(request, "_fbp"),
+    fbc:
+      getCookie(request, "_fbc") ??
+      new URL(request.url).searchParams.get("fbclid") ??
+      undefined,
+  };
+}
+
+export async function sendCapiEvent(
+  event: CapiEvent,
+  pixelId: string,
+  accessToken: string,
+): Promise<void> {
+  const ud: Record<string, string> = {};
+  if (event.userData.ipAddress) ud.client_ip_address = event.userData.ipAddress;
+  if (event.userData.userAgent) ud.client_user_agent = event.userData.userAgent;
+  if (event.userData.fbp) ud.fbp = event.userData.fbp;
+  if (event.userData.fbc) ud.fbc = event.userData.fbc;
+
+  const payload: Record<string, unknown> = {
+    data: [
+      {
+        event_name: event.eventName,
+        event_time: Math.floor(Date.now() / 1000),
+        action_source: "website",
+        event_source_url: event.eventSourceUrl,
+        ...(event.eventId ? { event_id: event.eventId } : {}),
+        user_data: ud,
+        ...(event.customData
+          ? {
+              custom_data: Object.fromEntries(
+                Object.entries(event.customData).filter(([, v]) => v != null),
+              ),
+            }
+          : {}),
+      },
+    ],
+  };
+
+  const url = `https://graph.facebook.com/${META_GRAPH_VERSION}/${pixelId}/events?access_token=${encodeURIComponent(accessToken)}`;
+  // Fire-and-forget — don't block the response for analytics
+  fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  }).catch((err) => console.error("[Meta CAPI]", err));
+}

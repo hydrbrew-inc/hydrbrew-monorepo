@@ -18,6 +18,7 @@ import {
   useLoaderData,
 } from "react-router";
 import invariant from "tiny-invariant";
+import { extractUserData, sendCapiEvent } from "~/.server/meta-capi";
 import { CartMain } from "~/components/cart/cart-main";
 import { useCart } from "~/components/cart/store";
 import { ProductCard } from "~/components/product-card";
@@ -38,6 +39,27 @@ export async function action({ request, context }: ActionFunctionArgs) {
   switch (cartFormAction) {
     case CartForm.ACTIONS.LinesAdd:
       result = await cart.addLines(inputs.lines as CartLineInput[]);
+      {
+        const { PUBLIC_META_PIXEL_ID: pixelId, META_CAPI_ACCESS_TOKEN: accessToken } = context.env;
+        if (pixelId && accessToken && result?.cart) {
+          sendCapiEvent(
+            {
+              eventName: "AddToCart",
+              eventSourceUrl: request.url,
+              userData: extractUserData(request),
+              customData: {
+                value: result.cart.cost?.totalAmount?.amount
+                  ? parseFloat(result.cart.cost.totalAmount.amount)
+                  : undefined,
+                currency: result.cart.cost?.totalAmount?.currencyCode ?? "USD",
+                num_items: result.cart.totalQuantity,
+              },
+            },
+            pixelId,
+            accessToken,
+          );
+        }
+      }
       break;
     case CartForm.ACTIONS.LinesUpdate:
       result = await cart.updateLines(inputs.lines as CartLineUpdateInput[]);

@@ -44,12 +44,20 @@ function sha256(value: string): string {
     .digest("hex");
 }
 
-export async function sendMetaCapiEvent(event: MetaCapiEvent): Promise<void> {
-  const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
-  const accessToken = process.env.META_CAPI_ACCESS_TOKEN;
+export async function sendMetaCapiEvent(
+  event: MetaCapiEvent,
+  // Pass credentials explicitly when process.env is unavailable (e.g. Cloudflare Workers)
+  creds?: { pixelId?: string; accessToken?: string },
+): Promise<void> {
+  const pixelId =
+    creds?.pixelId ??
+    process.env.NEXT_PUBLIC_META_PIXEL_ID ??
+    process.env.PUBLIC_META_PIXEL_ID;
+  const accessToken =
+    creds?.accessToken ?? process.env.META_CAPI_ACCESS_TOKEN;
   if (!pixelId || !accessToken) {
     throw new Error(
-      "Missing META_CAPI_ACCESS_TOKEN or NEXT_PUBLIC_META_PIXEL_ID",
+      "Missing META_CAPI_ACCESS_TOKEN or pixel ID",
     );
   }
 
