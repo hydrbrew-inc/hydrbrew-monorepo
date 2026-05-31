@@ -51,18 +51,23 @@ export const schema = createSchema({
   title: "Instagram Feed",
   settings: [
     {
-      type: "text",
-      name: "heading",
-      label: "Heading",
-      defaultValue: "Follow us on Instagram",
-      placeholder: "Follow us on Instagram",
-    },
-    {
-      type: "text",
-      name: "feedId",
-      label: "Behold Feed ID",
-      defaultValue: "4Y25XqYpmc6hjLt4QtZU",
-      placeholder: "4Y25XqYpmc6hjLt4QtZU",
+      group: "Content",
+      inputs: [
+        {
+          type: "text",
+          name: "heading",
+          label: "Heading",
+          defaultValue: "Follow us on Instagram",
+          placeholder: "Follow us on Instagram",
+        },
+        {
+          type: "text",
+          name: "feedId",
+          label: "Behold Feed ID",
+          defaultValue: "4Y25XqYpmc6hjLt4QtZU",
+          placeholder: "4Y25XqYpmc6hjLt4QtZU",
+        },
+      ],
     },
     ...sectionSettings,
   ],
