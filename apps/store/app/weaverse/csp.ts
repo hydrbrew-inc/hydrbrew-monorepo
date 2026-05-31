@@ -33,10 +33,22 @@ export function getWeaverseCsp(
       "vimeo.com",
       "*.shopifysvc.com",
       "*.google-analytics.com",
+      "*.posthog.com",
+      "us.i.posthog.com",
+      "www.facebook.com",
+      "*.klaviyo.com",
+      "*.behold.so",
       ...weaverseHosts,
     ],
-    styleSrc: weaverseHosts,
-    scriptSrc: ["https://cdn.shopify.com"],
+    styleSrc: [...weaverseHosts, "*.behold.so"],
+    scriptSrc: [
+      "https://cdn.shopify.com",
+      "*.behold.so",
+      "us-assets.i.posthog.com",
+      "connect.facebook.net",
+      "*.klaviyo.com",
+      "*.googletagmanager.com",
+    ],
   };
   if (isDesignMode) {
     updatedCsp.frameAncestors = ["*"];
