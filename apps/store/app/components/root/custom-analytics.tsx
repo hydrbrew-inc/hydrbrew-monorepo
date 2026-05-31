@@ -15,15 +15,16 @@ export function CustomAnalytics() {
   const nonce = useNonce();
   const rootData = useRouteLoaderData<RootLoader>("root");
   const gtmId = rootData?.googleGtmID;
-  const pixelId = rootData?.metaPixelId;
-  const gaMeasurementId = rootData?.gaMeasurementId;
   const postHogKey = rootData?.postHogKey;
   const postHogHost = rootData?.postHogHost;
 
-  // Shopify Analytics event subscriptions — feeds GTM dataLayer, Meta Pixel, GA4, and PostHog
+  // Shopify Analytics event subscriptions — feeds GTM dataLayer, Meta Pixel, GA4, and PostHog.
+  // Meta Pixel and GA4 are initialised in root.tsx <head> so window.fbq / window.gtag
+  // are guaranteed to exist before these callbacks ever fire.
   useEffect(() => {
     subscribe(AnalyticsEvent.PAGE_VIEWED, (data: PageViewPayload) => {
       window.dataLayer?.push({ event: "page_viewed", page_url: data.url });
+      // fbq PageView for SPA navigations (initial PageView fired by <head> inline script)
       window.fbq?.("track", "PageView");
       window.gtag?.("event", "page_view", { page_location: data.url });
       window.posthog?.capture("$pageview", { $current_url: data.url });
@@ -82,11 +83,8 @@ export function CustomAnalytics() {
       window.dataLayer?.push({ event: "add_to_cart" });
       const line = data.currentLine;
       if (line) {
-        const value = parseFloat(
-          line.cost?.totalAmount?.amount || "0",
-        );
-        const currency =
-          line.cost?.totalAmount?.currencyCode || "USD";
+        const value = parseFloat(line.cost?.totalAmount?.amount || "0");
+        const currency = line.cost?.totalAmount?.currencyCode || "USD";
         window.fbq?.("track", "AddToCart", {
           content_ids: [line.merchandise?.id],
           content_type: "product",
@@ -117,43 +115,7 @@ export function CustomAnalytics() {
     });
   }, [subscribe]);
 
-  // Meta Pixel — base code + init (PageView fired via PAGE_VIEWED subscription above)
-  useEffect(() => {
-    if (!pixelId || window.fbq) return;
-    const n: any = (window.fbq = function (...args: any[]) {
-      n.callMethod ? n.callMethod(...args) : n.queue.push(args);
-    });
-    if (!window._fbq) window._fbq = n;
-    n.push = n;
-    n.loaded = true;
-    n.version = "2.0";
-    n.queue = [];
-    const script = document.createElement("script");
-    script.async = true;
-    script.nonce = nonce;
-    script.src = "https://connect.facebook.net/en_US/fbevents.js";
-    document.head.appendChild(script);
-    window.fbq("init", pixelId);
-  }, [pixelId, nonce]);
-
-  // GA4 direct (gtag.js)
-  useEffect(() => {
-    if (!gaMeasurementId || window.gtag) return;
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function gtag(...args: any[]) {
-      window.dataLayer.push(args);
-    };
-    window.gtag("js", new Date());
-    // send_page_view: false — PAGE_VIEWED subscription fires page_view manually
-    window.gtag("config", gaMeasurementId, { send_page_view: false });
-    const script = document.createElement("script");
-    script.async = true;
-    script.nonce = nonce;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`;
-    document.head.appendChild(script);
-  }, [gaMeasurementId, nonce]);
-
-  // GTM (optional, only if PUBLIC_GOOGLE_GTM_ID is set)
+  // GTM (only if PUBLIC_GOOGLE_GTM_ID is set — separate from direct GA4)
   useEffect(() => {
     if (!gtmId) return;
     window.dataLayer = window.dataLayer || [];
