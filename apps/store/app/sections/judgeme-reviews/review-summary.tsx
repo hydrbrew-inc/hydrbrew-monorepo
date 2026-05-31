@@ -122,7 +122,7 @@ export default function JudgemeReviewSummary(props: JudgemeReviewSummaryProps) {
                 onClick={() => setShowForm(!showForm)}
                 aria-expanded={showForm}
                 aria-controls="review-form"
-                className="w-full"
+                className="w-full text-black"
               >
                 {showForm ? hideFormText : writeReviewText}
               </Button>
@@ -148,7 +148,7 @@ export default function JudgemeReviewSummary(props: JudgemeReviewSummaryProps) {
                 onClick={() => setShowForm(!showForm)}
                 aria-expanded={showForm}
                 aria-controls="review-form"
-                className="w-64"
+                className="w-64 text-black"
               >
                 {showForm ? hideFormText : writeReviewText}
               </Button>
