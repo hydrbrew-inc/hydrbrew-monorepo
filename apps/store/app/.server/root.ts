@@ -43,6 +43,10 @@ export async function loadCriticalData({
     selectedLocale: storefront.i18n,
     weaverseTheme,
     googleGtmID: env.PUBLIC_GOOGLE_GTM_ID,
+    metaPixelId: env.PUBLIC_META_PIXEL_ID,
+    gaMeasurementId: env.PUBLIC_GA_MEASUREMENT_ID,
+    postHogKey: env.PUBLIC_POSTHOG_KEY,
+    postHogHost: env.PUBLIC_POSTHOG_HOST,
     publicStoreDomain: env.PUBLIC_STORE_DOMAIN,
   };
 }

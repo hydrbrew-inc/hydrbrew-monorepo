@@ -17,6 +17,10 @@ declare global {
   interface Env extends HydrogenEnv {
     // declare additional Env parameter use in the fetch handler and Remix loader context here
     PUBLIC_GOOGLE_GTM_ID: string;
+    PUBLIC_META_PIXEL_ID: string;
+    PUBLIC_GA_MEASUREMENT_ID: string;
+    PUBLIC_POSTHOG_KEY: string;
+    PUBLIC_POSTHOG_HOST: string;
     JUDGEME_PRIVATE_API_TOKEN: string;
     CUSTOM_COLLECTION_BANNER_METAFIELD: string;
     METAOBJECT_COLORS_TYPE: string;
@@ -58,5 +62,9 @@ declare module "react-router" {
 declare global {
   interface Window {
     dataLayer: any[];
+    fbq?: (...args: any[]) => void;
+    _fbq?: any;
+    gtag?: (...args: any[]) => void;
+    posthog?: import("posthog-js").PostHog;
   }
 }
