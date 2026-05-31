@@ -221,6 +221,14 @@ export const Layout = withWeaverse(function RootLayout({
             />
           </>
         )}
+        {data?.klaviyoPublicKey && (
+          <script
+            async
+            type="text/javascript"
+            src={`https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=${data.klaviyoPublicKey}`}
+            nonce={nonce}
+          />
+        )}
       </head>
       <body
         style={

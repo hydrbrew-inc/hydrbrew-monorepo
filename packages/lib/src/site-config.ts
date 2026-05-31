@@ -26,6 +26,8 @@ export const siteMetadata = {
     "hydrbrew° — Functional Iced Coffee | Zero Systemic Debt | Pre-Order Now",
   ogDescription:
     "hydrbrew° is a functional iced coffee with 85mg buffered caffeine, 200mg L-Theanine, and Lion's Mane — engineered for clean, sustained afternoon focus. Zero systemic debt. Pre-order now, launching July 2026.",
+  siteUrl: "https://hydrbrew.com",
+  ogImage: "/og-image.jpg",
 } as const;
 
 /** Local dev origins for sibling Next apps (adjust for deployment). */

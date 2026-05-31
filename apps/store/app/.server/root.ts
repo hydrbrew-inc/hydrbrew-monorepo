@@ -45,6 +45,7 @@ export async function loadCriticalData({
     googleGtmID: env.PUBLIC_GOOGLE_GTM_ID,
     metaPixelId: env.PUBLIC_META_PIXEL_ID,
     gaMeasurementId: env.PUBLIC_GA_MEASUREMENT_ID,
+    klaviyoPublicKey: env.PUBLIC_KLAVIYO_PUBLIC_KEY,
     postHogKey: env.PUBLIC_POSTHOG_KEY,
     postHogHost: env.PUBLIC_POSTHOG_HOST,
     publicStoreDomain: env.PUBLIC_STORE_DOMAIN,
