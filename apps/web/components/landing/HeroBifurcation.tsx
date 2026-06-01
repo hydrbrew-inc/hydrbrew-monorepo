@@ -1215,7 +1215,7 @@ export function HeroBifurcation() {
                         });
                       }
                     }}
-                    className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-black font-bold py-4 md:py-6 rounded-xl transition-all duration-300 shadow-[0_0_40px_rgba(34,211,238,0.6)] hover:shadow-[0_0_60px_rgba(34,211,238,0.9)] flex items-center justify-center gap-2 md:gap-3 group/cta"
+                    className="w-full bg-[#00FFFF] text-black font-bold py-4 md:py-6 rounded-xl transition-all duration-300 shadow-[0_0_40px_rgba(34,211,238,0.6)] hover:shadow-[0_0_60px_rgba(34,211,238,0.9)] flex items-center justify-center gap-2 md:gap-3 group/cta"
                   >
                     <span className="text-base md:text-lg lg:text-xl tracking-wide">
                       Explore the Bypass
