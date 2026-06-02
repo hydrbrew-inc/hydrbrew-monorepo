@@ -1,5 +1,5 @@
 import { createSchema } from "@weaverse/hydrogen";
-import type { SectionProps } from "~/components/section";
+import type { HydrogenComponentProps } from "@weaverse/hydrogen";
 
 const ITEMS = [
   { text: "Zero Systemic Debt", cyan: true },
@@ -12,61 +12,37 @@ const ITEMS = [
   { text: "The Room Is Running on a Depleted Baseline. You're Not.", cyan: false },
 ];
 
-function HbTicker(_props: SectionProps) {
+function HbTicker(props: HydrogenComponentProps) {
+  const { ...rest } = props;
   const repeated = [...ITEMS, ...ITEMS];
 
   return (
-    <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@700&display=swap');
-        .hb-ticker-track { font-family: 'Urbanist', sans-serif; }
-        @keyframes hb-scroll { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
-        .hb-ticker-inner { animation: hb-scroll 40s linear infinite; display:flex; width:max-content; }
-        .hb-ticker-inner:hover { animation-play-state: paused; }
-      `}</style>
+    <div
+      {...rest}
+      className="relative overflow-hidden"
+      style={{ height: 64, backgroundColor: "#0A0A0A", borderTop: "0.5px solid #222", borderBottom: "0.5px solid #222" }}
+    >
       <div
-        className="relative overflow-hidden"
-        style={{
-          height: 64,
-          backgroundColor: "#0A0A0A",
-          borderTop: "0.5px solid #222222",
-          borderBottom: "0.5px solid #222222",
-        }}
+        className="flex items-center"
+        style={{ height: 64, width: "max-content", animation: "hb-scroll 40s linear infinite" }}
       >
-        <div className="hb-ticker-inner hb-ticker-track items-center" style={{ height: 64 }}>
-          {repeated.map((item, i) => (
-            <span key={i} className="flex items-center" style={{ height: 64 }}>
-              <span
-                style={{
-                  fontSize: 18,
-                  fontWeight: 700,
-                  letterSpacing: "0.5px",
-                  color: item.cyan ? "#00FFFF" : "#FFFFFF",
-                  textShadow: item.cyan
-                    ? "0px 0px 12px rgba(0,255,255,0.5)"
-                    : "none",
-                  whiteSpace: "nowrap",
-                  lineHeight: "64px",
-                }}
-              >
-                {item.text}
-              </span>
-              <span
-                style={{
-                  fontSize: 32,
-                  color: "#00FFFF",
-                  opacity: 0.6,
-                  margin: "0 24px",
-                  lineHeight: "64px",
-                }}
-              >
-                ·
-              </span>
+        {repeated.map((item, i) => (
+          <span key={i} className="flex items-center" style={{ height: 64 }}>
+            <span
+              style={{
+                fontSize: 18, fontWeight: 700, letterSpacing: "0.5px", whiteSpace: "nowrap", lineHeight: "64px",
+                fontFamily: "'Urbanist',sans-serif",
+                color: item.cyan ? "#00FFFF" : "#FFFFFF",
+                textShadow: item.cyan ? "0 0 12px rgba(0,255,255,0.5)" : "none",
+              }}
+            >
+              {item.text}
             </span>
-          ))}
-        </div>
+            <span style={{ fontSize: 32, color: "#00FFFF", opacity: 0.6, margin: "0 24px", lineHeight: "64px" }}>·</span>
+          </span>
+        ))}
       </div>
-    </>
+    </div>
   );
 }
 
