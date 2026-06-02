@@ -364,7 +364,7 @@ export function HeroBifurcation() {
                 }}
               >
                 <img
-                  src="https://i.imgur.com/E8Ar62i.jpeg"
+                  src="/images/E8Ar62i.jpeg"
                   alt="The +1 YOU Operative"
                   className="opacity-75 md:opacity-100"
                   style={{
@@ -706,7 +706,7 @@ export function HeroBifurcation() {
                         {/* Inner frame */}
                         <div className="w-full h-full rounded-lg overflow-hidden bg-black/80">
                           <img
-                            src="https://i.imgur.com/1QM0Ftl.jpeg"
+                            src="/images/1QM0Ftl.jpeg"
                             alt="Operative"
                             className="w-full h-full object-cover opacity-100"
                             style={{
@@ -1134,7 +1134,7 @@ export function HeroBifurcation() {
                 <div
                   className="absolute inset-0 rounded-2xl opacity-90 md:opacity-60"
                   style={{
-                    backgroundImage: "url(https://i.imgur.com/neezm7W.jpeg)",
+                    backgroundImage: "url(/images/neezm7W.jpeg)",
                     backgroundSize: "cover",
                     backgroundPosition: "center center",
                     zIndex: 0,

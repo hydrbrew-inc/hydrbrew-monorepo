@@ -68,10 +68,10 @@ export function ProductShowcase() {
   const tasteProfiles = ["Light", "Crisp", "Smooth", "Refreshing"];
 
   const productImages = [
-    "https://i.imgur.com/AnRHOue.jpeg",
-    "https://i.imgur.com/AnRHOue.jpeg", // Replace with actual product images
-    "https://i.imgur.com/AnRHOue.jpeg", // Replace with actual product images
-    "https://i.imgur.com/AnRHOue.jpeg", // Replace with actual product images
+    "/images/AnRHOue.jpeg",
+    "/images/AnRHOue.jpeg", // Replace with actual product images
+    "/images/AnRHOue.jpeg", // Replace with actual product images
+    "/images/AnRHOue.jpeg", // Replace with actual product images
   ];
 
   // Rotate through taste profiles
@@ -346,7 +346,7 @@ export function ProductShowcase() {
                 className="flex flex-col items-center gap-4 md:gap-8"
               >
                 <img
-                  src="https://i.imgur.com/XrNhE2G.png"
+                  src="/images/XrNhE2G.png"
                   alt="hydrbrew can"
                   className="w-[350px] sm:w-[500px] md:w-[650px] lg:w-[800px] h-auto object-contain"
                 />
@@ -962,7 +962,7 @@ export function ProductShowcase() {
               <div
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
                 style={{
-                  backgroundImage: "url(https://i.imgur.com/krNGOh7.jpeg)",
+                  backgroundImage: "url(/images/krNGOh7.jpeg)",
                   filter: "brightness(0.95) contrast(1.05) saturate(1.1)",
                 }}
               />

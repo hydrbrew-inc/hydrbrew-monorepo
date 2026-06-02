@@ -338,21 +338,21 @@ export function FinalCTA() {
 
   const nftImages = [
     {
-      url: "https://i.imgur.com/iNlpKmp.jpeg",
+      url: "/images/iNlpKmp.jpeg",
       name: "Luno",
       rarity: "ARCHETYPE",
     },
     {
-      url: "https://i.imgur.com/wwWEBds.jpeg",
+      url: "/images/wwWEBds.jpeg",
       name: "Vespara",
       rarity: "ARCHETYPE",
     },
-    { url: "https://i.imgur.com/rNpkyRW.jpeg", name: "Cipher", rarity: "RARE" },
-    { url: "https://i.imgur.com/lNQFzkJ.jpeg", name: "Nova", rarity: null },
-    { url: "https://i.imgur.com/jVBBgud.jpeg", name: "Zenith", rarity: "RARE" },
-    { url: "https://i.imgur.com/6ww6nzp.jpeg", name: "Rift", rarity: null },
-    { url: "https://i.imgur.com/c8nCGNy.jpeg", name: "Pulsar", rarity: "RARE" },
-    { url: "https://i.imgur.com/YmYGdcf.jpeg", name: "Catalyst", rarity: null },
+    { url: "/images/rNpkyRW.jpeg", name: "Cipher", rarity: "RARE" },
+    { url: "/images/lNQFzkJ.jpeg", name: "Nova", rarity: null },
+    { url: "/images/jVBBgud.jpeg", name: "Zenith", rarity: "RARE" },
+    { url: "/images/6ww6nzp.jpeg", name: "Rift", rarity: null },
+    { url: "/images/c8nCGNy.jpeg", name: "Pulsar", rarity: "RARE" },
+    { url: "/images/YmYGdcf.jpeg", name: "Catalyst", rarity: null },
   ];
 
   // Auto-advance carousel
@@ -400,7 +400,7 @@ export function FinalCTA() {
           <div
             className="absolute inset-0 pointer-events-none z-0"
             style={{
-              backgroundImage: "url(https://i.imgur.com/07axSRl.png)",
+              backgroundImage: "url(/images/07axSRl.png)",
               backgroundSize: "cover",
               backgroundPosition: "center 30%",
               backgroundRepeat: "no-repeat",
@@ -1041,7 +1041,7 @@ export function FinalCTA() {
           </div>
 
           <FloatingAvatar
-            imageSrc="https://i.imgur.com/vRKtmNC.png"
+            imageSrc="/images/vRKtmNC.png"
             position="side"
           />
 
@@ -1194,7 +1194,7 @@ export function FinalCTA() {
               {/* Background image */}
               <div className="absolute inset-0 opacity-20">
                 <img
-                  src="https://i.imgur.com/kGmaCL7.png"
+                  src="/images/kGmaCL7.png"
                   alt="Background"
                   className="w-full h-full object-cover object-center"
                 />

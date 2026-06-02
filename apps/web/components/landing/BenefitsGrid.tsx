@@ -398,7 +398,7 @@ export function BenefitsGrid() {
               {/* Image container with cyberpunk frame */}
               <div className="relative w-20 h-20 md:w-24 md:h-24 lg:w-32 lg:h-32 rounded-full overflow-hidden border-4 border-cyan-500/50 shadow-[0_0_40px_rgba(34,211,238,0.6)]">
                 <img
-                  src="https://i.imgur.com/5MkTH2X.png"
+                  src="/images/5MkTH2X.png"
                   alt="Optimized Human"
                   className="w-full h-full object-cover object-center"
                 />
@@ -564,24 +564,24 @@ export function BenefitsGrid() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {benefits.map((benefit, index) => {
             const backgroundImages = [
-              "https://i.imgur.com/FMFbsOt.jpeg",
-              "https://i.imgur.com/leiwjJb.jpeg",
-              "https://i.imgur.com/VgrLert.jpeg",
+              "/images/FMFbsOt.jpeg",
+              "/images/leiwjJb.jpeg",
+              "/images/VgrLert.jpeg",
             ];
 
             let randomBg;
             if (benefit.title === "The High-Performance Edge") {
-              randomBg = "https://i.imgur.com/AEIUJHB.png";
+              randomBg = "/images/AEIUJHB.png";
             } else if (benefit.title === "Sustainable Focus") {
-              randomBg = "https://i.imgur.com/kYPx0Iq.png";
+              randomBg = "/images/kYPx0Iq.png";
             } else if (benefit.title === "Smart Energy") {
-              randomBg = "https://i.imgur.com/8c5LETH.jpeg";
+              randomBg = "/images/8c5LETH.jpeg";
             } else if (benefit.title === "Clean Metabolic Exit") {
-              randomBg = "https://i.imgur.com/gEIplVu.png";
+              randomBg = "/images/gEIplVu.png";
             } else if (benefit.title === "Premium Hydration Layer") {
-              randomBg = "https://i.imgur.com/rpVPAkh.png";
+              randomBg = "/images/rpVPAkh.png";
             } else if (benefit.title === "Ritualized Yet Light") {
-              randomBg = "https://i.imgur.com/nvAT7oB.png";
+              randomBg = "/images/nvAT7oB.png";
             } else {
               randomBg = backgroundImages[index % 3] ?? backgroundImages[0]!;
             }

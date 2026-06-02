@@ -451,7 +451,7 @@ export function UnitScanEvent() {
           <div className="absolute inset-0 -top-40 -bottom-40 flex items-center justify-center pointer-events-none overflow-hidden">
             <div className="relative w-full max-w-5xl h-full">
               <img
-                src="https://i.imgur.com/nBujlj7.png"
+                src="/images/nBujlj7.png"
                 alt=""
                 className="w-full h-full object-cover opacity-50"
                 style={{
@@ -1320,7 +1320,7 @@ export function UnitScanEvent() {
               <div className="absolute bottom-0 right-0 w-6 h-6 border-b-4 border-r-4 border-cyan-300 translate-x-1 translate-y-1 z-10" />
 
               <img
-                src="https://i.imgur.com/i6XOdah.png"
+                src="/images/i6XOdah.png"
                 alt="hydrbrew° Scan Game Visual"
                 className="w-full h-auto"
               />
