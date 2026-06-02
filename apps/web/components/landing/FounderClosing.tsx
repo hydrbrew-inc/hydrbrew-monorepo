@@ -566,6 +566,7 @@ export function FounderClosing() {
                               className="w-full h-full opacity-30 grayscale contrast-125 brightness-75"
                               style={{ border: "none", pointerEvents: "none" }}
                               title="Leucadia Map"
+                              loading="lazy"
                             />
                           </div>
 

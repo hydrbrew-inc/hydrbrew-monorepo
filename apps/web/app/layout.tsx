@@ -58,6 +58,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://us.i.posthog.com" />
         <link
           rel="preload"
           as="image"
@@ -65,13 +68,13 @@ export default function RootLayout({
           fetchPriority="high"
         />
         <JsonLd />
-        <KlaviyoOnsite />
       </head>
       <body
         className={`${inter.className} ${jetbrainsMono.variable} antialiased`}
       >
         {children}
         <GoogleAnalytics />
+        <KlaviyoOnsite />
         <MetaPixel />
         <PostHog />
       </body>
