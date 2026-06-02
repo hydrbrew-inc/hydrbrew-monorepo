@@ -58,6 +58,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link
+          rel="preload"
+          as="image"
+          href="/images/E8Ar62i.jpeg"
+          fetchPriority="high"
+        />
         <JsonLd />
         <KlaviyoOnsite />
       </head>

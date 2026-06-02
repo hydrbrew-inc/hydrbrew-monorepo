@@ -367,6 +367,12 @@ export function HeroBifurcation() {
                   src="/images/E8Ar62i.jpeg"
                   alt="The +1 YOU Operative"
                   className="opacity-75 md:opacity-100"
+                  // biome-ignore lint: fetchpriority is a valid HTML attribute for LCP optimization
+                  fetchPriority="high"
+                  loading="eager"
+                  decoding="async"
+                  width={800}
+                  height={1067}
                   style={{
                     width: "100%",
                     height: "100%",
