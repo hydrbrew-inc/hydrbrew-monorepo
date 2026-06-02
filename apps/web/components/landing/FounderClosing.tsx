@@ -78,7 +78,7 @@ export function FounderClosing() {
         <div
           className="absolute inset-0 bg-cover bg-center md:bg-fixed"
           style={{
-            backgroundImage: "url(/images/opC81Wx.png)",
+            backgroundImage: "url(/images/opC81Wx.webp)",
             opacity: 0.5,
           }}
         />
@@ -257,7 +257,7 @@ export function FounderClosing() {
                         style={{ border: "2px solid rgba(0, 255, 255, 0.5)" }}
                       >
                         <ImageWithFallback
-                          src="/images/KIVrOVW.jpeg"
+                          src="/images/KIVrOVW.webp"
                           alt="Louis Caverly"
                           className="w-full h-full object-cover object-[center_30%]"
                         />
@@ -321,7 +321,7 @@ export function FounderClosing() {
                           style={{ backgroundColor: "rgba(0, 255, 255, 0.3)" }}
                         />
                         <ImageWithFallback
-                          src="/images/a339hLi.png"
+                          src="/images/a339hLi.webp"
                           alt="Louis Caverly Signature"
                           className="relative h-24 md:h-32 w-auto brightness-0 invert opacity-100"
                         />
@@ -375,7 +375,7 @@ export function FounderClosing() {
                         style={{ border: "2px solid rgba(0, 255, 255, 0.5)" }}
                       >
                         <ImageWithFallback
-                          src="/images/foWY70O.jpeg"
+                          src="/images/foWY70O.webp"
                           alt="Fawne Caverly"
                           className="w-full h-full object-cover object-[center_30%]"
                         />
@@ -439,7 +439,7 @@ export function FounderClosing() {
                           style={{ backgroundColor: "rgba(0, 255, 255, 0.3)" }}
                         />
                         <ImageWithFallback
-                          src="/images/5Y6M3fG.png"
+                          src="/images/5Y6M3fG.webp"
                           alt="Fawne Caverly Signature"
                           className="relative h-24 md:h-32 w-auto brightness-0 invert opacity-100"
                         />

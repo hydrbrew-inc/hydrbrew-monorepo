@@ -398,7 +398,7 @@ export function BenefitsGrid() {
               {/* Image container with cyberpunk frame */}
               <div className="relative w-20 h-20 md:w-24 md:h-24 lg:w-32 lg:h-32 rounded-full overflow-hidden border-4 border-cyan-500/50 shadow-[0_0_40px_rgba(34,211,238,0.6)]">
                 <img
-                  src="/images/5MkTH2X.png"
+                  src="/images/5MkTH2X.webp"
                   alt="Optimized Human"
                   className="w-full h-full object-cover object-center"
                 />
@@ -564,24 +564,24 @@ export function BenefitsGrid() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {benefits.map((benefit, index) => {
             const backgroundImages = [
-              "/images/FMFbsOt.jpeg",
-              "/images/leiwjJb.jpeg",
-              "/images/VgrLert.jpeg",
+              "/images/FMFbsOt.webp",
+              "/images/leiwjJb.webp",
+              "/images/VgrLert.webp",
             ];
 
             let randomBg;
             if (benefit.title === "The High-Performance Edge") {
-              randomBg = "/images/AEIUJHB.png";
+              randomBg = "/images/AEIUJHB.webp";
             } else if (benefit.title === "Sustainable Focus") {
-              randomBg = "/images/kYPx0Iq.png";
+              randomBg = "/images/kYPx0Iq.webp";
             } else if (benefit.title === "Smart Energy") {
-              randomBg = "/images/8c5LETH.jpeg";
+              randomBg = "/images/8c5LETH.webp";
             } else if (benefit.title === "Clean Metabolic Exit") {
-              randomBg = "/images/gEIplVu.png";
+              randomBg = "/images/gEIplVu.webp";
             } else if (benefit.title === "Premium Hydration Layer") {
-              randomBg = "/images/rpVPAkh.png";
+              randomBg = "/images/rpVPAkh.webp";
             } else if (benefit.title === "Ritualized Yet Light") {
-              randomBg = "/images/nvAT7oB.png";
+              randomBg = "/images/nvAT7oB.webp";
             } else {
               randomBg = backgroundImages[index % 3] ?? backgroundImages[0]!;
             }

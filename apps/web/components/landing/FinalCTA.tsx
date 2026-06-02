@@ -338,21 +338,21 @@ export function FinalCTA() {
 
   const nftImages = [
     {
-      url: "/images/iNlpKmp.jpeg",
+      url: "/images/iNlpKmp.webp",
       name: "Luno",
       rarity: "ARCHETYPE",
     },
     {
-      url: "/images/wwWEBds.jpeg",
+      url: "/images/wwWEBds.webp",
       name: "Vespara",
       rarity: "ARCHETYPE",
     },
-    { url: "/images/rNpkyRW.jpeg", name: "Cipher", rarity: "RARE" },
-    { url: "/images/lNQFzkJ.jpeg", name: "Nova", rarity: null },
-    { url: "/images/jVBBgud.jpeg", name: "Zenith", rarity: "RARE" },
-    { url: "/images/6ww6nzp.jpeg", name: "Rift", rarity: null },
-    { url: "/images/c8nCGNy.jpeg", name: "Pulsar", rarity: "RARE" },
-    { url: "/images/YmYGdcf.jpeg", name: "Catalyst", rarity: null },
+    { url: "/images/rNpkyRW.webp", name: "Cipher", rarity: "RARE" },
+    { url: "/images/lNQFzkJ.webp", name: "Nova", rarity: null },
+    { url: "/images/jVBBgud.webp", name: "Zenith", rarity: "RARE" },
+    { url: "/images/6ww6nzp.webp", name: "Rift", rarity: null },
+    { url: "/images/c8nCGNy.webp", name: "Pulsar", rarity: "RARE" },
+    { url: "/images/YmYGdcf.webp", name: "Catalyst", rarity: null },
   ];
 
   // Auto-advance carousel
@@ -400,7 +400,7 @@ export function FinalCTA() {
           <div
             className="absolute inset-0 pointer-events-none z-0"
             style={{
-              backgroundImage: "url(/images/07axSRl.png)",
+              backgroundImage: "url(/images/07axSRl.webp)",
               backgroundSize: "cover",
               backgroundPosition: "center 30%",
               backgroundRepeat: "no-repeat",
@@ -1041,7 +1041,7 @@ export function FinalCTA() {
           </div>
 
           <FloatingAvatar
-            imageSrc="/images/vRKtmNC.png"
+            imageSrc="/images/vRKtmNC.webp"
             position="side"
           />
 
@@ -1194,7 +1194,7 @@ export function FinalCTA() {
               {/* Background image */}
               <div className="absolute inset-0 opacity-20">
                 <img
-                  src="/images/kGmaCL7.png"
+                  src="/images/kGmaCL7.webp"
                   alt="Background"
                   className="w-full h-full object-cover object-center"
                 />

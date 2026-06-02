@@ -16,7 +16,7 @@ export function KlaviyoOnsite() {
     <Script
       id="klaviyo-onsite"
       src={`https://static.klaviyo.com/onsite/js/${publicKey}/klaviyo.js`}
-      strategy="lazyOnload"
+      strategy="afterInteractive"
     />
   );
 }

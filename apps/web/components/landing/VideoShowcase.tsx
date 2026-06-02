@@ -92,7 +92,7 @@ export function VideoShowcase() {
           <div
             className="absolute inset-0 -mx-8 md:-mx-16 lg:-mx-24 -my-16 opacity-60 bg-cover bg-no-repeat bg-center md:bg-top"
             style={{
-              backgroundImage: "url(/images/3D3shvu.jpeg)",
+              backgroundImage: "url(/images/3D3shvu.webp)",
               backgroundAttachment: "scroll",
               mixBlendMode: "screen",
             }}
@@ -256,25 +256,25 @@ export function VideoShowcase() {
                   {
                     name: "ZEVON",
                     role: "Head of Human Optimization",
-                    image: "/images/H43dZi2.jpeg",
+                    image: "/images/H43dZi2.webp",
                     hint: "First digit",
                   },
                   {
                     name: "VESPARA",
                     role: "Chief Neural Integration Officer",
-                    image: "/images/7rF3Rd5.jpeg",
+                    image: "/images/7rF3Rd5.webp",
                     hint: "Second digit",
                   },
                   {
                     name: "LUNO",
                     role: "Lead Mission\nEngineer",
-                    image: "/images/xOlsna0.jpeg",
+                    image: "/images/xOlsna0.webp",
                     hint: "Third digit",
                   },
                   {
                     name: "ZENARA",
                     role: "Director of Flow Dynamics",
-                    image: "/images/giDeBcH.jpeg",
+                    image: "/images/giDeBcH.webp",
                     hint: "Final digit",
                   },
                 ].map((character, index) => (
@@ -724,7 +724,7 @@ export function VideoShowcase() {
 
                     {/* Medallion Image */}
                     <img
-                      src="/images/4JfT8q9.jpeg"
+                      src="/images/4JfT8q9.webp"
                       alt="hydrbrew° Phygital Medallion"
                       className="relative w-32 h-32 rounded-full object-cover border-4 border-cyan-500/70 shadow-2xl transition-all duration-300 group-hover/medallion:scale-150 group-hover/medallion:shadow-[0_0_50px_rgba(6,182,212,0.8)] group-hover/medallion:z-50"
                       style={{

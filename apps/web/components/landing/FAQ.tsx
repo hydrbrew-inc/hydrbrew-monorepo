@@ -183,7 +183,7 @@ export function FAQ() {
           <div className="absolute inset-0 -top-20 -bottom-20 flex items-center justify-center pointer-events-none overflow-hidden">
             <div className="relative w-full max-w-3xl h-full">
               <img
-                src="/images/KuporTg.jpeg"
+                src="/images/KuporTg.webp"
                 alt=""
                 className="w-full h-full object-cover opacity-40"
                 style={{

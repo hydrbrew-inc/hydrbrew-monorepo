@@ -364,7 +364,7 @@ export function HeroBifurcation() {
                 }}
               >
                 <img
-                  src="/images/E8Ar62i.jpeg"
+                  src="/images/E8Ar62i.webp"
                   alt="The +1 YOU Operative"
                   className="opacity-75 md:opacity-100"
                   // biome-ignore lint: fetchpriority is a valid HTML attribute for LCP optimization
@@ -712,7 +712,7 @@ export function HeroBifurcation() {
                         {/* Inner frame */}
                         <div className="w-full h-full rounded-lg overflow-hidden bg-black/80">
                           <img
-                            src="/images/1QM0Ftl.jpeg"
+                            src="/images/1QM0Ftl.webp"
                             alt="Operative"
                             className="w-full h-full object-cover opacity-100"
                             style={{
@@ -1140,7 +1140,7 @@ export function HeroBifurcation() {
                 <div
                   className="absolute inset-0 rounded-2xl opacity-90 md:opacity-60"
                   style={{
-                    backgroundImage: "url(/images/neezm7W.jpeg)",
+                    backgroundImage: "url(/images/neezm7W.webp)",
                     backgroundSize: "cover",
                     backgroundPosition: "center center",
                     zIndex: 0,

@@ -416,7 +416,7 @@ export function ManifestoSection() {
                   }}
                 >
                   <img
-                    src="/images/GiL99mI.png"
+                    src="/images/GiL99mI.webp"
                     alt="+1 Optimized Human"
                     className="w-full h-full object-cover"
                   />
@@ -936,7 +936,7 @@ export function ManifestoSection() {
                     >
                       <div className="relative w-full aspect-square max-w-sm mx-auto">
                         <img
-                          src="/images/2tENthv.jpeg"
+                          src="/images/2tENthv.webp"
                           alt="Oura Ring biometric validation"
                           className="w-full h-full rounded-lg shadow-[0_0_50px_rgba(34,211,238,0.2)] group-hover:shadow-[0_0_80px_rgba(34,211,238,0.4)] transition-all duration-500"
                           style={{

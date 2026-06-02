@@ -21,7 +21,7 @@ const briefings: Record<string, BriefingConfig> = {
       "https://stream.mux.com/eFX2jdyzPvArr8zOPApk02pG8M9bip00kYy5rz6015mBj4.m3u8",
     characterName: "ZEVON",
     characterTitle: "HUMAN OPT.",
-    characterImage: "/images/H43dZi2.jpeg",
+    characterImage: "/images/H43dZi2.webp",
     volumeBoost: 3.6, // 360% boost for quieter Mux encoding
     transcript: [
       {
@@ -71,7 +71,7 @@ const briefings: Record<string, BriefingConfig> = {
       "https://stream.mux.com/PFLS2ndSxwUV1UhZyeTCvkau009tAMDcqRtFTWtzfE44.m3u8",
     characterName: "ZEVON",
     characterTitle: "HUMAN OPT.",
-    characterImage: "/images/H43dZi2.jpeg",
+    characterImage: "/images/H43dZi2.webp",
     volumeBoost: 3.6, // 360% boost to match other Mux-encoded briefings
     transcript: [
       {
@@ -103,7 +103,7 @@ const briefings: Record<string, BriefingConfig> = {
       "https://stream.mux.com/ThiQ2zsX01EBVL1d74e01uo4OyB6v01QcIiooziUAm2uds.m3u8",
     characterName: "ZEVON",
     characterTitle: "HUMAN OPT.",
-    characterImage: "/images/H43dZi2.jpeg",
+    characterImage: "/images/H43dZi2.webp",
     volumeBoost: 3.6, // 360% boost to match other Mux-encoded briefings
     transcript: [
       {
@@ -138,7 +138,7 @@ const briefings: Record<string, BriefingConfig> = {
       "https://stream.mux.com/02RLEXoVeRiXQe201tznhTfOaxBdikAz02AUzlnvyUDhaI.m3u8",
     characterName: "ZEVON",
     characterTitle: "HUMAN OPT.",
-    characterImage: "/images/H43dZi2.jpeg",
+    characterImage: "/images/H43dZi2.webp",
     volumeBoost: 3.6, // 360% boost to match other Mux-encoded briefings
     transcript: [
       {
@@ -169,7 +169,7 @@ const briefings: Record<string, BriefingConfig> = {
       "https://stream.mux.com/my80000T2HkXy4mK3WzxmfSnE5bDJtLKeVOSORL4kqvwM.m3u8",
     characterName: "ZEVON",
     characterTitle: "HUMAN OPT.",
-    characterImage: "/images/H43dZi2.jpeg",
+    characterImage: "/images/H43dZi2.webp",
     volumeBoost: 3.6, // 360% boost to match other Mux-encoded briefings
     transcript: [
       {
@@ -204,7 +204,7 @@ const briefings: Record<string, BriefingConfig> = {
       "https://stream.mux.com/7Z023OXnLLNLiDmrN1W7DtfsKvBky9If1uP1DkWQmNl8.m3u8",
     characterName: "ZEVON",
     characterTitle: "HUMAN OPT.",
-    characterImage: "/images/H43dZi2.jpeg",
+    characterImage: "/images/H43dZi2.webp",
     volumeBoost: 3.6, // 360% boost to match other Mux-encoded briefings
     transcript: [
       {
@@ -235,7 +235,7 @@ const briefings: Record<string, BriefingConfig> = {
       "https://stream.mux.com/5W00y011x2zgPLwuHqShN9fTdBuTK1UNGfdLpJgMQDtRY.m3u8",
     characterName: "ZEVON",
     characterTitle: "HUMAN OPT.",
-    characterImage: "/images/H43dZi2.jpeg",
+    characterImage: "/images/H43dZi2.webp",
     volumeBoost: 2.025, // 10% reduction from default 2.25
     transcript: [
       {
@@ -266,7 +266,7 @@ const briefings: Record<string, BriefingConfig> = {
       "https://stream.mux.com/rDuz4FrHamlfwUkdjhbKdgMujwicG8PQIe01oBJKK7FI.m3u8",
     characterName: "LOUIS CAVERLY",
     characterTitle: "FOUNDER",
-    characterImage: "/images/KIVrOVW.jpeg",
+    characterImage: "/images/KIVrOVW.webp",
     volumeBoost: 3.6, // 360% boost to match other Mux-encoded briefings
     transcript: [
       {

@@ -119,7 +119,7 @@ export function ProtocolSection() {
                 {/* Image container with cyberpunk frame */}
                 <div className="relative w-20 h-20 md:w-24 md:h-24 lg:w-32 lg:h-32 rounded-full overflow-hidden border-4 border-cyan-500/50 shadow-[0_0_40px_rgba(34,211,238,0.6)]">
                   <img
-                    src="/images/MIapoa8.png"
+                    src="/images/MIapoa8.webp"
                     alt="Optimized Human"
                     className="w-full h-full object-cover object-[60%_center]"
                   />
@@ -290,7 +290,7 @@ export function ProtocolSection() {
                         className="absolute inset-0 bg-cover bg-center"
                         style={{
                           backgroundImage:
-                            "url(/images/p4iy3vq.jpeg)",
+                            "url(/images/p4iy3vq.webp)",
                           filter: "brightness(1.3) contrast(0.9)",
                         }}
                       />
@@ -300,7 +300,7 @@ export function ProtocolSection() {
                         className="absolute inset-0 bg-cover bg-center"
                         style={{
                           backgroundImage:
-                            "url(/images/5oFWKa4.png)",
+                            "url(/images/5oFWKa4.webp)",
                           filter: "brightness(2.5) contrast(0.9)",
                           opacity: 1,
                         }}
@@ -311,7 +311,7 @@ export function ProtocolSection() {
                         className="absolute inset-0 bg-cover bg-center"
                         style={{
                           backgroundImage:
-                            "url(/images/1QM0Ftl.jpeg)",
+                            "url(/images/1QM0Ftl.webp)",
                           filter: "brightness(1.3) contrast(0.9)",
                         }}
                       />
@@ -321,7 +321,7 @@ export function ProtocolSection() {
                         className="absolute inset-0 bg-cover bg-center"
                         style={{
                           backgroundImage:
-                            "url(/images/uARXRtG.png)",
+                            "url(/images/uARXRtG.webp)",
                           filter: "brightness(1.3) contrast(0.9)",
                         }}
                       />
@@ -344,7 +344,7 @@ export function ProtocolSection() {
                               className="absolute inset-0 bg-cover bg-center opacity-40 md:opacity-50"
                               style={{
                                 backgroundImage:
-                                  "url(/images/p4iy3vq.jpeg)",
+                                  "url(/images/p4iy3vq.webp)",
                                 filter: "brightness(1.3) contrast(0.9)",
                               }}
                             />
@@ -364,7 +364,7 @@ export function ProtocolSection() {
                               className="absolute inset-0 bg-cover bg-center opacity-40 md:opacity-50"
                               style={{
                                 backgroundImage:
-                                  "url(/images/5oFWKa4.png)",
+                                  "url(/images/5oFWKa4.webp)",
                                 filter: "brightness(2.5) contrast(0.9)",
                               }}
                             />
@@ -384,7 +384,7 @@ export function ProtocolSection() {
                               className="absolute inset-0 bg-cover bg-center opacity-40 md:opacity-50"
                               style={{
                                 backgroundImage:
-                                  "url(/images/1QM0Ftl.jpeg)",
+                                  "url(/images/1QM0Ftl.webp)",
                                 filter: "brightness(1.3) contrast(0.9)",
                               }}
                             />
@@ -404,7 +404,7 @@ export function ProtocolSection() {
                               className="absolute inset-0 bg-cover bg-center opacity-40 md:opacity-50"
                               style={{
                                 backgroundImage:
-                                  "url(/images/uARXRtG.png)",
+                                  "url(/images/uARXRtG.webp)",
                                 filter: "brightness(1.3) contrast(0.9)",
                               }}
                             />
@@ -597,7 +597,7 @@ export function ProtocolSection() {
             >
               {/* The actual image */}
               <img
-                src="/images/r4yd2z5.jpeg"
+                src="/images/r4yd2z5.webp"
                 alt="Formula background"
                 className="w-full h-full object-cover object-[50%_50%] md:object-[50%_65%]"
                 style={{
