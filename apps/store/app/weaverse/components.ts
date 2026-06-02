@@ -25,6 +25,15 @@ import * as Hotspots from "~/sections/hotspots";
 import * as HotspotsItem from "~/sections/hotspots/item";
 import * as ImageGallery from "~/sections/image-gallery";
 import * as InstagramFeed from "~/sections/instagram-feed";
+import * as HbHero from "~/sections/hb-hero";
+import * as HbTicker from "~/sections/hb-ticker";
+import * as HbProduct from "~/sections/hb-product";
+import * as HbQuiz from "~/sections/hb-quiz";
+import * as HbReviews from "~/sections/hb-reviews";
+import * as HbSocial from "~/sections/hb-social";
+import * as HbFaq from "~/sections/hb-faq";
+import * as HbBlog from "~/sections/hb-blog";
+import * as HbFooterCta from "~/sections/hb-footer-cta";
 import * as ImageGalleryItem from "~/sections/image-gallery/image";
 import * as ImageGalleryItems from "~/sections/image-gallery/items";
 import * as ImageWithText from "~/sections/image-with-text";
@@ -167,4 +176,13 @@ export const components: HydrogenComponent[] = [
   SlideShowSlide,
   Spacer,
   InstagramFeed,
+  HbHero,
+  HbTicker,
+  HbProduct,
+  HbQuiz,
+  HbReviews,
+  HbSocial,
+  HbFaq,
+  HbBlog,
+  HbFooterCta,
 ];
