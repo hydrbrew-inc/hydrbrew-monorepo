@@ -176,7 +176,7 @@ function HbProduct(props: HbProductProps) {
                 <h3 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-tight" style={{ fontFamily: "'Urbanist',sans-serif" }}>How We<br />Stack Up</h3>
               </div>
 
-              <div className="overflow-x-auto border border-[#00FFFF]/20 p-1 flex-1 flex items-stretch">
+              <div className="overflow-x-auto border border-[#00FFFF]/20 p-1">
                 <table className="w-full" style={{ borderCollapse: "collapse", fontFamily: "'Urbanist',sans-serif" }}>
                   <thead>
                     <tr style={{ backgroundColor: "#0B0B0B", borderBottom: "2px solid #00FFFF" }}>
@@ -192,9 +192,9 @@ function HbProduct(props: HbProductProps) {
                       { name: "Nootropic Drinks", sub: "Kin", ritual: "Evening", stack: "Partial" },
                     ].map((row) => (
                       <tr key={row.name} className="transition-all duration-300 hover:bg-white/[0.02]" style={{ borderBottom: "1px solid #1A1A1A" }}>
-                        <td className="py-4 px-3 md:py-6 md:px-8"><div className="text-white/80 text-sm md:text-lg font-medium">{row.name}</div><div className="text-white/50 text-xs md:text-sm mt-1 hidden md:block">{row.sub}</div></td>
-                        <td className="py-4 px-3 md:py-6 md:px-8"><div className="text-white/70 text-sm md:text-base">{row.ritual}</div></td>
-                        <td className="py-4 px-3 md:py-6 md:px-8"><div className="text-white/70 text-sm md:text-base">{row.stack}</div></td>
+                        <td className="py-3 px-3 md:py-4 md:px-8"><div className="text-white/80 text-sm md:text-lg font-medium">{row.name}</div><div className="text-white/50 text-xs md:text-sm mt-1 hidden md:block">{row.sub}</div></td>
+                        <td className="py-3 px-3 md:py-4 md:px-8"><div className="text-white/70 text-sm md:text-base">{row.ritual}</div></td>
+                        <td className="py-3 px-3 md:py-4 md:px-8"><div className="text-white/70 text-sm md:text-base">{row.stack}</div></td>
                       </tr>
                     ))}
                     <tr className="hydrbrew-row transition-all duration-300" style={{ backgroundColor: "rgba(0,255,255,0.05)", borderLeft: "4px solid #00FFFF" }}>
@@ -239,25 +239,28 @@ function HbProduct(props: HbProductProps) {
               </div>
 
               {/* Video */}
-              <div
-                className="relative w-full border-2 border-[#00FFFF]/30 rounded-2xl overflow-hidden"
-                style={{ aspectRatio: "9/16", minHeight: "480px" }}
-              >
-                <MuxPlayer
-                  playbackId={muxPlaybackId}
-                  autoPlay="muted"
-                  muted
-                  loop
-                  onTimeUpdate={handleVideoTimeUpdate}
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    "--controls": "none",
-                  } as React.CSSProperties}
-                />
+              <div className="relative w-full flex-1 h-[400px] lg:h-auto lg:min-h-0 border-0 lg:border-2 lg:border-[#00FFFF]/30 rounded-none lg:rounded-2xl p-0 lg:p-1 overflow-hidden">
+                <div className="relative w-full h-full rounded-none lg:rounded-xl overflow-hidden" style={{ minHeight: "400px" }}>
+                  <MuxPlayer
+                    playbackId={muxPlaybackId}
+                    autoPlay="muted"
+                    muted
+                    loop
+                    onTimeUpdate={handleVideoTimeUpdate}
+                    className="lg:absolute! lg:w-[150%]! lg:h-[150%]! lg:top-1/2! lg:left-1/2! lg:-translate-x-1/2! lg:-translate-y-1/2!"
+                    style={{
+                      position: "absolute",
+                      width: "100%",
+                      height: "100%",
+                      top: "0",
+                      left: "0",
+                      objectFit: "cover",
+                      pointerEvents: "none",
+                      "--controls": "none",
+                    } as React.CSSProperties}
+                  />
+                </div>
+                <div className="absolute inset-0 bg-[#00FFFF]/5 blur-xl -z-10" />
               </div>
             </div>
           </div>

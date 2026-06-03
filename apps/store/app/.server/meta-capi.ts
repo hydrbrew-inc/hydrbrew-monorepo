@@ -1,5 +1,3 @@
-import crypto from "node:crypto";
-
 const META_GRAPH_VERSION = "v21.0";
 
 type UserData = {
@@ -17,8 +15,10 @@ type CapiEvent = {
   customData?: Record<string, string | number | undefined>;
 };
 
-function sha256(value: string) {
-  return crypto.createHash("sha256").update(value.trim().toLowerCase()).digest("hex");
+async function sha256(value: string): Promise<string> {
+  const enc = new TextEncoder();
+  const buf = await crypto.subtle.digest("SHA-256", enc.encode(value.trim().toLowerCase()));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
 }
 
 function getCookie(request: Request, name: string) {

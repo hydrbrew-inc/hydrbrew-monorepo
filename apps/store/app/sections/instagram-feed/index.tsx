@@ -33,14 +33,23 @@ function InstagramFeed(props: InstagramFeedProps) {
   }, []);
 
   return (
-    <Section {...rest}>
-      {heading && (
-        <h2 className="text-center text-2xl font-semibold text-body mb-6">
-          {heading}
-        </h2>
-      )}
-      <behold-widget feed-id={feedId} />
-    </Section>
+    <section
+      {...(rest as React.HTMLAttributes<HTMLElement>)}
+      className="bg-black py-16 px-4"
+    >
+      <div className="max-w-7xl mx-auto">
+        {heading && (
+          <h2
+            className="text-center text-5xl md:text-7xl font-bold text-white mb-12"
+            style={{ fontFamily: "'Urbanist', sans-serif" }}
+          >
+            Follow us on{" "}
+            <span style={{ color: "#00FFFF" }}>Instagram</span>
+          </h2>
+        )}
+        <behold-widget feed-id={feedId} />
+      </div>
+    </section>
   );
 }
 
