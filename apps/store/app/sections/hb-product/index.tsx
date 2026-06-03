@@ -1,7 +1,8 @@
 import { createSchema } from "@weaverse/hydrogen";
 import type { HydrogenComponentProps } from "@weaverse/hydrogen";
 import { useState, useEffect, useRef } from "react";
-import { ChevronLeft, ChevronRight, Check } from "lucide-react";
+import { Check } from "lucide-react";
+import MuxPlayer from "@mux/mux-player-react";
 
 interface HbProductProps extends HydrogenComponentProps {
   shopLink?: string;
@@ -15,8 +16,6 @@ function HbProduct(props: HbProductProps) {
   const [quantity, setQuantity] = useState(1);
   const [showIngredients, setShowIngredients] = useState(false);
   const [activeChapter, setActiveChapter] = useState(0);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
   const carouselImages = [
     "/carousel-image.png",
     "https://i.imgur.com/4kKmc7z.jpeg",
@@ -241,19 +240,22 @@ function HbProduct(props: HbProductProps) {
 
               {/* Video */}
               <div className="relative w-full flex-1 h-[400px] lg:h-auto lg:min-h-0 border-0 lg:border-2 lg:border-[#00FFFF]/30 rounded-none lg:rounded-2xl p-0 lg:p-1 transition-all overflow-hidden">
-                <div className="relative w-full h-full rounded-none lg:rounded-xl overflow-hidden">
-                  <video
-                    ref={videoRef}
-                    autoPlay
+                <div className="relative w-full h-full rounded-none lg:rounded-xl overflow-hidden" style={{ minHeight: "400px" }}>
+                  <MuxPlayer
+                    playbackId={muxPlaybackId}
+                    autoPlay="muted"
                     muted
                     loop
-                    playsInline
                     onTimeUpdate={handleVideoTimeUpdate}
-                    className="w-full h-full object-cover"
-                    style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
-                  >
-                    <source src={`https://stream.mux.com/${muxPlaybackId}/high.mp4`} type="video/mp4" />
-                  </video>
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      height: "100%",
+                      "--controls": "none",
+                    } as React.CSSProperties}
+                  />
                 </div>
                 <div className="absolute inset-0 bg-[#00FFFF]/5 blur-xl -z-10" />
               </div>
