@@ -1,202 +1,200 @@
 import { createSchema } from "@weaverse/hydrogen";
 import type { HydrogenComponentProps } from "@weaverse/hydrogen";
-import { motion, useInView } from "motion/react";
-import { Play, TrendingUp, Zap, Eye } from "lucide-react";
-import { useRef, useState, useEffect } from "react";
+import { useState } from "react";
+import { ArrowRight, Clock, X } from "lucide-react";
 
-interface HbBlogProps extends HydrogenComponentProps {
-  videoId?: string;
-  preOrderLink?: string;
+interface Article {
+  id: number;
+  title: string;
+  excerpt: string;
+  content: string;
+  image: string;
+  author: string;
+  readTime: string;
+  date: string;
+  category: string;
 }
 
-function HbBlog(props: HbBlogProps) {
-  const { videoId = "", preOrderLink = "/products", ...rest } = props;
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [showVideo, setShowVideo] = useState(false);
-  const [currentNumbers, setCurrentNumbers] = useState([0, 0, 0, 0]);
-  const [isSpinning, setIsSpinning] = useState(false);
+const articles: Article[] = [
+  {
+    id: 1,
+    title: "The Afternoon Manifesto: A Structural Correction for the Pre-Sovereign Era",
+    excerpt: "Legacy Logic is a Bug in the Human Code. Stop reacting. Start directing. This is coffee, reimagined for the future.",
+    content: `Legacy Logic is a Bug in the Human Code.
 
-  const sequences = [[7,3,9,2],[4,8,1,6],[5,2,7,3],[9,1,4,8],[3,6,2,5]];
-  const [seqIdx, setSeqIdx] = useState(0);
+Most high-performers still treat afternoon performance decay like an unavoidable tax on existence. You feel the cognitive fog rolling in. The packet loss in your data processing begins. Your response? You take out another energy loan from a 20th-century commodity.
 
-  useEffect(() => {
-    const spinInterval = setInterval(() => {
-      setIsSpinning(true);
-      const rapid = setInterval(() => {
-        setCurrentNumbers([
-          Math.floor(Math.random() * 10),
-          Math.floor(Math.random() * 10),
-          Math.floor(Math.random() * 10),
-          Math.floor(Math.random() * 10),
-        ]);
-      }, 100);
-      setTimeout(() => {
-        clearInterval(rapid);
-        setCurrentNumbers(sequences[seqIdx]!);
-        setIsSpinning(false);
-        setSeqIdx((p) => (p + 1) % sequences.length);
-      }, 4500);
-    }, 5000);
-    return () => clearInterval(spinInterval);
-  }, [seqIdx]);
+By 2:15 PM, you are dehydrated, twitchy, and mentally bankrupt. This isn't a lack of willpower; it's a design instability. You are operating in Biological Debt.
 
-  const stats = [
-    { icon: TrendingUp, label: "Focus Duration", value: "4-6hr", sub: "sustained clarity" },
-    { icon: Zap, label: "Caffeine Precision", value: "85mg", sub: "below cortisol threshold" },
-    { icon: Eye, label: "Cognitive Stack", value: "4-layer", sub: "precursor model" },
-  ];
+The Mandate for Cognitive Sovereignty
+
+We are moving past the era of passive consumption. The near future demands Cognitive Sovereignty — the ability to direct your own neural architecture without interference from volatility, latency, or systemic depletion.
+
+The Architectural Correction
+
+We built hydrbrew° to be the ultimate baseline substrate for the optimized human. We kept the soul of elite coffee, then executed a precise cognitive patch underneath:
+
+• Lion's Mane & L-Theanine // The Focus Engine: Neural priming. Stabilizes the signal, removing the twitch and leaving only the sharp.
+• Ionic Electrolytes // The Substrate: Coffee is naturally dehydrating; we fixed the math.
+• Precision Caffeine // The Anchor: A perfectly calibrated caffeine stack that runs clean, exits clean, and leaves zero debt on the operating baseline.
+
+The future will not be built by those living in debt. It will be built by those who have achieved Bio-Integrity.`,
+    image: "https://i.imgur.com/f8a6GyL.jpeg",
+    author: "hydrbrew° Research Division",
+    readTime: "8 min read",
+    date: "May 20, 2026",
+    category: "Manifesto",
+  },
+  {
+    id: 2,
+    title: "The Distributed Ritual: Bieber, Coachella & The Baseline Problem",
+    excerpt: "What Bieber did at Coachella was not a concert. It was a live demonstration of the gap between the room running on borrowed energy, and one person who was not.",
+    content: `We have always been Bieber fans. But his Coachella appearance felt different — it felt like a diagnostic.
+
+What Bieber did at Coachella was not a concert. It was a live demonstration of the gap between two states: the room running on borrowed energy, and one person who was not.
+
+That gap is the only thing hydrbrew° is interested in.
+
+The Focus Problem Is a Hardware Problem
+
+Most people in that field were not present. They were running on the standard afternoon substrate: cortisol debt from the morning, glycemic crash from lunch, the ambient system noise of a stimulant that had already peaked.
+
+hydrbrew° is not interested in the buzz. It is interested in the baseline.
+
+Our Substrate Protocol — 85mg buffered caffeine, 200mg L-Theanine, 200mg Lion's Mane — is not designed to elevate. It is designed to remove what was pulling you down.
+
+Zero Systemic Debt
+
+The afternoon crash is not inevitable. It is the predictable output of a system running on the wrong substrate. The operators who understand this do not manage the crash. They architect around it.
+
+85mg. Buffered beneath the anxiety threshold.
+200mg L-Theanine. Modulating, not amplifying.
+200mg Lion's Mane. The architecture of sustained output.
+
+ZERO SYSTEMIC DEBT — hydrbrew°`,
+    image: "https://i.imgur.com/f8a6GyL.jpeg",
+    author: "hydrbrew° Research Division",
+    readTime: "6 min read",
+    date: "May 15, 2026",
+    category: "Culture",
+  },
+  {
+    id: 3,
+    title: "The Science of the 2:15 PM Window",
+    excerpt: "Why the afternoon fade isn't about willpower — and the precise biochemical architecture that eliminates it.",
+    content: `The 2:15 PM problem is not random. It has a biochemical signature.
+
+After lunch, blood glucose spikes and then drops. Core body temperature follows a circadian dip. Adenosine — the molecule that makes you feel sleepy — has been accumulating since you woke up. Your morning caffeine has worn off. The cortisol response from your first coffee has long cleared. You are in a trough.
+
+Most people's response is another caffeine hit. The problem: a standard afternoon coffee at 150-300mg triggers a cortisol response that disrupts your sleep 6-8 hours later. You are borrowing energy from tonight to get through this afternoon.
+
+The hydrbrew° approach is different.
+
+85mg buffered caffeine sits below the cortisol spike threshold. It activates without triggering the stress cascade. 200mg L-Theanine converts that activation into calm, sustained focus — the alpha-wave state. 200mg Lion's Mane supports the executive function depth that the afternoon demands. 255mg ionic electrolytes correct the hydration deficit that compounds cognitive decline.
+
+The result is not a spike. It is a maintained baseline. The 2:15 PM window becomes not a problem to manage, but a protocol to execute.`,
+    image: "https://i.imgur.com/f8a6GyL.jpeg",
+    author: "hydrbrew° Research Division",
+    readTime: "5 min read",
+    date: "May 10, 2026",
+    category: "Science",
+  },
+];
+
+function ArticleModal({ article, onClose }: { article: Article; onClose: () => void }) {
+  return (
+    <div className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto">
+      <div className="fixed inset-0 bg-black/95 backdrop-blur-md" onClick={onClose} />
+      <div className="relative z-10 w-full max-w-3xl mx-auto px-4 py-8 md:py-16">
+        <button type="button" onClick={onClose} className="fixed top-6 right-6 z-20 p-3 bg-[#00FFFF]/10 border-2 border-[#00FFFF]/30 hover:border-[#00FFFF] rounded-xl text-[#00FFFF] hover:bg-[#00FFFF]/20 transition-all" aria-label="Close">
+          <X className="w-6 h-6" />
+        </button>
+        <article className="bg-[#0A0A0A] border-2 border-[#00FFFF]/20 rounded-3xl overflow-hidden">
+          <div className="relative h-64 overflow-hidden">
+            <img src={article.image} alt={article.title} className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent" />
+          </div>
+          <div className="p-8 md:p-12">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="px-3 py-1 bg-[#00FFFF]/10 border border-[#00FFFF]/30 text-[#00FFFF] text-xs font-mono uppercase tracking-wider rounded-full">{article.category}</span>
+              <span className="text-white/40 text-sm font-mono flex items-center gap-1"><Clock className="w-3 h-3" />{article.readTime}</span>
+              <span className="text-white/40 text-sm">{article.date}</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl text-white font-bold mb-6 leading-tight" style={{ fontFamily: "'Urbanist',sans-serif" }}>{article.title}</h2>
+            <div className="text-white/40 text-sm font-mono mb-8">{article.author}</div>
+            <div className="prose prose-invert max-w-none">
+              {article.content.split("\n\n").map((para, i) => (
+                <p key={i} className="text-white/80 leading-relaxed mb-4" style={{ fontFamily: "'Inter',sans-serif", fontSize: "17px", lineHeight: "1.8" }}>{para}</p>
+              ))}
+            </div>
+            <div className="mt-10 pt-8 border-t border-[#00FFFF]/20 flex items-center justify-between">
+              <button type="button" onClick={onClose} className="flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 text-white rounded-xl hover:bg-white/10 transition-all" style={{ fontFamily: "'Space Grotesk',sans-serif" }}>← Close</button>
+              <div className="text-sm text-white/40 font-mono">End of transmission //</div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  );
+}
+
+function HbBlog(props: HydrogenComponentProps) {
+  const { ...rest } = props;
+  const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
 
   return (
-    <section ref={ref} {...rest} className="py-24 md:py-32 bg-black relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-neutral-950 via-black to-neutral-950" />
+    <section {...rest} className="relative py-24 bg-black overflow-hidden" id="knowledge-base">
+      <div className="absolute inset-0">
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-96 bg-[#00FFFF]/3 rounded-full blur-[120px]" />
+      </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <div className="inline-block mb-6 px-4 py-1.5 border border-red-500/30 rounded-full text-xs font-mono tracking-wider text-red-400">
-            MISSION INTEL
-          </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl mb-6 text-white">
-            The Science<br />
-            <span style={{ color: "#00FFFF" }}>Behind the Protocol</span>
+      <div className="relative z-10 container mx-auto px-4">
+        <div className="text-center mb-16 md:mb-20">
+          <p className="text-[#00FFFF] text-sm mb-4 uppercase tracking-wider" style={{ fontFamily: "'Roboto Mono',monospace" }}>INTELLIGENCE ARCHIVE // SIGNAL DROPS</p>
+          <h2 className="text-5xl md:text-7xl lg:text-8xl text-white font-bold mb-6 leading-tight" style={{ fontFamily: "'Urbanist',sans-serif" }}>
+            The<br /><span className="text-[#00FFFF]">Intelligence</span>
           </h2>
-          <p className="text-neutral-400 text-lg max-w-2xl mx-auto leading-relaxed">
-            See exactly what goes into every can and why each compound was chosen.
-          </p>
-        </motion.div>
+          <p className="text-lg text-white/60">Dispatches from the baseline — research, culture, and the science of the afternoon.</p>
+        </div>
 
-        {/* Slot machine counter */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="flex justify-center mb-12"
-        >
-          <div
-            className="flex items-center gap-2 px-8 py-4 rounded-2xl font-mono"
-            style={{ backgroundColor: "rgba(10,10,10,0.9)", border: "2px solid rgba(0,255,255,0.3)", boxShadow: "0 0 40px rgba(0,255,255,0.15)" }}
-          >
-            <span className="text-neutral-500 text-sm tracking-wider uppercase mr-4">Operatives</span>
-            {currentNumbers.map((n, i) => (
-              <motion.div
-                key={i}
-                className="w-10 h-12 flex items-center justify-center rounded-lg text-2xl font-bold"
-                style={{ backgroundColor: "rgba(0,255,255,0.08)", color: "#00FFFF", border: "1px solid rgba(0,255,255,0.2)", textShadow: "0 0 10px rgba(0,255,255,0.8)" }}
-                animate={isSpinning ? { y: [0, -4, 0], opacity: [1, 0.6, 1] } : {}}
-                transition={{ duration: 0.1, repeat: isSpinning ? Infinity : 0 }}
-              >
-                {n}
-              </motion.div>
-            ))}
-            <motion.div
-              className="w-2 h-2 rounded-full ml-4"
-              style={{ backgroundColor: "#00FFFF" }}
-              animate={{ opacity: [0.4, 1, 0.4], boxShadow: ["0 0 6px rgba(0,255,255,0.6)", "0 0 12px rgba(0,255,255,1)", "0 0 6px rgba(0,255,255,0.6)"] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
-          </div>
-        </motion.div>
-
-        {/* Video area */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="relative rounded-2xl overflow-hidden mb-12"
-          style={{ border: "1px solid rgba(0,255,255,0.2)", minHeight: "400px", backgroundColor: "rgba(5,7,10,0.95)" }}
-        >
-          {videoId && showVideo ? (
-            <iframe
-              src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
-              className="w-full"
-              style={{ height: "500px" }}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              title="hydrbrew video"
-            />
-          ) : (
-            <div className="flex flex-col items-center justify-center min-h-[400px] relative">
-              {/* Grid background */}
-              <div
-                className="absolute inset-0 opacity-10"
-                style={{
-                  backgroundImage: "linear-gradient(rgba(239,68,68,0.5) 1.5px, transparent 1.5px), linear-gradient(90deg, rgba(239,68,68,0.5) 1.5px, transparent 1.5px)",
-                  backgroundSize: "40px 40px",
-                }}
-              />
-
-              {/* Corner markers */}
-              <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-red-500/60" />
-              <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-red-500/60" />
-              <div className="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-red-500/60" />
-              <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-red-500/60" />
-
-              <div className="relative z-10 text-center px-8">
-                <div className="mb-6 px-3 py-1 rounded-full text-xs font-mono tracking-widest text-red-400 inline-block" style={{ border: "1px solid rgba(239,68,68,0.4)" }}>
-                  ● CLASSIFIED
-                </div>
-                <h3 className="text-2xl md:text-3xl text-white font-bold mb-4">
-                  The +1 Protocol<br />
-                  <span style={{ color: "#00FFFF" }}>In Action</span>
-                </h3>
-                <p className="text-neutral-400 mb-8 max-w-md mx-auto">
-                  See how hydrbrew° rewires the afternoon crash into sustained high-output performance.
-                </p>
-                {videoId ? (
-                  <motion.button
-                    type="button"
-                    onClick={() => setShowVideo(true)}
-                    className="flex items-center gap-3 px-8 py-4 rounded-full font-mono font-bold text-black mx-auto"
-                    style={{ backgroundColor: "#00FFFF", boxShadow: "0 0 30px rgba(0,255,255,0.6)" }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.97 }}
-                  >
-                    <Play className="w-5 h-5" />
-                    PLAY MISSION INTEL
-                  </motion.button>
-                ) : (
-                  <a
-                    href={preOrderLink}
-                    className="inline-flex items-center gap-3 px-8 py-4 rounded-full font-mono font-bold text-black"
-                    style={{ backgroundColor: "#00FFFF", boxShadow: "0 0 30px rgba(0,255,255,0.6)" }}
-                  >
-                    SECURE YOUR ALLOCATION →
-                  </a>
-                )}
-              </div>
-            </div>
-          )}
-        </motion.div>
-
-        {/* Stats grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {stats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.4 + i * 0.1 }}
-              className="rounded-xl p-6 flex items-start gap-4"
-              style={{ backgroundColor: "rgba(10,10,10,0.8)", border: "1px solid rgba(0,255,255,0.15)" }}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          {articles.map((article, index) => (
+            <div
+              key={article.id}
+              className="group relative bg-[#0A0A0A] border border-[#00FFFF]/15 rounded-2xl overflow-hidden cursor-pointer hover:border-[#00FFFF]/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,255,255,0.1)]"
+              onClick={() => setSelectedArticle(article)}
             >
-              <div className="p-2 rounded-lg shrink-0" style={{ backgroundColor: "rgba(0,255,255,0.08)" }}>
-                <stat.icon className="w-5 h-5 text-cyan-400" />
+              {/* Image */}
+              <div className="relative h-56 overflow-hidden">
+                <img src={article.image} alt={article.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent" />
+                <div className="absolute top-4 left-4">
+                  <span className="px-3 py-1 bg-black/80 backdrop-blur-sm border border-[#00FFFF]/30 text-[#00FFFF] text-xs font-mono uppercase tracking-wider rounded-full">{article.category}</span>
+                </div>
               </div>
-              <div>
-                <div className="text-2xl font-mono font-bold mb-1" style={{ color: "#00FFFF" }}>{stat.value}</div>
-                <div className="text-white text-sm font-medium mb-0.5">{stat.label}</div>
-                <div className="text-neutral-500 text-xs">{stat.sub}</div>
+
+              {/* Content */}
+              <div className="p-6">
+                <div className="flex items-center gap-4 mb-4 text-white/40 text-xs font-mono">
+                  <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{article.readTime}</span>
+                  <span>{article.date}</span>
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3 leading-tight group-hover:text-[#00FFFF] transition-colors" style={{ fontFamily: "'Urbanist',sans-serif" }}>{article.title}</h3>
+                <p className="text-white/60 text-sm leading-relaxed mb-6" style={{ fontFamily: "'Inter',sans-serif" }}>{article.excerpt}</p>
+                <div className="flex items-center gap-2 text-[#00FFFF] text-sm font-medium group-hover:gap-3 transition-all">
+                  <span>Read article</span><ArrowRight className="w-4 h-4" />
+                </div>
               </div>
-            </motion.div>
+
+              {/* Corner accents */}
+              <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#00FFFF]/20 group-hover:border-[#00FFFF]/60 transition-colors" />
+              <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#00FFFF]/20 group-hover:border-[#00FFFF]/60 transition-colors" />
+            </div>
           ))}
         </div>
       </div>
+
+      {selectedArticle && <ArticleModal article={selectedArticle} onClose={() => setSelectedArticle(null)} />}
     </section>
   );
 }
@@ -205,15 +203,7 @@ export default HbBlog;
 
 export const schema = createSchema({
   type: "hb-blog",
-  title: "HB Mission Intel",
-  settings: [
-    {
-      group: "Content",
-      inputs: [
-        { type: "text", name: "videoId", label: "YouTube video ID (optional)", placeholder: "dQw4w9WgXcQ" },
-        { type: "text", name: "preOrderLink", label: "Pre-order link", defaultValue: "/products" },
-      ],
-    },
-  ],
-  presets: { preOrderLink: "/products" },
+  title: "HB Blog",
+  settings: [],
+  presets: {},
 });

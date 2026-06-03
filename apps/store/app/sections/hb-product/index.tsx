@@ -1,437 +1,264 @@
 import { createSchema } from "@weaverse/hydrogen";
 import type { HydrogenComponentProps } from "@weaverse/hydrogen";
-import { motion, useInView } from "motion/react";
-import { useRef, useState, useEffect } from "react";
-import { useFetcher } from "react-router";
+import { useState, useEffect, useRef } from "react";
+import { ChevronLeft, ChevronRight, Check } from "lucide-react";
 
 interface HbProductProps extends HydrogenComponentProps {
-  canImage?: string;
-  lifestyleImage?: string;
-  preOrderLink?: string;
+  shopLink?: string;
+  muxPlaybackId?: string;
 }
 
 function HbProduct(props: HbProductProps) {
-  const {
-    canImage = "/images/XrNhE2G.webp",
-    lifestyleImage = "/images/krNGOh7.webp",
-    preOrderLink = "/products",
-    ...rest
-  } = props;
+  const { shopLink = "/products", muxPlaybackId = "WkfZM6lERIxrrn7PGX01WTmyhwJCGnK9VbzKPwMdBDq00", ...rest } = props;
 
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [activeTagIndex, setActiveTagIndex] = useState(0);
-  const [isResearchExpanded, setIsResearchExpanded] = useState(false);
-  const [evolutionEmail, setEvolutionEmail] = useState("");
-  const fetcher = useFetcher<{ ok: boolean; error: string }>();
-  const isEvolutionSubmitting = fetcher.state === "submitting";
-  const submitSuccess = fetcher.data?.ok === true;
+  const [carouselIndex, setCarouselIndex] = useState(0);
+  const [quantity, setQuantity] = useState(1);
+  const [showIngredients, setShowIngredients] = useState(false);
+  const [activeChapter, setActiveChapter] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-  const tasteProfiles = ["Light", "Crisp", "Smooth", "Refreshing"];
+  const carouselImages = [
+    "/carousel-image.png",
+    "https://i.imgur.com/4kKmc7z.jpeg",
+    "https://i.imgur.com/iXr5kKh.png",
+    "https://i.imgur.com/sqTrdv5.png",
+  ];
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveTagIndex((prev) => (prev + 1) % tasteProfiles.length);
-    }, 2000);
-    return () => clearInterval(interval);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target as HTMLElement;
+            const delay = el.dataset.scrollDelay || "0";
+            setTimeout(() => el.classList.add("scroll-visible"), parseInt(delay));
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -60px 0px" },
+    );
+    document.querySelectorAll(".scroll-reveal").forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
-  const tasteData = [
-    { label: "LIGHT", sub: "[LOW-VISCOSITY]" },
-    { label: "CRISP", sub: "[ALKALINE BUFFER]" },
-    { label: "SMOOTH", sub: "[LOW-ACIDITY]" },
-    { label: "REFRESHING", sub: "[CLEAN SUBSTRATE]" },
-  ];
+  const handleVideoTimeUpdate = () => {
+    if (!videoRef.current) return;
+    const t = videoRef.current.currentTime;
+    setActiveChapter(t < 6 ? 0 : t < 11 ? 1 : 2);
+  };
 
-  const hudNodes = [
-    { side: "left", top: "20%", label: "LION'S MANE", sub: "NEURAL CLARITY", delay: 0.8 },
-    { side: "left", top: "50%", label: "GLYCEMIC LOAD", sub: "LOW", delay: 0.9, centered: true },
-    { side: "right", top: "20%", label: "L-THEANINE", sub: "FLOW STATE", delay: 0.8, flip: true },
-    { side: "right", top: "50%", label: "ELECTROLYTES", sub: "HYDRATION SUPPORT", delay: 0.9, flip: true, centered: true },
-    { side: "left", bottom: "20%", label: "RITUAL", sub: "COFFEE CUE", delay: 1.0 },
-    { side: "right", bottom: "20%", label: "CALORIE COUNT", sub: "Only 20 Calories", delay: 1.0, flip: true },
-  ];
+  const chapters = ["2:15pm", "4:47pm", "6:15pm"];
+
+  const scrollRevealCss = `
+    .scroll-reveal { opacity:0; transform:translateY(20px); transition:opacity 0.6s ease,transform 0.6s ease; }
+    .scroll-reveal.scroll-visible { opacity:1; transform:translateY(0); }
+    .hydrbrew-row { box-shadow:0 0 30px rgba(0,255,255,0.2); }
+    .hydrbrew-row:hover { background-color:rgba(0,255,255,0.08)!important; box-shadow:0 0 50px rgba(0,255,255,0.3); }
+    @keyframes hb-fadein { from{opacity:0;transform:translateY(-10px)} to{opacity:1;transform:translateY(0)} }
+    .hb-animate-fadein { animation:hb-fadein 0.3s ease-out; }
+  `;
 
   return (
-    <section
-      ref={ref}
-      {...rest}
-      className="py-24 md:py-32 relative overflow-hidden"
-      style={{ backgroundColor: "#05070A" }}
-    >
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-3xl" />
+    <section id="shop" {...rest} className="relative pt-8 pb-24 md:py-24 bg-gradient-to-b from-black via-[#0A0A0A] to-black overflow-hidden">
+      <style dangerouslySetInnerHTML={{ __html: scrollRevealCss }} />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <div className="flex justify-center mb-6">
-            <div className="px-4 py-1.5 border border-cyan-500/30 rounded-full text-xs font-mono tracking-wider" style={{ color: "#00FFFF" }}>
-              THE PRODUCT
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-1/3 w-96 h-96 bg-[#00FFFF]/5 rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 right-1/3 w-96 h-96 bg-purple-500/5 rounded-full blur-[120px]" />
+      </div>
+
+      <div className="relative z-10 container mx-auto px-4 pt-4 pb-16 md:py-24">
+
+        {/* Two-column: carousel + info */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 max-w-7xl mx-auto mb-32">
+
+          {/* Left: carousel */}
+          <div className="relative scroll-reveal" data-scroll-delay="0">
+            <div className="relative w-full aspect-[3/4] max-w-[360px] mx-auto border-2 border-[#00FFFF]/30 overflow-hidden">
+              <img src={carouselImages[carouselIndex]} alt={`hydrbrew product view ${carouselIndex + 1}`} className="w-full h-full object-cover transition-opacity duration-300" loading="lazy" />
             </div>
-          </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl mb-6 text-white">
-            Functional<br className="md:hidden" /> Iced Coffee.
-            <br />
-            <span className="inline-flex flex-wrap items-center justify-center gap-3 md:gap-4 mt-2">
-              <span>Zero Compromise.</span>
-              <motion.span
-                className="relative inline-flex items-center gap-2 px-3 md:px-4 py-1.5 bg-gradient-to-r from-cyan-500/20 via-cyan-500/10 to-cyan-500/20 border border-cyan-400/50 rounded-full ml-1 md:ml-2"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <motion.span
-                  className="relative text-3xl md:text-4xl lg:text-5xl font-bold"
-                  animate={{ textShadow: ["0 0 20px rgba(34, 211, 238, 0.4)", "0 0 40px rgba(34, 211, 238, 0.8)", "0 0 20px rgba(34, 211, 238, 0.4)"] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  +1
-                </motion.span>
-                <span className="relative text-2xl md:text-3xl lg:text-4xl" style={{ color: "#00FFFF" }}>You</span>
-              </motion.span>
-            </span>
-          </h2>
-          <p className="text-lg md:text-xl text-neutral-400 mb-16 leading-relaxed max-w-3xl mx-auto">
-            Engineered as a performance beverage to own the afternoon window.
-          </p>
-        </motion.div>
-
-        {/* Blueprint Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="relative max-w-7xl mx-auto mb-16 rounded-2xl overflow-hidden border border-cyan-500/20"
-          style={{ backgroundColor: "#050505" }}
-        >
-          {/* Grid background */}
-          <div className="absolute inset-0 opacity-[0.12]">
-            <svg className="w-full h-full" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
-              <defs>
-                <pattern id="topo-grid" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
-                  <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#00FFFF" strokeWidth="0.8" />
-                </pattern>
-                <radialGradient id="grid-fade" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="#00FFFF" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#00FFFF" stopOpacity="0.2" />
-                </radialGradient>
-              </defs>
-              {[550, 450, 350, 250].map((rx, i) => (
-                <ellipse key={i} cx="600" cy="400" rx={rx} ry={rx * 0.636} fill="none" stroke="url(#grid-fade)" strokeWidth="1.5" opacity={0.4 + i * 0.1} />
-              ))}
-              <rect width="1200" height="800" fill="url(#topo-grid)" opacity="0.7" />
-            </svg>
-          </div>
-
-          {/* Scanning laser */}
-          <motion.div
-            className="absolute inset-0 pointer-events-none"
-            style={{ background: "linear-gradient(90deg, transparent 0%, rgba(0, 255, 255, 0.15) 50%, transparent 100%)", width: "100%" }}
-            animate={{ x: ["-100%", "200%"] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-          />
-
-          <div className="relative pt-2 pb-8 md:pb-16 px-4 md:px-8 lg:px-16">
-            <div className="relative flex items-start justify-center">
-              {/* Can */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 1, delay: 0.5 }}
-                className="flex flex-col items-center gap-4 md:gap-8"
-              >
-                <img src={canImage} alt="hydrbrew can" className="w-[350px] sm:w-[500px] md:w-[650px] lg:w-[800px] h-auto object-contain" />
-
-                {/* Flow State Meter */}
-                <div className="w-full max-w-[350px] sm:max-w-[500px] md:max-w-[700px] flex flex-col items-center gap-2 md:gap-4 px-2">
-                  <div className="text-xs sm:text-sm md:text-base font-mono tracking-wider font-bold" style={{ color: "#00FFFF", textShadow: "0 0 10px rgba(0, 255, 255, 0.6)" }}>
-                    FLOW STATE METER
-                  </div>
-                  <div className="w-full h-6 md:h-8 bg-black/60 rounded-lg overflow-hidden relative" style={{ border: "2px solid rgba(0, 255, 255, 0.5)", boxShadow: "0 0 30px rgba(0, 255, 255, 0.3), inset 0 0 20px rgba(0, 0, 0, 0.8)" }}>
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={isInView ? { width: ["0%", "75%"] } : {}}
-                      transition={{ duration: 8, repeat: Infinity, repeatDelay: 0.5, ease: "easeInOut" }}
-                      className="h-full relative"
-                      style={{ background: "linear-gradient(to right, #00FFFF, #06b6d4, #00FFFF)", boxShadow: "0 0 30px rgba(0, 255, 255, 0.8)" }}
-                    >
-                      <motion.div
-                        className="absolute inset-0"
-                        style={{ background: "linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.6) 50%, transparent 100%)", width: "40%" }}
-                        animate={{ x: ["-40%", "140%"] }}
-                        transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-                      />
-                    </motion.div>
-                    <div className="absolute right-[25%] top-1/2 -translate-y-1/2 w-0.5 md:w-1 h-8 md:h-10" style={{ backgroundColor: "#00FFFF", boxShadow: "0 0 10px rgba(0, 255, 255, 0.8)" }} />
-                  </div>
-                  <div className="text-xs sm:text-sm font-mono font-bold" style={{ color: "rgba(0, 255, 255, 0.8)" }}>75% OPTIMAL PERFORMANCE</div>
-                </div>
-              </motion.div>
-
-              {/* HUD Nodes */}
-              {hudNodes.map((node, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0 }}
-                  animate={isInView ? { opacity: 1 } : {}}
-                  transition={{ duration: 0.6, delay: node.delay }}
-                  className={`absolute ${node.side === "left" ? "left-[2%] md:left-[10%]" : "right-[5%] md:right-[10%]"}`}
-                  style={node.bottom ? { bottom: node.bottom } : { top: node.top, ...(node.centered ? { transform: "translateY(-50%)" } : {}) }}
-                >
-                  <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
-                    {!node.flip && (
-                      <div className="text-right">
-                        <div className="text-[10px] sm:text-xs md:text-base font-mono font-bold" style={{ color: "#00FFFF" }}>{node.label}</div>
-                        <div className="text-[9px] sm:text-[10px] md:text-xs font-mono" style={{ color: "rgba(0, 255, 255, 0.6)" }}>{node.sub}</div>
-                      </div>
-                    )}
-                    <div className="w-2 h-2 sm:w-3 sm:h-3 md:w-4 md:h-4 rounded-full" style={{ backgroundColor: "#00FFFF", boxShadow: "0 0 20px rgba(0, 255, 255, 1), 0 0 40px rgba(0, 255, 255, 0.6)" }} />
-                    {node.flip && (
-                      <div className="text-left">
-                        <div className="text-[10px] sm:text-xs md:text-base font-mono font-bold" style={{ color: "#00FFFF" }}>{node.label}</div>
-                        <div className="text-[9px] sm:text-[10px] md:text-xs font-mono" style={{ color: "rgba(0, 255, 255, 0.6)" }}>{node.sub}</div>
-                      </div>
-                    )}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Pre-order CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 1.2 }}
-          className="flex flex-col items-center gap-3 mb-16"
-        >
-          <a
-            href={preOrderLink}
-            className="px-12 py-4 text-black font-bold text-lg rounded-md transition-colors duration-200 inline-block"
-            style={{ backgroundColor: "#00FFFF" }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = "#00CCCC")}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = "#00FFFF")}
-          >
-            CLAIM PRE-SALE DISCOUNT
-          </a>
-          <p className="text-sm text-neutral-400 font-mono">Limited first-run production.</p>
-        </motion.div>
-
-        {/* Taste profile */}
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="relative p-6"
-            style={{
-              background: "linear-gradient(to bottom right, rgba(0, 255, 255, 0.05), rgba(0, 0, 0, 0.4), rgba(0, 255, 255, 0.05))",
-              border: "1px solid rgba(0, 255, 255, 0.3)",
-              boxShadow: "0 0 20px rgba(0, 255, 255, 0.1), inset 0 0 30px rgba(0, 255, 255, 0.05)",
-            }}
-          >
-            <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-cyan-500/70" />
-            <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-cyan-500/70" />
-            <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-cyan-500/70" />
-            <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-cyan-500/70" />
-
-            <div className="text-sm font-bold mb-4" style={{ color: "#00FFFF" }}>Taste Profile</div>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-0">
-              {tasteData.map((t, i) => (
-                <motion.div
-                  key={t.label}
-                  animate={{ backgroundColor: activeTagIndex === i ? "rgba(0, 255, 255, 0.2)" : "rgba(0, 0, 0, 0)" }}
-                  transition={{ duration: 0.4 }}
-                  className="flex flex-col items-center justify-center py-3"
-                  style={{ borderRight: i < 3 ? "1px solid rgba(0, 255, 255, 0.4)" : undefined }}
-                >
-                  <motion.div
-                    animate={{ color: activeTagIndex === i ? "rgba(0, 255, 255, 1)" : "rgba(0, 255, 255, 0.8)" }}
-                    transition={{ duration: 0.4 }}
-                    className="font-mono font-bold mb-1"
-                    style={{ fontFamily: "Roboto Mono, monospace", fontSize: "14px" }}
-                  >
-                    {t.label}
-                  </motion.div>
-                  <div style={{ fontFamily: "Source Sans Pro, sans-serif", fontSize: "11px", fontWeight: 600, color: activeTagIndex === i ? "rgba(200, 200, 200, 1)" : "rgba(150, 150, 150, 1)" }}>
-                    {t.sub}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Lifestyle image */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 1.1 }}
-            className="mt-12 mb-12 relative rounded-2xl overflow-hidden group cursor-pointer w-full"
-            style={{ height: "400px" }}
-          >
-            <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style={{ backgroundImage: `url(${lifestyleImage})`, filter: "brightness(0.95) contrast(1.05) saturate(1.1)" }} />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
-            <div className="absolute inset-0" style={{ boxShadow: "inset 0 0 120px 20px rgba(0, 0, 0, 0.4)" }} />
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 1.3 }}
-              className="absolute top-6 left-6 flex items-center gap-3"
-            >
-              <motion.div
-                className="w-1.5 h-1.5 rounded-full"
-                animate={{ backgroundColor: ["#FFFFFF", "#000000", "#FFFFFF"] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              />
-              <span className="font-mono text-black text-sm tracking-wider font-semibold">2:15 PM</span>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 1.4 }}
-              className="absolute bottom-6 left-6 right-6"
-            >
-              <div className="flex items-end justify-between">
-                <div>
-                  <div className="text-white text-xl md:text-2xl lg:text-3xl font-bold mb-2" style={{ textShadow: "0 2px 20px rgba(0, 0, 0, 0.9)" }}>The Afternoon in Action</div>
-                  <div className="text-sm md:text-base font-mono tracking-wide" style={{ color: "#00FFFF" }}>Total stability. Zero latency. All clarity.</div>
-                </div>
-                <motion.div
-                  className="hidden md:flex items-center gap-2 px-4 py-2 bg-black/60 backdrop-blur-md border border-cyan-500/30 rounded-full"
-                  animate={{ boxShadow: ["0 0 10px rgba(34, 211, 238, 0.2)", "0 0 20px rgba(34, 211, 238, 0.4)", "0 0 10px rgba(34, 211, 238, 0.2)"] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <span className="font-mono text-xs tracking-wider" style={{ color: "#00FFFF" }}>hydrbrew°</span>
-                </motion.div>
-              </div>
-            </motion.div>
-            <div className="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-cyan-500/40 opacity-60" />
-            <div className="absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2 border-cyan-500/40 opacity-60" />
-            <div className="absolute bottom-0 left-0 w-12 h-12 border-b-2 border-l-2 border-cyan-500/40 opacity-60" />
-            <div className="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-cyan-500/40 opacity-60" />
-          </motion.div>
-
-          {/* Research accordion */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 1 }}
-            className="mt-6 bg-black/20 rounded-lg overflow-hidden backdrop-blur-sm"
-            style={{ border: "1px solid rgba(0, 255, 255, 0.1)" }}
-          >
-            <button
-              type="button"
-              onClick={() => setIsResearchExpanded(!isResearchExpanded)}
-              className="w-full flex items-center gap-2 px-4 py-3 transition-colors"
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = "rgba(0, 255, 255, 0.05)")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = "transparent")}
-            >
-              <div className="w-2 h-2 rounded-full" style={{ backgroundColor: "rgba(0, 255, 255, 0.6)" }} />
-              <span className="text-xs md:text-sm font-mono tracking-wider" style={{ color: "rgba(0, 255, 255, 0.7)" }}>RESEARCH.md</span>
-              <span className="text-[10px] md:text-xs font-mono text-neutral-700 ml-auto mr-2">[3]</span>
-              <motion.svg
-                animate={{ rotate: isResearchExpanded ? 180 : 0 }}
-                transition={{ duration: 0.3 }}
-                className="w-4 h-4 md:w-5 md:h-5"
-                style={{ color: "rgba(0, 255, 255, 0.5)" }}
-                fill="none" viewBox="0 0 24 24" stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </motion.svg>
-            </button>
-            <motion.div
-              initial={false}
-              animate={{ height: isResearchExpanded ? "auto" : 0, opacity: isResearchExpanded ? 1 : 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="overflow-hidden"
-            >
-              <div className="px-3 pb-3" style={{ borderTop: "1px solid rgba(0, 255, 255, 0.1)" }}>
-                <div className="space-y-2.5 mt-3">
-                  {[
-                    { num: "01", label: "Low Sugar —", text: "Sugar-sweetened beverage reduction studies", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC9964017/", code: "PMC9964017" },
-                    { num: "02", label: "L-Theanine + Caffeine —", text: "Cognitive performance and alertness synergy", url: "https://www.researchgate.net/publication/47643925_The_combination_of_L-theanine_and_caffeine_improves_cognitive_performance_and_increases_subjective_alertness", code: "ResearchGate" },
-                    { num: "03", label: "Lion's Mane —", text: "Neuroprotective and cognitive enhancement effects", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC10675414/", code: "PMC10675414" },
-                  ].map((r) => (
-                    <div key={r.num} className="flex items-start gap-2 text-xs md:text-sm font-mono">
-                      <span className="text-neutral-600 select-none flex-shrink-0">[{r.num}]</span>
-                      <div className="flex-1">
-                        <span className="text-neutral-500">{r.label}</span>{" "}
-                        <a href={r.url} target="_blank" rel="noopener noreferrer" className="underline decoration-dotted" style={{ color: "rgba(0, 255, 255, 0.6)" }}>
-                          {r.text}
-                        </a>
-                        <span className="text-neutral-700 ml-1 text-[10px] md:text-xs">{r.code}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-3 pt-2" style={{ borderTop: "1px solid rgba(0, 255, 255, 0.1)" }}>
-                  <p className="text-xs md:text-sm font-mono text-neutral-500 leading-relaxed">
-                    All formulation claims calibrated against peer-reviewed research. hydrbrew° is designed for baseline optimization, not medical intervention.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-
-          {/* Email capture */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 1.2 }}
-            className="mt-8 md:mt-16 mb-4 max-w-3xl mx-auto px-4 md:px-6 py-4 md:py-6 bg-black/40 rounded-lg"
-            id="email-capture"
-            style={{ border: "1px solid rgba(0, 255, 255, 0.2)", boxShadow: "0 0 30px rgba(0, 255, 255, 0.1)" }}
-          >
-            <div className="font-mono mb-3 md:mb-4 text-xs md:text-sm" style={{ fontFamily: "Roboto Mono, monospace", color: "#00FFFF", textShadow: "0 0 10px rgba(0, 255, 255, 0.6)" }}>
-              // INITIALIZE YOUR EVOLUTION
-            </div>
-            {submitSuccess ? (
-              <div className="text-cyan-400 font-mono text-center py-4">ACCESS INITIALIZED ✓ Check your inbox.</div>
-            ) : (
-              <div className="flex flex-col md:flex-row items-stretch md:items-center gap-2 md:gap-3">
-                <input
-                  type="email"
-                  value={evolutionEmail}
-                  onChange={(e) => setEvolutionEmail(e.target.value)}
-                  disabled={isEvolutionSubmitting}
-                  placeholder="your_email@protocol.com"
-                  className="flex-1 px-3 md:px-4 py-2.5 md:py-3 bg-neutral-800/80 rounded-lg text-white placeholder:text-neutral-400 transition-all text-sm"
-                  style={{ fontFamily: "Roboto Mono, monospace", border: "2px solid rgba(0, 255, 255, 0.4)", outline: "none" }}
-                />
-                <button
-                  type="button"
-                  disabled={isEvolutionSubmitting}
-                  onClick={() => {
-                    if (!evolutionEmail) return;
-                    const formData = new FormData();
-                    formData.set("email", evolutionEmail);
-                    fetcher.submit(formData, { action: "/api/klaviyo", method: "POST", encType: "multipart/form-data" });
-                  }}
-                  className="flex-1 md:flex-none px-4 md:px-6 py-2.5 md:py-3 text-black rounded-lg font-mono transition-colors text-xs md:text-sm"
-                  style={{ fontWeight: 600, backgroundColor: "#00FFFF", boxShadow: "0 0 20px rgba(0, 255, 255, 0.6)" }}
-                  onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = "#00CCCC")}
-                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = "#00FFFF")}
-                >
-                  {isEvolutionSubmitting ? "SUBMITTING..." : "INITIALIZE"}
+            <div className="flex gap-3 mt-6 justify-center">
+              {carouselImages.map((img, i) => (
+                <button type="button" key={i} onClick={() => setCarouselIndex(i)} className="w-20 h-24 border-2 transition-all overflow-hidden" style={{ borderColor: carouselIndex === i ? "#00FFFF" : "rgba(255,255,255,0.2)", boxShadow: carouselIndex === i ? "0 0 10px rgba(0,255,255,0.5)" : "none" }}>
+                  <img src={img} alt={`thumbnail ${i + 1}`} className="w-full h-full object-cover" loading="lazy" />
                 </button>
-                <div className="hidden md:flex items-center gap-2">
-                  <motion.div
-                    className="w-2 h-2 rounded-full"
-                    style={{ backgroundColor: "#00FFFF" }}
-                    animate={{ opacity: [0.4, 1, 0.4], boxShadow: ["0 0 8px rgba(0, 255, 255, 0.6)", "0 0 16px rgba(0, 255, 255, 1)", "0 0 8px rgba(0, 255, 255, 0.6)"] }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                  />
-                  <span className="font-mono whitespace-nowrap" style={{ fontFamily: "Roboto Mono, monospace", fontSize: "11px", opacity: 0.8, color: "#00FFFF" }}>LIVE_UPLINK</span>
+              ))}
+            </div>
+            <div className="flex justify-center gap-2 mt-4">
+              {carouselImages.map((_, i) => (
+                <button type="button" key={i} onClick={() => setCarouselIndex(i)} className={`w-2 h-2 rounded-full transition-all ${carouselIndex === i ? "bg-[#00FFFF]" : "bg-white/20 hover:bg-white/40"}`} />
+              ))}
+            </div>
+          </div>
+
+          {/* Right: info */}
+          <div className="flex flex-col justify-start scroll-reveal" data-scroll-delay="120">
+            <h2 className="text-5xl md:text-6xl font-bold text-white mb-4" style={{ fontFamily: "'Urbanist',sans-serif" }}>FUNCTIONAL<br />ICED COFFEE</h2>
+            <p className="text-2xl md:text-3xl text-white mb-4" style={{ fontFamily: "'Urbanist',sans-serif", fontWeight: 500 }}>Nootropics + Adaptogens</p>
+
+            <div className="flex flex-col gap-2 mb-6">
+              {["Sustained Uptime", "Accelerated Neural Clarity (Lion's Mane)", "Zero Jitters / Clean Metabolic Exit"].map((point) => (
+                <div key={point} className="flex items-center gap-3">
+                  <span className="text-[#00FFFF] text-base font-bold" style={{ fontFamily: "'Roboto Mono',monospace" }}>✓</span>
+                  <span className="text-white/90 text-base" style={{ fontFamily: "'Urbanist',sans-serif", fontWeight: 500 }}>{point}</span>
                 </div>
+              ))}
+            </div>
+
+            <p className="text-base md:text-lg text-[#00FFFF] mb-2 font-bold" style={{ fontFamily: "'Roboto Mono',monospace" }}>12-PACK // 12 OZ SLEEK CANS</p>
+            <p className="text-sm text-[#00FFFF] mb-6" style={{ fontFamily: "'Roboto Mono',monospace" }}>200mg L-Theanine // 200mg Lion's Mane // 85mg Caffeine</p>
+
+            <p className="text-base text-white/80 mb-8 leading-relaxed" style={{ fontFamily: "'Urbanist',sans-serif", fontWeight: 300 }}>
+              hydrbrew° is a light and crisp, refreshing evolution of the coffee ritual. Molecularly calibrated for sustained uptime, it eliminates the metabolic drag of traditional caffeine - delivering a clear, precise cognitive glide without the noise. No sharp spikes, no afternoon jitters. Just a clean return to baseline. Command your day. The night stays yours.
+            </p>
+
+            {/* Badges */}
+            <div className="flex gap-6 mb-8">
+              {["https://i.imgur.com/vs3fowk.png", "https://i.imgur.com/guTl0lK.png", "https://i.imgur.com/DCLjzhJ.png"].map((src, i) => (
+                <div key={i} className="w-32 h-32 border-2 border-[#00FFFF]/40 flex items-center justify-center overflow-hidden">
+                  <img src={src} alt="product badge" className="w-full h-full object-cover" loading="lazy" style={{ filter: "brightness(1.3)" }} />
+                </div>
+              ))}
+            </div>
+
+            {/* Quantity */}
+            <div className="mb-6">
+              <label className="text-xs text-[#00FFFF]/60 uppercase tracking-wider mb-3 block" style={{ fontFamily: "'Roboto Mono',monospace" }}>Quantity // 12-Packs</label>
+              <div className="flex items-center gap-4">
+                <button type="button" onClick={() => setQuantity(q => Math.max(1, q - 1))} disabled={quantity <= 1} className="w-10 h-10 border border-[#00FFFF] text-[#00FFFF] flex items-center justify-center hover:bg-[#00FFFF]/10 transition-all disabled:opacity-30">−</button>
+                <span className="text-white text-lg font-medium min-w-8 text-center">{quantity}</span>
+                <button type="button" onClick={() => setQuantity(q => Math.min(10, q + 1))} disabled={quantity >= 10} className="w-10 h-10 border border-[#00FFFF] text-[#00FFFF] flex items-center justify-center hover:bg-[#00FFFF]/10 transition-all disabled:opacity-30">+</button>
+              </div>
+            </div>
+
+            <p className="text-sm text-white/70 mb-2" style={{ fontFamily: "'Roboto Mono',monospace" }}>$59.95 // per 12-pack</p>
+
+            <a href={shopLink} className="w-full py-4 mb-4 text-black font-bold uppercase tracking-wider transition-all hover:opacity-90 rounded-xl text-center block" style={{ backgroundColor: "#00FFFF", fontFamily: "'Urbanist',sans-serif", fontSize: "18px", fontWeight: 700 }}>
+              SECURE ALLOCATION
+            </a>
+
+            <button type="button" onClick={() => setShowIngredients(!showIngredients)} className="w-full py-4 border border-white text-white font-medium uppercase tracking-wider hover:bg-white/10 transition-all rounded-xl" style={{ fontFamily: "'Urbanist',sans-serif", fontSize: "14px" }}>
+              Full Ingredients {showIngredients ? "↑" : "↓"}
+            </button>
+
+            {showIngredients && (
+              <div className="mt-6 border border-[#00FFFF]/30 rounded-lg overflow-hidden hb-animate-fadein">
+                <img src="https://i.imgur.com/opEN1j8.jpeg" alt="hydrbrew ingredient label" className="w-full h-auto" loading="lazy" />
               </div>
             )}
-          </motion.div>
+          </div>
+        </div>
+
+        {/* The Afternoon Ritual */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 max-w-7xl mx-auto mb-32">
+          <div className="flex flex-col justify-start scroll-reveal" data-scroll-delay="0">
+            <h2 className="text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-tight mb-8" style={{ fontFamily: "'Urbanist',sans-serif" }}>The<br />Afternoon<br />Ritual</h2>
+            <p className="text-base md:text-lg text-white/70 leading-relaxed" style={{ fontFamily: "'Urbanist',sans-serif", fontWeight: 300 }}>
+              Functional Iced Coffee for high-frequency output. Precision coffee soul, vital electrolytes, and a calibrated nootropic stack work in total sync to sustain your peak baseline—eliminating systemic friction and protecting the ritual you love.
+            </p>
+          </div>
+          <div className="relative flex items-center justify-center scroll-reveal" data-scroll-delay="160">
+            <div className="w-full max-w-md aspect-square bg-gradient-to-br from-[#00FFFF]/20 to-transparent rounded-lg overflow-hidden border-2 border-[#00FFFF]/30" style={{ transform: "rotate(15deg)", boxShadow: "0 40px 80px rgba(0,0,0,0.5)" }}>
+              <div className="w-full h-full flex items-center justify-center">
+                <img src="https://i.imgur.com/jaYNqNB.png" alt="Person holding hydrbrew can" className="w-full h-full object-cover" style={{ transform: "rotate(-15deg) scale(1.85) translateY(3%)" }} loading="lazy" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Category comparison + video */}
+        <div className="mt-12 md:mt-32 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-16">
+
+            {/* Left: table */}
+            <div className="flex flex-col scroll-reveal" data-scroll-delay="0">
+              <div className="mb-16 md:mb-20">
+                <p className="text-[#00FFFF] text-sm mb-4 uppercase tracking-wider" style={{ fontFamily: "'Roboto Mono',monospace" }}>CATEGORY ANALYSIS // COMPETITIVE MATRIX</p>
+                <h3 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-tight" style={{ fontFamily: "'Urbanist',sans-serif" }}>How We<br />Stack Up</h3>
+              </div>
+
+              <div className="overflow-x-auto border border-[#00FFFF]/20 p-1 flex-1 flex items-stretch">
+                <table className="w-full" style={{ borderCollapse: "collapse", fontFamily: "'Urbanist',sans-serif" }}>
+                  <thead>
+                    <tr style={{ backgroundColor: "#0B0B0B", borderBottom: "2px solid #00FFFF" }}>
+                      {["CATEGORY", "RITUAL", "STACK"].map(h => (
+                        <th key={h} className="text-left py-3 px-3 md:py-6 md:px-8"><span className="text-[#00FFFF] uppercase tracking-wider font-bold text-[10px] md:text-xs">{h}</span></th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { name: "RTD Coffee", sub: "La Colombe", ritual: "Morning", stack: "Absent" },
+                      { name: "Functional Water", sub: "Liquid I.V.", ritual: "Anytime", stack: "Absent" },
+                      { name: "Nootropic Drinks", sub: "Kin", ritual: "Evening", stack: "Partial" },
+                    ].map((row) => (
+                      <tr key={row.name} className="transition-all duration-300 hover:bg-white/[0.02]" style={{ borderBottom: "1px solid #1A1A1A" }}>
+                        <td className="py-4 px-3 md:py-6 md:px-8"><div className="text-white/80 text-sm md:text-lg font-medium">{row.name}</div><div className="text-white/50 text-xs md:text-sm mt-1 hidden md:block">{row.sub}</div></td>
+                        <td className="py-4 px-3 md:py-6 md:px-8"><div className="text-white/70 text-sm md:text-base">{row.ritual}</div></td>
+                        <td className="py-4 px-3 md:py-6 md:px-8"><div className="text-white/70 text-sm md:text-base">{row.stack}</div></td>
+                      </tr>
+                    ))}
+                    <tr className="hydrbrew-row transition-all duration-300" style={{ backgroundColor: "rgba(0,255,255,0.05)", borderLeft: "4px solid #00FFFF" }}>
+                      <td className="py-5 px-3 md:py-8 md:px-8">
+                        <div className="flex items-center gap-2 md:gap-3">
+                          <div className="w-2 h-2 md:w-3 md:h-3 bg-[#00FFFF] rounded-full" style={{ boxShadow: "0 0 10px rgba(0,255,255,0.8)" }} />
+                          <span className="text-base md:text-2xl font-bold" style={{ fontFamily: "'Space Grotesk',sans-serif" }}>
+                            <span className="text-[#00FFFF]">hydr</span><span className="text-white">brew°</span>
+                          </span>
+                        </div>
+                      </td>
+                      <td className="py-5 px-3 md:py-8 md:px-8"><div className="text-[#00FFFF] text-sm md:text-lg font-bold">AFTERNOON</div><div className="text-[#00FFFF]/60 text-xs md:text-sm font-mono mt-1 hidden md:block">Noon-6PM</div></td>
+                      <td className="py-5 px-3 md:py-8 md:px-8"><div className="flex items-center gap-1 md:gap-2"><div className="text-[#00FFFF] text-lg md:text-2xl">✓</div><span className="text-[#00FFFF] text-xs md:text-base font-bold">FULL STACK BENEFITS</span></div></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="mt-6 md:mt-16 flex items-center justify-center text-center">
+                <p className="text-white text-lg md:text-2xl max-w-2xl" style={{ fontFamily: "'Urbanist',sans-serif", fontWeight: 400 }}>
+                  Molecularly calibrated for sustained uptime.<br /><span className="text-[#00FFFF] font-bold">The Night Stays Yours.</span>
+                </p>
+              </div>
+            </div>
+
+            {/* Right: video with chapter timeline */}
+            <div className="flex flex-col scroll-reveal" data-scroll-delay="160">
+              <div className="mb-0 md:mb-20 opacity-0 pointer-events-none" aria-hidden="true"><p>.</p><h3 className="text-5xl md:text-7xl lg:text-8xl">.<br />.</h3></div>
+
+              {/* Chapter timeline */}
+              <div className="mb-2 md:mb-6 px-2">
+                <div className="flex items-center justify-between gap-2">
+                  {chapters.map((c, i) => (
+                    <>
+                      {i > 0 && <div key={`div-${i}`} className="flex-1 h-[1px] bg-gradient-to-r from-[#00FFFF]/30 to-[#00FFFF]/10" />}
+                      <div key={c} className="flex flex-col items-center transition-all duration-500">
+                        <span className={`font-bold transition-all duration-500 ${activeChapter === i ? "text-2xl md:text-3xl text-[#00FFFF]" : "text-base md:text-lg text-white/30"}`} style={{ fontFamily: "'Urbanist',sans-serif", textShadow: activeChapter === i ? "0 0 20px rgba(0,255,255,0.6)" : "none" }}>{c}</span>
+                      </div>
+                    </>
+                  ))}
+                </div>
+              </div>
+
+              {/* Video */}
+              <div className="relative w-full flex-1 h-[400px] lg:h-auto lg:min-h-0 border-0 lg:border-2 lg:border-[#00FFFF]/30 rounded-none lg:rounded-2xl p-0 lg:p-1 transition-all overflow-hidden">
+                <div className="relative w-full h-full rounded-none lg:rounded-xl overflow-hidden">
+                  <video
+                    ref={videoRef}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    onTimeUpdate={handleVideoTimeUpdate}
+                    className="w-full h-full object-cover"
+                    style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+                  >
+                    <source src={`https://stream.mux.com/${muxPlaybackId}/high.mp4`} type="video/mp4" />
+                  </video>
+                </div>
+                <div className="absolute inset-0 bg-[#00FFFF]/5 blur-xl -z-10" />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -444,19 +271,10 @@ export const schema = createSchema({
   type: "hb-product",
   title: "HB Product",
   settings: [
-    {
-      group: "Images",
-      inputs: [
-        { type: "image", name: "canImage", label: "Can image" },
-        { type: "image", name: "lifestyleImage", label: "Lifestyle image" },
-      ],
-    },
-    {
-      group: "Links",
-      inputs: [
-        { type: "text", name: "preOrderLink", label: "Pre-order link", defaultValue: "/products" },
-      ],
-    },
+    { group: "Content", inputs: [
+      { type: "text", name: "shopLink", label: "Shop / buy link", defaultValue: "/products" },
+      { type: "text", name: "muxPlaybackId", label: "Mux video playback ID", defaultValue: "WkfZM6lERIxrrn7PGX01WTmyhwJCGnK9VbzKPwMdBDq00" },
+    ]},
   ],
-  presets: { preOrderLink: "/products" },
+  presets: { shopLink: "/products" },
 });

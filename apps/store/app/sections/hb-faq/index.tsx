@@ -1,164 +1,66 @@
 import { createSchema } from "@weaverse/hydrogen";
 import type { HydrogenComponentProps } from "@weaverse/hydrogen";
-import { motion, useInView } from "motion/react";
-import { ChevronDown } from "lucide-react";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 const faqs = [
-  {
-    question: "How is this different from coffee?",
-    answer: 'hydrbrew° is a light and crisp, refreshing evolution of the ritual. It delivers the familiar cold-brew soul you love but with a precision Whisper-Profile that eliminates the heavy, acidic "tax" of traditional roasts. No crash, no cortisol spike, no heart rate elevation. It\'s 100% coffee ritual, engineered for 100% afternoon performance.',
-  },
-  {
-    question: 'What does "precursor model" mean?',
-    answer: "Most energy products operate on 'biological debt'—a quick spike followed by a total crash. The Precursor Model is different. It's an architectural approach to focus that uses Lion's Mane and L-Theanine to provide the neural stability required for complex problem-solving. No forced spikes, no systemic tax—just a clear, optimized baseline for the +1 You.",
-  },
-  {
-    question: "How much caffeine is in it, and who is it for?",
-    answer: "85mg per serving (most people reported 150-300mg daily from coffee). It's ideal if you love coffee but experience occasional overload (jitters, anxiety, poor sleep), afternoon crashes, or want calmer focus and better recovery without quitting the ritual entirely.",
-  },
-  {
-    question: "Is hydrbrew° an alternative energy drink?",
-    answer: "Not exactly. Energy drinks are built around a spike — high-dose caffeine, stimulatory compounds, and a hard exit that leaves you managing the back half of the day. hydrbrew° engineers the full arc. 85mg buffered caffeine delivers clean activation below the cortisol spike threshold. 200mg L-Theanine converts that activation into sustained precision focus. 200mg Lion's Mane supports executive function depth. 255mg ionic electrolytes maintain the hydration baseline. The result is not a better spike. It is a different relationship with the afternoon entirely.",
-  },
-  {
-    question: "What's the taste like?",
-    answer: "Experience the familiar essence of cold brew paired with sharp, mineral crispness. Engineered for performance, this formula features an alkaline finish for superior hydration—all with a clean label, low sugar, and only 20 calories. It is the coffee ritual you love, stripped of the heaviness.",
-  },
-  {
-    question: "When does it ship?",
-    answer: "Pre-order your 12-pack now. Sign up with your email to lock in your pre-sale discount. First shipments go out mid-July 2026.",
-  },
+  { question: "What makes hydrbrew° different from regular cold brew?", answer: "hydrbrew° is built differently. 85mg of precision-dosed buffered caffeine stays below the cortisol spike threshold. 200mg L-Theanine converts that activation into clean, sustained focus - no jagged edges, no anxiety, no hard exit. Add 200mg Lion's Mane for executive function depth and an ionic electrolyte layer for the hydration baseline that standard cold brew actively depletes." },
+  { question: "How much caffeine is in hydrbrew°?", answer: "hydrbrew° contains 85mg of buffered caffeine per 12oz can. This is intentionally dosed below the cortisol spike threshold - the point at which caffeine starts triggering anxiety, jitters, and the crash most people associate with coffee. The 85mg dose is precisely calibrated to deliver clean cognitive activation and sustained focus without the rough edges or metabolic debt of higher-dose caffeine." },
+  { question: "How does the no-crash science work?", answer: "The crash isn't caused by caffeine wearing off - it's caused by how most caffeine is delivered. High-dose caffeine triggers a cortisol spike that artificially elevates your baseline. hydrbrew° engineers around this with 85mg of buffered caffeine, dosed below the cortisol spike threshold, paired with 200mg L-Theanine which modulates the adenosine rebound and smooths the exit curve. When it clears your system you return to baseline - not below it." },
+  { question: "What is zero systemic debt?", answer: "Zero systemic debt means you don't borrow energy from tomorrow to get through today. Most stimulants produce an artificial peak by triggering a cortisol surge. When it clears, you drop below baseline. hydrbrew° operates differently. The 85mg buffered caffeine dose activates without triggering the cortisol response. When hydrbrew° clears your system, you return to baseline - not below it. No debt. No invoice." },
+  { question: "What are the key ingredients?", answer: "hydrbrew° is built on four functional layers: 85mg buffered caffeine delivers clean cognitive activation. 200mg L-Theanine modulates caffeine's rough edges and promotes alpha-wave brain activity. 200mg Lion's Mane mushroom extract supports nerve growth factor synthesis and executive function. Ionic electrolytes maintain the hydration baseline - because even mild dehydration produces measurable declines in attention that no nootropic stack can compensate for." },
+  { question: "What is L-Theanine?", answer: "L-Theanine is an amino acid found naturally in green tea that promotes relaxed focus without sedation. It works by increasing alpha-wave brain activity - the same neural state associated with calm attention, creative flow, and reduced anxiety. When combined with caffeine, L-Theanine doesn't blunt the activation; it refines it. In hydrbrew°, 200mg of L-Theanine converts stimulation into sustained, high-resolution focus." },
+  { question: "What is Lion's Mane?", answer: "Lion's Mane (Hericium erinaceus) is a medicinal mushroom backed by modern research for cognitive function. The active compounds - hericenones and erinacines - stimulate nerve growth factor (NGF) synthesis, supporting neuroplasticity, synaptic density, and executive function under cognitive load. In hydrbrew°, it's the layer that keeps your thinking sharp when the stakes are high and the cognitive load is continuous." },
+  { question: "Where do your ingredients come from?", answer: "Every ingredient in hydrbrew° is sourced from verified US-based suppliers. Espresso coffee concentrate from Pragmatic Beverage Company, Fullerton CA. L-Theanine from Nutri Avenue, City of Industry CA. Organic Lion's Mane from Select Ingredients, Irvine CA. Natural flavors from Sovereign Flavors, Santa Ana CA. We maintain full transparency on sourcing because the quality of the substrate determines the quality of the output." },
+  { question: "When is the best time to drink hydrbrew°?", answer: "hydrbrew° was engineered for the afternoon window - the 2:15 PM moment when morning caffeine has worn off and cognitive demand remains high. As your second coffee of the day it delivers everything the next few hours need without the cortisol spike, jitter, or sleep disruption of a full-dose espresso." },
+  { question: "What about shipping and returns?", answer: "We use a third-party shipper, ShipBob, for last-mile delivery. Standard delivery takes 2-5 business days. Due to the consumable nature of our products, all sales are final unless the product arrives damaged. Not satisfied? Contact support@hydrbrew.com within 7 days of delivery for resolution." },
 ];
 
 function HbFaq(props: HydrogenComponentProps) {
   const { ...rest } = props;
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section ref={ref} {...rest} className="py-24 md:py-32 bg-neutral-950 relative">
-      {/* Wave Divider - Top */}
-      <div className="absolute top-0 left-0 right-0 w-full overflow-hidden pointer-events-none z-10" style={{ height: "120px" }}>
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="absolute top-0 left-0 w-full h-full">
-          <motion.path
-            d="M0,80 Q250,60 500,80 T1000,80 T1200,80 L1200,120 L0,120 Z"
-            fill="rgba(6, 182, 212, 0.2)"
-            animate={{ d: ["M0,80 Q250,60 500,80 T1000,80 T1200,80 L1200,120 L0,120 Z", "M0,80 Q250,100 500,80 T1000,80 T1200,80 L1200,120 L0,120 Z", "M0,80 Q250,60 500,80 T1000,80 T1200,80 L1200,120 L0,120 Z"] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          />
-          <motion.path
-            d="M0,90 Q300,70 600,90 T1200,90 L1200,120 L0,120 Z"
-            fill="rgba(6, 182, 212, 0.1)"
-            animate={{ d: ["M0,90 Q300,70 600,90 T1200,90 L1200,120 L0,120 Z", "M0,90 Q300,110 600,90 T1200,90 L1200,120 L0,120 Z", "M0,90 Q300,70 600,90 T1200,90 L1200,120 L0,120 Z"] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.path
-            d="M0,80 Q250,60 500,80 T1000,80 T1200,80"
-            fill="none" stroke="rgba(6, 182, 212, 0.4)" strokeWidth="2"
-            animate={{ d: ["M0,80 Q250,60 500,80 T1000,80 T1200,80", "M0,80 Q250,100 500,80 T1000,80 T1200,80", "M0,80 Q250,60 500,80 T1000,80 T1200,80"] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          />
-        </svg>
+    <section {...rest} className="relative py-24 bg-black" id="faq">
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#00FFFF]/5 rounded-full blur-[120px]" />
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 pt-16">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16 relative"
-        >
-          {/* Background image with cyberpunk effects */}
-          <div className="absolute inset-0 -top-20 -bottom-20 flex items-center justify-center pointer-events-none overflow-hidden">
-            <div className="relative w-full max-w-3xl h-full">
-              <img
-                src="/images/KuporTg.webp"
-                alt=""
-                className="w-full h-full object-cover opacity-40"
-                style={{ filter: "brightness(0.6) contrast(1.6) saturate(0.6) hue-rotate(180deg)", mixBlendMode: "screen", objectPosition: "center 18%" }}
-              />
-              <div className="absolute inset-0 bg-gradient-radial from-cyan-500/25 via-cyan-500/10 to-transparent" style={{ animationDuration: "4s" }} />
-              <div
-                className="absolute inset-0 opacity-20"
-                style={{ backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(6,182,212,0.15) 2px, rgba(6,182,212,0.15) 4px)" }}
-              />
-            </div>
-          </div>
+      <div className="relative z-10 container mx-auto px-4">
+        <div className="text-center mb-16 md:mb-20">
+          <p className="text-[#00FFFF] text-sm mb-4 uppercase tracking-wider" style={{ fontFamily: "'Roboto Mono',monospace" }}>SUPPORT PROTOCOL // FAQ MATRIX</p>
+          <h2 className="text-5xl md:text-7xl lg:text-8xl text-white font-bold mb-6 leading-tight" style={{ fontFamily: "'Urbanist',sans-serif" }}>
+            The<br /><span className="text-[#00FFFF]">Knowledge Base</span>
+          </h2>
+          <p className="text-lg text-white/60">A transparent look at the science, ingredients, and logistics powering your uptime</p>
+        </div>
 
-          <div className="relative z-10">
-            <div className="inline-block mb-6 px-4 py-1.5 border border-cyan-500/30 rounded-full text-xs font-mono tracking-wider" style={{ color: "#00FFFF" }}>
-              PROTOCOL QUESTIONS
-            </div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl mb-6 text-white">ARCHIVE</h2>
-            <p className="text-xl text-neutral-400">Everything you need to know about the antidote.</p>
-          </div>
-        </motion.div>
-
-        {/* Holographic grid container */}
-        <div className="relative">
-          <div className="absolute inset-0 opacity-10 pointer-events-none rounded-2xl overflow-hidden">
+        <div className="max-w-3xl mx-auto space-y-4">
+          {faqs.map((faq, i) => (
             <div
-              className="absolute inset-0"
-              style={{
-                backgroundImage: `linear-gradient(rgba(34, 211, 238, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(34, 211, 238, 0.3) 1px, transparent 1px)`,
-                backgroundSize: "30px 30px",
-              }}
-            />
-          </div>
-
-          <div className="space-y-4 relative z-10">
-            {faqs.map((faq, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative"
+              key={i}
+              className="bg-gradient-to-br from-[#00FFFF]/5 to-purple-500/5 border border-[#00FFFF]/20 rounded-xl px-6 overflow-hidden"
+            >
+              <button
+                type="button"
+                onClick={() => setOpen(open === i ? null : i)}
+                className="w-full flex items-center justify-between py-5 text-left transition-colors hover:text-[#00FFFF]"
+                style={{ color: open === i ? "#00FFFF" : "#FFFFFF" }}
               >
-                <motion.div
-                  className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500/0 via-cyan-500/30 to-cyan-500/0 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  animate={openIndex === index ? { opacity: [0.5, 0.8, 0.5] } : {}}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                />
-
-                <div className="relative bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 group-hover:border-cyan-500/30 rounded-xl overflow-hidden transition-all duration-300">
-                  <button
-                    type="button"
-                    onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                    className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-neutral-900/50 transition-colors"
-                  >
-                    <span className="pr-4 text-white text-lg">{faq.question}</span>
-                    <div className="flex items-center gap-3 shrink-0">
-                      <motion.div
-                        initial={{ scale: 0, opacity: 0 }}
-                        animate={openIndex === index ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                        className="rounded-full px-2 py-1"
-                        style={{ background: "linear-gradient(to bottom right, #00FFFF, #00CCCC)", border: "1px solid rgba(0, 255, 255, 0.5)", boxShadow: "0 0 15px rgba(0, 255, 255, 0.6)" }}
-                      >
-                        <span className="text-black font-bold text-xs">+1</span>
-                      </motion.div>
-                      <ChevronDown
-                        className={`w-5 h-5 transition-transform duration-300 ${openIndex === index ? "rotate-180" : ""}`}
-                        style={{ color: "#00FFFF" }}
-                      />
-                    </div>
-                  </button>
-
-                  <motion.div
-                    initial={false}
-                    animate={{ height: openIndex === index ? "auto" : 0, opacity: openIndex === index ? 1 : 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="overflow-hidden"
-                  >
-                    <div className="px-6 pb-5 text-neutral-400 leading-relaxed">{faq.answer}</div>
-                  </motion.div>
+                <span className="font-medium text-base md:text-lg pr-4" style={{ fontFamily: "'Urbanist',sans-serif" }}>{faq.question}</span>
+                <span className="text-xl shrink-0 transition-transform duration-300" style={{ transform: open === i ? "rotate(45deg)" : "rotate(0deg)", color: "#00FFFF" }}>+</span>
+              </button>
+              {open === i && (
+                <div className="pb-5">
+                  <p className="text-white/70 leading-relaxed" style={{ fontFamily: "'Urbanist',sans-serif", fontWeight: 300 }}>{faq.answer}</p>
                 </div>
-              </motion.div>
-            ))}
-          </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        <div className="text-center mt-12">
+          <p className="text-white/60 mb-4">Still have questions?</p>
+          <a href="mailto:support@hydrbrew.com" className="text-[#00FFFF] hover:text-[#00FFFF] transition-colors underline">Contact our support team</a>
         </div>
       </div>
     </section>
