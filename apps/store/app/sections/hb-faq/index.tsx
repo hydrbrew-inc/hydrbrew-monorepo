@@ -7,7 +7,7 @@ import { useRef, useState } from "react";
 const faqs = [
   {
     question: "How is this different from coffee?",
-    answer: "hydrbrew° is a light and crisp, refreshing evolution of the ritual. It delivers the familiar cold-brew soul you love but with a precision Whisper-Profile that eliminates the heavy, acidic "tax" of traditional roasts. No crash, no cortisol spike, no heart rate elevation. It's 100% coffee ritual, engineered for 100% afternoon performance.",
+    answer: 'hydrbrew° is a light and crisp, refreshing evolution of the ritual. It delivers the familiar cold-brew soul you love but with a precision Whisper-Profile that eliminates the heavy, acidic "tax" of traditional roasts. No crash, no cortisol spike, no heart rate elevation. It\'s 100% coffee ritual, engineered for 100% afternoon performance.',
   },
   {
     question: 'What does "precursor model" mean?',
