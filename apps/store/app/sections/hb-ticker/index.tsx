@@ -1,47 +1,198 @@
 import { createSchema } from "@weaverse/hydrogen";
 import type { HydrogenComponentProps } from "@weaverse/hydrogen";
-
-const ITEMS = [
-  { text: "Zero Systemic Debt", cyan: true },
-  { text: "The Afternoon Stays Yours", cyan: false },
-  { text: "Built for the Back Half", cyan: true },
-  { text: "No Spike. No Crash. No Borrowed Energy", cyan: false },
-  { text: "The Second Coffee That Actually Works", cyan: true },
-  { text: "Light and Crisp. Clean Metabolic Exit.", cyan: false },
-  { text: "Engineered for the 2:15 PM Window", cyan: true },
-  { text: "The Room Is Running on a Depleted Baseline. You're Not.", cyan: false },
-];
+import { motion } from "motion/react";
+import { useEffect, useState } from "react";
 
 function HbTicker(props: HydrogenComponentProps) {
   const { ...rest } = props;
-  const repeated = [...ITEMS, ...ITEMS];
+  const [isShopHovered, setIsShopHovered] = useState(false);
+
+  useEffect(() => {
+    const handleShopHover = (e: CustomEvent) => {
+      setIsShopHovered(e.detail.isHovered);
+    };
+    window.addEventListener("shopCardHover", handleShopHover as EventListener);
+    return () =>
+      window.removeEventListener("shopCardHover", handleShopHover as EventListener);
+  }, []);
 
   return (
     <div
       {...rest}
-      className="relative overflow-hidden"
-      style={{ height: 64, backgroundColor: "#0A0A0A", borderTop: "0.5px solid #222", borderBottom: "0.5px solid #222" }}
+      className="relative w-full h-[100px] bg-black/80 border-y border-cyan-500/20 overflow-hidden"
     >
+      {/* Subtle background grid pattern */}
       <div
-        className="flex items-center"
-        style={{ height: 64, width: "max-content", animation: "hb-scroll 40s linear infinite" }}
-      >
-        {repeated.map((item, i) => (
-          <span key={i} className="flex items-center" style={{ height: 64 }}>
-            <span
-              style={{
-                fontSize: 18, fontWeight: 700, letterSpacing: "0.5px", whiteSpace: "nowrap", lineHeight: "64px",
-                fontFamily: "'Urbanist',sans-serif",
-                color: item.cyan ? "#00FFFF" : "#FFFFFF",
-                textShadow: item.cyan ? "0 0 12px rgba(0,255,255,0.5)" : "none",
-              }}
-            >
-              {item.text}
+        className="absolute inset-0 opacity-[0.02]"
+        style={{
+          backgroundImage: `linear-gradient(90deg, rgba(34, 211, 238, 0.1) 1px, transparent 1px),
+                           linear-gradient(rgba(34, 211, 238, 0.1) 1px, transparent 1px)`,
+          backgroundSize: "20px 20px",
+        }}
+      />
+
+      {/* Glow effect when Shop card is hovered */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent"
+        animate={{
+          opacity: isShopHovered ? [0.3, 0.6, 0.3] : 0,
+          x: isShopHovered ? ["0%", "100%"] : "0%",
+        }}
+        transition={{
+          opacity: { duration: 2, repeat: Infinity, ease: "easeInOut" },
+          x: { duration: 3, repeat: Infinity, ease: "linear" },
+        }}
+      />
+
+      {/* Scrolling ticker text */}
+      <div className="relative h-full flex items-center py-5">
+        <motion.div
+          className="flex whitespace-nowrap"
+          animate={{ x: [0, "-50%"] }}
+          transition={{
+            duration: isShopHovered ? 25.2 : 42,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        >
+          {/* Repeat the content twice for seamless loop */}
+          {[0, 1].map((rep) => (
+            <span key={rep} className="px-12 flex items-center gap-6">
+              <motion.span
+                className="font-bold uppercase text-[#00FFFF]"
+                style={{
+                  fontFamily: "Space Grotesk, system-ui, sans-serif",
+                  fontSize: "36px",
+                  letterSpacing: "3px",
+                  textShadow: "0 0 2px #00FFFF, 0 0 8px #00FFFF50",
+                }}
+                animate={{ opacity: [0.85, 1, 0.85] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              >
+                THE AFTERNOON TAX: REPROGRAMMED
+              </motion.span>
+              <motion.span
+                className="text-[#00FFFF]"
+                style={{ fontSize: "clamp(16px, 2vw, 32px)" }}
+                animate={{ opacity: [0.4, 1, 0.4] }}
+                transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+              >
+                •
+              </motion.span>
+              <span
+                className="font-light text-neutral-300"
+                style={{ fontFamily: "Inter, Helvetica, sans-serif", fontSize: "20px" }}
+              >
+                Sustainable focus starts here
+              </span>
+              <span className="text-[#00FFFF]/40" style={{ fontSize: "clamp(16px, 2vw, 32px)" }}>|</span>
+
+              <motion.span
+                className="font-bold uppercase text-[#00FFFF]"
+                style={{
+                  fontFamily: "Space Grotesk, system-ui, sans-serif",
+                  fontSize: "36px",
+                  letterSpacing: "3px",
+                  textShadow: "0 0 2px #00FFFF, 0 0 8px #00FFFF50",
+                }}
+                animate={{ opacity: [0.85, 1, 0.85] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+              >
+                NEURAL SYNC
+              </motion.span>
+              <motion.span
+                className="text-[#00FFFF]"
+                style={{ fontSize: "clamp(16px, 2vw, 32px)" }}
+                animate={{ opacity: [0.4, 1, 0.4] }}
+                transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+              >
+                •
+              </motion.span>
+              <span
+                className="font-light text-neutral-300"
+                style={{ fontFamily: "Inter, Helvetica, sans-serif", fontSize: "20px" }}
+              >
+                Zero jitter. Zero systemic debt.
+              </span>
+              <span className="text-[#00FFFF]/40" style={{ fontSize: "clamp(16px, 2vw, 32px)" }}>|</span>
+
+              <motion.span
+                className="font-bold uppercase text-[#00FFFF]"
+                style={{
+                  fontFamily: "Space Grotesk, system-ui, sans-serif",
+                  fontSize: "36px",
+                  letterSpacing: "3px",
+                  textShadow: "0 0 2px #00FFFF, 0 0 8px #00FFFF50",
+                }}
+                animate={{ opacity: [0.85, 1, 0.85] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
+              >
+                BYPASS THE CRASH
+              </motion.span>
+              <motion.span
+                className="text-[#00FFFF]"
+                style={{ fontSize: "clamp(16px, 2vw, 32px)" }}
+                animate={{ opacity: [0.4, 1, 0.4] }}
+                transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
+              >
+                •
+              </motion.span>
+              <span
+                className="font-light text-neutral-300"
+                style={{ fontFamily: "Inter, Helvetica, sans-serif", fontSize: "20px" }}
+              >
+                Engineer the Exit.
+              </span>
+              <span className="text-[#00FFFF]/40" style={{ fontSize: "clamp(16px, 2vw, 32px)" }}>|</span>
+
+              <motion.span
+                className="font-bold uppercase text-[#00FFFF]"
+                style={{
+                  fontFamily: "Space Grotesk, system-ui, sans-serif",
+                  fontSize: "36px",
+                  letterSpacing: "3px",
+                  textShadow: "0 0 2px #00FFFF, 0 0 8px #00FFFF50",
+                }}
+                animate={{ opacity: [0.85, 1, 0.85] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.9 }}
+              >
+                THE +1 YOU
+              </motion.span>
+              <motion.span
+                className="text-[#00FFFF]"
+                style={{ fontSize: "clamp(16px, 2vw, 32px)" }}
+                animate={{ opacity: [0.4, 1, 0.4] }}
+                transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut", delay: 0.9 }}
+              >
+                •
+              </motion.span>
+              <span
+                className="font-light text-neutral-300"
+                style={{ fontFamily: "Inter, Helvetica, sans-serif", fontSize: "20px" }}
+              >
+                The ritual you crave, rebuilt for the future.
+              </span>
             </span>
-            <span style={{ fontSize: 32, color: "#00FFFF", opacity: 0.6, margin: "0 24px", lineHeight: "64px" }}>·</span>
-          </span>
-        ))}
+          ))}
+        </motion.div>
       </div>
+
+      {/* Progress bar indicator */}
+      <motion.div
+        className="absolute bottom-0 left-0 h-[1px]"
+        style={{
+          transformOrigin: "left",
+          background: "linear-gradient(to right, transparent, #00FFFF, transparent)",
+        }}
+        animate={{
+          scaleX: isShopHovered ? [0, 1] : 0,
+          opacity: isShopHovered ? [0.5, 1, 0.5] : 0,
+        }}
+        transition={{
+          scaleX: { duration: 3, repeat: Infinity, ease: "linear" },
+          opacity: { duration: 2, repeat: Infinity, ease: "easeInOut" },
+        }}
+      />
     </div>
   );
 }

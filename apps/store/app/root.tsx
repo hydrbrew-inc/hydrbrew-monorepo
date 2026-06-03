@@ -19,17 +19,12 @@ import {
 } from "react-router";
 import type { ThemeSettings } from "~/types/weaverse";
 import { loadCriticalData, loadDeferredData } from "./.server/root";
-import { Footer } from "./components/layout/footer";
-import { Header } from "./components/layout/header";
-import { ScrollingAnnouncement } from "./components/layout/scrolling-announcement";
+// Header, Footer, ScrollingAnnouncement removed — replaced by Weaverse sections
 import { CustomAnalytics } from "./components/root/custom-analytics";
 import { CartStoreSync } from "./components/cart/store";
 import { GenericError } from "./components/root/generic-error";
 import { GlobalLoading } from "./components/root/global-loading";
-import {
-  NewsletterPopup,
-  useShouldRenderNewsletterPopup,
-} from "./components/root/newsletter-popup";
+// NewsletterPopup removed — email capture handled by Weaverse sections
 import { NotFound } from "./components/root/not-found";
 import styles from "./styles/app.css?url";
 import { DEFAULT_LOCALE } from "./utils/const";
@@ -109,7 +104,6 @@ export const Layout = withWeaverse(function RootLayout({
   const data = useRouteLoaderData<RootLoader>("root");
   const locale = data?.selectedLocale ?? DEFAULT_LOCALE;
   const { topbarHeight, topbarText } = useThemeSettings<ThemeSettings>();
-  const shouldShowNewsletterPopup = useShouldRenderNewsletterPopup();
 
   // Bypass Weaverse theme layout for Hydrogen dev tools
   // See: https://github.com/Weaverse/pilot/issues/321
@@ -250,19 +244,10 @@ export const Layout = withWeaverse(function RootLayout({
                 className="flex min-h-screen flex-col"
                 key={`${locale.language}-${locale.country}`}
               >
-                <div className="">
-                  <a href="#mainContent" className="sr-only">
-                    Skip to content
-                  </a>
-                </div>
-                <ScrollingAnnouncement />
-                <Header />
                 <main id="mainContent" className="grow">
                   {children}
                 </main>
-                <Footer />
               </div>
-              {shouldShowNewsletterPopup && <NewsletterPopup />}
             </TooltipProvider>
             <CustomAnalytics />
           </Analytics.Provider>
