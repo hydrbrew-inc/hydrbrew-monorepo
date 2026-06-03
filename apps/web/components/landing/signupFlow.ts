@@ -27,15 +27,32 @@ export type SignupResult = {
   error?: string;
 };
 
+// Auto-attribute referrals from share links: pulls the referrer code from the
+// URL query string if the caller didn't pass one explicitly. Viral Loops uses
+// `?userCode=`; other share links commonly use `?ref=`.
+function readReferrerCodeFromUrl(): string | undefined {
+  if (typeof window === "undefined") return undefined;
+  const params = new URLSearchParams(window.location.search);
+  return (
+    params.get("userCode") ??
+    params.get("ref") ??
+    params.get("referrerCode") ??
+    undefined
+  );
+}
+
 export async function submitSignup(
   request: SignupRequest,
 ): Promise<SignupResult> {
+  const referrerCode = request.referrerCode ?? readReferrerCodeFromUrl();
+  const payload: SignupRequest = { ...request, referrerCode };
+
   let response: Response;
   try {
     response = await fetch("/api/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(request),
+      body: JSON.stringify(payload),
     });
   } catch {
     return { ok: false, status: 0, error: "network_error" };
@@ -87,8 +104,8 @@ export async function submitSignup(
           email: data.profile.email,
           operative_number: data.profile.operativeNumber,
           signup_source: request.signupSource,
-          ...(request.referrerCode
-            ? { referrer_code: request.referrerCode }
+          ...(referrerCode
+            ? { referrer_code: referrerCode }
             : {}),
           ...(data.profile.referralCode
             ? { referral_code: data.profile.referralCode }
@@ -98,8 +115,8 @@ export async function submitSignup(
         capturePostHogEvent("waitlist_signup", {
           signup_source: request.signupSource,
           operative_number: data.profile.operativeNumber,
-          ...(request.referrerCode
-            ? { referrer_code: request.referrerCode }
+          ...(referrerCode
+            ? { referrer_code: referrerCode }
             : {}),
         });
       },
