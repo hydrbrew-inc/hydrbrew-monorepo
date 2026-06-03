@@ -247,8 +247,8 @@ function HbHero(props: HbHeroProps) {
 
       {/* Hero Section */}
       <section
-        className="relative w-full overflow-hidden flex items-center justify-center"
-        style={{ height: "850px", backgroundColor: "#000000" }}
+        className="relative w-full overflow-hidden flex items-center justify-center h-[850px] md:h-[1100px]"
+        style={{ backgroundColor: "#000000" }}
       >
         {/* Ambient glows */}
         <div className="absolute right-0 top-0 bottom-0 w-[55%] overflow-hidden pointer-events-none">

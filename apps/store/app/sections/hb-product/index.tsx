@@ -239,25 +239,25 @@ function HbProduct(props: HbProductProps) {
               </div>
 
               {/* Video */}
-              <div className="relative w-full flex-1 h-[400px] lg:h-auto lg:min-h-0 border-0 lg:border-2 lg:border-[#00FFFF]/30 rounded-none lg:rounded-2xl p-0 lg:p-1 transition-all overflow-hidden">
-                <div className="relative w-full h-full rounded-none lg:rounded-xl overflow-hidden" style={{ minHeight: "400px" }}>
-                  <MuxPlayer
-                    playbackId={muxPlaybackId}
-                    autoPlay="muted"
-                    muted
-                    loop
-                    onTimeUpdate={handleVideoTimeUpdate}
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: "100%",
-                      height: "100%",
-                      "--controls": "none",
-                    } as React.CSSProperties}
-                  />
-                </div>
-                <div className="absolute inset-0 bg-[#00FFFF]/5 blur-xl -z-10" />
+              <div
+                className="relative w-full border-2 border-[#00FFFF]/30 rounded-2xl overflow-hidden"
+                style={{ aspectRatio: "9/16", minHeight: "480px" }}
+              >
+                <MuxPlayer
+                  playbackId={muxPlaybackId}
+                  autoPlay="muted"
+                  muted
+                  loop
+                  onTimeUpdate={handleVideoTimeUpdate}
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    "--controls": "none",
+                  } as React.CSSProperties}
+                />
               </div>
             </div>
           </div>
