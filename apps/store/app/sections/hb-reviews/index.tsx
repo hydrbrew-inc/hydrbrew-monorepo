@@ -3,40 +3,56 @@ import type { HydrogenComponentProps } from "@weaverse/hydrogen";
 import { Link } from "react-router";
 
 interface HbReviewsProps extends HydrogenComponentProps {
-  headline?: string;
-  subtext?: string;
-  ctaText?: string;
   ctaLink?: string;
 }
 
 function HbReviews(props: HbReviewsProps) {
-  const {
-    headline = "HIGH FREQUENCY OUTPUT.",
-    subtext = "When the room is moving fast, your focus stays perfectly still.",
-    ctaText = "UPGRADE YOUR BASELINE",
-    ctaLink = "/products/hydrbrew-pre-order-bundle",
-    ...rest
-  } = props;
+  const { ctaLink = "/products/hydrbrew-pre-order-bundle", ...rest } = props;
 
   return (
-    <section {...rest} className="relative overflow-hidden" style={{ minHeight: 560, backgroundColor: "#000" }}>
-      <img src="/can-front.webp" alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: "65% center", opacity: 0.35, filter: "contrast(1.2) saturate(0.8)" }} />
-      <div className="absolute inset-0 bg-black/50" />
-      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 80% 60% at 50% 50%,rgba(0,255,255,0.04) 0%,transparent 70%)" }} />
-      <div className="relative z-10 flex flex-col items-center justify-center text-center min-h-140 px-4 py-20">
-        <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white uppercase mb-6" style={{ fontFamily: "'Urbanist',sans-serif" }}>
-          {headline}
-        </h2>
-        <p className="text-xl md:text-2xl text-white/90 italic max-w-3xl mb-10" style={{ fontFamily: "'Urbanist',sans-serif", fontWeight: 300 }}>
-          {subtext}
-        </p>
-        <Link
-          to={ctaLink}
-          className="inline-flex items-center gap-2 px-10 py-4 rounded-full font-bold text-black text-base md:text-lg uppercase tracking-wider transition-all duration-300 hover:opacity-90 hover:scale-105"
-          style={{ backgroundColor: "#00FFFF", fontFamily: "'Urbanist',sans-serif", boxShadow: "0 0 40px rgba(0,255,255,0.4)" }}
-        >
-          {ctaText} →
-        </Link>
+    <section {...rest} className="relative py-24 bg-black">
+      <div className="absolute inset-0">
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full blur-[120px]" style={{ backgroundColor: "rgba(168,85,247,0.05)" }} />
+      </div>
+
+      <div className="relative z-10 w-full">
+        {/* Full-width background image */}
+        <img
+          src="/reviews-bg.webp"
+          alt="hydrbrew community — high-frequency output and sustained focus lifestyle"
+          className="w-full object-cover object-[65%] md:object-left"
+          style={{ minHeight: 560 }}
+          loading="lazy"
+        />
+
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/40" />
+
+        {/* Text overlay */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+          <h2
+            className="text-5xl md:text-7xl lg:text-8xl text-white uppercase mb-6"
+            style={{ fontFamily: "'Urbanist',sans-serif", fontWeight: 700 }}
+          >
+            HIGH FREQUENCY<br />OUTPUT.
+          </h2>
+          <p
+            className="text-xl md:text-2xl lg:text-3xl text-white/90 mb-8 italic max-w-3xl"
+            style={{ fontFamily: "'Urbanist',sans-serif", fontWeight: 300 }}
+          >
+            When the room is moving fast, your focus stays perfectly still.
+          </p>
+          <Link
+            to={ctaLink}
+            className="inline-flex items-center gap-2 px-10 py-4 text-black text-base md:text-lg uppercase tracking-wider rounded-full transition-all hover:scale-105 font-bold"
+            style={{ backgroundColor: "#00FFFF", fontFamily: "'Urbanist',sans-serif", fontWeight: 700 }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "0 0 40px rgba(0,255,255,0.6)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
+          >
+            UPGRADE YOUR BASELINE
+            <span style={{ display: "inline-block", animation: "hb-arrow 1.5s ease-in-out infinite" }}>→</span>
+          </Link>
+        </div>
       </div>
     </section>
   );
@@ -48,15 +64,7 @@ export const schema = createSchema({
   type: "hb-reviews",
   title: "HB Reviews CTA",
   settings: [
-    {
-      group: "Content",
-      inputs: [
-        { type: "text", name: "headline", label: "Headline", defaultValue: "HIGH FREQUENCY OUTPUT." },
-        { type: "text", name: "subtext", label: "Subtext", defaultValue: "When the room is moving fast, your focus stays perfectly still." },
-        { type: "text", name: "ctaText", label: "Button text", defaultValue: "UPGRADE YOUR BASELINE" },
-        { type: "text", name: "ctaLink", label: "Button link", defaultValue: "/products/hydrbrew-pre-order-bundle" },
-      ],
-    },
+    { group: "Content", inputs: [{ type: "text", name: "ctaLink", label: "CTA Link", defaultValue: "/products/hydrbrew-pre-order-bundle" }] },
   ],
-  presets: { headline: "HIGH FREQUENCY OUTPUT.", subtext: "When the room is moving fast, your focus stays perfectly still.", ctaText: "UPGRADE YOUR BASELINE", ctaLink: "/products/hydrbrew-pre-order-bundle" },
+  presets: { ctaLink: "/products/hydrbrew-pre-order-bundle" },
 });
