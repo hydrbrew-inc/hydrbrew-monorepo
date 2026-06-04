@@ -158,8 +158,18 @@ function HbQuiz(props: HydrogenComponentProps) {
             ) : (
               <button type="button" onClick={() => {
                 if (!email) return;
+                const score = calculateScore();
                 const fd = new FormData();
                 fd.set("email", email);
+                // Quiz result fields — picked up by /api/klaviyo to fire "Quiz Completed" event
+                fd.set("quiz_score", String(score));
+                fd.set("quiz_tier", score <= 10 ? "ahead" : "seeking-better-option");
+                fd.set("quiz_result_title", result.title);
+                fd.set("quiz_frequency", answers.frequency ?? "");
+                fd.set("quiz_love_scale", answers.loveScale ?? "");
+                fd.set("quiz_overload", answers.overload.join(","));
+                fd.set("quiz_crashes", answers.crashes ?? "");
+                fd.set("quiz_craving", answers.craving ?? "");
                 fetcher.submit(fd, { action: "/api/klaviyo", method: "POST", encType: "multipart/form-data" });
               }} className="w-full py-5 bg-[#00FFFF] text-black rounded-2xl hover:bg-[#00FFFF]/90 transition-all flex items-center justify-center gap-3 text-xl font-bold shadow-xl hover:shadow-[0_0_30px_rgba(0,255,255,0.5)]">
                 {result.cta} →
