@@ -310,10 +310,6 @@ export function NeuralBriefing() {
   // Listen for neural briefing trigger events from hero buttons and other sections
   useEffect(() => {
     const handleTrigger = (e: CustomEvent) => {
-      console.log("🎯 Neural Briefing Trigger Event:", e.detail);
-      console.log("   Current activeBriefingId:", activeBriefingId);
-      console.log("   Current lockedBriefingId:", lockedBriefingId);
-      console.log("   Current isButtonHovered:", isButtonHovered);
       setShowRipples(e.detail.active);
 
       // If briefing is active
@@ -322,56 +318,31 @@ export function NeuralBriefing() {
         if (resetTimerRef.current) {
           clearTimeout(resetTimerRef.current);
           resetTimerRef.current = null;
-          console.log("   ✅ Cleared reset timer");
         }
 
         // Switch to specified briefing, or default if none specified
         const targetBriefing = e.detail.briefingId || "precursorModel";
-        console.log("   🎯 Target briefing:", targetBriefing);
         if (activeBriefingId !== targetBriefing) {
-          console.log(
-            "   🔄 Switching from",
-            activeBriefingId,
-            "to",
-            targetBriefing,
-          );
           setActiveBriefingId(targetBriefing);
           setIsPlaying(false);
           setCurrentTime(0);
           setHasFinished(false);
-        } else {
-          console.log("   ⏭️ Already on", targetBriefing, "- no switch needed");
         }
       } else if (!e.detail.active && !isButtonHovered && !lockedBriefingId) {
         // When hover ends and button is not hovered, reset after delay
         // BUT only if modal is not open (lockedBriefingId is null)
-        console.log(
-          "   ⏳ Hover ended - will reset to default if button not hovered",
-        );
         if (resetTimerRef.current) {
           clearTimeout(resetTimerRef.current);
         }
         resetTimerRef.current = setTimeout(() => {
           if (!isButtonHovered && !lockedBriefingId) {
-            console.log(
-              "   🔄 Resetting to precursorModel briefing after delay",
-            );
             setActiveBriefingId("precursorModel");
-          } else {
-            console.log(
-              "   ⏸️ Button is hovered or modal is open - NOT resetting",
-            );
           }
         }, 800); // Shorter 800ms delay
-      } else {
-        console.log(
-          "   ⏸️ Hover ended but button is hovered - NOT starting reset timer",
-        );
       }
     };
 
     const handleOpenBriefing = (e: CustomEvent) => {
-      console.log("🚀 Open Neural Briefing Event:", e.detail);
       // Set the briefing and open immediately
       const targetBriefing = e.detail.briefingId || "precursorModel";
       setActiveBriefingId(targetBriefing);
@@ -416,15 +387,12 @@ export function NeuralBriefing() {
   useEffect(() => {
     // Only initialize audio when modal is open
     if (!isOpen) {
-      console.log("⏸️ Modal closed - skipping audio init");
       return;
     }
 
     // Get the audio URL from the current briefing
     const audioUrl = currentBriefing.audioUrl;
 
-    console.log("🎵 FORCING audio load for briefing:", currentBriefing.id);
-    console.log("🎵 Audio URL:", audioUrl);
     setIsAudioReady(false);
     setIsAudioLoading(true);
 
@@ -433,18 +401,16 @@ export function NeuralBriefing() {
       try {
         sourceNodeRef.current.disconnect();
         sourceNodeRef.current = null;
-        console.log("🔌 Disconnected and cleared previous source node");
-      } catch (e) {
-        console.log("⚠️ Error disconnecting source node:", e);
+      } catch {
+        // swallowed
       }
     }
     if (gainNodeRef.current) {
       try {
         gainNodeRef.current.disconnect();
         gainNodeRef.current = null;
-        console.log("🔌 Disconnected and cleared previous gain node");
-      } catch (e) {
-        console.log("⚠️ Error disconnecting gain node:", e);
+      } catch {
+        // swallowed
       }
     }
 
@@ -454,7 +420,6 @@ export function NeuralBriefing() {
       audioRef.current.src = "";
       audioRef.current.remove();
       audioRef.current = null;
-      console.log("🧹 Cleaned up previous audio element");
     }
 
     // Create fresh audio element
@@ -466,10 +431,6 @@ export function NeuralBriefing() {
     audioRef.current.setAttribute("webkit-playsinline", "true");
     audioRef.current.crossOrigin = "anonymous";
     const audio = audioRef.current;
-    console.log(
-      "🎵 Created new audio element for briefing:",
-      currentBriefing.id,
-    );
 
     // Set up Web Audio API for volume boost
     try {
@@ -478,38 +439,27 @@ export function NeuralBriefing() {
         audioContextRef.current = new (
           window.AudioContext || (window as any).webkitAudioContext
         )();
-        console.log("🎵 Created new AudioContext");
       }
       const audioContext = audioContextRef.current;
 
       // Resume audio context if suspended (required on some browsers)
       if (audioContext.state === "suspended") {
         audioContext.resume();
-        console.log("▶️ Resumed suspended AudioContext");
       }
 
       // Create NEW source node from the NEW audio element
-      console.log("🔧 Creating MediaElementSource for:", currentBriefing.id);
       const source = audioContext.createMediaElementSource(audio);
       sourceNodeRef.current = source;
-      console.log("✅ Created source node");
 
       // Create NEW gain node for volume boost
       const gainNode = audioContext.createGain();
       const volumeBoost = currentBriefing.volumeBoost || 2.25; // Use briefing-specific boost or default to 2.25
       gainNode.gain.value = volumeBoost;
       gainNodeRef.current = gainNode;
-      console.log(
-        `✅ Created gain node with value: ${gainNode.gain.value}x for briefing: ${currentBriefing.id}`,
-      );
 
       // Connect: source -> gainNode -> destination
       source.connect(gainNode);
       gainNode.connect(audioContext.destination);
-
-      console.log(
-        `🔊 ✅ Web Audio API boost ACTIVE: ${volumeBoost * 100}% volume for briefing: ${currentBriefing.id}`,
-      );
     } catch (error) {
       console.error(
         "❌ Web Audio API boost FAILED for briefing:",
@@ -521,20 +471,10 @@ export function NeuralBriefing() {
 
     // Set up event listeners
     const handleLoadedMetadata = () => {
-      console.log(
-        "✅ Audio metadata loaded. Duration:",
-        audio.duration,
-        "Briefing:",
-        currentBriefing.id,
-      );
       setDuration(audio.duration);
     };
 
     const handleCanPlayThrough = () => {
-      console.log(
-        "✅ Audio fully buffered and ready - can play through without delay. Briefing:",
-        currentBriefing.id,
-      );
       setIsAudioReady(true);
       setIsAudioLoading(false);
     };
@@ -561,18 +501,12 @@ export function NeuralBriefing() {
     };
 
     const handleCanPlay = () => {
-      console.log(
-        "✅ Audio can play - ready for playback. Briefing:",
-        currentBriefing.id,
-      );
-      console.log("Audio ready state:", audio.readyState);
       // Set ready immediately - don't wait for canplaythrough
       setIsAudioReady(true);
       setIsAudioLoading(false);
     };
 
     const handleLoadStart = () => {
-      console.log("⏳ Audio loading started...");
       setIsAudioLoading(true);
     };
 
@@ -582,18 +516,13 @@ export function NeuralBriefing() {
         const duration = audio.duration;
         if (duration > 0) {
           const percentBuffered = (bufferedEnd / duration) * 100;
-          console.log(`📊 Audio buffered: ${percentBuffered.toFixed(1)}%`);
         }
       }
     };
 
-    const handleSuspend = () => {
-      console.log("⚠️ Audio loading suspended by browser");
-    };
+    const handleSuspend = () => {};
 
-    const handleStalled = () => {
-      console.log("⚠️ Audio loading stalled");
-    };
+    const handleStalled = () => {};
 
     audio.addEventListener("loadstart", handleLoadStart);
     audio.addEventListener("loadedmetadata", handleLoadedMetadata);
@@ -640,16 +569,6 @@ export function NeuralBriefing() {
             "This may be due to autoplay policies on mobile devices",
           );
           setIsPlaying(false);
-
-          // On mobile, we might need to retry with user interaction
-          if (
-            err.name === "NotAllowedError" ||
-            err.name === "NotSupportedError"
-          ) {
-            console.log(
-              "Audio blocked by browser policy - user interaction required",
-            );
-          }
         });
       }
     } else {
@@ -675,7 +594,6 @@ export function NeuralBriefing() {
           audioContextRef.current = new (
             window.AudioContext || (window as any).webkitAudioContext
           )();
-          console.log("AudioContext initialized");
         } catch (e) {
           console.error("Failed to initialize AudioContext:", e);
         }
@@ -686,9 +604,7 @@ export function NeuralBriefing() {
         audioContextRef.current &&
         audioContextRef.current.state === "suspended"
       ) {
-        audioContextRef.current.resume().then(() => {
-          console.log("AudioContext resumed");
-        });
+        audioContextRef.current.resume().then(() => {});
       }
 
       // Attempt to play - this must happen directly from user interaction on mobile
@@ -697,7 +613,6 @@ export function NeuralBriefing() {
       if (playPromise !== undefined) {
         playPromise
           .then(() => {
-            console.log("Audio playback started successfully");
             setIsPlaying(true);
           })
           .catch((err) => {
