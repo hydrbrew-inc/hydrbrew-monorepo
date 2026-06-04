@@ -28,14 +28,16 @@ export type SignupResult = {
 };
 
 // Auto-attribute referrals from share links: pulls the referrer code from the
-// URL query string if the caller didn't pass one explicitly. Viral Loops uses
-// `?userCode=`; other share links commonly use `?ref=`.
+// URL query string if the caller didn't pass one explicitly. Viral Loops's
+// `checkReferrals` URL uses `?userCode=`, its `sharingUrl` redirects land on
+// `?referralCode=`, and other share links commonly use `?ref=`.
 function readReferrerCodeFromUrl(): string | undefined {
   if (typeof window === "undefined") return undefined;
   const params = new URLSearchParams(window.location.search);
   return (
     params.get("userCode") ??
     params.get("ref") ??
+    params.get("referralCode") ??
     params.get("referrerCode") ??
     undefined
   );

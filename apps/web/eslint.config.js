@@ -4,6 +4,9 @@ import { nextJsConfig } from "@repo/eslint-config/next-js";
 export default [
   ...nextJsConfig,
   {
+    ignores: ["scripts/**"],
+  },
+  {
     files: ["components/landing/**/*.{ts,tsx}"],
     rules: {
       "@next/next/no-img-element": "off",
