@@ -8,6 +8,8 @@ export const siteConfig = {
   tagline: "Optimized Human Protocol",
   /** Reserved for future homepage storefront embeds (commerce is on Oxygen, not Next). */
   launchMode: false,
+  /** Founding-member cap driving the "positions remaining" counter (remaining = cap − signups). */
+  foundingMemberCap: 10000,
 } as const;
 
 /**
