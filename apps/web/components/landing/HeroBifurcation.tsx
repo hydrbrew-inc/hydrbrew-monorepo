@@ -8,6 +8,7 @@ import {
   submitSignup,
   trackSignupEvent,
 } from "./signupFlow";
+import { useLiveCounters } from "./useLiveCounters";
 
 type ParticleSpec = {
   width: number;
@@ -51,6 +52,7 @@ export function HeroBifurcation() {
   );
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { total: foundingMembers } = useLiveCounters();
 
   const handleSubmitHeroSignup = async () => {
     if (!email) return;
@@ -624,10 +626,10 @@ export function HeroBifurcation() {
                     </motion.div>
 
                     <div className="flex items-center gap-1.5 md:gap-2.5">
-                      {/* FOCAL POINT: Enhanced 1,385 number */}
+                      {/* FOCAL POINT: live Founding Members count */}
                       <motion.span
                         className="text-base md:text-xl font-mono text-white font-bold"
-                        key={1385}
+                        key={foundingMembers}
                         initial={{ opacity: 0, y: -10 }}
                         animate={{
                           opacity: 1,
@@ -646,7 +648,7 @@ export function HeroBifurcation() {
                           },
                         }}
                       >
-                        1,385
+                        {foundingMembers.toLocaleString()}
                       </motion.span>
                       <span className="text-[10px] md:text-sm text-neutral-500 hidden sm:inline">
                         Founding Members

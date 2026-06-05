@@ -17,6 +17,7 @@ import {
   submitSignup,
   trackSignupEvent,
 } from "./signupFlow";
+import { useLiveCounters } from "./useLiveCounters";
 
 // Intel Briefing Button Component
 function IntelButton({
@@ -191,8 +192,15 @@ export function FinalCTA() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [currentSlide, setCurrentSlide] = useState(0);
+  const {
+    total: targetCount,
+    last24h,
+    remaining,
+    viewingNow,
+    ready: countersReady,
+  } = useLiveCounters();
   const [count, setCount] = useState(0);
-  const targetCount = 3847;
+  const hasCountedUpRef = useRef(false);
   const [nftCount, setNftCount] = useState(0);
   const nftTargetCount = 1629;
   const [isIntelOpen, setIsIntelOpen] = useState(false);
@@ -300,9 +308,19 @@ export function FinalCTA() {
     return () => clearInterval(interval);
   }, []);
 
-  // Counter animation
+  // Counter: count up from 0 to the real total on first reveal, then track
+  // live signups directly (each realtime bump just ticks the number, no replay).
   useEffect(() => {
-    if (!isInView) return;
+    if (!isInView || !countersReady) return;
+    if (hasCountedUpRef.current) {
+      setCount(targetCount);
+      return;
+    }
+    hasCountedUpRef.current = true;
+    if (targetCount <= 0) {
+      setCount(0);
+      return;
+    }
     let start = 0;
     const duration = 2000;
     const increment = targetCount / (duration / 16);
@@ -316,7 +334,7 @@ export function FinalCTA() {
       }
     }, 16);
     return () => clearInterval(timer);
-  }, [isInView]);
+  }, [isInView, countersReady, targetCount]);
 
   // NFT Counter animation
   useEffect(() => {
@@ -686,7 +704,7 @@ export function FinalCTA() {
                   </div>
                   <div className="text-xs font-mono">
                     <span className="text-emerald-400 font-bold tabular-nums">
-                      280
+                      {viewingNow}
                     </span>
                     <span className="text-emerald-400/60 ml-1">
                       viewing now
@@ -758,11 +776,11 @@ export function FinalCTA() {
                     <div className="flex items-center gap-2 text-emerald-400 px-3 py-1.5 bg-emerald-500/10 rounded-full border border-emerald-500/30">
                       <TrendingUp className="w-4 h-4" />
                       <span className="text-xs md:text-sm font-mono">
-                        +127 in last 24h
+                        +{last24h.toLocaleString()} in last 24h
                       </span>
                     </div>
                     <div className="text-sm md:text-sm text-neutral-500 font-mono">
-                      6,153 positions remaining
+                      {remaining.toLocaleString()} positions remaining
                     </div>
                   </div>
                 </div>
