@@ -66,7 +66,7 @@ export function HeroBifurcation() {
       });
       showSignupToast({
         variant: "success",
-        message: `You're in, member ${result.profile.operativeNumber}. Check your inbox.`,
+        message: `You're in, ${result.profile.operativeNumber}. Check your inbox.`,
       });
       setEmail("");
       setTimeout(() => scrollToSection("email-capture"), 300);

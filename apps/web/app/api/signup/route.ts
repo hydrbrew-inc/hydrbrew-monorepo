@@ -57,7 +57,7 @@ export async function POST(request: Request) {
   }
 
   // 2. Upsert into Supabase. The default on `operative_number` assigns the
-  //    next HB-XXXX value via sequence on insert; on conflict the existing
+  //    next Member-XXXX value via sequence on insert; on conflict the existing
   //    operative_number is preserved.
   const supabase = supabaseServer();
   const { data: profile, error: upsertError } = await supabase
