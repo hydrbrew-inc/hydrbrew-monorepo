@@ -35,8 +35,8 @@ function HbReviews(props: HbReviewsProps) {
             HIGH FREQUENCY<br />OUTPUT.
           </h2>
           <p
-            className="text-xl md:text-2xl lg:text-3xl text-white/90 mb-8 italic max-w-3xl"
-            style={{ fontFamily: "'Urbanist',sans-serif", fontWeight: 300 }}
+            className="text-xl md:text-2xl lg:text-3xl text-white/90 mb-8 max-w-3xl"
+            style={{ fontFamily: "'Urbanist',sans-serif", fontWeight: 400 }}
           >
             When the room is moving fast, your focus stays perfectly still.
           </p>

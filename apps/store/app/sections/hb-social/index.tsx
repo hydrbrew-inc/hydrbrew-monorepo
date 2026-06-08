@@ -35,8 +35,11 @@ function HbSocial(props: HydrogenComponentProps) {
 
       <div className="relative z-10 container mx-auto px-4">
 
-        {/* Instagram CTA — replaces header + media grid */}
+        {/* Social CTA */}
         <div className="text-center mb-16 md:mb-20">
+          <p className="text-[#00FFFF]/60 text-xs uppercase tracking-widest mb-8" style={{ fontFamily: "'Roboto Mono',monospace" }}>
+            Connect To The Network // Live Feed
+          </p>
           <a
             href={instagramUrl}
             target="_blank"
@@ -48,10 +51,10 @@ function HbSocial(props: HydrogenComponentProps) {
               className="text-5xl md:text-7xl lg:text-8xl text-white font-bold leading-tight group-hover:text-[#00FFFF] transition-colors duration-300"
               style={{ fontFamily: "'Urbanist', sans-serif" }}
             >
-              Follow us on<br /><span className="text-[#00FFFF]">Instagram</span>
+              Follow us
             </h2>
             <span
-              className="text-xl text-white/60 group-hover:text-[#00FFFF]/80 transition-colors duration-300"
+              className="text-xl text-[#00FFFF]"
               style={{ fontFamily: "'Space Grotesk', sans-serif" }}
             >
               @tryhydrbrew
@@ -85,7 +88,7 @@ function HbSocial(props: HydrogenComponentProps) {
             {fetcher.data?.ok ? (
               <div className="text-center text-[#00FFFF] font-mono py-4 mb-8">Thanks for joining the cohort! ✓</div>
             ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto mb-8">
+              <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
                 <input
                   type="email"
                   placeholder="Enter your email"
@@ -105,19 +108,6 @@ function HbSocial(props: HydrogenComponentProps) {
               </form>
             )}
 
-            <div className="pt-8 border-t border-[#00FFFF]/20">
-              <a
-                href={instagramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-3 text-white/70 hover:text-[#00FFFF] transition-all group"
-              >
-                <InstagramIcon className="w-6 h-6 group-hover:scale-110 transition-transform" />
-                <span className="text-lg" style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 500 }}>
-                  Follow @hydrbrew on Instagram
-                </span>
-              </a>
-            </div>
           </div>
         </div>
 
