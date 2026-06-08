@@ -229,7 +229,7 @@ export function FinalCTA() {
       });
       showSignupToast({
         variant: "success",
-        message: `You're in, member ${result.profile.operativeNumber}. Check your inbox.`,
+        message: `You're in, ${result.profile.operativeNumber}. Check your inbox.`,
       });
       setPrimaryEmail("");
       setPrimaryName("");
@@ -268,7 +268,7 @@ export function FinalCTA() {
       });
       showSignupToast({
         variant: "success",
-        message: `Access code transmitted, member ${result.profile.operativeNumber}. Check your inbox.`,
+        message: `Access code transmitted, ${result.profile.operativeNumber}. Check your inbox.`,
       });
       setTransmitName("");
       setTransmitEmail("");
