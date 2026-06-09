@@ -23,6 +23,16 @@ export const metadata: Metadata = {
   title: siteMetadata.title,
   description: siteMetadata.description,
   robots: { index: true, follow: true },
+  manifest: "/site.webmanifest",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon-32.png", type: "image/png", sizes: "32x32" },
+    ],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+  },
+  appleWebApp: { title: "hydrbrew°" },
   alternates: {
     canonical: siteMetadata.siteUrl,
   },
