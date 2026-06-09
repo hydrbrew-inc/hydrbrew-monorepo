@@ -9,9 +9,9 @@ type ToastState = {
 };
 
 const variantClasses: Record<ToastVariant, string> = {
-  success: "border-emerald-400/60 text-emerald-300 bg-emerald-500/10",
-  error: "border-red-400/60 text-red-300 bg-red-500/10",
-  info: "border-cyan-400/60 text-cyan-300 bg-cyan-500/10",
+  success: "border-emerald-400/70 bg-neutral-800",
+  error: "border-red-400/70 bg-neutral-800",
+  info: "border-cyan-400/70 bg-neutral-800",
 };
 
 export function SignupToast() {
@@ -31,7 +31,7 @@ export function SignupToast() {
           : "info";
 
       setToast({ message: detail.message, variant });
-      window.setTimeout(() => setToast(null), 5000);
+      window.setTimeout(() => setToast(null), 8000);
     };
 
     window.addEventListener("hydrbrew:toast", handler);
@@ -47,7 +47,7 @@ export function SignupToast() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 12, scale: 0.98 }}
             transition={{ duration: 0.2 }}
-            className={`max-w-sm rounded-lg border px-4 py-3 text-sm font-mono backdrop-blur-md shadow-[0_0_20px_rgba(0,0,0,0.3)] ${variantClasses[toast.variant]}`}
+            className={`max-w-lg rounded-lg border px-4 py-3 text-lg font-mono text-white shadow-[0_0_30px_rgba(0,0,0,0.6)] ${variantClasses[toast.variant]}`}
           >
             {toast.message}
           </motion.div>
