@@ -291,7 +291,17 @@ export function ReferralHub({ userCode }: { userCode: string | null }) {
                   marginTop: 10,
                 }}
               >
-                THE AFTERNOON STAYS YOURS™
+                THE AFTERNOON STAYS YOURS
+                <sup
+                  style={{
+                    fontSize: "0.6em",
+                    verticalAlign: "super",
+                    letterSpacing: "normal",
+                    marginLeft: 1,
+                  }}
+                >
+                  ™
+                </sup>
               </div>
             </div>
           </section>
