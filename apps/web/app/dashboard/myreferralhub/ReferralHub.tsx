@@ -2,7 +2,17 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import Script from "next/script";
 import { getStoreUrl } from "@repo/lib/store-url";
+
+// VL's leaderboard is a native web component, not a REST endpoint. Cast the
+// custom-element tag so it type-checks; at runtime React renders the real
+// <leaderboard-widget> element with the campaign's ucid attribute.
+const LeaderboardWidget = "leaderboard-widget" as unknown as React.FC<{
+  ucid?: string;
+}>;
+const VL_CAMPAIGN_ID = process.env.NEXT_PUBLIC_VIRAL_LOOPS_CAMPAIGN_ID;
 
 // ── Tiers (locked spec) ──────────────────────────────────────────────────────
 // Discounts only. Coupon codes are per-member and live in the Klaviyo tier
@@ -46,19 +56,12 @@ type Member = {
   signupSource: string | null;
 };
 
-type LeaderRow = {
-  rank: number;
-  referrals: number;
-  firstName: string | null;
-  isCurrent: boolean;
-};
-
 const CYAN = "#00FFFF";
-const mono = "'Courier New', monospace";
+const FONT =
+  "var(--font-urbanist), 'Helvetica Neue', Helvetica, Arial, sans-serif";
 
 export function ReferralHub({ userCode }: { userCode: string | null }) {
   const [member, setMember] = useState<Member | null>(null);
-  const [leaderboard, setLeaderboard] = useState<LeaderRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -69,36 +72,16 @@ export function ReferralHub({ userCode }: { userCode: string | null }) {
       return;
     }
     let active = true;
-    Promise.all([
-      fetch(`/api/dashboard/member?code=${encodeURIComponent(userCode)}`).then(
-        (r) => r.json(),
-      ),
-      fetch(
-        `/api/dashboard/leaderboard?code=${encodeURIComponent(userCode)}`,
-      ).then((r) => r.json()),
-    ])
-      .then(([m, lb]) => {
+    fetch(`/api/dashboard/member?code=${encodeURIComponent(userCode)}`)
+      .then((r) => r.json())
+      .then((m) => {
         if (!active) return;
         if (!m?.ok) {
           setError(m?.error === "not_found" ? "MEMBER NOT FOUND" : "SYSTEM ERROR");
           setLoading(false);
           return;
         }
-        const rows: LeaderRow[] = lb?.ok ? lb.leaderboard : [];
-        if (
-          m.member.globalRank &&
-          !rows.some((row) => row.isCurrent) &&
-          !rows.some((row) => row.rank === m.member.globalRank)
-        ) {
-          rows.push({
-            rank: m.member.globalRank,
-            referrals: m.member.referrals,
-            firstName: m.member.firstName,
-            isCurrent: true,
-          });
-        }
         setMember(m.member);
-        setLeaderboard(rows);
         setLoading(false);
       })
       .catch(() => {
@@ -130,11 +113,29 @@ export function ReferralHub({ userCode }: { userCode: string | null }) {
         minHeight: "100vh",
         backgroundColor: "#0B0B0B",
         color: "#FFFFFF",
-        fontFamily: mono,
-        padding: "24px",
+        fontFamily: FONT,
       }}
     >
       <style>{`@keyframes hubping{75%,100%{transform:scale(2);opacity:0}}`}</style>
+      {VL_CAMPAIGN_ID ? (
+        <Script
+          src={`https://app.viral-loops.com/widgetsLoader.js?ucid=${VL_CAMPAIGN_ID}`}
+          strategy="afterInteractive"
+        />
+      ) : null}
+      {/* Wafer-thin top banner */}
+      <Image
+        src="/images/Transmit_the_Signal_Referral_Hub.webp"
+        alt="hydrbrew° — Transmit the Signal"
+        width={1200}
+        height={400}
+        priority
+        style={{
+          display: "block",
+          width: "100%",
+        }}
+      />
+      <div style={{ padding: "24px" }}>
       <div style={{ maxWidth: 1024, margin: "0 auto" }}>
         {/* STATUS BAR */}
         <section style={card(28)}>
@@ -213,7 +214,7 @@ export function ReferralHub({ userCode }: { userCode: string | null }) {
                     outline: "none",
                     flex: 1,
                     minWidth: 200,
-                    fontFamily: mono,
+                    fontFamily: FONT,
                   }}
                 />
                 <CopyButton value={member.sharingUrl} />
@@ -271,18 +272,18 @@ export function ReferralHub({ userCode }: { userCode: string | null }) {
               </div>
               <div style={{ fontSize: 20, fontWeight: 700, letterSpacing: 3 }}>GLOBAL RANKING</div>
             </div>
-            <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-              {leaderboard.length === 0 ? (
-                <div style={{ fontSize: 13, color: "#666", letterSpacing: 2, padding: "14px 0" }}>
-                  &gt; LEADERBOARD CALCULATING…
-                </div>
+            <div style={{ flex: 1 }}>
+              {VL_CAMPAIGN_ID ? (
+                <LeaderboardWidget ucid={VL_CAMPAIGN_ID} />
               ) : (
-                leaderboard.map((e, i) => <LeaderboardRow key={`${e.rank}-${i}`} entry={e} />)
+                <div style={{ fontSize: 13, color: "#666", letterSpacing: 2, padding: "14px 0" }}>
+                  &gt; LEADERBOARD UNAVAILABLE
+                </div>
               )}
             </div>
             <div style={{ borderTop: "1px solid #1a1a1a", paddingTop: 18, marginTop: 22 }}>
               <div style={{ fontSize: 13, color: "#999", letterSpacing: 2 }}>
-                &gt; CURRENT_POSITION: {member.globalRank ? `#${member.globalRank}` : "CALCULATING…"}
+                &gt; YOUR POSITION: {member.globalRank ? `#${member.globalRank}` : "CALCULATING…"}
               </div>
               <div
                 style={{
@@ -315,10 +316,11 @@ export function ReferralHub({ userCode }: { userCode: string | null }) {
           }}
         >
           <span>hydrbrew° · LEUCADIA, CA · LAUNCHING JULY 2026</span>
-          <Link href="/" style={{ color: "#00CCCC", textDecoration: "underline" }}>
+          <Link href="/" style={{ color: "#00CCCC" }}>
             ← BACK TO HYDRBREW°
           </Link>
         </footer>
+      </div>
       </div>
     </main>
   );
@@ -359,7 +361,7 @@ function CopyButton({ value }: { value: string }) {
         backgroundColor: copied ? CYAN : "transparent",
         color: copied ? "#000" : CYAN,
         border: `1px solid ${CYAN}`,
-        fontFamily: mono,
+        fontFamily: FONT,
         fontSize: 14,
         fontWeight: 700,
         letterSpacing: 3,
@@ -453,48 +455,6 @@ function TierRow({
   );
 }
 
-function LeaderboardRow({ entry }: { entry: LeaderRow }) {
-  const top3 = entry.rank <= 3;
-  const name = entry.isCurrent ? "YOU" : entry.firstName ?? "Member";
-  return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        padding: "12px 0",
-        borderBottom: "1px solid #111",
-        backgroundColor: entry.isCurrent ? "rgba(0,255,255,0.04)" : "transparent",
-      }}
-    >
-      <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-        <span style={{ fontSize: 13, color: top3 ? CYAN : "#444", letterSpacing: 2, minWidth: 30 }}>
-          {String(entry.rank).padStart(2, "0")}.
-        </span>
-        <span
-          style={{
-            fontSize: 15,
-            fontWeight: entry.isCurrent ? 700 : 400,
-            color: entry.isCurrent ? CYAN : top3 ? "#FFF" : "#999",
-            letterSpacing: 1,
-          }}
-        >
-          {name}
-        </span>
-      </div>
-      <span
-        style={{
-          fontSize: 15,
-          fontWeight: 700,
-          color: entry.isCurrent ? CYAN : top3 ? "#FFF" : "#666",
-        }}
-      >
-        {entry.referrals} REF
-      </span>
-    </div>
-  );
-}
-
 function Stat({ label, value, color = "#FFF" }: { label: string; value: string; color?: string }) {
   return (
     <div>
@@ -521,7 +481,7 @@ function CenteredMessage({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        fontFamily: mono,
+        fontFamily: FONT,
       }}
     >
       <div
