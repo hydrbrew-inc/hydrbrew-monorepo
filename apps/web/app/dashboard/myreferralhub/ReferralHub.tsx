@@ -126,14 +126,11 @@ export function ReferralHub({ userCode }: { userCode: string | null }) {
       {/* Wafer-thin top banner */}
       <Image
         src="/images/Transmit_the_Signal_Referral_Hub.webp"
-        alt="hydrbrew° — Transmit the Signal"
+        alt="hydrbrew° - Transmit the Signal"
         width={1200}
         height={400}
         priority
-        style={{
-          display: "block",
-          width: "100%",
-        }}
+        className="block w-full md:max-w-5xl mx-auto"
       />
       <div style={{ padding: "24px" }}>
       <div style={{ maxWidth: 1024, margin: "0 auto" }}>
