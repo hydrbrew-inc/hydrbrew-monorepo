@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono, Urbanist } from "next/font/google";
 import { siteMetadata } from "@repo/lib/site-config";
 import { GoogleAnalytics } from "../components/analytics/GoogleAnalytics";
 import { JsonLd } from "../components/JsonLd";
@@ -16,6 +16,12 @@ const inter = Inter({
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
+  display: "swap",
+});
+
+const urbanist = Urbanist({
+  subsets: ["latin"],
+  variable: "--font-urbanist",
   display: "swap",
 });
 
@@ -80,7 +86,7 @@ export default function RootLayout({
         <JsonLd />
       </head>
       <body
-        className={`${inter.className} ${jetbrainsMono.variable} antialiased`}
+        className={`${inter.className} ${jetbrainsMono.variable} ${urbanist.variable} antialiased`}
       >
         {children}
         <GoogleAnalytics />
