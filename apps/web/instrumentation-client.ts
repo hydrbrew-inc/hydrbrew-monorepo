@@ -26,7 +26,23 @@ Sentry.init({
         frame.filename?.includes("onsite/js/") ||
         frame.filename?.includes("inject_content.js"),
     );
-    return isThirdPartyNoise ? null : event;
+    if (isThirdPartyNoise) return null;
+
+    // Unhandled rejection whose "error" is a DOM `ProgressEvent` from a failed
+    // XMLHttpRequest. These come from third-party SDKs (Klaviyo, Meta Pixel,
+    // PostHog, the Viral Loops widget loader) whose XHR fails on a network blip
+    // or an ad-blocker and leaks the error event as a promise rejection - no
+    // stack, no message, zero user impact. Our own data calls use fetch (which
+    // throws TypeError, never ProgressEvent), so this can't mask a real bug.
+    const value = event.exception?.values?.[0]?.value ?? "";
+    const serialized = event.extra?.__serialized__ as
+      | { target?: unknown }
+      | undefined;
+    if (value.includes("ProgressEvent") || serialized?.target === "[object XMLHttpRequest]") {
+      return null;
+    }
+
+    return event;
   },
 });
 
