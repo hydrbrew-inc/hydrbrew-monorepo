@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { supabaseServer } from "@repo/lib/supabase-server";
 import { registerViralLoopsParticipant } from "@repo/lib/viral-loops";
 import { upsertKlaviyoProfileProperties } from "@repo/lib/klaviyo-profile";
-import { sendMetaCapiEvent } from "@repo/lib/meta-capi";
+import { sendMetaCapiEvent, parseMetaCookies } from "@repo/lib/meta-capi";
 import { leadEventValue } from "@repo/lib/site-config";
 
 type SignupBody = {
@@ -113,9 +113,13 @@ export async function POST(request: Request) {
   //    Failure is logged but doesn't block — ad attribution degrades, signup
   //    still succeeds.
   try {
+    // Leftmost x-forwarded-for hop is the real client IP — forwarded as-is,
+    // IPv6 or IPv4 (no v4 coercion), since Meta accepts either and v6 improves
+    // matching for mobile carriers.
     const forwardedFor = request.headers.get("x-forwarded-for") ?? "";
     const ipAddress = forwardedFor.split(",")[0]?.trim() || undefined;
     const userAgent = request.headers.get("user-agent") ?? undefined;
+    const { fbp, fbc } = parseMetaCookies(request.headers.get("cookie"));
     const requestUrl = new URL(request.url);
 
     await sendMetaCapiEvent({
@@ -128,6 +132,8 @@ export async function POST(request: Request) {
         ipAddress,
         userAgent,
         externalId: profile.operative_number,
+        fbp,
+        fbc,
       },
       customData: {
         value: leadEventValue.value,

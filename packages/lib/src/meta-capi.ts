@@ -37,6 +37,29 @@ export type MetaCapiEvent = {
   customData?: MetaCapiCustomData;
 };
 
+/**
+ * Pull Meta's `_fbp` / `_fbc` browser cookies out of a request Cookie header so
+ * they can be forwarded in `user_data`. These are NOT hashed - Meta matches the
+ * raw cookie values. Forwarding them is the main lever for raising Lead Event
+ * Match Quality past the email + IP + UA + external_id we already send.
+ */
+export function parseMetaCookies(cookieHeader: string | null | undefined): {
+  fbp?: string;
+  fbc?: string;
+} {
+  if (!cookieHeader) return {};
+  const out: { fbp?: string; fbc?: string } = {};
+  for (const part of cookieHeader.split(";")) {
+    const eq = part.indexOf("=");
+    if (eq === -1) continue;
+    const name = part.slice(0, eq).trim();
+    const value = part.slice(eq + 1).trim();
+    if (name === "_fbp") out.fbp = decodeURIComponent(value);
+    else if (name === "_fbc") out.fbc = decodeURIComponent(value);
+  }
+  return out;
+}
+
 function sha256(value: string): string {
   return crypto
     .createHash("sha256")
