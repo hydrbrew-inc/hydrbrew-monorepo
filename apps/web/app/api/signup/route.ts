@@ -3,6 +3,7 @@ import { supabaseServer } from "@repo/lib/supabase-server";
 import { registerViralLoopsParticipant } from "@repo/lib/viral-loops";
 import { upsertKlaviyoProfileProperties } from "@repo/lib/klaviyo-profile";
 import { sendMetaCapiEvent } from "@repo/lib/meta-capi";
+import { leadEventValue } from "@repo/lib/site-config";
 
 type SignupBody = {
   email?: string;
@@ -129,6 +130,8 @@ export async function POST(request: Request) {
         externalId: profile.operative_number,
       },
       customData: {
+        value: leadEventValue.value,
+        currency: leadEventValue.currency,
         operative_number: profile.operative_number,
         signup_source: body.signupSource ?? "unknown",
         referrer_code: body.referrerCode,

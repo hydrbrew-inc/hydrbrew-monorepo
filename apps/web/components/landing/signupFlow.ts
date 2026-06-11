@@ -1,3 +1,5 @@
+import { leadEventValue } from "@repo/lib/site-config";
+
 export type SignupRequest = {
   email: string;
   firstName?: string;
@@ -78,6 +80,8 @@ export async function submitSignup(
         "track",
         "Lead",
         {
+          value: leadEventValue.value,
+          currency: leadEventValue.currency,
           content_name: "Operative Signup",
           content_category: request.signupSource,
         },

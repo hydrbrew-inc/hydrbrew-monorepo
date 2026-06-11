@@ -32,6 +32,15 @@ export const siteMetadata = {
   ogImage: "/og-image.jpg",
 } as const;
 
+/**
+ * Monetary value attached to the Meta `Lead` event. Meta needs a value +
+ * currency on Lead to compute ROAS — without it Events Manager flags "Send
+ * valid prices and currencies" and ad optimization degrades. The browser Pixel
+ * and server CAPI events must send the SAME value so the event_id dedup keeps a
+ * priced event. Adjust to your modeled per-lead worth.
+ */
+export const leadEventValue = { value: 5, currency: "USD" } as const;
+
 /** Local dev origins for sibling Next apps (adjust for deployment). */
 export const devAppOrigins = {
   web: "http://localhost:3000",
