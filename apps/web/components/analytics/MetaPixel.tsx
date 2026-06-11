@@ -3,6 +3,7 @@
 import Script from "next/script";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
+import { captureMetaClickId } from "./metaClickId";
 
 declare global {
   interface Window {
@@ -17,7 +18,10 @@ export function MetaPixel() {
 
   // Fire PageView on every App Router route change. The inline script fires the
   // first PageView synchronously; this hook handles SPA navigations after that.
+  // Capture fbclid → _fbc first, before the early return, so click attribution
+  // is stored even on landings that arrive before the Pixel SDK initializes.
   useEffect(() => {
+    captureMetaClickId();
     if (!pixelId) return;
     if (typeof window !== "undefined" && typeof window.fbq === "function") {
       window.fbq("track", "PageView");
