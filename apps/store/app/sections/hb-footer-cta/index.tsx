@@ -98,6 +98,7 @@ function HbFooterCta(props: HydrogenComponentProps) {
             <h4 className="text-white mb-4" style={{ fontFamily: "'Urbanist',sans-serif" }}>Shop</h4>
             <ul className="space-y-2 text-sm text-white/60">
               <li><a href="/products" className="hover:text-[#00FFFF] transition-colors">All Products</a></li>
+              <li><a href="/protocol" className="hover:text-[#00FFFF] transition-colors">Caffeine Audit</a></li>
               <li><a href="mailto:?subject=You%20need%20to%20try%20this&body=Hey%2C%0A%0AI%27ve%20been%20using%20hydrbrew%C2%B0" className="hover:text-[#00FFFF] transition-colors">Refer a Friend</a></li>
             </ul>
           </div>
