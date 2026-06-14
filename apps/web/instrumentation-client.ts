@@ -12,19 +12,29 @@ Sentry.init({
     // DOM node — almost always a browser extension, not our code.
     "Failed to execute 'selectNode' on 'Range'",
     "InvalidNodeTypeError",
+    // Instagram in-app browser native-bridge scripts poking their webview host:
+    //   - iOS: window.webkit.messageHandlers is undefined in their WKWebView
+    //   - Android: the injected Java bridge object is GC'd on page unload
+    // Injected by the IG app, not our code; zero user impact.
+    "window.webkit.messageHandlers",
+    "Java object is gone",
   ],
   // Drop errors that originate in third-party scripts, not our code:
   //   - Klaviyo's Onsite forms SDK (`onsite/js/...`) failing inside the
   //     Instagram in-app browser
   //   - scripts injected by in-app browsers / extensions (`inject_content.js`)
-  // These are "TypeError: Illegal invocation" unhandled rejections with zero
-  // user impact, and they flood Sentry once IG ad traffic starts.
+  //   - the Instagram in-app browser's native bridge (`sendDataToNative`,
+  //     `navigation_performance_logger_android`) talking to its webview host
+  // These are unhandled errors with zero user impact that flood Sentry once IG
+  // ad traffic starts.
   beforeSend(event) {
     const frames = event.exception?.values?.[0]?.stacktrace?.frames ?? [];
     const isThirdPartyNoise = frames.some(
       (frame) =>
         frame.filename?.includes("onsite/js/") ||
-        frame.filename?.includes("inject_content.js"),
+        frame.filename?.includes("inject_content.js") ||
+        frame.filename?.includes("navigation_performance_logger") ||
+        frame.function?.includes("sendDataToNative"),
     );
     if (isThirdPartyNoise) return null;
 
