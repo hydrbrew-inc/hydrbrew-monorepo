@@ -22,9 +22,9 @@ function root({
 }): SeoConfig {
   return {
     title: shop?.name,
-    titleTemplate: "%s | Weaverse Hydrogen Demo Store",
+    titleTemplate: "%s | HydrBrew",
     description: truncate(shop?.description ?? ""),
-    handle: "@weaverse",
+    handle: "@tryhydrbrew",
     url,
     robots: {
       noIndex: false,
@@ -36,10 +36,8 @@ function root({
       name: shop.name,
       logo: shop.brand?.logo?.image?.url,
       sameAs: [
-        "https://twitter.com/weaverseio",
-        "https://facebook.com/weaverse",
-        "https://instagram.com/weaverse.io",
-        "https://youtube.com/@weaverse",
+        "https://twitter.com/tryhydrbrew",
+        "https://instagram.com/tryhydrbrew",
       ],
       url,
       potentialAction: {
@@ -54,8 +52,8 @@ function root({
 function home(): SeoConfig {
   return {
     title: "Home",
-    titleTemplate: "%s | Weaverse Hydrogen Demo Store",
-    description: "The best Shopify Hydrogen Theme Customizer",
+    titleTemplate: "%s | HydrBrew",
+    description: "HydrBrew — functional iced coffee for the afternoon",
     robots: {
       noIndex: false,
       noFollow: false,
@@ -312,7 +310,7 @@ function listCollections({
   return {
     title: "Collections",
     titleTemplate: "%s | Collections",
-    description: "All hydrogen collections",
+    description: "All HydrBrew collections",
     url,
     jsonLd: collectionsJsonLd({ collections, url }),
   };
@@ -439,7 +437,7 @@ function policies({
   return {
     title: "Policies",
     titleTemplate: "%s | Policies",
-    description: "Weaverse Hydrogen store policies",
+    description: "HydrBrew store policies",
     jsonLd: [
       {
         "@context": "https://schema.org",
@@ -449,7 +447,7 @@ function policies({
       {
         "@context": "https://schema.org",
         "@type": "WebPage",
-        description: "Weaverse Hydrogen store policies",
+        description: "HydrBrew store policies",
         name: "Policies",
         url,
       },

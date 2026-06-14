@@ -3,6 +3,11 @@ import { withSentryConfig } from "@sentry/nextjs";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  async rewrites() {
+    return [
+      { source: "/protocol", destination: "/protocol/index.html" },
+    ];
+  },
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "i.imgur.com", pathname: "/**" },
