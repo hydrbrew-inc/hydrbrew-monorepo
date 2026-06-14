@@ -11,7 +11,7 @@ import { FinalCTA } from "./FinalCTA";
 import { FloatingNav } from "./FloatingNav";
 import { Footer } from "./Footer";
 import { FounderClosing } from "./FounderClosing";
-import { HeroBifurcation } from "./HeroBifurcation";
+import { Hero } from "./Hero";
 import { ManifestoSection } from "./ManifestoSection";
 import { NeuralBriefing } from "./NeuralBriefing";
 import { PathSeparator } from "./PathSeparator";
@@ -36,7 +36,7 @@ export function LandingPage() {
         <SignupToast />
         <NeuralBriefing />
         <div id="hero">
-          <HeroBifurcation />
+          <Hero />
         </div>
         <ProductDNATicker />
         <div id="product">
