@@ -121,6 +121,8 @@ export function ProtocolSection() {
                   <img
                     src="/images/MIapoa8.webp"
                     alt="Optimized Human"
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover object-[60%_center]"
                   />
                   {/* Scanline effect */}
@@ -599,6 +601,8 @@ export function ProtocolSection() {
               <img
                 src="/images/r4yd2z5.webp"
                 alt="Formula background"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover object-[50%_50%] md:object-[50%_65%]"
                 style={{
                   filter: "brightness(1.15) contrast(1.1) saturate(1.2)",

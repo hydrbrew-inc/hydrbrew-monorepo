@@ -24,6 +24,11 @@ export function PostHog() {
       capture_pageleave: true,
       autocapture: true,
       persistence: "localStorage+cookie",
+      // Session replay's recorder runs ~4s of main-thread work on every visit
+      // (a major TBT/PageSpeed drag on a paid-social landing page). We keep
+      // analytics + autocapture; drop the recorder. Re-enable per-flag later if
+      // we want sampled replays.
+      disable_session_recording: true,
     });
   }, []);
 

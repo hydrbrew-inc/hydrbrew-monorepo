@@ -1214,6 +1214,8 @@ export function FinalCTA() {
                 <img
                   src="/images/kGmaCL7.webp"
                   alt="Background"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover object-center"
                 />
               </div>
