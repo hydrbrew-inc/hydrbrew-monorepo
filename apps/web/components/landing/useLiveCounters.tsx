@@ -7,14 +7,15 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { supabaseBrowser } from "@repo/lib/supabase-browser";
 import { siteConfig } from "@repo/lib/site-config";
 
 // Live signup counters for the landing page, shared via context so the hero
-// and final CTA read one source (single fetch + single realtime channel — two
-// channels with the same topic would collide). Initial values come from
-// /api/counters (server-side exact count); after that we subscribe to the
-// realtime-enabled public_counters table and bump locally on each signup.
+// and final CTA read one source. Values come from /api/counters (server-side
+// exact count) on load. We intentionally do NOT open a Supabase realtime
+// WebSocket here: the counter is decorative, and on mobile in-app browsers
+// (our paid-social traffic) the WS frequently fails to connect and the client
+// retries in a tight loop that hogs the main thread — a measurable PageSpeed
+// hit for a number that's only ever off by the few signups since page load.
 
 type LiveCounters = {
   total: number;
@@ -53,30 +54,8 @@ export function LiveCountersProvider({ children }: { children: ReactNode }) {
         // Counters are decorative — a failed fetch shouldn't surface an error.
       });
 
-    const supabase = supabaseBrowser();
-    // Unique topic per mount so a StrictMode re-mount never re-attaches to a
-    // channel that's already subscribed.
-    const channel = supabase
-      .channel(`public_counters_live_${crypto.randomUUID()}`)
-      .on(
-        "postgres_changes",
-        {
-          event: "UPDATE",
-          schema: "public",
-          table: "public_counters",
-          filter: "key=eq.total_signups",
-        },
-        () => {
-          if (!active) return;
-          setTotal((prev) => prev + 1);
-          setLast24h((prev) => prev + 1);
-        },
-      )
-      .subscribe();
-
     return () => {
       active = false;
-      void supabase.removeChannel(channel);
     };
   }, []);
 
