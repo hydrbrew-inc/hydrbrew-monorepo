@@ -467,11 +467,13 @@ export function Hero() {
 
     <div className="hb-root">
 
-      {/* Background image */}
+      {/* Background image - LCP element; preloaded in app/layout.tsx head */}
       <img
         className="hb-img"
         src="/images/hFqMecA.webp"
         alt="hydrbrew° — functional iced coffee, afternoon focus"
+        fetchPriority="high"
+        decoding="async"
         style={{
           position: "absolute",
           inset: 0,

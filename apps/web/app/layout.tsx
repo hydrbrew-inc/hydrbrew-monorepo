@@ -87,7 +87,7 @@ export default function RootLayout({
         <link
           rel="preload"
           as="image"
-          href="/images/E8Ar62i.webp"
+          href="/images/hFqMecA.webp"
           fetchPriority="high"
         />
         <JsonLd />
