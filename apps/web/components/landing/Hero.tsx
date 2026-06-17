@@ -313,7 +313,7 @@ export function Hero() {
                   "Securing…"
                 ) : (
                   <>
-                    Secure Member Access
+                    Reserve Founder Access
                     <span className="hb-arrow" aria-hidden="true"> →</span>
                   </>
                 )}
@@ -322,7 +322,7 @@ export function Hero() {
           </form>
 
           <p className="hb-trust">
-            <span style={{ color: CYAN, fontWeight: 700 }}>Unlock 25% off</span> your first batch • Ships mid-July • No credit card required today.
+            <span style={{ color: CYAN, fontWeight: 700 }}>Unlock 25% off</span> your first order • Ships mid-July • No subscription required.
           </p>
         </div>
       </div>
