@@ -134,11 +134,22 @@ export function Hero() {
           z-index: 4;
         }
         .hb-logo {
-          display: inline-flex; align-items: center; gap: 9px;
-          font-family: ${LOGO};
-          font-weight: 600; font-size: 23px; letter-spacing: -0.01em;
-          color: #FFFFFF; text-transform: lowercase;
-          text-shadow: 0 2px 14px rgba(0,0,0,0.85);
+          display: inline-flex;
+          align-items: center;
+          gap: 9px;
+          font-family: 'Space Grotesk', system-ui, sans-serif;
+          font-weight: 600;
+          font-size: 23px;
+          letter-spacing: -0.01em;
+          color: #FFFFFF;
+          text-transform: lowercase;
+          text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85);
+          padding: 8px 18px;
+          border-radius: 999px;
+          background: rgba(0, 0, 0, 0.4);
+          border: 1px solid rgba(0, 255, 255, 0.45);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
         }
         .hb-logo-accent { color: ${CYAN}; text-shadow: 0 0 14px rgba(0,255,255,0.7); }
         .hb-logo-mark {
