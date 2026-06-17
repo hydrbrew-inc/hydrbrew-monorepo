@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Space_Grotesk, Urbanist } from "next/font/google";
+import {
+  Inter,
+  JetBrains_Mono,
+  Playfair_Display,
+  Plus_Jakarta_Sans,
+  Space_Grotesk,
+  Urbanist,
+} from "next/font/google";
 import { siteMetadata } from "@repo/lib/site-config";
 import { GoogleAnalytics } from "../components/analytics/GoogleAnalytics";
 import { JsonLd } from "../components/JsonLd";
@@ -17,6 +24,19 @@ const inter = Inter({
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-space-grotesk",
+  display: "swap",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  variable: "--font-playfair",
+  display: "swap",
+});
+
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-jakarta",
   display: "swap",
 });
 
@@ -87,13 +107,13 @@ export default function RootLayout({
         <link
           rel="preload"
           as="image"
-          href="/images/hFqMecA.webp"
+          href="/images/hero-bg.webp"
           fetchPriority="high"
         />
         <JsonLd />
       </head>
       <body
-        className={`${inter.className} ${inter.variable} ${jetbrainsMono.variable} ${spaceGrotesk.variable} ${urbanist.variable} antialiased`}
+        className={`${inter.className} ${inter.variable} ${jetbrainsMono.variable} ${spaceGrotesk.variable} ${playfair.variable} ${jakarta.variable} ${urbanist.variable} antialiased`}
       >
         {children}
         <GoogleAnalytics />
