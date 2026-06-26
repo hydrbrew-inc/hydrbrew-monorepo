@@ -23,13 +23,41 @@ function InstagramFeed(props: InstagramFeedProps) {
   const { heading, feedId = "4Y25XqYpmc6hjLt4QtZU", children: _children, ...rest } = props;
 
   useEffect(() => {
-    if (document.querySelector('script[src="https://w.behold.so/widget.js"]')) {
-      return;
+    if (!document.querySelector('script[src="https://w.behold.so/widget.js"]')) {
+      const s = document.createElement("script");
+      s.type = "module";
+      s.src = "https://w.behold.so/widget.js";
+      document.head.appendChild(s);
     }
-    const s = document.createElement("script");
-    s.type = "module";
-    s.src = "https://w.behold.so/widget.js";
-    document.head.appendChild(s);
+
+    const injectHide = () => {
+      document.querySelectorAll("behold-widget").forEach((w) => {
+        const root = (w as any).shadowRoot as ShadowRoot | null;
+        if (root && !root.querySelector("#hb-no-brand")) {
+          const st = document.createElement("style");
+          st.id = "hb-no-brand";
+          st.textContent = `
+            [class*="brand"],[class*="Brand"],[class*="branding"],[class*="Branding"],
+            footer,[class*="footer"],[class*="Footer"],
+            a[href*="behold"],a[href*="beholder"] {
+              display: none !important;
+            }
+          `;
+          root.appendChild(st);
+        }
+      });
+    };
+
+    const timer1 = setTimeout(injectHide, 1000);
+    const timer2 = setTimeout(injectHide, 3000);
+    const observer = new MutationObserver(injectHide);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      observer.disconnect();
+    };
   }, []);
 
   return (
