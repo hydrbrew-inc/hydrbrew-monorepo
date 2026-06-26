@@ -4,17 +4,6 @@ import { useState, useEffect, useRef } from "react";
 import { Check } from "lucide-react";
 import MuxPlayer from "@mux/mux-player-react";
 
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      "behold-widget": React.DetailedHTMLProps<
-        React.HTMLAttributes<HTMLElement> & { "feed-id": string },
-        HTMLElement
-      >;
-    }
-  }
-}
-
 interface HbProductProps extends HydrogenComponentProps {
   shopLink?: string;
   muxPlaybackId?: string;
@@ -33,15 +22,6 @@ function HbProduct(props: HbProductProps) {
     "https://i.imgur.com/iXr5kKh.png",
     "https://i.imgur.com/sqTrdv5.png",
   ];
-
-  useEffect(() => {
-    if (!document.querySelector('script[src="https://w.behold.so/widget.js"]')) {
-      const s = document.createElement("script");
-      s.type = "module";
-      s.src = "https://w.behold.so/widget.js";
-      document.head.appendChild(s);
-    }
-  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -166,14 +146,6 @@ function HbProduct(props: HbProductProps) {
               </div>
             )}
           </div>
-        </div>
-
-        {/* Instagram Feed — above The Afternoon Ritual */}
-        <div className="max-w-7xl mx-auto mb-16 scroll-reveal" data-scroll-delay="0">
-          <p className="text-[#00FFFF]/60 text-xs uppercase tracking-widest mb-6 text-center" style={{ fontFamily: "'Roboto Mono',monospace" }}>
-            Connect To The Network // Live Feed
-          </p>
-          <behold-widget feed-id="4Y25XqYpmc6hjLt4QtZU" />
         </div>
 
         {/* The Afternoon Ritual */}
