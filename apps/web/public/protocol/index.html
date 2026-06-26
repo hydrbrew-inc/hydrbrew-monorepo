@@ -52,10 +52,17 @@
     /* HERO */
     .hero { padding: 56px 32px 40px; border-bottom: 1px solid #222; max-width: 680px; margin: 0 auto; }
     .hero-eyebrow { font-size: 11px; letter-spacing: 4px; color: #00FFFF; text-transform: uppercase; margin-bottom: 12px; }
-    .hero-title { font-size: 48px; font-weight: 900; letter-spacing: -2px; text-transform: uppercase; line-height: 1.0; margin-bottom: 16px; }
+    .brand { text-transform: none; }
+    .hero-title { font-family: 'Space Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 900; letter-spacing: -2px; text-transform: uppercase; line-height: 1.0; margin-bottom: 16px; }
     .hero-sub { font-size: 16px; color: #aaa; line-height: 1.65; max-width: 480px; }
     .hero-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
-    .hero-tag { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #777; border: 1px solid #222; padding: 6px 12px; }
+    .hero-tag { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: #d9d9d9; border: 1px solid rgba(0,255,255,0.35); background: rgba(0,255,255,0.05); padding: 8px 14px; }
+    html { scroll-behavior: smooth; }
+    #audit { scroll-margin-top: 20px; }
+    .hero-reward { display: block; margin-top: 20px; border: 1px solid #00FFFF; background: #001a1a; color: #d9feff; font-size: 13px; letter-spacing: 0.5px; line-height: 1.55; padding: 12px 16px; }
+    .hero-reward strong { color: #00FFFF; font-weight: 700; }
+    .hero-cta { display: block; text-align: center; margin-top: 16px; background: #FFB000; color: #000; padding: 18px; font-size: 14px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; text-decoration: none; font-family: 'Space Grotesk', monospace, sans-serif; transition: background 0.15s; }
+    .hero-cta:hover { background: #FFC233; }
 
     /* MAIN */
     .main { max-width: 680px; margin: 0 auto; padding: 40px 32px 80px; }
@@ -117,10 +124,15 @@
     .section-break { display: flex; align-items: center; gap: 12px; margin: 24px 0 18px; }
     .section-break-line { flex: 1; height: 1px; background: #222; }
     .section-break-label { font-size: 11px; letter-spacing: 2px; color: #666; text-transform: uppercase; white-space: nowrap; }
+    .section-major { margin: 64px 0 32px; padding-top: 40px; border-top: 1px solid #1f1f1f; }
+    .section-major-kicker { font-size: 11px; letter-spacing: 3px; color: #00FFFF; text-transform: uppercase; margin-bottom: 10px; }
+    .section-major-title { font-family: 'Space Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 30px; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; line-height: 1.05; }
 
     /* STACK */
     .stack-card { border: 1px solid #222; background: #050505; padding: 22px; margin-bottom: 16px; }
     .stack-label { font-size: 11px; letter-spacing: 3px; color: #777; text-transform: uppercase; margin-bottom: 16px; }
+    .stack-foot { font-size: 11px; letter-spacing: 1.5px; color: #777; text-transform: uppercase; margin-top: 18px; padding-top: 16px; border-top: 1px solid #1a1a1a; }
+    .stack-foot strong { color: #aaa; font-weight: 600; }
     .stack-row { display: flex; align-items: center; gap: 16px; padding: 14px 0; border-bottom: 1px solid #111; }
     .stack-row:last-child { border-bottom: none; }
     .stack-bar-wrap { flex: 1; }
@@ -138,13 +150,21 @@
     .insight-text { font-size: 15px; color: #aaa; line-height: 1.7; }
 
     /* CTA */
-    .cta-section { margin-top: 24px; }
-    .cta-btn { width: 100%; background: #00FFFF; color: #000; border: none; padding: 22px; font-size: 14px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; font-family: 'Space Grotesk', monospace, sans-serif; transition: background 0.15s; display: block; text-decoration: none; text-align: center; }
-    .cta-btn:hover { background: #00DDDD; }
+    .cta-section { margin-top: 24px; display: none; }
+    .cta-section.show { display: block; animation: ctaReveal 0.45s ease both; }
+    @keyframes ctaReveal { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .cta-locked { margin-top: 24px; text-align: center; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: #00FFFF; border: 1px dashed #044; padding: 18px; }
+    .cta-btn { width: 100%; background: #FFB000; color: #000; border: none; padding: 22px; font-size: 14px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; font-family: 'Space Grotesk', monospace, sans-serif; transition: background 0.15s; display: block; text-decoration: none; text-align: center; }
+    .cta-btn:hover { background: #FFC233; }
     .cta-step { font-size: 11px; letter-spacing: 2px; color: #00FFFF; text-transform: uppercase; margin-bottom: 10px; text-align: center; }
     .cta-secondary { display: block; text-align: center; width: 100%; background: transparent; border: 1px solid #333; color: #aaa; padding: 16px; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; margin-top: 12px; transition: all 0.15s; font-family: 'Space Grotesk', monospace, sans-serif; }
     .cta-secondary:hover { border-color: #555; color: #fff; }
     .cta-sub { text-align: center; font-size: 12px; color: #777; letter-spacing: 1px; text-transform: uppercase; margin-top: 16px; line-height: 1.9; }
+    .cta-sub-email { display: block; color: #00FFFF; font-size: 14px; font-weight: 700; letter-spacing: 1.5px; margin-bottom: 8px; }
+    .cta-email { width: 100%; background: #0d0d0d; border: 1px solid #333; color: #fff; padding: 18px; font-size: 14px; letter-spacing: 1px; font-family: 'Space Grotesk', monospace, sans-serif; margin-bottom: 12px; box-sizing: border-box; }
+    .cta-email::placeholder { color: #999; letter-spacing: 1px; }
+    .cta-email:focus { outline: none; border-color: #00FFFF; }
+    .cta-email-err { display: none; color: #ff5c5c; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; margin: -4px 0 12px; text-align: center; }
 
     /* FOOTER */
     .footer { border-top: 1px solid #222; padding: 32px; text-align: center; max-width: 680px; margin: 0 auto; }
@@ -168,7 +188,7 @@
       .result-time { font-size: 44px; }
       .share-row { flex-direction: column; }
       body { padding-bottom: 64px; }
-      .sticky-cta { display: block; position: fixed; bottom: 0; left: 0; right: 0; z-index: 200; background: #00FFFF; color: #000; text-align: center; padding: 18px; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; font-family: 'Space Grotesk', monospace, sans-serif; box-shadow: 0 -4px 24px rgba(0,0,0,0.6); }
+      .sticky-cta.show { display: block; position: fixed; bottom: 0; left: 0; right: 0; z-index: 200; background: #00FFFF; color: #000; text-align: center; padding: 18px; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; font-family: 'Space Grotesk', monospace, sans-serif; box-shadow: 0 -4px 24px rgba(0,0,0,0.6); }
       .sticky-cta:active { background: #00DDDD; }
     }
   </style>
@@ -177,30 +197,31 @@
 
   <nav class="nav">
     <a href="https://hydrbrew.com" class="nav-logo">hydr<span>brew&deg;</span></a>
-    <a href="https://hydrbrew.com?utm_source=afternoon_audit&utm_medium=tool&utm_campaign=drip_flow&utm_content=nav_signup" id="nav-signup" class="nav-link">Get 25% Off &mdash; Sign Up &rarr;</a>
+    <span class="nav-link">Afternoon Caffeine Audit</span>
   </nav>
 
   <section class="hero">
-    <div class="hero-eyebrow">// hydrbrew&deg; &middot; afternoon audit</div>
+    <div class="hero-eyebrow">// <span class="brand">hydrbrew&deg;</span> &middot; afternoon caffeine audit</div>
     <h1 class="hero-title">Find Your<br>Optimal Window</h1>
-    <p class="hero-sub">Most caffeine timing is guesswork. This tool gives you a specific deployment time based on your actual state &mdash; not a generic recommendation.</p>
+    <p class="hero-sub">Claim your afternoon focus window and eliminate the 2:00 PM fade.</p>
+    <div class="hero-reward">// 60-second caffeine audit &middot; <strong>20% off</strong> coupon code emailed at completion</div>
+    <a href="#audit" id="hero-start" class="hero-cta">Start the caffeine audit &darr;</a>
     <div class="hero-tags">
-      <div class="hero-tag">3 inputs</div>
-      <div class="hero-tag">Live result</div>
-      <div class="hero-tag">Free to use</div>
-      <div class="hero-tag">Zero systemic debt</div>
+      <div class="hero-tag">4 quick questions</div>
+      <div class="hero-tag">60-second unlock</div>
+      <div class="hero-tag">Real-time results</div>
     </div>
   </section>
 
   <main class="main">
 
     <div class="img-placeholder" style="height:500px">
-      <img src="/protocol/assets/hero-can.webp" alt="hydrbrew&deg; functional iced coffee can" onerror="this.style.display='none'">
-      <div class="img-overlay">// hydrbrew&deg; afternoon protocol</div>
+      <img src="assets/hero-can.webp" alt="hydrbrew&deg; functional iced coffee can" onerror="this.style.display='none'">
+      <div class="img-overlay">// <span class="brand">hydrbrew&deg;</span> afternoon protocol</div>
     </div>
 
     <!-- SLEEP INPUT -->
-    <div class="input-block">
+    <div class="input-block" id="audit">
       <div class="q-label">Hours of sleep last night? <span class="q-val" id="sleep-label">7 hrs</span></div>
       <div class="q-sub">Sleep quality is the hidden variable in caffeine timing &mdash; it determines your adenosine baseline and how aggressively the afternoon dip will hit</div>
       <input type="range" min="3" max="9" value="7" step="1" id="sleep-slider">
@@ -253,7 +274,7 @@
     </div>
 
     <div class="result-card" id="result-card">
-      <div class="result-eyebrow">// your optimal hydrbrew&deg; window</div>
+      <div class="result-eyebrow">// your optimal <span class="brand">hydrbrew&deg;</span> window</div>
       <div class="time-display">
         <div class="result-time" id="result-time">1:45 PM</div>
         <div class="time-badge" id="result-badge">Today</div>
@@ -266,10 +287,27 @@
       </div>
     </div>
 
-    <div class="section-break">
-      <div class="section-break-line"></div>
-      <div class="section-break-label">// what&rsquo;s in the can</div>
-      <div class="section-break-line"></div>
+    <div class="cta-locked" id="cta-locked">// adjust any input above to unlock your 20% off</div>
+
+    <div class="cta-section" id="cta-section">
+      <div class="cta-step">// audit complete &middot; unlock your 20% off</div>
+      <input type="email" id="cta-email" class="cta-email" name="email" placeholder="yourname@email.com" autocomplete="email" inputmode="email" required>
+      <div id="cta-email-err" class="cta-email-err">Enter a valid email to unlock your code</div>
+      <a href="https://hydrbrew.com?utm_source=afternoon_audit&utm_medium=tool&utm_campaign=drip_flow&utm_content=cta_signup" id="cta-signup" class="cta-btn">
+        Lock in my protocol + claim 20% off &rarr;
+      </a>
+      <a href="https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937&utm_source=afternoon_audit&utm_medium=tool&utm_campaign=drip_flow&utm_content=cta_browse" id="cta-browse" class="cta-secondary">
+        Or browse the store &rarr;
+      </a>
+      <div class="cta-sub">
+        <span class="cta-sub-email">&#9993;&#xFE0E; We&rsquo;ll email your 20% code</span>
+        Free shipping Western US &middot; No commitment
+      </div>
+    </div>
+
+    <div class="section-major">
+      <div class="section-major-kicker">// the formulation</div>
+      <h2 class="section-major-title">What&rsquo;s in the can</h2>
     </div>
 
     <div class="stack-card">
@@ -306,34 +344,20 @@
         </div>
         <div class="stack-dose">255<small>MG</small></div>
       </div>
+      <div class="stack-foot">// <strong>only 20 calories</strong> &middot; <strong>3g coconut sugar</strong> &middot; clean metabolic exit</div>
     </div>
 
     <div class="img-placeholder" style="height:400px;margin-bottom:16px">
-      <img src="/protocol/assets/lifestyle.webp" alt="hydrbrew&deg; lifestyle" onerror="this.style.display='none'">
-      <div class="img-overlay">// hydrbrew&deg;</div>
+      <img src="assets/lifestyle.webp" alt="hydrbrew&deg; lifestyle" onerror="this.style.display='none'">
+      <div class="img-overlay">// <span class="brand">hydrbrew&deg;</span></div>
     </div>
 
-    <div class="section-break">
-      <div class="section-break-line"></div>
-      <div class="section-break-label">// why this matters for you</div>
-      <div class="section-break-line"></div>
+    <div class="section-major">
+      <div class="section-major-kicker">// your breakdown</div>
+      <h2 class="section-major-title">Why this matters for you</h2>
     </div>
 
     <div id="insights-wrap"></div>
-
-    <div class="cta-section">
-      <div class="cta-step">// step 1 &middot; unlock your discount</div>
-      <a href="https://hydrbrew.com?utm_source=afternoon_audit&utm_medium=tool&utm_campaign=drip_flow&utm_content=cta_signup" id="cta-signup" class="cta-btn">
-        Unlock 25% Off &mdash; Sign Up Free &rarr;
-      </a>
-      <a href="https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937&utm_source=afternoon_audit&utm_medium=tool&utm_campaign=drip_flow&utm_content=cta_browse" id="cta-browse" class="cta-secondary">
-        Or browse the pre-order bundle &rarr;
-      </a>
-      <div class="cta-sub">
-        Sign up free at hydrbrew.com &middot; we&rsquo;ll email your 25% code<br>
-        Ships mid-July 2026 &middot; Free shipping Western US &middot; No commitment
-      </div>
-    </div>
 
   </main>
 
@@ -341,15 +365,15 @@
     <div class="footer-logo">hydr<span>brew&deg;</span></div>
     <div class="footer-tagline">Zero systemic debt &middot; The afternoon stays yours</div>
     <div class="footer-links">
-      <a href="https://hydrbrew.com" class="footer-link">hydrbrew.com</a>
+      <a href="https://hydrbrew.com" class="footer-link"><span class="brand">hydrbrew.com</span></a>
       <a href="https://hydrbrew.myshopify.com/blogs/news" class="footer-link">Journal</a>
-      <a href="https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937" class="footer-link">Pre-Order</a>
+      <a href="https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937" class="footer-link">Order</a>
       <a href="mailto:hello@hydrbrew.com" class="footer-link">Contact</a>
     </div>
-    <div class="footer-disclaimer">These statements have not been evaluated by the Food and Drug Administration and are not intended to diagnose, treat, cure, or prevent any disease. Always consult your primary care physician or a qualified healthcare provider regarding any medical condition or before starting any new diet, supplement, or exercise program. Reliance upon any information provided by Hydrbrew, Inc. is solely at your own risk.</div>
+    <div class="footer-disclaimer">These statements have not been evaluated by the Food and Drug Administration and are not intended to diagnose, treat, cure, or prevent any disease. Always consult your primary care physician or a qualified healthcare provider regarding any medical condition or before starting any new diet, supplement, or exercise program. Reliance upon any information provided by hydrbrew&deg;, Inc. is solely at your own risk.</div>
   </footer>
 
-  <a href="https://hydrbrew.com?utm_source=afternoon_audit&utm_medium=tool&utm_campaign=drip_flow&utm_content=sticky_signup" id="sticky-cta" class="sticky-cta">Unlock 25% Off &mdash; Sign Up Free &rarr;</a>
+  <a href="https://hydrbrew.com?utm_source=afternoon_audit&utm_medium=tool&utm_campaign=drip_flow&utm_content=sticky_signup" id="sticky-cta" class="sticky-cta">Unlock 20% Off &mdash; Sign Up Free &rarr;</a>
 
   <script>
     const energyLabels = ['Running on fumes','Pretty tired','Pretty good','Feeling solid','Sharp and locked in'];
@@ -369,8 +393,28 @@
     track('viewed_protocol_tool');
 
     /* CTA click tracking */
-    document.getElementById('nav-signup').addEventListener('click', () => track('cta_click', { location: 'nav_signup' }));
-    document.getElementById('cta-signup').addEventListener('click', () => track('cta_click', { location: 'cta_signup' }));
+    document.getElementById('hero-start').addEventListener('click', () => track('cta_click', { location: 'hero_start' }));
+    document.getElementById('cta-signup').addEventListener('click', function (e) {
+      const input = document.getElementById('cta-email');
+      const err = document.getElementById('cta-email-err');
+      const email = input.value.trim();
+      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (!valid) {
+        e.preventDefault();
+        err.style.display = 'block';
+        input.focus();
+        return;
+      }
+      err.style.display = 'none';
+      this.href = 'https://hydrbrew.com?utm_source=afternoon_audit&utm_medium=tool&utm_campaign=drip_flow&utm_content=cta_signup&email=' + encodeURIComponent(email);
+      track('cta_click', { location: 'cta_signup' });
+    });
+    document.getElementById('cta-email').addEventListener('input', () => {
+      document.getElementById('cta-email-err').style.display = 'none';
+    });
+    document.getElementById('cta-email').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); document.getElementById('cta-signup').click(); }
+    });
     document.getElementById('cta-browse').addEventListener('click', () => track('cta_click', { location: 'cta_browse' }));
     document.getElementById('sticky-cta').addEventListener('click', () => track('cta_click', { location: 'sticky_signup' }));
 
@@ -804,6 +848,9 @@
 
       if (!isInitial && !auditFired) {
         auditFired = true;
+        document.getElementById('cta-section').classList.add('show');
+        document.getElementById('sticky-cta').classList.add('show');
+        document.getElementById('cta-locked').style.display = 'none';
         track('completed_protocol_audit', { window_time: result.time, goals: selectedGoals.join(',') });
       }
 

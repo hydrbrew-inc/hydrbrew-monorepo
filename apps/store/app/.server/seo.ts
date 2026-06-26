@@ -53,7 +53,7 @@ function home(): SeoConfig {
   return {
     title: "Home",
     titleTemplate: "%s | HydrBrew",
-    description: "HydrBrew — functional iced coffee for the afternoon",
+    description: "hydrbrew° — functional iced coffee engineered for the 2:15 PM window. 85mg buffered caffeine, 200mg L-Theanine, 200mg Lion's Mane, 255mg ionic electrolytes. Zero systemic debt. The afternoon stays yours.",
     robots: {
       noIndex: false,
       noFollow: false,

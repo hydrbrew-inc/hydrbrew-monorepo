@@ -400,6 +400,8 @@ export function BenefitsGrid() {
                 <img
                   src="/images/5MkTH2X.webp"
                   alt="Optimized Human"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover object-center"
                 />
                 {/* Scanline effect */}

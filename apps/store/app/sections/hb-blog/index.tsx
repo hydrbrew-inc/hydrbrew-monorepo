@@ -20,97 +20,122 @@ interface Article {
 const articles: Article[] = [
   {
     id: 1,
-    title: "The Afternoon Manifesto: A Structural Correction for the Pre-Sovereign Era",
-    excerpt: "Legacy Logic is a Bug in the Human Code. Stop reacting. Start directing. This is coffee, reimagined for the future.",
+    title: "The Afternoon Manifesto: A Structural Correction for the Second Half of Your Day",
+    excerpt: "The problem was never caffeine. Most high-output professionals treat the afternoon fade as an unavoidable cost of doing serious work. It's not. It's a formulation problem.",
     image: "https://i.imgur.com/f8a6GyL.jpeg",
-    author: "hydrbrew° Research Division",
+    author: "hydrbrew° Research",
     readTime: "8 min read",
     date: "May 20, 2026",
     category: "Manifesto",
     contentHtml: `
-<p><strong>Legacy Logic is a Bug in the Human Code. Stop reacting. Start directing. This is coffee, reimagined for the future.</strong></p>
-<p>Most high-performers still treat afternoon performance decay like an unavoidable tax on existence. You feel the cognitive fog rolling in. The packet loss in your data processing begins. Your response? You take out another energy loan from a 20th-century commodity.</p>
-<p>By 2:15 PM, you are dehydrated, twitchy, and mentally bankrupt. This isn't a lack of willpower; it's a design instability. You are operating in Biological Debt, trapped in a primitive energy loop that favors volatile stimulation over sustained execution.</p>
-<h2>> The Mandate for Cognitive Sovereignty</h2>
-<p>We are moving past the era of passive consumption. The near future demands Cognitive Sovereignty — the ability to direct your own neural architecture without interference from volatility, latency, or systemic depletion.</p>
-<h2>> The Architectural Correction</h2>
-<p>We built hydrbrew° to be the ultimate baseline substrate for the optimized human. We kept the soul of elite coffee, then executed a precise cognitive patch underneath:</p>
+<p>The problem was never caffeine. Most high-output professionals treat the afternoon fade as an unavoidable cost of doing serious work. The cognitive fog arrives at 2:15 PM like clockwork. Processing slows. The options feel binary — another coffee, an energy drink, or surrender. By 4 PM, you are dehydrated, running on cortisol interference, and borrowing from your evening to finish what should have been easy.</p>
+<p>This is not a willpower problem. It is a formulation problem. You are operating on biological debt — an energy architecture designed for a different era, running on hardware that has never been updated. The afternoon doesn't have to cost you what it's costing you.</p>
+<h2>The Case for Cognitive Architecture</h2>
+<p>We are past the era of reactive consumption. The professionals building what comes next need sustained cognitive output — not a morning spike that burns out by noon, nor an afternoon loan that gets repaid with disrupted sleep and a foggy evening. What the best work requires is interference-free focus throughout the day. Not more stimulation. A better architecture.</p>
+<h2>What We Built and Why</h2>
+<p>We didn't set out to build a better coffee. We set out to fix the afternoon. The ritual of coffee — the sensory signal that initiates focus — is worth preserving. What needed correcting was the delivery mechanism.</p>
 <ul>
-<li>Lion's Mane &amp; L-Theanine // The Focus Engine: Neural priming. Stabilizes the signal, removing the twitch and leaving only the sharp.</li>
-<li>Ionic Electrolytes // The Substrate: Coffee is naturally dehydrating; we fixed the math.</li>
-<li>Precision Caffeine // The Anchor: A perfectly calibrated caffeine stack that runs clean, exits clean, and leaves zero debt on the operating baseline.</li>
+<li><strong>85mg buffered caffeine</strong> — below the threshold that triggers a meaningful cortisol response in most people. Enough to sharpen the afternoon. Not enough to cost you the evening.</li>
+<li><strong>200mg L-Theanine</strong> — takes the edge off the caffeine signal. Focus that holds without the pressure building behind it. The alpha-wave modulation layer that changes a volatile spike into a sustained, interference-free output state.</li>
+<li><strong>200mg Lion's Mane</strong> — executive function depth in hours three and four, when standard caffeine has already faded. This is the ingredient that keeps your thinking sharp when everything else starts to drift.</li>
+<li><strong>255mg ionic electrolytes</strong> — coffee is dehydrating by nature. We fixed the math. Sodium, potassium, magnesium — the cellular baseline your brain requires to stay in the work with you. Dehydration is half the afternoon fade. We built the correction into the can.</li>
 </ul>
-<p>Stop reacting. Start directing. This is premium coffee, reimagined for the future.</p>
+<p>Zero systemic debt. The night stays yours.</p>
+<h2>Who This Is For</h2>
+<p>The future will not be built by people living in biological debt. It will be built by people who understood that the afternoon is not something to survive — it is the second half of the day, and it deserves the same precision as the first.</p>
+<p>hydrbrew° is not a performance enhancer. It is a calibration. A structural correction to the afternoon architecture that has been running the same legacy code for a hundred years.</p>
+<p><em>Not energy. Not recovery. A calibrated system that runs clean, exits clean, and leaves no debt on the operating baseline. The afternoon stays yours.</em></p>
     `.trim(),
   },
   {
     id: 2,
-    title: "The Distributed Ritual: Bieber, Coachella & The Baseline Problem",
-    excerpt: "What Bieber did at Coachella was not a concert. It was a live demonstration of the gap between the room running on borrowed energy, and one person who was not.",
+    title: "The Attention Economy Has a Caffeine Problem",
+    excerpt: "Why the most valuable asset in the digital age is the one most people are actively depleting — and what a structural correction actually looks like.",
     image: "https://i.imgur.com/d0nlyo5.png",
-    author: "hydrbrew° Research Division",
+    author: "hydrbrew° Research",
     readTime: "10 min read",
-    date: "Apr 18, 2026",
-    category: "Culture",
+    date: "May 22, 2026",
+    category: "Analysis",
     contentHtml: `
-<p>We have always been Bieber fans. But his Coachella appearance felt different — it felt like a diagnostic.</p>
-<p>What Bieber did at Coachella was not a concert. It was a live demonstration of the gap between two states: the room running on borrowed energy, and one person who was not.</p>
-<p>That gap is the only thing hydrbrew° is interested in.</p>
-<h2>> The Focus Problem Is a Hardware Problem</h2>
-<p>Most people in that field were not present. They were running on the standard afternoon substrate: cortisol debt from the morning, glycemic crash from lunch, the ambient system noise of a stimulant that had already peaked.</p>
-<p>hydrbrew° is not interested in the buzz. It is interested in the baseline.</p>
-<p>Our Substrate Protocol — 85mg buffered caffeine, 200mg L-Theanine, 200mg Lion's Mane — is not designed to elevate. It is designed to remove what was pulling you down.</p>
-<h2>> Zero Systemic Debt</h2>
-<p>The afternoon crash is not inevitable. The operators who understand this do not manage the crash. They architect around it.</p>
-<p>85mg. Buffered beneath the anxiety threshold. 200mg L-Theanine. Modulating, not amplifying. 200mg Lion's Mane. The architecture of sustained output.</p>
-<p><strong>ZERO SYSTEMIC DEBT — hydrbrew°</strong></p>
+<p>There is a version of focus that most high-output professionals have never actually experienced in the afternoon. Not managed attention — the kind where you're technically present in the room but running on cortisol and willpower, catching every third word and filling in the rest. Not caffeinated alertness — the kind that feels productive but produces work you revise in the morning when you can see it clearly. Actual focus. The kind where the signal is clean, the decision is precise, and the output reflects what you're actually capable of.</p>
+<p>For most people, that state exists in the morning and disappears by 2:15 PM. Not because they stop trying. Because the architecture they're running on was never designed for the second half of the day.</p>
+<h2>The Continuous Engagement Problem</h2>
+<p>The modern professional workday is no longer a series of discrete tasks. It is continuous engagement — a live stream of decisions, reactions, interpretations, and outputs that runs from the first notification of the morning to the last message at night. In that environment, the quality of your attention is not a soft metric. It is the primary variable that determines the quality of everything you produce.</p>
+<p>A founder at a 2:30 PM board meeting who is managing cortisol interference rather than processing information is not making precise decisions. They are making adequate ones. The difference between adequate and precise, compounded across the decisions that matter, is the difference between the company they're building and the one they could be building.</p>
+<h2>Legacy Stimulants Were Built for a Different Output</h2>
+<p>The standard caffeine delivery model was engineered for physical labor — a hard, fast spike of activation that got the body moving. For knowledge work, specifically the high-bandwidth, continuous-engagement knowledge work that defines the modern professional environment, it is the wrong tool.</p>
+<p>High-dose caffeine in the afternoon produces what looks like energy and functions like noise. The cortisol spike elevates anxiety, degrades the quality of attention, and creates the distinctive 2:15 PM state: activated but not sharp, present but not precise. Add the glycemic instability from lunch and the natural cortisol decline that occurs in the early afternoon regardless of caffeine intake, and the result is a predictable system failure at exactly the moment the day demands the most.</p>
+<h2>What a Structural Correction Actually Looks Like</h2>
+<p>The solution to an architecture problem is not more of what caused it. It is a different architecture.</p>
+<ul>
+<li><strong>85mg buffered caffeine</strong> — enough to activate clean cognitive function, below the threshold that triggers the cortisol spike in most people. The signal without the noise.</li>
+<li><strong>200mg L-Theanine</strong> — the compound that converts stimulation into focus. Alpha-wave modulation produces the cognitive state that high-dose caffeine approximates but never quite delivers — alert, precise, interference-free.</li>
+<li><strong>200mg Lion's Mane</strong> — executive function support during hours three and four of the afternoon, when standard caffeine has already peaked and begun to decline.</li>
+<li><strong>255mg ionic electrolytes</strong> — sodium, potassium, and magnesium. A measurable portion of the afternoon fade is cellular dehydration masquerading as cognitive fatigue. We built the correction into the formulation.</li>
+</ul>
+<p>Together these four ingredients don't push you higher. They remove what was pulling you down. The cortisol interference clears. The cognitive noise drops. What remains is the quality of attention you were always capable of — running on a baseline that isn't borrowed.</p>
+<p><em>Zero systemic debt. The afternoon stays yours.</em></p>
     `.trim(),
   },
   {
     id: 3,
-    title: "From Jitters to Zen: A Journey to Precision Focus and a Clean Metabolic Exit",
-    excerpt: "The origin story of hydrbrew° and why we reimagined the functional beverage.",
+    title: "From the Afternoon Fade to Interference-Free Focus",
+    excerpt: "The origin story of hydrbrew° and why we reimagined the second half of the day.",
     image: "https://i.imgur.com/qCYobqP.png",
-    author: "hydrbrew° Research Division",
+    author: "hydrbrew° Research",
     readTime: "12 min read",
-    date: "Feb 10, 2026",
-    category: "Story",
+    date: "May 24, 2026",
+    category: "Origin Story",
     contentHtml: `
-<p>Most people assume the afternoon crash is just part of the deal.</p>
-<p>You push hard in the morning, hit your peak somewhere around 11, and by 2:15 you're managing. Reaching for another coffee. Recalibrating expectations for what the next three hours could actually produce.</p>
-<p>That assumption runs on autopilot for years. High-output mornings, diminishing afternoons, and a stimulant habit that keeps escalating the dose to hold the baseline.</p>
-<p>The real cost isn't the crash. It's the quality of thinking during the hours you're supposedly functional.</p>
-<h2>> The Research</h2>
-<p>The standard caffeine delivery model is blunt. It hits fast, peaks hard, and exits through a cortisol spike that leaves you wired but unfocused. The solution isn't more caffeine. It's a different architecture.</p>
+<p>I used to think the afternoon fade was just part of the deal. Push hard in the morning, hit your peak somewhere around 11, and by 2:15 you're managing. Reaching for another coffee. Quietly recalibrating what the next three hours could produce. Telling yourself the important work is done and now it's just execution.</p>
+<p>I ran on that assumption for years. High-output mornings, diminishing afternoons, and a caffeine habit that kept escalating the dose to maintain the baseline. Double espresso became triple. The pre-workout powder made an appearance. And every time I pushed through, I was borrowing against the next day — cortisol debt, disrupted sleep, and wired-but-unfocused energy that felt productive but wasn't.</p>
+<p>The real cost wasn't the fade. It was the quality of thinking during the hours I was supposedly functional.</p>
+<h2>The Moment the Assumption Broke</h2>
+<p>I was in a meeting at 2:30 PM. An important room. A decision that mattered. I had a nitro cold brew in hand, and I was, by any external measure, present. But I wasn't sharp. I was managing — my energy, my attention, and the gap between where I was and where I needed to be. Cortisol interference was high. The signal was noisy. The decision I made in that room was adequate, not precise.</p>
+<p>I walked out and started asking a different question. Not how do I get more energy — but why is the baseline this low in the first place?</p>
+<h2>What the Research Actually Shows</h2>
+<p>The standard caffeine delivery model is blunt. It hits fast, peaks hard, and exits through a cortisol response that leaves you activated but unfocused — high amplitude, low resolution. You feel like you're working, but the quality of your attention is degraded.</p>
+<p>The solution wasn't more caffeine. It was a different architecture:</p>
 <ul>
-<li>85mg buffered caffeine — below the threshold that triggers the cortisol spike</li>
-<li>200mg L-Theanine — converts stimulation into focus</li>
-<li>200mg Lion's Mane — sustained cognitive function, executive decision-making</li>
+<li><strong>85mg buffered caffeine</strong> — below the threshold that triggers a meaningful cortisol response in most people, yet above the threshold for clean cognitive activation. Not a jolt. A sustained, even signal that sharpens the afternoon without borrowing from the evening.</li>
+<li><strong>200mg L-Theanine</strong> — modulates caffeine's rough edges, promotes alpha-wave activity, and turns stimulation into focus. The focus holds without the pressure building behind it.</li>
+<li><strong>200mg Lion's Mane</strong> — executive function depth in hours three and four, when standard caffeine has already faded. Peer-reviewed research on Lion's Mane and cognitive function is among the most rigorous in the adaptogen category.</li>
+<li><strong>255mg ionic electrolytes</strong> — sodium, potassium, and magnesium. Dehydration is measurably responsible for a significant portion of what we experience as the afternoon fade. We fixed the math and built the correction into the can.</li>
 </ul>
-<p>Together, these three don't amplify your state. They remove what was degrading it.</p>
-<p><strong>CONCLUSION: hydrbrew° — 85mg buffered caffeine · 200mg L-Theanine · 200mg Lion's Mane — Zero Systemic Debt. The afternoon stays yours.</strong></p>
+<p>Together, these four don't amplify your state. They remove what was degrading it. Cortisol interference clears. Cognitive noise drops. What remains is the signal you were always capable of running on — just without the debt.</p>
+<h2>What Zero Systemic Debt Actually Means</h2>
+<p>Every stimulant you take is a negotiation with your future self. The question is always: what am I borrowing, and when do I pay it back? The standard energy drink model borrows heavily. The debt compounds. The baseline erodes.</p>
+<p>hydrbrew° was built on a different premise. The 85mg buffered caffeine doesn't borrow. The L-Theanine doesn't deplete. The Lion's Mane doesn't spike. The electrolytes don't leave a deficit. You finish the afternoon at the same baseline you started it — not elevated and crashing, not depleted and managing. Operational. Clear.</p>
+<p><em>Zero systemic debt means the night is yours. The decision you make at 5 PM is as precise as the one you made at 9 AM. The next morning starts clean. That is what we built.</em></p>
     `.trim(),
   },
   {
     id: 4,
-    title: "Biohacker's Guide: Stacking Adaptogens with Low-Caf Drinks",
-    excerpt: "Expert tips on combining functional ingredients for maximum cognitive benefits.",
+    title: "Biohacker's Guide: Stacking Adaptogens with Low-Dose Caffeine",
+    excerpt: "How to combine functional ingredients for sustained afternoon cognitive output — and why the dose matters more than the compound.",
     image: "https://i.imgur.com/XJwgah6.png",
-    author: "hydrbrew° Research Division",
-    readTime: "8 min read",
-    date: "Feb 8, 2026",
+    author: "hydrbrew° Research",
+    readTime: "9 min read",
+    date: "May 24, 2026",
     category: "Biohacking",
     contentHtml: `
-<p>The biohacking community has known for years what the mainstream beverage industry is only beginning to catch up to: caffeine alone is a blunt instrument.</p>
-<p>High-dose caffeine delivers amplitude without resolution. The smarter play is the stack.</p>
-<h2>> Why Low-Caf Is the Foundation</h2>
-<p>Caffeine's performance curve is not linear. At low to moderate doses — roughly 40mg to 100mg — it produces clean adenosine blockade without triggering the HPA axis response. Above that threshold, the anxiety, jitter, and attention fragmentation begin to outweigh the cognitive benefits.</p>
-<p>85mg is the target. Below the spike threshold. Above the activation floor.</p>
-<h2>> The Core Stack — Caffeine + L-Theanine</h2>
-<p>L-Theanine promotes alpha-wave brain activity — the state associated with relaxed alertness, creative flow, and focused attention. Combined with caffeine, it produces "alert calmness" — a cognitive state genuinely different from either compound alone.</p>
-<h2>> Adding Lion's Mane — The Executive Function Layer</h2>
-<p>L-Theanine handles the modulation. Lion's Mane handles the depth. Hericium erinaceus stimulates nerve growth factor synthesis, supporting neuroplasticity and the kind of sustained executive function that degrades under cognitive load.</p>
-<p><strong>CONCLUSION: Zero systemic debt. The afternoon stays yours.</strong></p>
+<p>The biohacking community has known for years what the mainstream beverage industry is only now beginning to recognize: caffeine alone is a blunt instrument. High-dose caffeine delivers amplitude without resolution. You feel activated, but the quality of that activation — the signal-to-noise ratio of your cognitive output — is often degraded by the cortisol response, heightened anxiety, and the attention fragmentation that accompanies it. The energy is real. The focus is borrowed. The smarter play is to stack.</p>
+<h2>Why Low-Dose Caffeine Is the Foundation</h2>
+<p>Before you build a stack, understand why the dose matters more than the compound. Caffeine's performance curve is not linear. At low to moderate doses — roughly 40mg to 100mg — it produces clean adenosine blockade, improved reaction time, and elevated mood without triggering the HPA axis response that causes a cortisol spike. Above that threshold, especially in individuals with slower caffeine metabolism, the cortisol interference, attention fragmentation, and elevated anxiety begin to outweigh the cognitive benefits.</p>
+<p>85mg is the target. Below the spike threshold for most people. Above the activation floor. The dose at which caffeine does its job without the cortisol interference it's known for at higher doses. Build the stack from here.</p>
+<h2>The Core Stack: Caffeine + L-Theanine</h2>
+<p>This is the most well-researched cognitive combination in the nootropic literature. L-Theanine is an amino acid naturally found in green tea that promotes alpha-wave brain activity — the state associated with relaxed alertness, creative flow, and sustained focus. Combined with caffeine, something more precise happens. L-Theanine smooths caffeine's rough edges — reducing the cortisol response, attenuating anxiety, and extending the focus window without blunting activation.</p>
+<p>The combination produces what researchers describe as alert calmness — a cognitive state measurably distinct from either compound alone. The 2:1 L-Theanine-to-caffeine ratio is the most studied protocol. At 85mg of caffeine, 200mg L-Theanine is the performance-optimized dose used in most clinical contexts.</p>
+<h2>Adding Lion's Mane: The Executive Function Layer</h2>
+<p>L-Theanine manages modulation. Lion's Mane manages depth. Hericium erinaceus — Lion's Mane mushroom — is the most rigorously studied nootropic adaptogen for sustained cognitive function. The active compounds, hericenones and erinacines, stimulate nerve growth factor synthesis, supporting neuroplasticity, synaptic density, and the sustained executive function that typically degrades under cognitive load and time pressure.</p>
+<p>In practical terms: L-Theanine keeps focus interference-free. Lion's Mane keeps your thinking sharp in hours three and four — when standard caffeine has already peaked and most people are operating on reserves. The two compounds work through different mechanisms and compound without conflict.</p>
+<h2>The Electrolyte Layer: The Most Overlooked Variable</h2>
+<p>Cognitive performance is directly tied to hydration status. A 1–2% drop in body water produces measurable declines in attention, short-term memory, and processing speed. Most professionals operating in temperature-controlled offices, running on coffee through the morning, are chronically mildly dehydrated by mid-afternoon.</p>
+<p>Ionic electrolytes — sodium, potassium, magnesium — don't simply hydrate. They support the electrical signaling that underlies neural function at the cellular level. Magnesium in particular is the most commonly deficient mineral in high-stress professional populations, and its role in NMDA receptor function makes it directly relevant to the quality of focused cognition. Coffee is naturally dehydrating. A functional afternoon stack that doesn't address hydration is solving half the problem.</p>
+<h2>Timing the Stack</h2>
+<p>When matters as much as what. Caffeine's half-life is approximately 5–6 hours for fast metabolizers — and 7–9 hours for slow metabolizers. An 85mg dose taken at 2:00 PM will be approximately 40mg circulating at 7–8 PM for a fast metabolizer — low enough not to interfere with sleep onset. A 150mg dose taken at the same time is still 75mg circulating at 7–8 PM, which meaningfully degrades sleep latency and sleep architecture in most people.</p>
+<p>The protocol: Deploy at 1:30–2:30 PM · no later than 3:00 PM for individuals with slower caffeine metabolism · do not stack with additional caffeine sources in the same window.</p>
+<p><em>The stack in full: 85mg buffered caffeine · 200mg L-Theanine · 200mg Lion's Mane · 255mg ionic electrolytes. Together, these four don't push you past your ceiling. They remove what was pulling you below your floor. Zero systemic debt. The afternoon stays yours.</em></p>
     `.trim(),
   },
 ];
@@ -120,161 +145,136 @@ const articles: Article[] = [
 const comparisons: Article[] = [
   {
     id: 100,
-    title: "Red Bull vs. hydrbrew°",
-    excerpt: "80mg caffeine + 27g sugar causes 3:30 PM crashes. Here's the architecture problem.",
+    title: "hydrbrew° vs. Red Bull",
+    excerpt: "Why the professional woman stopped reaching for the blue and silver can — and the science behind why it matters.",
     image: "https://i.imgur.com/IOMVKF7.png",
     author: "hydrbrew° Research",
     readTime: "6 min read",
     date: "May 26, 2026",
     category: "Comparison",
     contentHtml: `
-<p><strong>Red Bull vs. hydrbrew°: Same Energy Category, Completely Different Metabolic Architecture.</strong></p>
-<p>Why the professional who reaches for a Red Bull at 2 PM is solving a real problem with a product built for a different occasion.</p>
-<hr>
-<h2>> The 3:30 PM Problem</h2>
-<p><strong>Red Bull's 80mg caffeine combined with 27 grams of sugar produces a predictable performance curve: spike at 30 minutes, peak at 60–90 minutes, crash at 3:30 PM. This is not a flaw in the product. It is the product working exactly as designed.</strong></p>
-<p>Red Bull was engineered for high-intensity short-duration scenarios — the club, the gaming session, the late-night push. It was not engineered for the sustained executive function window that professionals actually need at 2:15 PM. The 27g sugar load triggers an insulin response that amplifies the energy cycle's oscillation. The caffeine dose — adequate for a 30-minute activation window — is insufficient for the 4-hour afternoon work block.</p>
-<p>The result is borrowed energy with a guaranteed repayment schedule. By 3:30 PM, you are paying it back with interest.</p>
-<h2>> What Red Bull Was Built For</h2>
-<p>Red Bull earned its market position by solving a specific problem: short-duration, high-intensity energy. Its formula is well-matched to that use case. The B-vitamin stack, taurine, and caffeine combination is appropriate for physical exertion or social stamina in a bounded time window. The sugar provides immediate glucose for scenarios where it will be consumed quickly.</p>
-<p>The problem is context drift. Red Bull became the default afternoon energy solution for professionals not because it was designed for sustained cognitive output, but because it was available and familiar. When your only tool is a spike, every afternoon looks like a problem that needs a spike.</p>
-<h2>> The Formulation Comparison</h2>
+<p>If you have ever cracked open a Red Bull at 2 PM in a professional setting, you already know the arc. The activation arrives quickly, peaks around the 45-minute mark, and then the invoice arrives — cortisol interference and elevated anxiety, a cortisol spike that makes the next meeting harder than it needs to be, and a crash that starts around 3:30 and costs you the rest of the afternoon. You got the energy. You paid for it with the evening.</p>
+<p>Red Bull is not a bad product. It was just never designed for what you are asking it to do.</p>
+<h2>What Red Bull Was Built For</h2>
+<p>Red Bull was engineered for a specific occasion — short-burst activation in high-stimulation environments. Nightclubs, long drives, exam cram sessions. The 80mg of caffeine, combined with 27 grams of sugar and taurine, produces a fast, hard spike. For a 20-year-old pulling an all-nighter, that profile works. For a founder in a board meeting at 2:30 PM who needs precise, sustained cognitive output for the next four hours without elevated anxiety, it is the wrong architecture entirely.</p>
+<p>The sugar load compounds the problem. The glycemic spike from 27 grams of sugar coincides with the caffeine hit, producing a combined energy peak that feels strong but drops off sharply. The glucose crash and the caffeine crash arrive in close succession. By 3:30 PM, you are managing two simultaneous deficits instead of one.</p>
+<h2>The Side-by-Side Comparison</h2>
 <table>
 <thead><tr><th>Feature</th><th>Red Bull (8.4oz)</th><th>hydrbrew° (12oz)</th></tr></thead>
 <tbody>
 <tr><td>Caffeine</td><td>80mg conventional</td><td>85mg buffered</td></tr>
-<tr><td>Sugar</td><td>27g</td><td>Low sugar</td></tr>
+<tr><td>Sugar</td><td>27g</td><td>3g Coconut Sugar</td></tr>
 <tr><td>L-Theanine</td><td>None</td><td>200mg</td></tr>
 <tr><td>Lion's Mane</td><td>None</td><td>200mg</td></tr>
 <tr><td>Electrolytes</td><td>None</td><td>255mg ionic</td></tr>
 <tr><td>Calories</td><td>110</td><td>20</td></tr>
-<tr><td>Activation profile</td><td>Fast spike</td><td>Linear sustained</td></tr>
-<tr><td>Exit profile</td><td>Sugar crash + caffeine drop</td><td>Clean linear exit</td></tr>
-<tr><td>Primary occasion</td><td>Short-duration energy</td><td>Afternoon cognitive window</td></tr>
+<tr><td>Crash profile</td><td>Hard exit, cortisol spike</td><td>Clean linear exit</td></tr>
+<tr><td>Designed for</td><td>Short-burst activation</td><td>Sustained afternoon output</td></tr>
 </tbody>
 </table>
-<h2>> The Zero Debt Standard</h2>
-<p><strong>The core difference is not the caffeine dose. It is the systemic debt that comes with each option.</strong></p>
-<p>Red Bull's sugar load creates insulin debt. Its conventional caffeine creates cortisol debt. By 3:30 PM, the professional who chose Red Bull at 1:00 PM is managing both simultaneously. The afternoon doesn't recover — it terminates early.</p>
-<p>hydrbrew° uses 85mg buffered caffeine — close to Red Bull's 80mg in absolute terms, but architecturally different. Buffered caffeine stays below the cortisol spike threshold. L-Theanine converts the activation into focused calm. Lion's Mane extends the cognitive depth that the sustained afternoon requires.</p>
-<p>Zero systemic debt. The afternoon stays yours.</p>
+<h2>The Alternative That Was Actually Designed for Work</h2>
+<p>hydrbrew° was built specifically for the professional performance window — the 2:15 PM moment when legacy stimulants start to show their cost. The architecture is different at every level.</p>
+<p><strong>85mg buffered caffeine vs. Red Bull's 80mg.</strong> On paper, these numbers are close. In practice, they are not. Buffered caffeine is formulated to slow absorption and flatten the delivery curve — activation arrives more gradually, lasts longer, and leaves without the hard cortisol spike that conventional caffeine produces.</p>
+<p><strong>200mg L-Theanine</strong> — the compound Red Bull lacks. L-Theanine promotes alpha-wave brain activity — the state associated with focused calm rather than anxious activation. The reason green tea produces a different cognitive state than espresso at equivalent caffeine levels is L-Theanine. Red Bull has no equivalent.</p>
+<p><strong>200mg Lion's Mane</strong> — executive function under load. Research on Lion's Mane and cognitive function has been published in peer-reviewed journals and cited by institutions including the NIH. Red Bull has no equivalent.</p>
+<p><strong>255mg ionic electrolytes</strong> — Red Bull's diuretic effect from caffeine actively works against hydration. hydrbrew° builds in the correction.</p>
+<p><em>Red Bull delivers amplitude. hydrbrew° delivers resolution. Zero systemic debt. The afternoon stays yours.</em></p>
     `.trim(),
   },
   {
     id: 101,
     title: "Energy Drink vs. Functional Coffee",
-    excerpt: "150–300mg spikes vs. 85mg + L-Theanine. Why the ingredient architecture matters more than the caffeine number.",
+    excerpt: "Why your 2:15 PM drink choice is costing you the evening — and what the research says about a better option.",
     image: "https://i.imgur.com/1f6wCBo.png",
     author: "hydrbrew° Research",
     readTime: "7 min read",
     date: "May 26, 2026",
     category: "Comparison",
     contentHtml: `
-<p><strong>Energy Drink vs. Functional Coffee: Why the Ingredient Architecture Matters More Than the Caffeine Number.</strong></p>
-<p>The shift from conventional energy drinks to functional coffee is not about reducing caffeine. It is about deploying it differently.</p>
-<hr>
-<h2>> The Architecture Problem</h2>
-<p><strong>Standard energy drinks deliver 150–300mg caffeine without cognitive modulation, producing a stimulant signature of elevated heart rate, anxiety potential, and attention fragmentation. Functional coffee uses 85mg buffered caffeine with L-Theanine to produce focused calm — a genuinely different cognitive state.</strong></p>
-<p>The energy drink category was built on a simple premise: more caffeine equals more energy. This premise is wrong above a threshold of approximately 100mg in most individuals, but the marketing has been so effective that the myth persists. The result is a market full of products that overshoot the optimal caffeine window and deliver anxiety alongside activation.</p>
-<p>Functional coffee addresses this by reframing the question. The goal is not maximum stimulation. The goal is maximum sustained executive function. Those are different targets that require different ingredient architectures.</p>
-<h2>> The Modulation Stack</h2>
-<p>The core innovation in functional coffee is the addition of cognitive modulators that work with the caffeine rather than alongside it:</p>
-<ul>
-<li><strong>L-Theanine (200mg)</strong> — promotes alpha-wave brain activity, the state associated with relaxed alertness. Combined with caffeine, it converts stimulation into focus rather than anxiety.</li>
-<li><strong>Lion's Mane (200mg)</strong> — stimulates nerve growth factor synthesis, supporting the neuroplasticity and executive function depth that energy drinks cannot address.</li>
-<li><strong>Ionic Electrolytes (255mg)</strong> — caffeine is naturally dehydrating; electrolyte supplementation addresses the hydration deficit that conventional energy drinks ignore.</li>
-</ul>
-<h2>> The Formulation Comparison</h2>
+<p>The afternoon energy category is crowded. Red Bull, Monster, Bang, Celsius, Reign, C4 — every shelf in every convenience store is stacked with products promising sustained energy, focus, and performance. Most of them deliver the same thing: a fast caffeine spike, a sugar or artificial-sweetener load, and an eventual crash that leaves you somewhere between 2 and 6 hours later. The problem is not caffeine. The problem is architecture.</p>
+<h2>How the Standard Energy Drink Model Works — and Where It Fails</h2>
+<p>The conventional energy drink is built on a simple premise: deliver a large caffeine dose quickly, add stimulatory compounds like taurine and B vitamins for label depth, and produce a strong initial activation signal. It works. For approximately 90 minutes. After that, the cortisol spike begins to decline. The glycemic response compounds the issue. The result is a predictable system failure every afternoon, which the industry has dressed up as normal because everyone is experiencing it at the same time.</p>
+<h2>The Three Profiles Compared</h2>
 <table>
-<thead><tr><th>Feature</th><th>Standard Energy Drink</th><th>hydrbrew° Functional Coffee</th></tr></thead>
+<thead><tr><th></th><th>Standard Energy Drink</th><th>Standard Cold Brew</th><th>hydrbrew° Functional Iced Coffee</th></tr></thead>
 <tbody>
-<tr><td>Caffeine</td><td>150–300mg conventional</td><td>85mg buffered</td></tr>
-<tr><td>L-Theanine</td><td>None</td><td>200mg</td></tr>
-<tr><td>Lion's Mane</td><td>None</td><td>200mg</td></tr>
-<tr><td>Electrolytes</td><td>None or minimal</td><td>255mg ionic blend</td></tr>
-<tr><td>Sugar</td><td>0–27g</td><td>Low sugar</td></tr>
-<tr><td>Cognitive modulation</td><td>None</td><td>L-Theanine + Lion's Mane</td></tr>
-<tr><td>Activation profile</td><td>High spike</td><td>Linear sustained</td></tr>
-<tr><td>Exit profile</td><td>Hard crash</td><td>Clean linear exit</td></tr>
-<tr><td>Systemic debt</td><td>High</td><td>Zero</td></tr>
+<tr><td>Caffeine dose</td><td>150–300mg</td><td>150–200mg</td><td>85mg buffered</td></tr>
+<tr><td>L-Theanine</td><td>None</td><td>None</td><td>200mg</td></tr>
+<tr><td>Adaptogen</td><td>None</td><td>None</td><td>200mg Lion's Mane</td></tr>
+<tr><td>Electrolytes</td><td>None</td><td>None</td><td>255mg ionic</td></tr>
+<tr><td>Sugar</td><td>High</td><td>None</td><td>3g Coconut Sugar</td></tr>
+<tr><td>Activation profile</td><td>Fast spike</td><td>Moderate spike</td><td>Linear sustained</td></tr>
+<tr><td>Exit profile</td><td>Hard crash</td><td>Moderate crash</td><td>Clean linear exit</td></tr>
+<tr><td>Systemic debt</td><td>High</td><td>Moderate</td><td>Zero</td></tr>
 </tbody>
 </table>
-<h2>> The Afternoon Window</h2>
-<p>The afternoon cognitive window — roughly 1:00 PM to 5:00 PM — is the highest-value performance period in the professional day for most knowledge workers. Decisions made in this window are frequently the most consequential. The quality of thinking in this window determines outcomes.</p>
-<p>Standard energy drinks are not designed for this window. Their dosing, their ingredient architecture, and their activation profile are all calibrated for different use cases. Using them in the afternoon cognitive window is a category error — not because they are bad products, but because they were built for different jobs.</p>
-<p>hydrbrew° was built specifically for the 2:15 PM window. Zero systemic debt. The afternoon stays yours.</p>
+<h2>Why Standard Cold Brew Is Not the Answer Either</h2>
+<p>The professional who has already graduated from energy drinks often moves to cold brew — and improves their situation marginally. Cold brew is cleaner than a Red Bull. But the fundamental problem remains. A standard cold brew delivers 150–200mg of conventional caffeine with no modulation layer. No L-Theanine. No adaptogen support. No electrolyte component. The blunt caffeine spike is smaller than a Bang Energy, but the architecture is identical — fast hit, cortisol response, hard exit, systemic debt.</p>
+<h2>What Functional Coffee Does Differently</h2>
+<p>Functional coffee is a formulation philosophy — the application of clinical-grade cognitive compounds to a coffee base in order to change the delivery architecture, not just the dose:</p>
+<ul>
+<li><strong>Caffeine modulation vs. amplification</strong> — Energy drinks amplify caffeine's effects with additional stimulatory compounds. Functional coffee modulates caffeine's effects with compounds that smooth the delivery curve and reduce the cortisol response. The goal is not a bigger spike — it is a cleaner, longer, more precise activation with a linear decline.</li>
+<li><strong>L-Theanine — the functional layer energy drinks skip</strong> — The most well-researched cognitive stack in the nootropic literature is caffeine plus L-Theanine at a 1:2 ratio. Energy drinks omit L-Theanine because it runs counter to the hard-hit profile their audience expects.</li>
+<li><strong>Adaptogens vs. stimulants</strong> — Energy drinks use stimulatory compounds to amplify the initial activation signal. Functional coffee uses adaptogens like Lion's Mane to support the underlying cognitive hardware — nerve growth factor synthesis, neuroplasticity, and executive function under load. One category borrows. The other builds.</li>
+</ul>
+<p><em>Zero systemic debt is not a marketing line. It is the output of a formulation designed from the exit point backward. The afternoon stays yours.</em></p>
     `.trim(),
   },
   {
     id: 102,
-    title: "Bang Energy vs. hydrbrew°",
-    excerpt: "300mg triggers anxiety in meetings. Why 85mg buffered works better for the afternoon cognitive window.",
+    title: "hydrbrew° vs. Bang Energy",
+    excerpt: "A better option than Bang Energy for the professional who can't afford to crash — and the science behind 300mg.",
     image: "https://i.imgur.com/b5qCx4B.png",
     author: "hydrbrew° Research",
     readTime: "6 min read",
     date: "May 26, 2026",
     category: "Comparison",
     contentHtml: `
-<p><strong>Bang Energy vs. hydrbrew°: The 300mg Problem and Why More Caffeine Is the Wrong Answer at 2:15 PM.</strong></p>
-<p>Why the professional who reaches for Bang in the afternoon is using a pre-workout in a boardroom.</p>
-<hr>
-<h2>> The 300mg Problem</h2>
-<p><strong>Bang Energy's 300mg caffeine dose pushes most professionals past the clean performance window into anxiety, jitters, and fragmented attention. At 2:15 PM, when your cortisol is naturally declining and your system is entering recovery mode, 300mg is not a performance upgrade. It is a physiological override that your body will fight.</strong></p>
-<p>The research on caffeine and performance follows an inverted U-curve. Performance improves with increasing doses up to approximately 100mg in most individuals, then plateaus, then begins to decline as anxiety and attention fragmentation increase. At 300mg consumed during the afternoon cortisol decline, you are well past the peak of that curve.</p>
-<p>What Bang delivers at 2:15 PM is not sustained performance. It is a stimulant override that feels like energy but produces the cognitive noise signature of elevated cortisol — fast-moving thoughts without the depth to execute on them.</p>
-<h2>> The Architecture Problem</h2>
-<p>Bang was designed for the gym. Its formula — high-dose caffeine, BCAAs, creatine, and CoQ10 — is targeted at pre-workout performance, not afternoon cognitive output. At 300mg, the caffeine load is calibrated for an athlete about to move through 60–90 minutes of high-intensity physical activity that will metabolize the cortisol response naturally.</p>
-<p>Sitting at a desk, the cortisol spike has nowhere to go. It accumulates as background anxiety, depletes available working memory, and accelerates the attention fragmentation that is the opposite of the sustained executive function you actually need.</p>
-<h2>> The Formulation Comparison</h2>
+<p>Bang Energy built its brand on a simple proposition: maximum caffeine, zero sugar, and aggressive marketing. For its target audience — gym-goers, athletes, and college students seeking a pre-workout boost — the formula delivers exactly what it promises. 300mg of caffeine in a single can. Fast. Hard. Loud.</p>
+<p>For the professional in a client meeting at 2:30 PM, 300mg of caffeine is not a performance tool. It is a liability.</p>
+<h2>The 300mg Problem</h2>
+<p>The research on caffeine and cognitive performance is clear on one point: the dose-response curve is not linear. More caffeine does not produce more focus. Above a certain threshold — roughly 100–200mg, depending on individual sensitivity — additional caffeine yields diminishing cognitive returns and escalating anxiety, jitter, and cortisol levels. Bang Energy's 300mg dose pushes most professional users well beyond the clean performance window.</p>
+<p>The activation is strong, and the accompanying anxiety is equally strong. For someone who needs to hold competing variables in working memory, synthesize ambiguous data, and make precise decisions under pressure, elevated cortisol and fragmented attention are the last things the afternoon needs.</p>
+<h2>The Side-by-Side Comparison</h2>
 <table>
 <thead><tr><th>Feature</th><th>Bang Energy (16oz)</th><th>hydrbrew° (12oz)</th></tr></thead>
 <tbody>
 <tr><td>Caffeine</td><td>300mg conventional</td><td>85mg buffered</td></tr>
+<tr><td>Sugar</td><td>0g</td><td>3g Coconut Sugar</td></tr>
+<tr><td>Artificial sweeteners</td><td>Sucralose</td><td>None</td></tr>
 <tr><td>L-Theanine</td><td>None</td><td>200mg</td></tr>
 <tr><td>Lion's Mane</td><td>None</td><td>200mg</td></tr>
-<tr><td>Sugar</td><td>0g</td><td>Low sugar</td></tr>
-<tr><td>Electrolytes</td><td>Sodium / potassium</td><td>255mg ionic blend</td></tr>
+<tr><td>Electrolytes</td><td>None</td><td>255mg ionic</td></tr>
 <tr><td>Calories</td><td>0</td><td>20</td></tr>
-<tr><td>Primary occasion</td><td>Pre-workout</td><td>Afternoon cognitive window</td></tr>
-<tr><td>Activation profile</td><td>Hard spike</td><td>Linear sustained</td></tr>
+<tr><td>Activation profile</td><td>Extreme spike</td><td>Linear sustained</td></tr>
 <tr><td>Exit profile</td><td>Hard crash</td><td>Clean linear exit</td></tr>
-<tr><td>Cortisol impact at 2 PM</td><td>High — activates HPA axis</td><td>Low — stays below threshold</td></tr>
+<tr><td>Designed for</td><td>Pre-workout, gym</td><td>Sustained professional output</td></tr>
 </tbody>
 </table>
-<h2>> The Anxiety Threshold</h2>
-<p><strong>The anxiety threshold is real, it is measurable, and at 2:15 PM your threshold is lower than it was at 9 AM.</strong></p>
-<p>Cortisol follows a natural daily rhythm. It peaks in the morning and declines through the afternoon. When cortisol is low, your sensitivity to stimulant-induced cortisol spikes increases. A 300mg dose that might feel manageable in the morning becomes genuinely destabilizing in the afternoon because your baseline is already depleted.</p>
-<p>85mg buffered caffeine stays below the threshold at all points in the cortisol cycle, including the afternoon trough. That is the design intent. It is not timid dosing — it is precision dosing for the occasion that actually matters.</p>
-<p>Zero systemic debt. The afternoon stays yours.</p>
+<h2>What the Professional Afternoon Actually Requires</h2>
+<p>The professional performance window is not a gym session. It does not require maximum activation. It requires precise, sustained, low-noise cognitive output for four to six consecutive hours.</p>
+<p>85mg of buffered caffeine delivers clean adenosine blockade without triggering the HPA axis response that 300mg inevitably produces. 200mg L-Theanine converts that activation into focused calm, rather than the activated scatter that high-dose stimulants produce. 200mg Lion's Mane supports the executive function layer — not the initial activation, but the quality of thinking three hours in, when the meeting runs long and the decision still needs to be made correctly.</p>
+<h2>Who Bang Is For vs. Who hydrbrew° Is For</h2>
+<p>Bang Energy is a legitimate pre-workout product being used in the wrong context. In a gym at 6 AM before a high-intensity training session, 300mg of caffeine makes sense. The session ends, the crash arrives, and sleep recovers the deficit. In a professional environment, the crash arrives at 2 PM — precisely when the afternoon's most consequential work is underway.</p>
+<p><em>300mg of caffeine is not precise. It is a volume. The professional afternoon does not need volume. It needs resolution. Zero systemic debt. The afternoon stays yours.</em></p>
     `.trim(),
   },
   {
     id: 103,
-    title: "Celsius vs. hydrbrew°",
-    excerpt: "200mg built for workouts, not 2 PM desk work. The occasion gap that matters.",
+    title: "hydrbrew° vs. Celsius",
+    excerpt: "Same professional, different architecture. Why the woman who built her morning on Celsius is reaching for something different at 2:15 PM.",
     image: "https://i.imgur.com/nGsStwV.png",
     author: "hydrbrew° Research",
     readTime: "6 min read",
     date: "May 26, 2026",
     category: "Comparison",
     contentHtml: `
-<p><strong>hydrbrew° vs. Celsius: Same Professional, Different Architecture.</strong></p>
-<p>Why the woman who built her morning on Celsius is reaching for something different at 2:15 PM.</p>
-<hr>
-<h2>> Is Celsius Good for Afternoon Energy?</h2>
-<p><strong>Celsius is optimized for morning workouts, not afternoon desk work. Its 200mg caffeine dose and thermogenic blend trigger cortisol spikes at 2 PM when your system is moving toward recovery. 85mg buffered caffeine with L-Theanine works with your cortisol cycle instead of against it.</strong></p>
-<p>Celsius earned its position in the professional female market honestly. Clean label, no artificial preservatives, a fitness-forward positioning that resonated with the health-conscious professional consumer who had already left sugary energy drinks behind. If you are a Celsius drinker, you already understand that what you put in your body matters. You have already made the upgrade once.</p>
-<p>This is not an argument that Celsius is a bad product. It is an argument that it was built for a different occasion than the one you are using it at 2:15 PM.</p>
-<h2>> What Celsius Was Built For</h2>
-<p>Celsius was engineered around fitness occasions — pre-workout, morning activation, and metabolic support. Its MetaPlus blend combines caffeine (200mg), green tea extract, guarana, and ginger to produce a thermogenic effect designed to support calorie burn during physical activity. The 200mg caffeine dose is calibrated for a workout, not a workday.</p>
-<p>For a 45-minute training session, this profile is well-designed. The activation is strong; the thermogenic compounds support the calorie burn the session requires; the cortisol spike is metabolized naturally through physical exertion.</p>
-<p>At a standing desk at 2:15 PM, there is no physical exertion to metabolize the cortisol load. What remains is elevated heart rate, ambient anxiety, and a stimulant dose that peaks and crashes inside the afternoon cognitive window you needed most.</p>
-<h2>> The Occasion Gap</h2>
-<p>This is the core distinction between Celsius and hydrbrew° — and it is not a quality argument, it is an occasion argument.</p>
-<p>Celsius is a morning and fitness product. It is designed to be consumed before physical activity or as a morning activation tool. Its thermogenic compounds support calorie burn. Its 200mg caffeine dose is appropriate for a session that will metabolize the cortisol load naturally.</p>
-<p>hydrbrew° is an afternoon precision product. It is designed for the 2:15 PM cognitive performance window — the moment that requires sustained executive function, not elevated heart rate. Its 85mg buffered caffeine stays below the anxiety threshold. Its L-Theanine modulation converts activation into focused calm. Its Lion's Mane supports the cognitive depth that the back half of the professional day requires.</p>
-<p>The Celsius drinker who reaches for a second Celsius at 2 PM is using a morning fitness tool for an afternoon cognitive occasion. The product was not designed to fail her — it was designed for a different job.</p>
-<h2>> The Formulation Comparison</h2>
+<p>Celsius earned its place in the professional female market honestly. Clean label, no artificial preservatives, and a fitness-forward positioning that resonated with the health-conscious professional consumer who had already left sugary energy drinks behind. If you are a Celsius drinker, you already understand that what you put in your body matters. You have already made the upgrade once.</p>
+<p>This is not an argument that Celsius is a bad product. It is an argument that it was built for a different occasion than the one you are using it for at 2:15 PM.</p>
+<h2>What Celsius Was Built For</h2>
+<p>Celsius was engineered for fitness occasions — pre-workout, morning activation, and metabolic support. Its MetaPlus blend combines caffeine (200mg), green tea extract, guarana, and ginger to produce a thermogenic effect that supports calorie burn during physical activity. The 200mg caffeine dose is calibrated for a workout, not a workday.</p>
+<p>For a 45-minute training session, this profile is well-designed. The activation is strong; the thermogenic compounds support the physical objective; and the exit occurs naturally through the exercise itself — you burn off the cortisol load during the session. At 2:15 PM, in a professional setting with no physical exertion to process the cortisol load, the same profile becomes problematic.</p>
+<h2>The Formulation Comparison</h2>
 <table>
 <thead><tr><th>Feature</th><th>Celsius (12oz)</th><th>hydrbrew° (12oz)</th></tr></thead>
 <tbody>
@@ -283,17 +283,20 @@ const comparisons: Article[] = [
 <tr><td>Lion's Mane</td><td>None</td><td>200mg</td></tr>
 <tr><td>Thermogenic blend</td><td>Yes — MetaPlus</td><td>No</td></tr>
 <tr><td>Electrolytes</td><td>Minimal</td><td>255mg ionic</td></tr>
-<tr><td>Sugar</td><td>0g</td><td>Low sugar</td></tr>
+<tr><td>Sugar</td><td>0g</td><td>3g Coconut Sugar</td></tr>
 <tr><td>Calories</td><td>10</td><td>20</td></tr>
 <tr><td>Primary occasion</td><td>Pre-workout / morning</td><td>Afternoon cognitive window</td></tr>
 <tr><td>Activation profile</td><td>High spike</td><td>Linear sustained</td></tr>
 <tr><td>Exit profile</td><td>Moderate crash</td><td>Clean linear exit</td></tr>
 </tbody>
 </table>
-<h2>> The Woman Who Uses Both</h2>
-<p>The most honest framing is not Celsius vs. hydrbrew° — it is Celsius in the morning and hydrbrew° in the afternoon. These products are not competitors for the same occasion. They are complements across different windows of the day.</p>
-<p>The professional woman who starts her morning with Celsius before a workout or as a morning activation is making a well-considered choice for that occasion. The same woman who reaches for a second Celsius at 2:15 PM because there is no better option is making a forced choice rather than a considered one.</p>
-<p>hydrbrew° is the better option she was reaching for. Zero systemic debt. The afternoon stays yours.</p>
+<h2>The Occasion Gap</h2>
+<p>In the morning, cortisol is naturally elevated — your body's cortisol awakening response peaks between 30 and 45 minutes after waking. Adding 200mg of caffeine to an already elevated baseline is manageable because the curve is descending. By 2 PM, cortisol has declined significantly from its morning peak. Adding a high-dose caffeine hit at this point produces a secondary cortisol spike in a system that was moving toward recovery.</p>
+<p>85mg of buffered caffeine with 200mg of L-Theanine modulation at 2:15 PM works with the cortisol cycle rather than against it. The activation is clean, and the cortisol response is minimal. The focus window extends through the afternoon without the secondary spike and its associated costs.</p>
+<h2>The Woman Who Uses Both</h2>
+<p>The most honest framing is not Celsius vs. hydrbrew° — it is Celsius in the morning and hydrbrew° in the afternoon. These products are not competitors for the same occasion. They are complements across different times of day.</p>
+<p>The professional woman who starts her morning with Celsius before a workout is making a well-considered choice for that occasion. The same woman who reaches for a second Celsius at 2:15 PM because there is no better option is making a forced choice rather than a considered one. hydrbrew° is not asking her to abandon Celsius. It is giving her the purpose-built tool for the occasion Celsius was never intended for.</p>
+<p><em>If you are a Celsius drinker, hydrbrew° is not asking you to make a different choice in the morning. It is asking you to make a better choice in the afternoon. Zero systemic debt. The afternoon stays yours.</em></p>
     `.trim(),
   },
 ];
@@ -305,14 +308,14 @@ function ArticleModal({ article, onClose }: { article: Article; onClose: () => v
     <div className="fixed inset-0 z-100 flex items-start justify-center overflow-y-auto">
       <div className="fixed inset-0 bg-black/95 backdrop-blur-md" onClick={onClose} />
       <div className="relative z-10 w-full max-w-4xl mx-auto px-4 py-8 md:py-16">
-        {/* Close */}
+        {/* Close — top-right X button matching Article Exit Button design */}
         <button
           type="button"
           onClick={onClose}
-          className="fixed top-6 right-6 z-20 p-3 bg-[#00FFFF]/10 border-2 border-[#00FFFF]/30 hover:border-[#00FFFF] rounded-xl text-[#00FFFF] hover:bg-[#00FFFF]/20 transition-all"
-          aria-label="Close"
+          className="fixed top-4 right-4 z-20 w-11 h-11 flex items-center justify-center bg-black/80 border border-white/20 rounded-full text-white/80 hover:text-white hover:border-white/60 hover:bg-black transition-all"
+          aria-label="Close article"
         >
-          <X className="w-6 h-6" />
+          <X className="w-5 h-5" />
         </button>
 
         <article className="bg-[#0A0A0A] border-2 border-[#00FFFF]/20 rounded-3xl overflow-hidden">

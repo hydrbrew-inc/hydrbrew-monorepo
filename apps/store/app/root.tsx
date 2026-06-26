@@ -34,18 +34,16 @@ export type RootLoader = typeof loader;
 
 export const links: LinksFunction = () => {
   return [
+    { rel: "preconnect", href: "https://cdn.shopify.com" },
+    { rel: "preconnect", href: "https://shop.app" },
+    { rel: "preconnect", href: "https://www.googletagmanager.com" },
+    { rel: "preconnect", href: "https://fonts.googleapis.com" },
+    { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
     {
-      rel: "preconnect",
-      href: "https://cdn.shopify.com",
+      rel: "stylesheet",
+      href: "https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;700;800&family=Roboto+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap",
     },
-    {
-      rel: "preconnect",
-      href: "https://shop.app",
-    },
-    {
-      rel: "preconnect",
-      href: "https://www.googletagmanager.com",
-    },
+    { rel: "preload", as: "image", href: "https://i.imgur.com/VzCUpeT.png", fetchPriority: "high" },
     { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
     { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
   ];

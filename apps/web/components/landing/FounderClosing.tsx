@@ -323,6 +323,8 @@ export function FounderClosing() {
                         <ImageWithFallback
                           src="/images/a339hLi.webp"
                           alt="Louis Caverly Signature"
+                          width={1024}
+                          height={1024}
                           className="relative h-24 md:h-32 w-auto brightness-0 invert opacity-100"
                         />
                       </div>
@@ -441,6 +443,8 @@ export function FounderClosing() {
                         <ImageWithFallback
                           src="/images/5Y6M3fG.webp"
                           alt="Fawne Caverly Signature"
+                          width={1024}
+                          height={1024}
                           className="relative h-24 md:h-32 w-auto brightness-0 invert opacity-100"
                         />
                       </div>

@@ -348,6 +348,10 @@ export function ProductShowcase() {
                 <img
                   src="/images/XrNhE2G.webp"
                   alt="hydrbrew can"
+                  width={1200}
+                  height={1857}
+                  loading="lazy"
+                  decoding="async"
                   className="w-[350px] sm:w-[500px] md:w-[650px] lg:w-[800px] h-auto object-contain"
                 />
 
