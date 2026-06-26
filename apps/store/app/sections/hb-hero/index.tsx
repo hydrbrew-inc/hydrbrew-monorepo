@@ -84,7 +84,7 @@ function FixedUIPortal({
         /* Sidebar page-transform — CSS-driven so open and close both animate */
         #mainContent {
           transition: transform 0.6s cubic-bezier(0.4,0,0.2,1), filter 0.6s cubic-bezier(0.4,0,0.2,1);
-          transform-origin: center center;
+          transform-origin: bottom center;
         }
         body.hb-sidebar-open #mainContent {
           transform: perspective(1200px) rotateY(-5deg) translateX(-50px) scale(0.95);
