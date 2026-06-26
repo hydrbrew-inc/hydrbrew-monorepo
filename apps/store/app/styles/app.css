@@ -253,3 +253,15 @@
     max-width: 100%;
   }
 }
+
+/* Hide Behold "Made with Behold" branding badge */
+behold-widget::part(branding),
+behold-widget::part(footer),
+.behold-branding,
+[class*="BeholdBranding"],
+[class*="behold-branding"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

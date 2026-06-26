@@ -4,6 +4,17 @@ import { useState, useEffect, useRef } from "react";
 import { Check } from "lucide-react";
 import MuxPlayer from "@mux/mux-player-react";
 
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      "behold-widget": React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement> & { "feed-id": string },
+        HTMLElement
+      >;
+    }
+  }
+}
+
 interface HbProductProps extends HydrogenComponentProps {
   shopLink?: string;
   muxPlaybackId?: string;
@@ -17,11 +28,20 @@ function HbProduct(props: HbProductProps) {
   const [showIngredients, setShowIngredients] = useState(false);
   const [activeChapter, setActiveChapter] = useState(0);
   const carouselImages = [
+    "https://i.imgur.com/5jvIKmf.png",
     "/carousel-image.png",
-    "https://i.imgur.com/4kKmc7z.jpeg",
     "https://i.imgur.com/iXr5kKh.png",
     "https://i.imgur.com/sqTrdv5.png",
   ];
+
+  useEffect(() => {
+    if (!document.querySelector('script[src="https://w.behold.so/widget.js"]')) {
+      const s = document.createElement("script");
+      s.type = "module";
+      s.src = "https://w.behold.so/widget.js";
+      document.head.appendChild(s);
+    }
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -108,7 +128,7 @@ function HbProduct(props: HbProductProps) {
             <p className="text-sm text-[#00FFFF] mb-6" style={{ fontFamily: "'Roboto Mono',monospace" }}>200mg L-Theanine // 200mg Lion's Mane // 85mg Caffeine</p>
 
             <p className="text-base text-white/80 mb-8 leading-relaxed" style={{ fontFamily: "'Urbanist',sans-serif", fontWeight: 300 }}>
-              hydrbrew° is a light and crisp, refreshing evolution of the coffee ritual. Molecularly calibrated for sustained uptime, it eliminates the metabolic drag of traditional caffeine - delivering a clear, precise cognitive glide without the noise. No sharp spikes, no afternoon jitters. Just a clean return to baseline. Command your day. The night stays yours.
+              hydrbrew° is a functional ready-to-drink iced coffee engineered for the afternoon window — the moment the back half of your day is still ahead, and your focus needs to hold. Light and crisp. Lightly sweetened with coconut sugar. Precision-dosed for the afternoon, calibrated to clear before evening. The afternoon stays yours. The night stays yours.
             </p>
 
             {/* Badges */}
@@ -132,8 +152,8 @@ function HbProduct(props: HbProductProps) {
 
             <p className="text-sm text-white/70 mb-2" style={{ fontFamily: "'Roboto Mono',monospace" }}>$59.95 // per 12-pack</p>
 
-            <a href={shopLink} className="w-full py-4 mb-4 text-black font-bold uppercase tracking-wider transition-all hover:opacity-90 rounded-xl text-center block" style={{ backgroundColor: "#00FFFF", fontFamily: "'Urbanist',sans-serif", fontSize: "18px", fontWeight: 700 }}>
-              SECURE ALLOCATION
+            <a href="https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937" target="_blank" rel="noopener noreferrer" className="w-full py-4 mb-4 text-black font-bold uppercase tracking-wider transition-all hover:opacity-90 rounded-xl text-center block" style={{ backgroundColor: "#00FFFF", fontFamily: "'Urbanist',sans-serif", fontSize: "18px", fontWeight: 700 }}>
+              SHOP NOW
             </a>
 
             <button type="button" onClick={() => setShowIngredients(!showIngredients)} className="w-full py-4 border border-white text-white font-medium uppercase tracking-wider hover:bg-white/10 transition-all rounded-xl" style={{ fontFamily: "'Urbanist',sans-serif", fontSize: "14px" }}>
@@ -146,6 +166,14 @@ function HbProduct(props: HbProductProps) {
               </div>
             )}
           </div>
+        </div>
+
+        {/* Instagram Feed — above The Afternoon Ritual */}
+        <div className="max-w-7xl mx-auto mb-16 scroll-reveal" data-scroll-delay="0">
+          <p className="text-[#00FFFF]/60 text-xs uppercase tracking-widest mb-6 text-center" style={{ fontFamily: "'Roboto Mono',monospace" }}>
+            Connect To The Network // Live Feed
+          </p>
+          <behold-widget feed-id="4Y25XqYpmc6hjLt4QtZU" />
         </div>
 
         {/* The Afternoon Ritual */}

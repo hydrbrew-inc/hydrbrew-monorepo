@@ -6,6 +6,7 @@ import {
 
 const KLAVIYO_PROFILES_API = "https://a.klaviyo.com/api/profiles";
 const KLAVIYO_EVENTS_API = "https://a.klaviyo.com/api/events";
+const KLAVIYO_SUBSCRIPTIONS_API = "https://a.klaviyo.com/api/profile-subscriptions-bulk-create-jobs";
 
 const HEADERS = (apiToken: string) => ({
   accept: "application/vnd.api+json",
@@ -13,6 +14,37 @@ const HEADERS = (apiToken: string) => ({
   "content-type": "application/vnd.api+json",
   Authorization: `Klaviyo-API-Key ${apiToken}`,
 });
+
+async function subscribeToList(email: string, listId: string, apiToken: string) {
+  if (!listId) return;
+  await fetch(KLAVIYO_SUBSCRIPTIONS_API, {
+    method: "POST",
+    headers: HEADERS(apiToken),
+    body: JSON.stringify({
+      data: {
+        type: "profile-subscription-bulk-create-job",
+        attributes: {
+          profiles: {
+            data: [
+              {
+                type: "profile",
+                attributes: {
+                  email,
+                  subscriptions: {
+                    email: { marketing: { consent: "SUBSCRIBED" } },
+                  },
+                },
+              },
+            ],
+          },
+        },
+        relationships: {
+          list: { data: { type: "list", id: listId } },
+        },
+      },
+    }),
+  }).catch((err) => console.error("[Klaviyo list subscribe]", err));
+}
 
 export const action: ActionFunction = async ({
   request,
@@ -32,13 +64,15 @@ export const action: ActionFunction = async ({
   const quizScore = formData.get("quiz_score") as string | null;
   const isQuizSubmission = quizScore !== null;
 
+  // List IDs from env — set in Oxygen dashboard and .env
+  // KLAVIYO_LIST_ID_OPTIMIZED_HUMAN  → "Optimized Human" list (Stay Connected + footer forms)
+  // KLAVIYO_LIST_ID_CAFFEINE_AUDIT   → "Caffeine Audit/Afternoon Ritual Quiz" list (quiz + audit)
+  const optimizedHumanListId = context.env.KLAVIYO_LIST_ID_OPTIMIZED_HUMAN ?? "";
+  const caffeineAuditListId = context.env.KLAVIYO_LIST_ID_CAFFEINE_AUDIT ?? "";
+
   try {
     if (isQuizSubmission) {
       // ── Quiz Completion ──────────────────────────────────────────────────────
-      // 1. Upsert the Klaviyo profile with quiz answers as custom properties
-      // 2. Fire a "Quiz Completed" event so Klaviyo flows can trigger on it
-      //    (e.g. send a 20% discount code via the Shopify discount action)
-
       const tier = formData.get("quiz_tier") as string;
       const resultTitle = formData.get("quiz_result_title") as string;
       const quizProperties = {
@@ -53,22 +87,22 @@ export const action: ActionFunction = async ({
         quiz_completed_at: new Date().toISOString(),
       };
 
-      // Step 1 — upsert profile (creates if new, updates if existing)
+      // Step 1 — upsert profile with quiz answers
       await fetch(KLAVIYO_PROFILES_API, {
         method: "POST",
         headers: HEADERS(apiToken),
         body: JSON.stringify({
           data: {
             type: "profile",
-            attributes: {
-              email,
-              properties: quizProperties,
-            },
+            attributes: { email, properties: quizProperties },
           },
         }),
       });
 
-      // Step 2 — fire "Quiz Completed" event
+      // Step 2 — subscribe to "Caffeine Audit/Afternoon Ritual Quiz" list
+      await subscribeToList(email, caffeineAuditListId, apiToken);
+
+      // Step 3 — fire "Quiz Completed" event to trigger Klaviyo flow (QUIZCAFFEINEAUDIT20)
       const eventRes = await fetch(KLAVIYO_EVENTS_API, {
         method: "POST",
         headers: HEADERS(apiToken),
@@ -77,16 +111,10 @@ export const action: ActionFunction = async ({
             type: "event",
             attributes: {
               profile: {
-                data: {
-                  type: "profile",
-                  attributes: { email },
-                },
+                data: { type: "profile", attributes: { email } },
               },
               metric: {
-                data: {
-                  type: "metric",
-                  attributes: { name: "Quiz Completed" },
-                },
+                data: { type: "metric", attributes: { name: "Quiz Completed" } },
               },
               properties: quizProperties,
             },
@@ -101,15 +129,14 @@ export const action: ActionFunction = async ({
       return data({ ok: false, error: "Klaviyo event failed", details: errBody }, eventRes.status);
     }
 
-    // ── Plain email signup (newsletter / social form) ─────────────────────────
+    // ── Plain email signup → "Optimized Human" list ───────────────────────────
+    await subscribeToList(email, optimizedHumanListId, apiToken);
+
     const res = await fetch(KLAVIYO_PROFILES_API, {
       method: "POST",
       headers: HEADERS(apiToken),
       body: JSON.stringify({
-        data: {
-          type: "profile",
-          attributes: { email },
-        },
+        data: { type: "profile", attributes: { email } },
       }),
     });
 

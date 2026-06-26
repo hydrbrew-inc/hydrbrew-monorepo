@@ -210,7 +210,7 @@ function FixedUIPortal({
 function HbHero(props: HbHeroProps) {
   const {
     heroBgImage = "https://i.imgur.com/VzCUpeT.png",
-    shopLink = "/products",
+    shopLink = "https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937",
     discountCode = "HYDR15",
     ...rest
   } = props;
@@ -259,8 +259,8 @@ function HbHero(props: HbHeroProps) {
             </h1>
             <p className="text-xl md:text-3xl text-[#00FFFF]" style={{ fontFamily: "'Roboto Mono',monospace" }}>The night stays yours.</p>
             <div className="pt-2 md:pt-4">
-              <a href={shopLink} className="inline-flex items-center gap-2 px-8 py-3 md:px-10 md:py-4 bg-[#00FFFF] text-black text-sm md:text-base tracking-wider rounded-full hover:bg-[#00FFFF]/90 transition-all hover:shadow-[0_0_40px_rgba(0,255,255,0.6)] hover:scale-105 font-bold" style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700 }}>
-                INITIALIZE UPTIME
+              <a href={shopLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-3 md:px-10 md:py-4 bg-[#00FFFF] text-black text-sm md:text-base tracking-wider rounded-full hover:bg-[#00FFFF]/90 transition-all hover:shadow-[0_0_40px_rgba(0,255,255,0.6)] hover:scale-105 font-bold" style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700 }}>
+                SHOP NOW
                 <span className="hb-hero-arrow" style={{ display: "inline-block" }}>→</span>
               </a>
             </div>
@@ -295,5 +295,5 @@ export const schema = createSchema({
       { type: "text", name: "discountCode", label: "Discount code", defaultValue: "HYDR15" },
     ]},
   ],
-  presets: { shopLink: "/products", discountCode: "HYDR15" },
+  presets: { shopLink: "https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937", discountCode: "HYDR15" },
 });
