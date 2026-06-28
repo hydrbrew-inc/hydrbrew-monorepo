@@ -86,7 +86,7 @@ function HbSocial(props: HydrogenComponentProps) {
             </div>
 
             {fetcher.data?.ok ? (
-              <div className="text-center text-[#00FFFF] font-mono py-4 mb-8">Thanks for joining the cohort! ✓</div>
+              <div className="text-center text-[#00FFFF] font-mono py-4 mb-8">✓ You&apos;re in — check your email!</div>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
                 <input

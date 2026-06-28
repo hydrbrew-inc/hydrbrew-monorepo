@@ -154,7 +154,7 @@ function HbQuiz(props: HydrogenComponentProps) {
               <input type="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-6 py-4 bg-white/5 border-2 border-[#00FFFF]/30 rounded-2xl text-white placeholder-white/40 focus:outline-none focus:border-[#00FFFF] transition-all text-lg" />
             </div>
             {fetcher.data?.ok ? (
-              <div className="w-full py-5 bg-[#00FFFF]/20 border border-[#00FFFF] text-[#00FFFF] rounded-2xl text-center text-xl font-bold">Check your inbox for HYDR20 ✓</div>
+              <div className="w-full py-5 bg-[#00FFFF]/20 border border-[#00FFFF] text-[#00FFFF] rounded-2xl text-center text-xl font-bold">✓ You're in — check your email for your 20% off code</div>
             ) : (
               <button type="button" onClick={() => {
                 if (!email) return;

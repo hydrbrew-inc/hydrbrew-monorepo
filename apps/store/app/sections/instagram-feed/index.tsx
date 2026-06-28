@@ -75,10 +75,9 @@ function InstagramFeed(props: InstagramFeedProps) {
             <span style={{ color: "#00FFFF" }}>Instagram</span>
           </h2>
         )}
-        <div style={{ position: "relative" }}>
+        {/* clip-path trims ~52px off the bottom of the widget, hiding the Behold badge without a visible overlay */}
+        <div style={{ clipPath: "inset(0 0 52px 0)", marginBottom: "-52px" }}>
           <behold-widget feed-id={feedId} />
-          {/* Overlay covers the "Made with Behold" badge — shadow DOM is closed so CSS/JS can't reach it */}
-          <div style={{ position: "absolute", bottom: 0, right: 0, width: "240px", height: "64px", background: "#000000", zIndex: 9999, pointerEvents: "none" }} />
         </div>
       </div>
     </section>

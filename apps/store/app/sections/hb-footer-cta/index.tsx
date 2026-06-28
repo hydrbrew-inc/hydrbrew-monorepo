@@ -81,7 +81,7 @@ function HbFooterCta(props: HydrogenComponentProps) {
             Subscribe to receive tactical intelligence and human throughput updates. Zero noise. Absolute data.
           </p>
           {fetcher.data?.ok ? (
-            <div className="text-[#00FFFF] font-mono py-4">You're in the cohort. ✓</div>
+            <div className="text-[#00FFFF] font-mono py-4">✓ You&apos;re in — check your email!</div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <input type="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} required className="flex-1 px-6 py-4 bg-white/5 border border-[#00FFFF]/30 rounded-full text-white placeholder-white/40 focus:outline-none focus:border-[#00FFFF] transition-colors" style={{ fontFamily: "'Space Grotesk',sans-serif" }} />
