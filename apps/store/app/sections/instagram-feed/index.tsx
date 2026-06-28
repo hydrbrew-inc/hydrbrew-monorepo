@@ -78,7 +78,7 @@ function InstagramFeed(props: InstagramFeedProps) {
         <div style={{ position: "relative" }}>
           <behold-widget feed-id={feedId} />
           {/* Overlay covers the "Made with Behold" badge — shadow DOM is closed so CSS/JS can't reach it */}
-          <div style={{ position: "absolute", bottom: 0, right: 0, width: "180px", height: "52px", background: "#000", zIndex: 10, pointerEvents: "none" }} />
+          <div style={{ position: "absolute", bottom: 0, right: 0, width: "240px", height: "64px", background: "#000000", zIndex: 9999, pointerEvents: "none" }} />
         </div>
       </div>
     </section>

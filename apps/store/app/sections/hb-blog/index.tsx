@@ -1,6 +1,6 @@
 import { createSchema } from "@weaverse/hydrogen";
 import type { HydrogenComponentProps } from "@weaverse/hydrogen";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowRight, Clock, User, X, Calendar } from "lucide-react";
 
 interface Article {
@@ -304,15 +304,28 @@ const comparisons: Article[] = [
 // ── Article Modal ───────────────────────────────────────────────────────────
 
 function ArticleModal({ article, onClose }: { article: Article; onClose: () => void }) {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    const style = document.createElement("style");
+    style.id = "hb-modal-nav-hide";
+    style.textContent = "header, nav { display: none !important; }";
+    document.head.appendChild(style);
+    return () => {
+      document.body.style.overflow = "";
+      document.getElementById("hb-modal-nav-hide")?.remove();
+    };
+  }, []);
+
   return (
-    <div className="fixed inset-0 z-100 flex items-start justify-center overflow-y-auto">
+    <div className="fixed inset-0 z-100 flex flex-col">
       <div className="fixed inset-0 bg-black/95 backdrop-blur-md" onClick={onClose} />
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-4 py-8 md:py-16">
+      <div className="relative z-10 w-full h-full overflow-y-auto">
+        <div className="w-full max-w-4xl mx-auto px-4 py-8 md:py-16">
         {/* Close — top-right X button matching Article Exit Button design */}
         <button
           type="button"
           onClick={onClose}
-          className="fixed top-4 right-4 z-20 w-11 h-11 flex items-center justify-center bg-black/80 border border-white/20 rounded-full text-white/80 hover:text-white hover:border-white/60 hover:bg-black transition-all"
+          className="fixed top-4 right-4 z-110 w-11 h-11 flex items-center justify-center bg-black/80 border border-white/20 rounded-full text-white/80 hover:text-white hover:border-white/60 hover:bg-black transition-all"
           aria-label="Close article"
         >
           <X className="w-5 h-5" />
@@ -378,6 +391,7 @@ function ArticleModal({ article, onClose }: { article: Article; onClose: () => v
             </div>
           </div>
         </article>
+        </div>
       </div>
     </div>
   );
