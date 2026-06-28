@@ -216,7 +216,7 @@
   <main class="main">
 
     <div class="img-placeholder" style="height:500px">
-      <img src="assets/hero-can.webp" alt="hydrbrew&deg; functional iced coffee can" onerror="this.style.display='none'">
+      <img src="/protocol/assets/hero-can.webp" alt="hydrbrew&deg; functional iced coffee can" onerror="this.style.display='none'">
       <div class="img-overlay">// <span class="brand">hydrbrew&deg;</span> afternoon protocol</div>
     </div>
 
@@ -348,7 +348,7 @@
     </div>
 
     <div class="img-placeholder" style="height:400px;margin-bottom:16px">
-      <img src="assets/lifestyle.webp" alt="hydrbrew&deg; lifestyle" onerror="this.style.display='none'">
+      <img src="/protocol/assets/lifestyle.webp" alt="hydrbrew&deg; lifestyle" onerror="this.style.display='none'">
       <div class="img-overlay">// <span class="brand">hydrbrew&deg;</span></div>
     </div>
 
@@ -394,20 +394,34 @@
 
     /* CTA click tracking */
     document.getElementById('hero-start').addEventListener('click', () => track('cta_click', { location: 'hero_start' }));
-    document.getElementById('cta-signup').addEventListener('click', function (e) {
+    document.getElementById('cta-signup').addEventListener('click', async function (e) {
+      e.preventDefault();
       const input = document.getElementById('cta-email');
       const err = document.getElementById('cta-email-err');
+      const btn = this;
       const email = input.value.trim();
       const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
       if (!valid) {
-        e.preventDefault();
         err.style.display = 'block';
         input.focus();
         return;
       }
       err.style.display = 'none';
-      this.href = 'https://hydrbrew.com?utm_source=afternoon_audit&utm_medium=tool&utm_campaign=drip_flow&utm_content=cta_signup&email=' + encodeURIComponent(email);
+      btn.textContent = 'Subscribing…';
+      btn.style.pointerEvents = 'none';
+      try {
+        await fetch('/api/klaviyo/subscribe?listId=VDUmH7', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ profiles: [{ email: email, signup_source: 'caffeine_audit' }] }),
+        });
+      } catch (_) {}
       track('cta_click', { location: 'cta_signup' });
+      btn.textContent = '✓ You\'re in — check your email for your 20% off code';
+      btn.style.background = '#006600';
+      btn.style.color = '#00FF88';
+      input.value = '';
+      document.getElementById('cta-email-err').style.display = 'none';
     });
     document.getElementById('cta-email').addEventListener('input', () => {
       document.getElementById('cta-email-err').style.display = 'none';

@@ -136,6 +136,14 @@ export function Footer() {
           {/* Links */}
           <div className="flex items-center gap-6 text-sm">
             <a
+              href="/signup"
+              className="text-neutral-400 transition-colors"
+              onMouseEnter={(e) => (e.currentTarget.style.color = "#00FFFF")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "")}
+            >
+              Sign-Up
+            </a>
+            <a
               href="/protocol"
               className="text-neutral-400 transition-colors"
               onMouseEnter={(e) => (e.currentTarget.style.color = "#00FFFF")}
