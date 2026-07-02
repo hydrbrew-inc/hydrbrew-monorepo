@@ -360,15 +360,16 @@ function ArticleModal({ article, onClose }: { article: Article; onClose: () => v
   }, []);
 
   return (
-    <div className="fixed inset-0 z-100 flex flex-col">
+    <div className="fixed inset-0 flex flex-col" style={{ zIndex: 9000 }}>
       <div className="fixed inset-0 bg-black/95 backdrop-blur-md" onClick={onClose} />
-      <div className="relative z-10 w-full h-full overflow-y-auto">
+      <div className="relative w-full h-full overflow-y-auto" style={{ zIndex: 9001 }}>
         <div className="w-full max-w-4xl mx-auto px-4 py-8 md:py-16">
-        {/* Close — top-right X button matching Article Exit Button design */}
+        {/* Close — top-right X button */}
         <button
           type="button"
           onClick={onClose}
-          className="fixed top-4 right-4 z-110 w-11 h-11 flex items-center justify-center bg-white rounded-full text-black shadow-lg hover:bg-neutral-200 transition-all"
+          className="fixed top-4 right-4 w-11 h-11 flex items-center justify-center bg-white rounded-full text-black shadow-lg hover:bg-neutral-200 transition-all"
+          style={{ zIndex: 9999 }}
           aria-label="Close article"
         >
           <X className="w-5 h-5" />

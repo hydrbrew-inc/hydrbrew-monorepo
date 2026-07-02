@@ -93,7 +93,7 @@ function InstagramFeed(props: InstagramFeedProps) {
           </h2>
         )}
         {/* clip-path trims ~52px off the bottom of the widget, hiding the Behold badge without a visible overlay */}
-        <div style={{ clipPath: "inset(0 0 52px 0)", marginBottom: "-52px", minHeight: 400 }}>
+        <div style={{ clipPath: "inset(0 0 72px 0)", marginBottom: "-72px", minHeight: 400 }}>
           <behold-widget feed-id={feedId} />
         </div>
       </div>
