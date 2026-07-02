@@ -39,8 +39,17 @@ function InstagramFeed(props: InstagramFeedProps) {
           st.textContent = `
             [class*="brand"],[class*="Brand"],[class*="branding"],[class*="Branding"],
             footer,[class*="footer"],[class*="Footer"],
-            a[href*="behold"],a[href*="beholder"] {
+            a[href*="behold"],a[href*="beholder"],
+            [class*="powered"],[class*="Powered"],
+            [class*="badge"],[class*="Badge"],
+            [class*="watermark"],[class*="Watermark"],
+            [class*="credit"],[class*="Credit"],
+            [class*="logo"]:not([class*="feed"]):not([class*="post"]) {
               display: none !important;
+              visibility: hidden !important;
+              opacity: 0 !important;
+              height: 0 !important;
+              overflow: hidden !important;
             }
             img {
               object-fit: cover !important;
@@ -65,14 +74,16 @@ function InstagramFeed(props: InstagramFeedProps) {
       });
     };
 
-    const timer1 = setTimeout(injectHide, 1000);
-    const timer2 = setTimeout(injectHide, 3000);
+    const timer1 = setTimeout(injectHide, 500);
+    const timer2 = setTimeout(injectHide, 1500);
+    const timer3 = setTimeout(injectHide, 4000);
     const observer = new MutationObserver(injectHide);
     observer.observe(document.body, { childList: true, subtree: true });
 
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
+      clearTimeout(timer3);
       observer.disconnect();
     };
   }, []);
@@ -93,7 +104,7 @@ function InstagramFeed(props: InstagramFeedProps) {
           </h2>
         )}
         {/* clip-path trims ~52px off the bottom of the widget, hiding the Behold badge without a visible overlay */}
-        <div style={{ clipPath: "inset(0 0 72px 0)", marginBottom: "-72px", minHeight: 400 }}>
+        <div style={{ clipPath: "inset(0 0 90px 0)", marginBottom: "-90px", minHeight: 400 }}>
           <behold-widget feed-id={feedId} />
         </div>
       </div>

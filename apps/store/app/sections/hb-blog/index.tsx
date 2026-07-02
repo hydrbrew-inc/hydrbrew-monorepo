@@ -351,7 +351,7 @@ function ArticleModal({ article, onClose }: { article: Article; onClose: () => v
     document.body.style.overflow = "hidden";
     const style = document.createElement("style");
     style.id = "hb-modal-nav-hide";
-    style.textContent = "header, nav { display: none !important; }";
+    style.textContent = "header, nav, #announcement-bar { display: none !important; }";
     document.head.appendChild(style);
     return () => {
       document.body.style.overflow = "";
