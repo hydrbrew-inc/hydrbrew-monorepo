@@ -84,11 +84,6 @@ function HbFooterCta(props: HydrogenComponentProps) {
             <div className="text-[#00FFFF] font-mono py-4">✓ You&apos;re in — check your email!</div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              {fetcher.data && !fetcher.data.ok && (
-                <p className="text-red-400 text-sm text-center w-full font-mono">
-                  Error: {JSON.stringify(fetcher.data)}
-                </p>
-              )}
               <input type="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} required className="flex-1 px-6 py-4 bg-white/5 border border-[#00FFFF]/30 rounded-full text-white placeholder-white/40 focus:outline-none focus:border-[#00FFFF] transition-colors" style={{ fontFamily: "'Space Grotesk',sans-serif" }} />
               <button type="submit" className="px-8 py-4 bg-[#00FFFF] text-black rounded-full hover:bg-[#00FFFF]/90 transition-all hover:shadow-[0_0_30px_rgba(0,255,255,0.5)] flex items-center justify-center gap-2 whitespace-nowrap font-bold" style={{ fontFamily: "'Urbanist',sans-serif", fontWeight: 700 }}>
                 {fetcher.state !== "idle" ? "Submitting…" : <>Join Cohort<Send className="w-4 h-4" /></>}

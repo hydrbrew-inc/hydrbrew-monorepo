@@ -5,7 +5,7 @@ function HbSidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   const menuItems = [
-    { label: "SHOP", href: "/products/hydrbrew-pre-order-bundle" },
+    { label: "SHOP", href: "https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937&ref=lp_hero_cta" },
     { label: "OPTIMIZE", href: "/#quiz" },
     { label: "KNOWLEDGE BASE", href: "/#knowledge-base" },
     { label: "FAQ", href: "/#faq" },
@@ -58,14 +58,25 @@ function HbSidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
               <div className="flex-1 flex flex-col justify-center items-start gap-6 px-8">
                 {menuItems.map((item) => (
                   <div key={item.label} className="relative w-full" onMouseEnter={() => setHoveredItem(item.label)} onMouseLeave={() => setHoveredItem(null)}>
-                    <Link
-                      to={item.href}
-                      onClick={onClose}
-                      className="block text-2xl text-white/70 hover:text-[#00FFFF] transition-all duration-300 tracking-wider py-6 px-4 border-l-2 border-[#00FFFF]/20 hover:border-[#00FFFF] hover:translate-x-2"
-                      style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 600 }}
-                    >
-                      {item.label}
-                    </Link>
+                    {item.href.startsWith("http") ? (
+                      <a
+                        href={item.href}
+                        onClick={onClose}
+                        className="block text-2xl text-white/70 hover:text-[#00FFFF] transition-all duration-300 tracking-wider py-6 px-4 border-l-2 border-[#00FFFF]/20 hover:border-[#00FFFF] hover:translate-x-2"
+                        style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 600 }}
+                      >
+                        {item.label}
+                      </a>
+                    ) : (
+                      <Link
+                        to={item.href}
+                        onClick={onClose}
+                        className="block text-2xl text-white/70 hover:text-[#00FFFF] transition-all duration-300 tracking-wider py-6 px-4 border-l-2 border-[#00FFFF]/20 hover:border-[#00FFFF] hover:translate-x-2"
+                        style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 600 }}
+                      >
+                        {item.label}
+                      </Link>
+                    )}
                   </div>
                 ))}
               </div>
@@ -109,9 +120,9 @@ export function HbHeader() {
           <nav className="flex items-center justify-between">
             {/* Left Nav */}
             <div className="flex-1 flex items-center gap-8">
-              <Link to="/products/hydrbrew-pre-order-bundle" className="hidden md:block text-white hover:text-[#00FFFF] transition-colors" style={{ fontFamily: "'Space Grotesk',sans-serif" }}>
+              <a href="https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937&ref=lp_hero_cta" className="hidden md:block text-white hover:text-[#00FFFF] transition-colors" style={{ fontFamily: "'Space Grotesk',sans-serif" }}>
                 Shop
-              </Link>
+              </a>
             </div>
 
             {/* Logo */}

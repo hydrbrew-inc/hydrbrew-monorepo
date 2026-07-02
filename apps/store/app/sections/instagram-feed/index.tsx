@@ -33,10 +33,12 @@ function InstagramFeed(props: InstagramFeedProps) {
     const injectHide = () => {
       document.querySelectorAll("behold-widget").forEach((w) => {
         const root = (w as any).shadowRoot as ShadowRoot | null;
-        if (root && !root.querySelector("#hb-no-brand")) {
-          const st = document.createElement("style");
-          st.id = "hb-no-brand";
-          st.textContent = `
+        if (!root) return;
+        // Always remove + re-inject in case Behold resets its shadow DOM
+        root.querySelector("#hb-no-brand")?.remove();
+        const st = document.createElement("style");
+        st.id = "hb-no-brand";
+        st.textContent = `
             [class*="brand"],[class*="Brand"],[class*="branding"],[class*="Branding"],
             footer,[class*="footer"],[class*="Footer"],
             a[href*="behold"],a[href*="beholder"],
@@ -56,21 +58,20 @@ function InstagramFeed(props: InstagramFeedProps) {
               object-position: center !important;
               width: 100% !important;
               height: 100% !important;
-              min-height: 200px !important;
+              min-height: 260px !important;
             }
             [class*="item"] img,
             [class*="post"] img,
             [class*="cell"] img,
             [class*="tile"] img,
             li img {
-              min-height: 220px !important;
+              min-height: 280px !important;
             }
             @media (max-width: 768px) {
-              img { min-height: 180px !important; }
+              img { min-height: 220px !important; }
             }
           `;
-          root.appendChild(st);
-        }
+        root.appendChild(st);
       });
     };
 
@@ -103,9 +104,32 @@ function InstagramFeed(props: InstagramFeedProps) {
             <span style={{ color: "#00FFFF" }}>Instagram</span>
           </h2>
         )}
-        {/* clip-path trims ~52px off the bottom of the widget, hiding the Behold badge without a visible overlay */}
-        <div style={{ clipPath: "inset(0 0 90px 0)", marginBottom: "-90px", minHeight: 400 }}>
+        {/*
+          transform: translateZ(0) makes this div the containing block for ANY
+          position:fixed descendants inside the Behold shadow DOM.
+          overflow: hidden then clips them if they fall outside our bounds.
+          The black div covers whatever remains at the bottom.
+        */}
+        <div style={{
+          position: "relative",
+          minHeight: 600,
+          transform: "translateZ(0)",
+          overflow: "hidden",
+        }}>
           <behold-widget feed-id={feedId} />
+          <div
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: "100px",
+              background: "linear-gradient(to bottom, transparent 0%, #000 40%)",
+              zIndex: 9999,
+              pointerEvents: "none",
+            }}
+          />
         </div>
       </div>
     </section>

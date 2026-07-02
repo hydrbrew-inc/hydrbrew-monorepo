@@ -89,11 +89,6 @@ function HbSocial(props: HydrogenComponentProps) {
               <div className="text-center text-[#00FFFF] font-mono py-4 mb-8">✓ You&apos;re in — check your email!</div>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
-                {fetcher.data && !fetcher.data.ok && (
-                  <p className="text-red-400 text-sm text-center w-full font-mono">
-                    Error: {JSON.stringify(fetcher.data)}
-                  </p>
-                )}
                 <input
                   type="email"
                   placeholder="Enter your email"

@@ -9,7 +9,7 @@ interface HbReviewsProps extends HydrogenComponentProps {
 function HbReviews(props: HbReviewsProps) {
   const {
     reviewsImage = "https://i.imgur.com/Ps32UHT.png",
-    shopLink = "https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937",
+    shopLink = "https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937&ref=lp_hero_cta",
     ...rest
   } = props;
 
@@ -67,8 +67,8 @@ export const schema = createSchema({
   settings: [
     { group: "Content", inputs: [
       { type: "image", name: "reviewsImage", label: "Background image" },
-      { type: "text", name: "shopLink", label: "Shop link", defaultValue: "https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937" },
+      { type: "text", name: "shopLink", label: "Shop link", defaultValue: "https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937&ref=lp_hero_cta" },
     ]},
   ],
-  presets: { shopLink: "https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937" },
+  presets: { shopLink: "https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937&ref=lp_hero_cta" },
 });

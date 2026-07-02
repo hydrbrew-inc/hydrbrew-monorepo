@@ -360,21 +360,24 @@ function ArticleModal({ article, onClose }: { article: Article; onClose: () => v
   }, []);
 
   return (
-    <div className="fixed inset-0 flex flex-col" style={{ zIndex: 9000 }}>
-      <div className="fixed inset-0 bg-black/95 backdrop-blur-md" onClick={onClose} />
-      <div className="relative w-full h-full overflow-y-auto" style={{ zIndex: 9001 }}>
-        <div className="w-full max-w-4xl mx-auto px-4 py-8 md:py-16">
-        {/* Close — top-right X button */}
-        <button
-          type="button"
-          onClick={onClose}
-          className="fixed top-4 right-4 w-11 h-11 flex items-center justify-center bg-white rounded-full text-black shadow-lg hover:bg-neutral-200 transition-all"
-          style={{ zIndex: 9999 }}
-          aria-label="Close article"
-        >
-          <X className="w-5 h-5" />
-        </button>
+    <div className="fixed inset-0" style={{ zIndex: 9000 }}>
+      {/* Backdrop */}
+      <div className="absolute inset-0 bg-black/95 backdrop-blur-md" onClick={onClose} />
 
+      {/* X button — outside the scroll container so iOS Safari doesn't clip it */}
+      <button
+        type="button"
+        onClick={onClose}
+        className="absolute top-4 right-4 w-11 h-11 flex items-center justify-center bg-white rounded-full text-black shadow-lg hover:bg-neutral-200 transition-all"
+        style={{ zIndex: 99999 }}
+        aria-label="Close article"
+      >
+        <X className="w-5 h-5" />
+      </button>
+
+      {/* Scroll container */}
+      <div className="absolute inset-0 overflow-y-auto" style={{ zIndex: 9001 }}>
+        <div className="w-full max-w-4xl mx-auto px-4 pt-20 pb-16">
         <article className="bg-[#0A0A0A] border-2 border-[#00FFFF]/20 rounded-3xl overflow-hidden">
           {/* Hero image */}
           <div className="relative h-64 md:h-80 overflow-hidden">

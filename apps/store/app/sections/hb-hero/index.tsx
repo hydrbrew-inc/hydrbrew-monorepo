@@ -210,7 +210,7 @@ function FixedUIPortal({
 function HbHero(props: HbHeroProps) {
   const {
     heroBgImage = "https://i.imgur.com/VzCUpeT.png",
-    shopLink = "https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937",
+    shopLink = "https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937&ref=lp_hero_cta",
     discountCode = "HYDR15",
     ...rest
   } = props;
@@ -295,5 +295,5 @@ export const schema = createSchema({
       { type: "text", name: "discountCode", label: "Discount code", defaultValue: "HYDR15" },
     ]},
   ],
-  presets: { shopLink: "https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937", discountCode: "HYDR15" },
+  presets: { shopLink: "https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937&ref=lp_hero_cta", discountCode: "HYDR15" },
 });

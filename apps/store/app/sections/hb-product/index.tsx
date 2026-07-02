@@ -132,7 +132,7 @@ function HbProduct(props: HbProductProps) {
 
             <p className="text-sm text-white/70 mb-2" style={{ fontFamily: "'Roboto Mono',monospace" }}>$59.95 // per 12-pack</p>
 
-            <a href="https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937" target="_blank" rel="noopener noreferrer" className="w-full py-4 mb-4 text-black font-bold uppercase tracking-wider transition-all hover:opacity-90 rounded-xl text-center block" style={{ backgroundColor: "#00FFFF", fontFamily: "'Urbanist',sans-serif", fontSize: "18px", fontWeight: 700 }}>
+            <a href="https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937&ref=lp_hero_cta" target="_blank" rel="noopener noreferrer" className="w-full py-4 mb-4 text-black font-bold uppercase tracking-wider transition-all hover:opacity-90 rounded-xl text-center block" style={{ backgroundColor: "#00FFFF", fontFamily: "'Urbanist',sans-serif", fontSize: "18px", fontWeight: 700 }}>
               SHOP NOW
             </a>
 
