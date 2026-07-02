@@ -87,7 +87,7 @@ export const action: ActionFunction = async ({
         quiz_completed_at: new Date().toISOString(),
       };
 
-      // Step 1 — upsert profile with quiz answers
+      // Step 1 — upsert profile with quiz answers (409 = already exists, also fine)
       await fetch(KLAVIYO_PROFILES_API, {
         method: "POST",
         headers: HEADERS(apiToken),
@@ -97,7 +97,7 @@ export const action: ActionFunction = async ({
             attributes: { email, properties: quizProperties },
           },
         }),
-      });
+      }).catch((err) => console.error("[Klaviyo profile upsert]", err));
 
       // Step 2 — subscribe to "Caffeine Audit/Afternoon Ritual Quiz" list
       await subscribeToList(email, caffeineAuditListId, apiToken);
@@ -140,8 +140,9 @@ export const action: ActionFunction = async ({
       }),
     });
 
-    if (res.ok) {
-      return data({ ok: true }, res.status);
+    // 201 = created, 200 = ok, 409 = profile already exists (still a success)
+    if (res.ok || res.status === 409) {
+      return data({ ok: true });
     }
     const klaviyoData = await res.json().catch(() => ({}));
     return data({ ok: false, error: "Unable to subscribe", klaviyoData }, res.status);
