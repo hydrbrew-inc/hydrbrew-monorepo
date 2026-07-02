@@ -89,6 +89,11 @@ function HbSocial(props: HydrogenComponentProps) {
               <div className="text-center text-[#00FFFF] font-mono py-4 mb-8">✓ You&apos;re in — check your email!</div>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+                {fetcher.data && !fetcher.data.ok && (
+                  <p className="text-red-400 text-sm text-center w-full font-mono">
+                    Error: {JSON.stringify(fetcher.data)}
+                  </p>
+                )}
                 <input
                   type="email"
                   placeholder="Enter your email"
@@ -103,7 +108,7 @@ function HbSocial(props: HydrogenComponentProps) {
                   className="px-8 py-4 bg-[#00FFFF] text-black rounded-full hover:bg-[#00FFFF]/90 transition-all hover:shadow-[0_0_30px_rgba(0,255,255,0.5)] flex items-center justify-center gap-2 whitespace-nowrap font-bold"
                   style={{ fontFamily: "'Urbanist',sans-serif", fontWeight: 700 }}
                 >
-                  Join Now<Send className="w-4 h-4" />
+                  {fetcher.state !== "idle" ? "Submitting…" : <>Join Now<Send className="w-4 h-4" /></>}
                 </button>
               </form>
             )}
