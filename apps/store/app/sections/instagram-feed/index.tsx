@@ -42,6 +42,23 @@ function InstagramFeed(props: InstagramFeedProps) {
             a[href*="behold"],a[href*="beholder"] {
               display: none !important;
             }
+            img {
+              object-fit: cover !important;
+              object-position: center !important;
+              width: 100% !important;
+              height: 100% !important;
+              min-height: 200px !important;
+            }
+            [class*="item"] img,
+            [class*="post"] img,
+            [class*="cell"] img,
+            [class*="tile"] img,
+            li img {
+              min-height: 220px !important;
+            }
+            @media (max-width: 768px) {
+              img { min-height: 180px !important; }
+            }
           `;
           root.appendChild(st);
         }
@@ -76,7 +93,7 @@ function InstagramFeed(props: InstagramFeedProps) {
           </h2>
         )}
         {/* clip-path trims ~52px off the bottom of the widget, hiding the Behold badge without a visible overlay */}
-        <div style={{ clipPath: "inset(0 0 52px 0)", marginBottom: "-52px" }}>
+        <div style={{ clipPath: "inset(0 0 52px 0)", marginBottom: "-52px", minHeight: 400 }}>
           <behold-widget feed-id={feedId} />
         </div>
       </div>

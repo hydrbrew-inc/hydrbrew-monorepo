@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 const FONT = "var(--font-mono, 'JetBrains Mono', ui-monospace, monospace)";
 const FONT_SERIF = "var(--font-playfair, 'Playfair Display', Georgia, serif)";
@@ -81,7 +82,6 @@ export default function SignupPage() {
           font-family: var(--font-inter, system-ui, sans-serif);
         }
         .hb-bg {
-          position: absolute; inset: 0; width: 100%; height: 100%;
           object-fit: cover; object-position: center;
           filter: brightness(1.1) saturate(1.03);
         }
@@ -126,6 +126,7 @@ export default function SignupPage() {
           .hb-badge { display: none; }
           .hb-bg { object-position: 60% center; }
           .hb-card .hb-cta-btn { white-space: normal; letter-spacing: 0.1em; font-size: 13px; line-height: 1.25; }
+          .hb-card { bottom: max(18px, calc(env(safe-area-inset-bottom, 0px) + 10px)); }
         }
         .hb-badge-text {
           font-family: ${FONT}; font-weight: 900; letter-spacing: 0.16em;
@@ -185,7 +186,7 @@ export default function SignupPage() {
         }
         @media (min-width: 760px) {
           .hb-topbar { padding: 26px 40px; }
-          .hb-bg { object-position: 24% center; }
+          .hb-bg { object-position: 24% center !important; }
           .hb-card {
             left: 48px; right: auto; bottom: auto;
             top: 50%; transform: translateY(-50%);
@@ -200,11 +201,14 @@ export default function SignupPage() {
       `}</style>
 
       <div className="hb-root">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           className="hb-bg"
           src="/images/signup-hero.png"
           alt="hydrbrew functional iced coffee"
+          fill
+          priority
+          quality={85}
+          sizes="100vw"
         />
         <div className="hb-scrim" aria-hidden="true" />
 
