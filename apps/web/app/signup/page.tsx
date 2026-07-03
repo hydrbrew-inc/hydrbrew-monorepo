@@ -85,6 +85,17 @@ export default function SignupPage() {
           object-fit: cover; object-position: center;
           filter: brightness(1.1) saturate(1.03);
         }
+        .hb-ig {
+          display: none; align-items: center; justify-content: center;
+          width: 44px; height: 44px; border-radius: 999px;
+          background: rgba(0,0,0,0.55);
+          border: 1px solid rgba(0,255,255,0.65);
+          backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+          color: rgba(255,255,255,0.95);
+          box-shadow: 0 0 12px rgba(0,255,255,0.25);
+          transition: color 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+        }
+        @media (min-width: 760px) { .hb-ig { display: inline-flex; } }
         .hb-scrim {
           position: absolute; inset: 0; z-index: 1; pointer-events: none;
           background: linear-gradient(to top, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.18) 42%, transparent 66%);
@@ -186,10 +197,10 @@ export default function SignupPage() {
         }
         @media (min-width: 760px) {
           .hb-topbar { padding: 26px 40px; }
+          .hb-logo { background: rgba(0,0,0,0.6); }
           .hb-bg { object-position: 24% center !important; }
           .hb-card {
-            left: 48px; right: auto; bottom: auto;
-            top: 50%; transform: translateY(-50%);
+            left: 48px; right: auto; bottom: 40px;
             width: 384px; padding: 24px 26px 26px; gap: 12px; border-radius: 18px;
           }
           .hb-h1 { font-size: 40px; }
@@ -203,11 +214,11 @@ export default function SignupPage() {
       <div className="hb-root">
         <Image
           className="hb-bg"
-          src="/images/signup-hero.png"
-          alt="hydrbrew functional iced coffee"
+          src="/images/hero-bg.webp"
+          alt="hydrbrew functional iced coffee being poured over ice into a short rocks glass on a marble kitchen counter"
           fill
           priority
-          quality={85}
+          quality={90}
           sizes="100vw"
         />
         <div className="hb-scrim" aria-hidden="true" />
@@ -217,9 +228,19 @@ export default function SignupPage() {
             <span className="hb-logo-mark" aria-hidden="true" />
             <span><span className="hb-logo-accent">hydr</span>brew°</span>
           </a>
-          <div className="hb-badge">
-            <span className="hb-badge-text">◆ Founding Members</span>
-          </div>
+          <a
+            className="hb-ig"
+            href="https://www.instagram.com/tryhydrbrew"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="hydrbrew on Instagram"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+            </svg>
+          </a>
         </header>
 
         <div className="hb-card">

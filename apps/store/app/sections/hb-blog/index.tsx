@@ -349,34 +349,53 @@ const comparisons: Article[] = [
 function ArticleModal({ article, onClose }: { article: Article; onClose: () => void }) {
   useEffect(() => {
     document.body.style.overflow = "hidden";
-    const style = document.createElement("style");
-    style.id = "hb-modal-nav-hide";
-    style.textContent = "header, nav, #announcement-bar { display: none !important; }";
-    document.head.appendChild(style);
+
+    // Directly hide elements via JS — CSS injection loses to Weaverse z-index
+    const toHide: HTMLElement[] = [
+      document.getElementById("announcement-bar"),
+      ...Array.from(document.querySelectorAll<HTMLElement>("header, nav")),
+    ].filter(Boolean) as HTMLElement[];
+    toHide.forEach((el) => { el.dataset.hbHidden = el.style.display; el.style.setProperty("display", "none", "important"); });
+
     return () => {
       document.body.style.overflow = "";
-      document.getElementById("hb-modal-nav-hide")?.remove();
+      toHide.forEach((el) => { el.style.display = el.dataset.hbHidden ?? ""; delete el.dataset.hbHidden; });
     };
   }, []);
 
   return (
-    <div className="fixed inset-0" style={{ zIndex: 9000 }}>
+    // Max z-index so nothing from Weaverse/theme can render above this
+    <div className="fixed inset-0" style={{ zIndex: 2147483647 }}>
       {/* Backdrop */}
       <div className="absolute inset-0 bg-black/95 backdrop-blur-md" onClick={onClose} />
 
-      {/* X button — outside the scroll container so iOS Safari doesn't clip it */}
+      {/* X button — fixed to viewport, outside every overflow/stacking context */}
       <button
         type="button"
         onClick={onClose}
-        className="absolute top-4 right-4 w-11 h-11 flex items-center justify-center bg-white rounded-full text-black shadow-lg hover:bg-neutral-200 transition-all"
-        style={{ zIndex: 99999 }}
         aria-label="Close article"
+        style={{
+          position: "fixed",
+          top: "16px",
+          right: "24px",
+          width: "44px",
+          height: "44px",
+          zIndex: 2147483647,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#ffffff",
+          borderRadius: "9999px",
+          border: "none",
+          cursor: "pointer",
+          boxShadow: "0 4px 24px rgba(0,0,0,0.4)",
+        }}
       >
-        <X className="w-5 h-5" />
+        <X style={{ width: "20px", height: "20px", color: "#000" }} />
       </button>
 
       {/* Scroll container */}
-      <div className="absolute inset-0 overflow-y-auto" style={{ zIndex: 9001 }}>
+      <div className="absolute inset-0 overflow-y-auto" style={{ zIndex: 1 }}>
         <div className="w-full max-w-4xl mx-auto px-4 pt-20 pb-16">
         <article className="bg-[#0A0A0A] border-2 border-[#00FFFF]/20 rounded-3xl overflow-hidden">
           {/* Hero image */}
