@@ -154,26 +154,45 @@ function HbQuiz(props: HydrogenComponentProps) {
               <input type="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-6 py-4 bg-white/5 border-2 border-[#00FFFF]/30 rounded-2xl text-white placeholder-white/40 focus:outline-none focus:border-[#00FFFF] transition-all text-lg" />
             </div>
             {fetcher.data?.ok ? (
-              <div className="w-full py-5 bg-[#00FFFF]/20 border border-[#00FFFF] text-[#00FFFF] rounded-2xl text-center text-xl font-bold">✓ You're in — check your email for your 20% off code</div>
+              <div className="space-y-4">
+                <div className="w-full py-5 bg-[#00FFFF]/20 border border-[#00FFFF] text-[#00FFFF] rounded-2xl text-center text-xl font-bold">✓ You're in — check your email for your 20% off code</div>
+                <a
+                  href="https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-5 bg-[#00FFFF] text-black rounded-2xl hover:bg-[#00FFFF]/90 transition-all flex items-center justify-center gap-3 text-xl font-bold shadow-xl hover:shadow-[0_0_30px_rgba(0,255,255,0.5)]"
+                >
+                  Shop Now →
+                </a>
+              </div>
             ) : (
-              <button type="button" onClick={() => {
-                if (!email) return;
-                const score = calculateScore();
-                const fd = new FormData();
-                fd.set("email", email);
-                // Quiz result fields — picked up by /api/klaviyo to fire "Quiz Completed" event
-                fd.set("quiz_score", String(score));
-                fd.set("quiz_tier", score <= 10 ? "ahead" : "seeking-better-option");
-                fd.set("quiz_result_title", result.title);
-                fd.set("quiz_frequency", answers.frequency ?? "");
-                fd.set("quiz_love_scale", answers.loveScale ?? "");
-                fd.set("quiz_overload", answers.overload.join(","));
-                fd.set("quiz_crashes", answers.crashes ?? "");
-                fd.set("quiz_craving", answers.craving ?? "");
-                fetcher.submit(fd, { action: "/api/klaviyo", method: "POST", encType: "multipart/form-data" });
-              }} className="w-full py-5 bg-[#00FFFF] text-black rounded-2xl hover:bg-[#00FFFF]/90 transition-all flex items-center justify-center gap-3 text-xl font-bold shadow-xl hover:shadow-[0_0_30px_rgba(0,255,255,0.5)]">
-                {result.cta} →
-              </button>
+              <div className="space-y-3">
+                <button type="button" onClick={() => {
+                  if (!email) return;
+                  const score = calculateScore();
+                  const fd = new FormData();
+                  fd.set("email", email);
+                  fd.set("quiz_score", String(score));
+                  fd.set("quiz_tier", score <= 10 ? "ahead" : "seeking-better-option");
+                  fd.set("quiz_result_title", result.title);
+                  fd.set("quiz_frequency", answers.frequency ?? "");
+                  fd.set("quiz_love_scale", answers.loveScale ?? "");
+                  fd.set("quiz_overload", answers.overload.join(","));
+                  fd.set("quiz_crashes", answers.crashes ?? "");
+                  fd.set("quiz_craving", answers.craving ?? "");
+                  fetcher.submit(fd, { action: "/api/klaviyo", method: "POST", encType: "multipart/form-data" });
+                }} className="w-full py-5 bg-[#00FFFF] text-black rounded-2xl hover:bg-[#00FFFF]/90 transition-all flex items-center justify-center gap-3 text-xl font-bold shadow-xl hover:shadow-[0_0_30px_rgba(0,255,255,0.5)]">
+                  {result.cta} →
+                </button>
+                <a
+                  href="https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-4 border-2 border-[#00FFFF]/40 text-[#00FFFF] rounded-2xl hover:border-[#00FFFF] hover:bg-[#00FFFF]/5 transition-all flex items-center justify-center gap-3 text-lg font-semibold"
+                >
+                  Shop Now →
+                </a>
+              </div>
             )}
             <button type="button" onClick={() => { setShowResult(false); setCurrentStep(0); }} className="w-full py-3 text-white/60 hover:text-white transition-all text-sm font-medium">Retake Quiz</button>
           </div>

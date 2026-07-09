@@ -15,35 +15,45 @@ const HEADERS = (apiToken: string) => ({
   Authorization: `Klaviyo-API-Key ${apiToken}`,
 });
 
-async function subscribeToList(email: string, listId: string, apiToken: string) {
-  if (!listId) return;
-  await fetch(KLAVIYO_SUBSCRIPTIONS_API, {
-    method: "POST",
-    headers: HEADERS(apiToken),
-    body: JSON.stringify({
-      data: {
-        type: "profile-subscription-bulk-create-job",
-        attributes: {
-          profiles: {
-            data: [
-              {
-                type: "profile",
-                attributes: {
-                  email,
-                  subscriptions: {
-                    email: { marketing: { consent: "SUBSCRIBED" } },
+async function subscribeToList(email: string, listId: string, apiToken: string): Promise<{ ok: boolean; error?: string }> {
+  if (!listId) return { ok: false, error: "Missing list ID" };
+  try {
+    const res = await fetch(KLAVIYO_SUBSCRIPTIONS_API, {
+      method: "POST",
+      headers: HEADERS(apiToken),
+      body: JSON.stringify({
+        data: {
+          type: "profile-subscription-bulk-create-job",
+          attributes: {
+            profiles: {
+              data: [
+                {
+                  type: "profile",
+                  attributes: {
+                    email,
+                    subscriptions: {
+                      email: { marketing: { consent: "SUBSCRIBED" } },
+                    },
                   },
                 },
-              },
-            ],
+              ],
+            },
+          },
+          relationships: {
+            list: { data: { type: "list", id: listId } },
           },
         },
-        relationships: {
-          list: { data: { type: "list", id: listId } },
-        },
-      },
-    }),
-  }).catch((err) => console.error("[Klaviyo list subscribe]", err));
+      }),
+    });
+    // 202 = accepted (async job), 200/201 also fine
+    if (res.status === 202 || res.ok) return { ok: true };
+    const body = await res.json().catch(() => ({}));
+    console.error("[Klaviyo subscribeToList] HTTP", res.status, JSON.stringify(body));
+    return { ok: false, error: `Klaviyo ${res.status}: ${JSON.stringify(body)}` };
+  } catch (err) {
+    console.error("[Klaviyo subscribeToList] network error", err);
+    return { ok: false, error: String(err) };
+  }
 }
 
 export const action: ActionFunction = async ({
@@ -100,7 +110,8 @@ export const action: ActionFunction = async ({
       }).catch((err) => console.error("[Klaviyo profile upsert]", err));
 
       // Step 2 — subscribe to "Caffeine Audit/Afternoon Ritual Quiz" list
-      await subscribeToList(email, caffeineAuditListId, apiToken);
+      const subResult = await subscribeToList(email, caffeineAuditListId, apiToken);
+      if (!subResult.ok) console.error("[Klaviyo quiz] list subscribe failed:", subResult.error);
 
       // Step 3 — fire "Quiz Completed" event to trigger Klaviyo flow (QUIZCAFFEINEAUDIT20)
       const eventRes = await fetch(KLAVIYO_EVENTS_API, {
@@ -130,7 +141,10 @@ export const action: ActionFunction = async ({
     }
 
     // ── Plain email signup → "Optimized Human" list ───────────────────────────
-    await subscribeToList(email, optimizedHumanListId, apiToken);
+    const subResult = await subscribeToList(email, optimizedHumanListId, apiToken);
+    if (!subResult.ok) {
+      return data({ ok: false, error: "List subscription failed", details: subResult.error });
+    }
 
     const res = await fetch(KLAVIYO_PROFILES_API, {
       method: "POST",

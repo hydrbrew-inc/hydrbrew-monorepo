@@ -309,9 +309,11 @@ export default function SignupPage() {
 
           <a
             className="hb-shoplink"
-            href="https://hydrbrew.myshopify.com/collections/all"
+            href="https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            Bypass signup and shop the collection
+            Bypass signup and shop now
             <span style={{ display: "inline-block", transition: "transform 0.2s" }} aria-hidden="true">→</span>
           </a>
         </div>
