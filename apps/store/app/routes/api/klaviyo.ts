@@ -124,9 +124,10 @@ async function subscribeToList(
     const json = await res.json().catch(() => ({}));
     console.error("[Klaviyo subscribeToList] HTTP", res.status, JSON.stringify(json));
 
-    // 403 = API key missing subscriptions:write — fall back to list membership endpoint
-    if (res.status === 403 && profileId) {
-      console.warn("[Klaviyo subscribeToList] falling back to list-membership endpoint");
+    // Subscriptions endpoint failed — fall back to list-membership endpoint (lists:write scope)
+    // This handles 403 (missing subscriptions:write), 400, or any other error
+    if (profileId) {
+      console.warn("[Klaviyo subscribeToList] falling back to list-membership endpoint, was HTTP", res.status);
       return addProfileToList(profileId, listId, apiToken);
     }
 

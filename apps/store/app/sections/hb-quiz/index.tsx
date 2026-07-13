@@ -167,22 +167,30 @@ function HbQuiz(props: HydrogenComponentProps) {
               </div>
             ) : (
               <div className="space-y-3">
-                <button type="button" onClick={() => {
-                  if (!email) return;
-                  const score = calculateScore();
-                  const fd = new FormData();
-                  fd.set("email", email);
-                  fd.set("quiz_score", String(score));
-                  fd.set("quiz_tier", score <= 10 ? "ahead" : "seeking-better-option");
-                  fd.set("quiz_result_title", result.title);
-                  fd.set("quiz_frequency", answers.frequency ?? "");
-                  fd.set("quiz_love_scale", answers.loveScale ?? "");
-                  fd.set("quiz_overload", answers.overload.join(","));
-                  fd.set("quiz_crashes", answers.crashes ?? "");
-                  fd.set("quiz_craving", answers.craving ?? "");
-                  fetcher.submit(fd, { action: "/api/klaviyo", method: "POST", encType: "multipart/form-data" });
-                }} className="w-full py-5 bg-[#00FFFF] text-black rounded-2xl hover:bg-[#00FFFF]/90 transition-all flex items-center justify-center gap-3 text-xl font-bold shadow-xl hover:shadow-[0_0_30px_rgba(0,255,255,0.5)]">
-                  {result.cta} →
+                {fetcher.data && !fetcher.data.ok && (
+                  <p className="text-red-400 text-sm text-center py-1">Something went wrong — please try again.</p>
+                )}
+                <button
+                  type="button"
+                  disabled={fetcher.state !== "idle"}
+                  onClick={() => {
+                    if (!email) return;
+                    const score = calculateScore();
+                    const fd = new FormData();
+                    fd.set("email", email);
+                    fd.set("quiz_score", String(score));
+                    fd.set("quiz_tier", score <= 10 ? "ahead" : "seeking-better-option");
+                    fd.set("quiz_result_title", result.title);
+                    fd.set("quiz_frequency", answers.frequency ?? "");
+                    fd.set("quiz_love_scale", answers.loveScale ?? "");
+                    fd.set("quiz_overload", answers.overload.join(","));
+                    fd.set("quiz_crashes", answers.crashes ?? "");
+                    fd.set("quiz_craving", answers.craving ?? "");
+                    fetcher.submit(fd, { action: "/api/klaviyo", method: "POST", encType: "multipart/form-data" });
+                  }}
+                  className="w-full py-5 bg-[#00FFFF] text-black rounded-2xl hover:bg-[#00FFFF]/90 transition-all flex items-center justify-center gap-3 text-xl font-bold shadow-xl hover:shadow-[0_0_30px_rgba(0,255,255,0.5)] disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  {fetcher.state !== "idle" ? "Submitting…" : `${result.cta} →`}
                 </button>
                 <a
                   href="https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937"
