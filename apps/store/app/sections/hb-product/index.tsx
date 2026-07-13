@@ -59,7 +59,7 @@ function HbProduct(props: HbProductProps) {
   `;
 
   return (
-    <section id="shop" {...rest} className="relative pt-8 pb-24 md:py-24 bg-gradient-to-b from-black via-[#0A0A0A] to-black overflow-hidden">
+    <section id="shop" {...rest} className="relative pt-8 pb-8 md:py-24 bg-gradient-to-b from-black via-[#0A0A0A] to-black overflow-hidden">
       <style dangerouslySetInnerHTML={{ __html: scrollRevealCss }} />
 
       <div className="absolute inset-0">
