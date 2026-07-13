@@ -16,6 +16,7 @@ function HbProduct(props: HbProductProps) {
   const [quantity, setQuantity] = useState(1);
   const [showIngredients, setShowIngredients] = useState(false);
   const [activeChapter, setActiveChapter] = useState(0);
+  const videoRef = useRef<any>(null);
   const carouselImages = [
     "https://i.imgur.com/5jvIKmf.png",
     "/carousel-image.png",
@@ -242,6 +243,7 @@ function HbProduct(props: HbProductProps) {
               <div className="relative w-full flex-1 h-[400px] lg:h-auto lg:min-h-0 border-0 lg:border-2 lg:border-[#00FFFF]/30 rounded-none lg:rounded-2xl p-0 lg:p-1 overflow-hidden">
                 <div className="relative w-full h-full rounded-none lg:rounded-xl overflow-hidden" style={{ minHeight: "400px" }}>
                   <MuxPlayer
+                    ref={videoRef}
                     playbackId={muxPlaybackId}
                     autoPlay="muted"
                     muted

@@ -51,7 +51,7 @@ function FixedUIPortal({
 
   const menuItems: MenuItem[] = [
     { label: "SHOP", href: shopLink, wireframe: "╔═══╗\n║ ▓ ║\n╚═══╝" },
-    { label: "OPTIMIZE", href: "#quiz", wireframe: "╔═══╗\n║ ◉ ║\n╚═══╝" },
+    { label: "SAVE 20%", href: "#quiz", wireframe: "╔═══╗\n║ ◉ ║\n╚═══╝" },
     { label: "KNOWLEDGE BASE", href: "#knowledge-base", wireframe: "╔═══╗\n║ ≡ ║\n╚═══╝" },
     { label: "FAQ", href: "#faq", wireframe: "╔═══╗\n║ ? ║\n╚═══╝" },
   ];
@@ -207,13 +207,17 @@ function FixedUIPortal({
   );
 }
 
+const SHOP_URL = "https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937&ref=lp_hero_cta";
+
 function HbHero(props: HbHeroProps) {
   const {
     heroBgImage = "https://i.imgur.com/VzCUpeT.png",
-    shopLink = "https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937&ref=lp_hero_cta",
+    shopLink: shopLinkProp = SHOP_URL,
     discountCode = "HYDR15",
     ...rest
   } = props;
+  // Fall back to hardcoded URL if Weaverse has a stale non-Shopify value (e.g. "/products")
+  const shopLink = shopLinkProp?.startsWith("https://hydrbrew.myshopify.com") ? shopLinkProp : SHOP_URL;
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
