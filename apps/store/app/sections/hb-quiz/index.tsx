@@ -1,6 +1,6 @@
 import { createSchema } from "@weaverse/hydrogen";
 import type { HydrogenComponentProps } from "@weaverse/hydrogen";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronLeft, ArrowRight, Check } from "lucide-react";
 import { useFetcher } from "react-router";
 
@@ -22,6 +22,13 @@ function HbQuiz(props: HydrogenComponentProps) {
   const fetcher = useFetcher<{ ok: boolean }>();
   const totalQuestions = 5;
   const progress = (currentStep / totalQuestions) * 100;
+
+  // Fire Meta Pixel Lead event on successful quiz email submission
+  useEffect(() => {
+    if (fetcher.data?.ok) {
+      window.fbq?.("track", "Lead", { value: 5.00, currency: "USD" });
+    }
+  }, [fetcher.data?.ok]);
 
   const handleAnswer = (question: keyof QuizAnswers, value: string | string[]) =>
     setAnswers({ ...answers, [question]: value });
