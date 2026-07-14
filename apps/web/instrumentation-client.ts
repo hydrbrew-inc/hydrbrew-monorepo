@@ -34,6 +34,7 @@ Sentry.init({
         frame.filename?.includes("onsite/js/") ||
         frame.filename?.includes("inject_content.js") ||
         frame.filename?.includes("navigation_performance_logger") ||
+        frame.filename?.includes("inpage.js") || // MetaMask extension noise
         frame.function?.includes("sendDataToNative"),
     );
     if (isThirdPartyNoise) return null;
