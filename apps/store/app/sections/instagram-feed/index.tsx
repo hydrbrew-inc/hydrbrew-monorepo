@@ -25,7 +25,7 @@ function InstagramFeed(props: InstagramFeedProps) {
   return (
     <section
       {...(rest as React.HTMLAttributes<HTMLElement>)}
-      className="bg-black pt-8 pb-20 md:py-16 px-4"
+      className="bg-black pt-8 pb-20 md:pt-16 md:pb-24 px-4"
     >
       <div className="max-w-7xl mx-auto">
         {heading && (
