@@ -78,7 +78,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: `${siteMetadata.siteUrl}${siteMetadata.ogImage}`,
+        url: siteMetadata.ogImage,
         width: 1200,
         height: 630,
         alt: "hydrbrew° — Functional Iced Coffee | Zero Systemic Debt",
@@ -89,7 +89,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteMetadata.ogTitle,
     description: siteMetadata.ogDescription,
-    images: [`${siteMetadata.siteUrl}${siteMetadata.ogImage}`],
+    images: [siteMetadata.ogImage],
   },
 };
 

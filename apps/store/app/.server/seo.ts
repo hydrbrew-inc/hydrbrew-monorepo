@@ -58,6 +58,13 @@ function home(): SeoConfig {
       noIndex: false,
       noFollow: false,
     },
+    media: {
+      type: "image",
+      url: "https://cdn.shopify.com/s/files/1/0714/4449/6537/files/og-hero-image-1200x630-v2.png?v=1784141480",
+      width: 1200,
+      height: 630,
+      altText: "hydrbrew° — Functional Iced Coffee",
+    },
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "WebPage",
