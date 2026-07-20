@@ -54,6 +54,13 @@ export function FooterMenu() {
                   )}
                 </Link>
               ))}
+              {title.toLowerCase().includes("company") && (
+                <Link to="/signup" className="group relative items-center gap-2">
+                  <RevealUnderline className="[--underline-color:var(--color-footer-text)]">
+                    Sign Up
+                  </RevealUnderline>
+                </Link>
+              )}
             </div>
           </Accordion.Content>
         </Accordion.Item>

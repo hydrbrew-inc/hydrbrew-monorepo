@@ -44,7 +44,9 @@ export function MobileMenu() {
             <div className="px-4">Menu</div>
           </Dialog.Title>
           <Dialog.Close asChild>
-            <XIcon className="fixed top-4 right-4 h-5 w-5" />
+            <button type="button" aria-label="Close menu" className="fixed top-4 right-4 p-1">
+              <XIcon className="h-5 w-5" />
+            </button>
           </Dialog.Close>
           <div className="mt-4 border-line-subtle border-t" />
           <div className="py-2">
@@ -103,7 +105,7 @@ function MenuTrigger(
 ) {
   const { ...rest } = props;
   return (
-    <button type="button" {...rest}>
+    <button type="button" aria-label="Open menu" {...rest}>
       <ListIcon className="h-5 w-5" />
     </button>
   );

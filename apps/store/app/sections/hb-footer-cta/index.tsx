@@ -152,7 +152,7 @@ function HbFooterCta(props: HydrogenComponentProps) {
               <div className="p-8">
                 <div className="flex items-start justify-between mb-6">
                   <div><span className="text-[#00FFFF] text-xs font-mono uppercase tracking-widest">Shipping &amp; Refunds</span><h2 className="text-2xl text-white font-bold mt-2" style={{ fontFamily: "'Urbanist',sans-serif" }}>Delivery Policy</h2></div>
-                  <button type="button" onClick={() => setIsShippingOpen(false)} className="p-2 bg-[#00FFFF]/10 border border-[#00FFFF]/30 hover:border-[#00FFFF] rounded-lg text-[#00FFFF] hover:bg-[#00FFFF]/20 transition-all"><X className="w-5 h-5" /></button>
+                  <button type="button" onClick={() => setIsShippingOpen(false)} aria-label="Close shipping info" className="p-2 bg-[#00FFFF]/10 border border-[#00FFFF]/30 hover:border-[#00FFFF] rounded-lg text-[#00FFFF] hover:bg-[#00FFFF]/20 transition-all"><X className="w-5 h-5" /></button>
                 </div>
                 <div className="h-px bg-[#00FFFF]/10 mb-6" />
                 <p className="text-white/80 leading-relaxed" style={{ fontFamily: "'Inter',sans-serif", fontSize: "16px", lineHeight: "1.8" }}>

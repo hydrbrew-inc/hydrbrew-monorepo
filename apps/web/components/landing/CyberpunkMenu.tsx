@@ -159,6 +159,7 @@ export function CyberpunkMenu() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
         onClick={() => setIsOpen(!isOpen)}
+        aria-label={isOpen ? "Close menu" : "Open menu"}
         className="fixed top-20 right-4 md:top-6 md:right-6 z-[100] w-14 h-14 flex items-center justify-center border-2 transition-all duration-300 shadow-lg bg-black/95 backdrop-blur-md"
         style={{
           borderColor: "#00FFFF",

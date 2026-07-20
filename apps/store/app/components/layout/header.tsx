@@ -98,7 +98,7 @@ export function Header() {
         {/* Left: hamburger + search on mobile, logo on desktop */}
         <div className="flex items-center gap-1">
           <MobileMenu />
-          <Link to="/search" className="p-1.5 lg:hidden">
+          <Link to="/search" className="p-1.5 lg:hidden" aria-label="Search">
             <MagnifyingGlassIcon className="h-5 w-5" />
           </Link>
           <div className="hidden lg:block">
