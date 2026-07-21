@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Afternoon Protocol Finder · hydrbrew°</title>
+  <meta name="description" content="Find your optimal hydrbrew° window. 3 inputs, instant result, no email required.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Afternoon Protocol Finder · hydrbrew°">
+  <meta property="og:description" content="Find your optimal hydrbrew° deployment window. 3 inputs, instant result, no email required.">
+  <meta property="og:image" content="https://hydrbrew.com/protocol/assets/og-card.jpg">
+  <meta property="og:url" content="https://hydrbrew.com/protocol">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="hydrbrew°">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Afternoon Protocol Finder · hydrbrew°">
+  <meta name="twitter:description" content="Find your optimal hydrbrew° deployment window. 3 inputs, instant result, no email required.">
+  <meta name="twitter:image" content="https://hydrbrew.com/protocol/assets/og-card.jpg">
+
+  <link rel="canonical" href="https://hydrbrew.com/protocol">
+
+  <!-- Favicon (inline SVG, no file needed) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23060606'/%3E%3Ctext x='50' y='73' font-size='70' font-weight='bold' fill='%2300FFFF' text-anchor='middle' font-family='Arial,sans-serif'%3Eh%3C/text%3E%3C/svg%3E">
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DZSKN5GYCL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DZSKN5GYCL');
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #060606; color: #fff; font-family: 'Space Grotesk', monospace, sans-serif; min-height: 100vh; }
+
+    /* NAV */
+    .nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 32px; border-bottom: 1px solid #222; position: sticky; top: 0; background: #060606; z-index: 100; }
+    .nav-logo { font-size: 20px; font-weight: 900; letter-spacing: -1px; text-decoration: none; color: #00FFFF; }
+    .nav-logo span { color: #fff; }
+    .nav-link { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #888; text-decoration: none; transition: color 0.15s; }
+    .nav-link:hover { color: #00FFFF; }
+
+    /* HERO */
+    .hero { padding: 56px 32px 40px; border-bottom: 1px solid #222; max-width: 680px; margin: 0 auto; }
+    .hero-eyebrow { font-size: 11px; letter-spacing: 4px; color: #00FFFF; text-transform: uppercase; margin-bottom: 12px; }
+    .brand { text-transform: none; }
+    .hero-title { font-family: 'Space Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 900; letter-spacing: -2px; text-transform: uppercase; line-height: 1.0; margin-bottom: 16px; }
+    .hero-sub { font-size: 16px; color: #aaa; line-height: 1.65; max-width: 480px; }
+    .hero-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+    .hero-tag { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: #d9d9d9; border: 1px solid rgba(0,255,255,0.35); background: rgba(0,255,255,0.05); padding: 8px 14px; }
+    html { scroll-behavior: smooth; }
+    #audit { scroll-margin-top: 20px; }
+    .hero-reward { display: block; margin-top: 20px; border: 1px solid #00FFFF; background: #001a1a; color: #d9feff; font-size: 13px; letter-spacing: 0.5px; line-height: 1.55; padding: 12px 16px; }
+    .hero-reward strong { color: #00FFFF; font-weight: 700; }
+    .hero-cta { display: block; text-align: center; margin-top: 16px; background: #FFB000; color: #000; padding: 18px; font-size: 14px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; text-decoration: none; font-family: 'Space Grotesk', monospace, sans-serif; transition: background 0.15s; }
+    .hero-cta:hover { background: #FFC233; }
+
+    /* MAIN */
+    .main { max-width: 680px; margin: 0 auto; padding: 40px 32px 80px; }
+    .input-block { margin-bottom: 32px; }
+    .q-label { font-size: 17px; font-weight: 600; color: #fff; margin-bottom: 6px; line-height: 1.4; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .q-val { color: #00FFFF; font-size: 15px; font-weight: 700; }
+    .q-sub { font-size: 14px; color: #888; margin-bottom: 16px; line-height: 1.6; }
+
+    /* RANGE */
+    input[type=range] { -webkit-appearance: none; width: 100%; height: 4px; background: #222; cursor: pointer; margin-bottom: 8px; }
+    input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; background: #00FFFF; border-radius: 0; cursor: pointer; }
+    input[type=range]::-moz-range-thumb { width: 18px; height: 18px; background: #00FFFF; border-radius: 0; border: none; cursor: pointer; }
+    input[type=range]:focus { outline: none; }
+    .range-row { display: flex; justify-content: space-between; }
+    .range-row span { font-size: 12px; color: #777; letter-spacing: 0.5px; }
+
+    /* CHIPS */
+    .chip-group { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip { border: 1px solid #222; padding: 10px 18px; font-size: 13px; letter-spacing: 0.5px; color: #999; cursor: pointer; transition: all 0.12s; user-select: none; font-family: 'Space Grotesk', monospace, sans-serif; background: transparent; }
+    .chip.active { border-color: #00FFFF; color: #00FFFF; background: #001a1a; }
+    .chip:hover:not(.active) { border-color: #444; color: #ccc; }
+
+    .divider { border: none; border-top: 1px solid #222; margin: 32px 0; }
+
+    /* SCORE STRIP */
+    .score-strip { display: flex; gap: 6px; margin-bottom: 20px; }
+    .score-dot { flex: 1; height: 4px; background: #222; transition: background 0.4s; }
+    .score-dot.lit { background: #00FFFF; }
+
+    /* WARNING */
+    .warning-card { border: 1px solid #FF4B4B; background: #0f0000; padding: 18px 22px; margin-bottom: 16px; display: none; }
+    .warning-card.show { display: block; }
+    .warning-eyebrow { font-size: 11px; letter-spacing: 2px; color: #FF4B4B; text-transform: uppercase; margin-bottom: 8px; }
+    .warning-text { font-size: 14px; color: #ffaaaa; line-height: 1.7; }
+
+    /* RESULT CARD */
+    .result-card { border: 1px solid #00FFFF; padding: 28px; margin-bottom: 16px; position: relative; overflow: hidden; transition: opacity 0.3s ease, transform 0.3s ease; }
+    .result-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: #00FFFF; }
+    .result-card.animating { opacity: 0; transform: translateY(4px); }
+    .result-eyebrow { font-size: 11px; letter-spacing: 3px; color: #00FFFF; text-transform: uppercase; margin-bottom: 14px; }
+    .time-display { display: flex; align-items: baseline; gap: 14px; margin-bottom: 6px; flex-wrap: wrap; }
+    .result-time { font-size: 56px; font-weight: 900; letter-spacing: -3px; line-height: 1; }
+    .time-badge { border: 1px solid #00FFFF; color: #00FFFF; font-size: 11px; letter-spacing: 2px; padding: 5px 12px; text-transform: uppercase; align-self: center; background: #001a1a; transition: all 0.2s; }
+    .result-window-sub { font-size: 12px; color: #aaa; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 18px; }
+    .result-why { font-size: 16px; color: #ddd; line-height: 1.75; }
+
+    /* SHARE */
+    .share-row { display: flex; gap: 8px; margin-top: 20px; }
+    .share-btn { border: 1px solid #333; padding: 10px 18px; font-size: 12px; letter-spacing: 1px; color: #888; cursor: pointer; transition: all 0.12s; font-family: 'Space Grotesk', monospace, sans-serif; background: transparent; text-transform: uppercase; }
+    .share-btn:hover { border-color: #00FFFF; color: #00FFFF; background: #001a1a; }
+    .share-btn.copied { border-color: #00FFFF; color: #00FFFF; background: #001a1a; }
+
+    /* IMG PLACEHOLDER */
+    .img-placeholder { width: 100%; height: 200px; background: #0a0a0a; border: 1px solid #222; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; overflow: hidden; position: relative; }
+    .img-placeholder img { width: 100%; height: 100%; object-fit: cover; }
+    .img-overlay { position: absolute; bottom: 12px; left: 16px; font-size: 11px; letter-spacing: 2px; color: #555; text-transform: uppercase; }
+
+    /* SECTION BREAK */
+    .section-break { display: flex; align-items: center; gap: 12px; margin: 24px 0 18px; }
+    .section-break-line { flex: 1; height: 1px; background: #222; }
+    .section-break-label { font-size: 11px; letter-spacing: 2px; color: #666; text-transform: uppercase; white-space: nowrap; }
+    .section-major { margin: 64px 0 32px; padding-top: 40px; border-top: 1px solid #1f1f1f; }
+    .section-major-kicker { font-size: 11px; letter-spacing: 3px; color: #00FFFF; text-transform: uppercase; margin-bottom: 10px; }
+    .section-major-title { font-family: 'Space Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 30px; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; line-height: 1.05; }
+
+    /* STACK */
+    .stack-card { border: 1px solid #222; background: #050505; padding: 22px; margin-bottom: 16px; }
+    .stack-label { font-size: 11px; letter-spacing: 3px; color: #777; text-transform: uppercase; margin-bottom: 16px; }
+    .stack-foot { font-size: 11px; letter-spacing: 1.5px; color: #777; text-transform: uppercase; margin-top: 18px; padding-top: 16px; border-top: 1px solid #1a1a1a; }
+    .stack-foot strong { color: #aaa; font-weight: 600; }
+    .stack-row { display: flex; align-items: center; gap: 16px; padding: 14px 0; border-bottom: 1px solid #111; }
+    .stack-row:last-child { border-bottom: none; }
+    .stack-bar-wrap { flex: 1; }
+    .stack-name { font-size: 13px; color: #fff; letter-spacing: 1px; text-transform: uppercase; font-weight: 700; margin-bottom: 4px; }
+    .stack-name-sub { font-size: 12px; color: #777; margin-bottom: 8px; }
+    .stack-bar { height: 3px; background: #222; width: 100%; }
+    .stack-fill { height: 3px; background: #00FFFF; }
+    .stack-dose { font-size: 22px; font-weight: 900; color: #00FFFF; letter-spacing: -1px; min-width: 72px; text-align: right; }
+    .stack-dose small { font-size: 11px; color: #00CCCC; letter-spacing: 1px; font-weight: 400; }
+
+    /* INSIGHTS */
+    .insight-card { background: #080808; border: 1px solid #1a1a1a; padding: 18px 22px; margin-bottom: 8px; }
+    .insight-row { display: flex; gap: 14px; align-items: flex-start; }
+    .insight-icon { color: #00FFFF; font-size: 12px; margin-top: 4px; flex-shrink: 0; }
+    .insight-text { font-size: 15px; color: #aaa; line-height: 1.7; }
+
+    /* CTA */
+    .cta-section { margin-top: 24px; display: none; }
+    .cta-section.show { display: block; animation: ctaReveal 0.45s ease both; }
+    @keyframes ctaReveal { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .cta-locked { margin-top: 24px; text-align: center; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: #00FFFF; border: 1px dashed #044; padding: 18px; }
+    .cta-btn { width: 100%; background: #FFB000; color: #000; border: none; padding: 22px; font-size: 14px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; font-family: 'Space Grotesk', monospace, sans-serif; transition: background 0.15s; display: block; text-decoration: none; text-align: center; }
+    .cta-btn:hover { background: #FFC233; }
+    .cta-step { font-size: 11px; letter-spacing: 2px; color: #00FFFF; text-transform: uppercase; margin-bottom: 10px; text-align: center; }
+    .cta-secondary { display: block; text-align: center; width: 100%; background: transparent; border: 1px solid #333; color: #aaa; padding: 16px; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; margin-top: 12px; transition: all 0.15s; font-family: 'Space Grotesk', monospace, sans-serif; }
+    .cta-secondary:hover { border-color: #555; color: #fff; }
+    .cta-sub { text-align: center; font-size: 12px; color: #777; letter-spacing: 1px; text-transform: uppercase; margin-top: 16px; line-height: 1.9; }
+    .cta-sub-email { display: block; color: #00FFFF; font-size: 14px; font-weight: 700; letter-spacing: 1.5px; margin-bottom: 8px; }
+    .cta-email { width: 100%; background: #0d0d0d; border: 1px solid #333; color: #fff; padding: 18px; font-size: 14px; letter-spacing: 1px; font-family: 'Space Grotesk', monospace, sans-serif; margin-bottom: 12px; box-sizing: border-box; }
+    .cta-email::placeholder { color: #999; letter-spacing: 1px; }
+    .cta-email:focus { outline: none; border-color: #00FFFF; }
+    .cta-email-err { display: none; color: #ff5c5c; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; margin: -4px 0 12px; text-align: center; }
+
+    /* FOOTER */
+    .footer { border-top: 1px solid #222; padding: 32px; text-align: center; max-width: 680px; margin: 0 auto; }
+    .footer-logo { font-size: 16px; font-weight: 900; letter-spacing: -1px; color: #00FFFF; margin-bottom: 8px; }
+    .footer-logo span { color: #fff; }
+    .footer-tagline { font-size: 11px; letter-spacing: 2px; color: #666; text-transform: uppercase; margin-bottom: 16px; }
+    .footer-links { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+    .footer-link { font-size: 12px; letter-spacing: 1px; color: #666; text-transform: uppercase; text-decoration: none; transition: color 0.15s; }
+    .footer-link:hover { color: #00FFFF; }
+    .footer-disclaimer { font-size: 12px; color: #666; line-height: 1.8; margin-top: 24px; border-top: 1px solid #1a1a1a; padding-top: 20px; max-width: 520px; margin-left: auto; margin-right: auto; }
+
+    /* STICKY MOBILE CTA */
+    .sticky-cta { display: none; }
+
+    /* MOBILE */
+    @media (max-width: 600px) {
+      .hero-title { font-size: 36px; letter-spacing: -1px; }
+      .nav { padding: 16px 20px; }
+      .hero { padding: 40px 20px 32px; }
+      .main { padding: 32px 20px; }
+      .result-time { font-size: 44px; }
+      .share-row { flex-direction: column; }
+      body { padding-bottom: 64px; }
+      .sticky-cta.show { display: block; position: fixed; bottom: 0; left: 0; right: 0; z-index: 200; background: #00FFFF; color: #000; text-align: center; padding: 18px; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; font-family: 'Space Grotesk', monospace, sans-serif; box-shadow: 0 -4px 24px rgba(0,0,0,0.6); }
+      .sticky-cta:active { background: #00DDDD; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="https://hydrbrew.com" class="nav-logo">hydr<span>brew&deg;</span></a>
+    <span class="nav-link">Afternoon Caffeine Audit</span>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-eyebrow">// <span class="brand">hydrbrew&deg;</span> &middot; afternoon caffeine audit</div>
+    <h1 class="hero-title">Find Your<br>Optimal Window</h1>
+    <p class="hero-sub">Claim your afternoon focus window and eliminate the 2:00 PM fade.</p>
+    <div class="hero-reward">// 60-second caffeine audit &middot; <strong>20% off</strong> coupon code emailed at completion</div>
+    <a href="#audit" id="hero-start" class="hero-cta">Start the caffeine audit &darr;</a>
+    <div class="hero-tags">
+      <div class="hero-tag">4 quick questions</div>
+      <div class="hero-tag">60-second unlock</div>
+      <div class="hero-tag">Real-time results</div>
+    </div>
+  </section>
+
+  <main class="main">
+
+    <div class="img-placeholder" style="height:500px">
+      <img src="/protocol/assets/hero-can.webp" alt="hydrbrew&deg; functional iced coffee can" onerror="this.style.display='none'">
+      <div class="img-overlay">// <span class="brand">hydrbrew&deg;</span> afternoon protocol</div>
+    </div>
+
+    <!-- SLEEP INPUT -->
+    <div class="input-block" id="audit">
+      <div class="q-label">Hours of sleep last night? <span class="q-val" id="sleep-label">7 hrs</span></div>
+      <div class="q-sub">Sleep quality is the hidden variable in caffeine timing &mdash; it determines your adenosine baseline and how aggressively the afternoon dip will hit</div>
+      <input type="range" min="3" max="9" value="7" step="1" id="sleep-slider">
+      <div class="range-row"><span>3 hrs</span><span>9 hrs</span></div>
+    </div>
+
+    <!-- ENERGY INPUT -->
+    <div class="input-block">
+      <div class="q-label">How are you feeling right now? <span class="q-val" id="energy-label">Pretty good</span></div>
+      <div class="q-sub">Your current energy state determines when the afternoon dip will hit and how hard &mdash; be honest, the protocol adjusts for it</div>
+      <input type="range" min="1" max="5" value="3" step="1" id="energy-slider">
+      <div class="range-row"><span>Running on fumes</span><span>Sharp and locked in</span></div>
+    </div>
+
+    <!-- COFFEE INPUT -->
+    <div class="input-block">
+      <div class="q-label">Coffee consumed today? <span class="q-val" id="coffee-label">2 cups</span></div>
+      <div class="q-sub">Include espresso, cold brew, energy drinks &mdash; anything with caffeine. This determines your current cortisol load</div>
+      <input type="range" min="0" max="5" value="2" step="1" id="coffee-slider">
+      <div class="range-row"><span>None today</span><span>5+ cups</span></div>
+    </div>
+
+    <!-- GOAL CHIPS -->
+    <div class="input-block">
+      <div class="q-label" style="display:block;margin-bottom:4px">What does your afternoon need?</div>
+      <div class="q-sub">Select everything that applies &mdash; your optimal window updates in real time</div>
+      <div class="chip-group">
+        <button class="chip active" data-val="deep" onclick="toggleChip(this)">Deep focused work</button>
+        <button class="chip" data-val="calls" onclick="toggleChip(this)">Meetings or calls</button>
+        <button class="chip" data-val="creative" onclick="toggleChip(this)">Creative thinking</button>
+        <button class="chip" data-val="physical" onclick="toggleChip(this)">Physical activity</button>
+        <button class="chip" data-val="social" onclick="toggleChip(this)">Networking or events</button>
+        <button class="chip" data-val="evening" onclick="toggleChip(this)">Evening commitments</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="score-strip">
+      <div class="score-dot" id="d1"></div>
+      <div class="score-dot" id="d2"></div>
+      <div class="score-dot" id="d3"></div>
+      <div class="score-dot" id="d4"></div>
+      <div class="score-dot" id="d5"></div>
+    </div>
+
+    <div class="warning-card" id="warning-card">
+      <div class="warning-eyebrow">&#9888; heads up</div>
+      <div class="warning-text" id="warning-text"></div>
+    </div>
+
+    <div class="result-card" id="result-card">
+      <div class="result-eyebrow">// your optimal <span class="brand">hydrbrew&deg;</span> window</div>
+      <div class="time-display">
+        <div class="result-time" id="result-time">1:45 PM</div>
+        <div class="time-badge" id="result-badge">Today</div>
+      </div>
+      <div class="result-window-sub" id="result-sub">30 min before your focus window peaks</div>
+      <div class="result-why" id="result-why"></div>
+      <div class="share-row">
+        <button class="share-btn" id="share-tweet" onclick="shareTweet()">&#8599; Share on X</button>
+        <button class="share-btn" id="share-copy" onclick="copyProtocol()">&#9632; Copy Protocol</button>
+      </div>
+    </div>
+
+    <div class="cta-locked" id="cta-locked">// adjust any input above to unlock your 20% off</div>
+
+    <div class="cta-section" id="cta-section">
+      <div class="cta-step">// audit complete &middot; unlock your 20% off</div>
+      <input type="email" id="cta-email" class="cta-email" name="email" placeholder="yourname@email.com" autocomplete="email" inputmode="email" required>
+      <div id="cta-email-err" class="cta-email-err">Enter a valid email to unlock your code</div>
+      <a href="https://hydrbrew.com?utm_source=afternoon_audit&utm_medium=tool&utm_campaign=drip_flow&utm_content=cta_signup" id="cta-signup" class="cta-btn">
+        Lock in my protocol + claim 20% off &rarr;
+      </a>
+      <a href="https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937&utm_source=afternoon_audit&utm_medium=tool&utm_campaign=drip_flow&utm_content=cta_browse" id="cta-browse" class="cta-secondary">
+        Or browse the store &rarr;
+      </a>
+      <div class="cta-sub">
+        <span class="cta-sub-email">&#9993;&#xFE0E; We&rsquo;ll email your 20% code</span>
+        Free shipping Western US &middot; No commitment
+      </div>
+    </div>
+
+    <div class="section-major">
+      <div class="section-major-kicker">// the formulation</div>
+      <h2 class="section-major-title">What&rsquo;s in the can</h2>
+    </div>
+
+    <div class="stack-card">
+      <div class="stack-label">// your active formulation stack &middot; precision-dosed</div>
+      <div class="stack-row">
+        <div class="stack-bar-wrap">
+          <div class="stack-name">Buffered Caffeine</div>
+          <div class="stack-name-sub">Below the cortisol spike threshold</div>
+          <div class="stack-bar"><div class="stack-fill" style="width:42%"></div></div>
+        </div>
+        <div class="stack-dose">85<small>MG</small></div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-bar-wrap">
+          <div class="stack-name">L-Theanine</div>
+          <div class="stack-name-sub">Alpha-wave modulation &middot; blunts anxiety cascade</div>
+          <div class="stack-bar"><div class="stack-fill" style="width:100%"></div></div>
+        </div>
+        <div class="stack-dose">200<small>MG</small></div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-bar-wrap">
+          <div class="stack-name">Lion&rsquo;s Mane</div>
+          <div class="stack-name-sub">Executive function depth &middot; hours 3 and 4</div>
+          <div class="stack-bar"><div class="stack-fill" style="width:100%"></div></div>
+        </div>
+        <div class="stack-dose">200<small>MG</small></div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-bar-wrap">
+          <div class="stack-name">Ionic Electrolytes</div>
+          <div class="stack-name-sub">Sodium &middot; potassium &middot; magnesium</div>
+          <div class="stack-bar"><div class="stack-fill" style="width:100%"></div></div>
+        </div>
+        <div class="stack-dose">255<small>MG</small></div>
+      </div>
+      <div class="stack-foot">// <strong>only 20 calories</strong> &middot; <strong>3g coconut sugar</strong> &middot; clean metabolic exit</div>
+    </div>
+
+    <div class="img-placeholder" style="height:400px;margin-bottom:16px">
+      <img src="/protocol/assets/lifestyle.webp" alt="hydrbrew&deg; lifestyle" onerror="this.style.display='none'">
+      <div class="img-overlay">// <span class="brand">hydrbrew&deg;</span></div>
+    </div>
+
+    <div class="section-major">
+      <div class="section-major-kicker">// your breakdown</div>
+      <h2 class="section-major-title">Why this matters for you</h2>
+    </div>
+
+    <div id="insights-wrap"></div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-logo">hydr<span>brew&deg;</span></div>
+    <div class="footer-tagline">Zero systemic debt &middot; The afternoon stays yours</div>
+    <div class="footer-links">
+      <a href="https://hydrbrew.com" class="footer-link"><span class="brand">hydrbrew.com</span></a>
+      <a href="https://hydrbrew.myshopify.com/blogs/news" class="footer-link">Journal</a>
+      <a href="https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937" class="footer-link">Order</a>
+      <a href="mailto:hello@hydrbrew.com" class="footer-link">Contact</a>
+    </div>
+    <div class="footer-disclaimer">These statements have not been evaluated by the Food and Drug Administration and are not intended to diagnose, treat, cure, or prevent any disease. Always consult your primary care physician or a qualified healthcare provider regarding any medical condition or before starting any new diet, supplement, or exercise program. Reliance upon any information provided by hydrbrew&deg;, Inc. is solely at your own risk.</div>
+  </footer>
+
+  <a href="https://hydrbrew.com?utm_source=afternoon_audit&utm_medium=tool&utm_campaign=drip_flow&utm_content=sticky_signup" id="sticky-cta" class="sticky-cta">Unlock 20% Off &mdash; Sign Up Free &rarr;</a>
+
+  <script>
+    const energyLabels = ['Running on fumes','Pretty tired','Pretty good','Feeling solid','Sharp and locked in'];
+    const coffeeLabels = ['None today','1 cup','2 cups','3 cups','4 cups','5+ cups'];
+    const sleepLabels  = ['3 hrs','4 hrs','5 hrs','6 hrs','7 hrs','8 hrs','9 hrs'];
+
+    let selectedGoals = ['deep'];
+    let currentResult = { time: '', why: '' };
+    let animateTimer = null;
+    let auditFired = false;
+
+    /* ── Analytics helper ──────────────────────────────────────── */
+    function track(name, params) {
+      if (typeof gtag === 'function') gtag('event', name, params || {});
+    }
+
+    track('viewed_protocol_tool');
+
+    /* CTA click tracking */
+    document.getElementById('hero-start').addEventListener('click', () => track('cta_click', { location: 'hero_start' }));
+    document.getElementById('cta-signup').addEventListener('click', async function (e) {
+      e.preventDefault();
+      const input = document.getElementById('cta-email');
+      const err = document.getElementById('cta-email-err');
+      const btn = this;
+      const email = input.value.trim();
+      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (!valid) {
+        err.style.display = 'block';
+        input.focus();
+        return;
+      }
+      err.style.display = 'none';
+      btn.textContent = 'Subscribing…';
+      btn.style.pointerEvents = 'none';
+      try {
+        await fetch('/api/klaviyo/subscribe?listId=VDUmH7', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ profiles: [{ email: email, signup_source: 'caffeine_audit' }] }),
+        });
+      } catch (_) {}
+      track('cta_click', { location: 'cta_signup' });
+      btn.textContent = '✓ You\'re in — check your email for your 20% off code';
+      btn.style.background = '#006600';
+      btn.style.color = '#00FF88';
+      input.value = '';
+      document.getElementById('cta-email-err').style.display = 'none';
+    });
+    document.getElementById('cta-email').addEventListener('input', () => {
+      document.getElementById('cta-email-err').style.display = 'none';
+    });
+    document.getElementById('cta-email').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); document.getElementById('cta-signup').click(); }
+    });
+    document.getElementById('cta-browse').addEventListener('click', () => track('cta_click', { location: 'cta_browse' }));
+    document.getElementById('sticky-cta').addEventListener('click', () => track('cta_click', { location: 'sticky_signup' }));
+
+    /* ── Time-aware defaults ───────────────────────────────────── */
+    (function setTimeAwareDefaults() {
+      const hour = new Date().getHours();
+      let defaultEnergy;
+      if      (hour < 8)  defaultEnergy = 4;
+      else if (hour < 10) defaultEnergy = 5;
+      else if (hour < 12) defaultEnergy = 4;
+      else if (hour < 14) defaultEnergy = 3;
+      else if (hour < 16) defaultEnergy = 2;
+      else if (hour < 18) defaultEnergy = 2;
+      else                defaultEnergy = 1;
+      document.getElementById('energy-slider').value = defaultEnergy;
+    })();
+
+    /* ── Event listeners ───────────────────────────────────────── */
+    document.getElementById('sleep-slider').addEventListener('input', () => update());
+    document.getElementById('energy-slider').addEventListener('input', () => update());
+    document.getElementById('coffee-slider').addEventListener('input', () => update());
+
+    function toggleChip(el) {
+      const val = el.dataset.val;
+      const isActive = el.classList.contains('active');
+      if (isActive && selectedGoals.length === 1) return;
+      el.classList.toggle('active');
+      selectedGoals = isActive ? selectedGoals.filter(v => v !== val) : [...selectedGoals, val];
+      update();
+    }
+
+    /* ── Share helpers ─────────────────────────────────────────── */
+    function shareTweet() {
+      const text = encodeURIComponent(
+        'My optimal hydrbrew° window is ' + currentResult.time +
+        ' — got mine from the Afternoon Protocol Finder. https://hydrbrew.com/protocol'
+      );
+      window.open('https://twitter.com/intent/tweet?text=' + text, '_blank');
+      track('share', { method: 'twitter' });
+    }
+
+    function copyProtocol() {
+      const text =
+        'My hydrbrew° optimal window: ' + currentResult.time + '\n' +
+        currentResult.why.slice(0, 120) + '…\n' +
+        'Find yours → https://hydrbrew.com/protocol';
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('share-copy');
+        btn.textContent = '✓ Copied';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = '◼ Copy Protocol';
+          btn.classList.remove('copied');
+        }, 2000);
+      }).catch(() => {
+        prompt('Copy your protocol:', text);
+      });
+      track('share', { method: 'copy' });
+    }
+
+    /* ── UI helpers ────────────────────────────────────────────── */
+    function setInsights(arr) {
+      document.getElementById('insights-wrap').innerHTML = arr
+        .filter(Boolean)
+        .map(i =>
+          '<div class="insight-card"><div class="insight-row">' +
+          '<div class="insight-icon">&#9658;</div>' +
+          '<div class="insight-text">' + i + '</div>' +
+          '</div></div>'
+        ).join('');
+    }
+
+    function setScore(n) {
+      for (let i = 1; i <= 5; i++) {
+        document.getElementById('d' + i).classList.toggle('lit', i <= n);
+      }
+    }
+
+    function setBadge(text, urgent) {
+      const b = document.getElementById('result-badge');
+      b.textContent = text;
+      b.style.borderColor = urgent ? '#FF4B4B' : '#00FFFF';
+      b.style.color       = urgent ? '#FF4B4B' : '#00FFFF';
+      b.style.background  = urgent ? '#1a0000' : '#001a1a';
+    }
+
+    function animateResult(fn) {
+      const card = document.getElementById('result-card');
+      if (animateTimer) clearTimeout(animateTimer);
+      card.classList.add('animating');
+      animateTimer = setTimeout(() => {
+        fn();
+        card.classList.remove('animating');
+      }, 200);
+    }
+
+    /* ── Core logic ────────────────────────────────────────────── */
+    function compute() {
+      const sleep  = parseInt(document.getElementById('sleep-slider').value);
+      const energy = parseInt(document.getElementById('energy-slider').value);
+      const coffee = parseInt(document.getElementById('coffee-slider').value);
+
+      document.getElementById('sleep-label').textContent  = sleepLabels[sleep - 3];
+      document.getElementById('energy-label').textContent = energyLabels[energy - 1];
+      document.getElementById('coffee-label').textContent = coffeeLabels[coffee];
+
+      const hasDeep     = selectedGoals.includes('deep');
+      const hasCalls    = selectedGoals.includes('calls');
+      const hasCreative = selectedGoals.includes('creative');
+      const hasPhysical = selectedGoals.includes('physical');
+      const hasSocial   = selectedGoals.includes('social');
+      const hasEvening  = selectedGoals.includes('evening');
+
+      const sleepDeprived = sleep <= 5;
+      const sleepOptimal  = sleep >= 7;
+
+      const crashed    = energy <= 2;
+      const peaking    = energy >= 4;
+      const moderate   = energy === 3;
+
+      const overLoaded = coffee >= 4;
+      const highCoffee = coffee >= 3;
+      const lowCoffee  = coffee <= 1;
+      const noCoffee   = coffee === 0;
+
+      let time, sub, why, insights = [], warning = '', score;
+
+      const t = (std, dep) => sleepDeprived ? dep : std;
+
+      const sleepInsight = sleepDeprived
+        ? "Short sleep accelerates adenosine buildup — your afternoon dip arrives earlier and harder than a rested baseline, which is why the deployment window shifts earlier to stay ahead of it."
+        : sleepOptimal
+        ? "Solid sleep means your adenosine baseline is clean — the protocol works with a well-rested system rather than compensating for a deficit, so the standard window holds."
+        : null;
+
+      /* ════════════ URGENT TIER · energy crashed ════════════ */
+
+      if (crashed && overLoaded) {
+        time = t('12:30 PM', '12:15 PM');
+        sub = 'Reset your baseline now — before it degrades further';
+        setBadge('Urgent', true); score = 1;
+        why = "High caffeine load combined with low energy is the clearest sign of adenosine receptor saturation. Adding more standard caffeine right now will spike cortisol without clearing the fog — it compounds the problem. hydrbrew°'s 85mg buffered dose works differently: clean activation below the cortisol threshold while L-Theanine actively clears the neural noise you're experiencing." +
+          (sleepDeprived ? " Sleep deprivation deepens the deficit — your system is running short on every axis at once." : "");
+        insights = [
+          "Your body has built tolerance to the caffeine dose you're using — more of the same won't solve this. The buffer chemistry in hydrbrew° bypasses this tolerance response entirely.",
+          "Lion's Mane specifically supports cognitive clarity in the fatigued, overloaded state — this is the ingredient doing the heaviest lifting for your current situation.",
+          "The 255mg ionic electrolyte stack addresses dehydration-driven cognitive drag, which compounds significantly when high caffeine intake has been diuretic throughout the day.",
+          sleepInsight,
+          hasEvening ? "With evening commitments ahead, deploying now gives L-Theanine time to fully reset your cortisol baseline before you need to be present." : null
+        ];
+        warning = "High caffeine load and low energy together signal adenosine receptor saturation. Adding more standard coffee right now will amplify cortisol interference — not fix it. hydrbrew° is built for exactly this state.";
+
+      } else if (crashed && sleepDeprived && !overLoaded) {
+        time = '12:15 PM';
+        sub = 'Sleep deficit requires an earlier, lighter deploy window';
+        setBadge('Deploy Early', true); score = 1;
+        why = "Short sleep means elevated adenosine from the moment you woke up. Combined with current low energy, the standard 1:45 PM window is already too late — the afternoon dip will arrive earlier and harder. Deploying hydrbrew° at 12:15 PM gives L-Theanine and Lion's Mane time to build concentration before the inevitable fade, instead of playing catch-up against it.";
+        insights = [
+          "Sleep deprivation accelerates adenosine accumulation throughout the morning — your biological afternoon starts earlier than the clock suggests.",
+          "The 200mg L-Theanine dose counteracts the loop short sleep creates, where fatigue amplifies caffeine's anxious edge.",
+          "Lion's Mane supports cognitive repair in sleep-deprived states by targeting executive function pathways disproportionately impacted by insufficient rest.",
+          hasDeep ? "Deep work under sleep deprivation requires deliberate cognitive support — deploy early so the full stack is active before you attempt high-demand tasks." : null,
+          hasEvening ? "The 85mg buffered dose clears cleanly even from an early deploy — no systemic debt heading into your evening." : null
+        ];
+        warning = "Short sleep significantly accelerates the afternoon dip timeline. A standard 1:45 PM deployment will arrive after the fade has already set in — deploy earlier to stay ahead of it.";
+
+      } else if (crashed && noCoffee) {
+        time = t('12:00 PM', '11:45 AM');
+        sub = 'Clean slate — deploy immediately to set a baseline';
+        setBadge('Deploy Now', true); score = 2;
+        why = "No caffeine and low energy is a clean slate — your adenosine receptors are unblocked and ready to respond. hydrbrew° deployed now gives the full formulation time to reach peak concentration before the 2:15 PM window, setting a clean cognitive baseline for the entire afternoon." +
+          (sleepDeprived ? " The sleep deficit pulls that window earlier still." : "");
+        insights = [
+          "Zero caffeine today means hydrbrew°'s 85mg buffered dose will be noticeably effective — your system is completely unloaded and responsive.",
+          "The 200mg Lion's Mane dose supports executive function depth in the fatigued state — not just surface alertness.",
+          sleepInsight,
+          hasDeep ? "For the deep work ahead, deploying early means your cognitive peak aligns with your work window rather than arriving after it." : null,
+          hasCreative ? "Creative thinking in a depleted state produces reactive rather than generative ideas. Reset the baseline first — the creative window opens after." : null
+        ];
+
+      } else if (crashed && lowCoffee) {
+        time = t('12:30 PM', '12:15 PM');
+        sub = 'Early deploy to stop the fade before it locks in';
+        setBadge('Deploy Now', true); score = 2;
+        why = "Your energy is already lower than optimal and the hardest part of the afternoon hasn't arrived yet. Taking hydrbrew° at " + time + " gives L-Theanine and Lion's Mane time to reach full concentration before your cortisol curve drops — so you're ahead of the afternoon fade, not recovering from it." +
+          (sleepDeprived ? " The sleep deficit means your dip window arrives earlier than the clock suggests." : "");
+        insights = [
+          "A light caffeine load means the 85mg buffered dose delivers a clear, noticeable effect — you're not dosing into a saturated system.",
+          "The 200mg Lion's Mane dose supports executive function depth in the fatigued state — not just surface alertness.",
+          sleepInsight,
+          hasCalls ? "Low energy before meetings amplifies anxiety responses — the L-Theanine layer specifically blunts this without creating sedation." : null,
+          hasPhysical ? "Physical activity while energy-depleted increases cortisol output significantly. The electrolyte stack supports cognitive and physical recovery simultaneously." : null
+        ];
+
+      } else if (crashed) {
+        time = t('12:45 PM', '12:30 PM');
+        sub = 'Bridge the gap before the 2:15 window compounds';
+        setBadge('Deploy Now', true); score = 2;
+        why = "You have a moderate caffeine load but your energy is already low — which means caffeine tolerance is absorbing the dose without delivering the output. hydrbrew°'s buffered formulation bypasses the tolerance response by pairing the caffeine dose with L-Theanine and Lion's Mane, delivering a different quality of cognitive activation than the coffee you've already had.";
+        insights = [
+          "Caffeine tolerance means you need a different mechanism, not a higher dose. The buffer chemistry in hydrbrew° changes how the caffeine activates — not just how much.",
+          "Lion's Mane specifically supports cognitive clarity in the tolerance-fatigued state — this is where it does its most important work.",
+          sleepInsight,
+          hasCalls ? "Moderate coffee plus low energy before meetings is the exact profile that produces subtle anxiety with no focus payoff. L-Theanine corrects the ratio." : null,
+          hasDeep ? "Deep work requires a different cognitive state than you can access right now — deploy hydrbrew° first, begin the session 20 minutes after." : null
+        ];
+        warning = "Your caffeine load isn't doing its job anymore — tolerance has neutralized the effect. More standard coffee compounds cortisol interference without delivering focus. hydrbrew° changes the mechanism.";
+
+      /* ════════════ PEAKING TIER · energy high ════════════ */
+
+      } else if (peaking && overLoaded) {
+        time = '2:30 PM';
+        sub = 'Delay your window — your current caffeine load is still active';
+        setBadge('Hold', false); score = 4;
+        why = "You feel sharp and you've had a lot of caffeine — your adenosine receptors are currently suppressed and adding more now creates a larger rebound when it clears. Waiting until 2:30 PM gives your system time to normalize, then hydrbrew°'s precision dose takes clean ownership of the second half of your day without compounding the rebound.";
+        insights = [
+          "High caffeine consumers often re-dose at the wrong moment — when they feel the first dip rather than before the next one. 2:30 PM is the precision play for your current load.",
+          "The L-Theanine in hydrbrew° will actively smooth the adenosine rebound coming from your current load — significantly more effective when timed correctly.",
+          hasDeep ? "Deep work window: start now while you're still sharp, take hydrbrew° at 2:30 PM to sustain through the second half of the session." : null,
+          hasEvening ? "A 2:30 PM deployment gives the 85mg dose ample time to clear before evening — protecting sleep architecture and keeping the night yours." : null
+        ];
+        warning = "You've had a lot of caffeine today. Timing your next dose correctly matters more than the dose itself — adding too early will amplify the rebound, not prevent it.";
+
+      } else if (peaking && noCoffee) {
+        time = t('1:30 PM', '1:15 PM');
+        sub = 'Natural peak — extend it before the dip arrives';
+        setBadge('Extend', false); score = 5;
+        why = "You're sharp without any caffeine today — that's your cleanest possible starting state. Taking hydrbrew° at " + time + " means the 85mg buffered dose arrives precisely as your natural energy begins its cortisol-driven afternoon decline, extending your current performance state through the 2:15 window without any overlap or rebound risk.";
+        insights = [
+          "Zero caffeine load today means hydrbrew° will perform at its absolute best — clean receptors, no tolerance, maximum response to the full formulation.",
+          "Caffeine peaks 30–45 minutes after deployment, landing exactly at the afternoon dip — the precision timing for your state.",
+          sleepInsight,
+          hasCreative ? "For creative work this is the ideal state — clean alpha-wave activity from L-Theanine without any residual caffeine anxiety from earlier doses." : null,
+          hasEvening ? "With evening commitments, the clean profile and moderate dose means zero systemic debt — the night stays completely yours." : null
+        ];
+
+      } else if (peaking && hasCreative) {
+        time = t('2:00 PM', '1:30 PM');
+        sub = 'Protect the creative state through the afternoon window';
+        setBadge('Maintain', false); score = 5;
+        why = "You're sharp and in a clean caffeine range — the creative state you're in right now is exactly what the afternoon fade destroys first. Taking hydrbrew° at " + time + " protects this specific cognitive mode through the 2:15 dip without introducing the anxiety edge that kills divergent thinking.";
+        insights = [
+          "Creative states are more sensitive to cortisol interference than analytical states — the afternoon dip hits creative output harder and faster.",
+          "The L-Theanine ratio in hydrbrew° is calibrated to preserve alpha-wave activity — the brain state that generates original ideas rather than executing known ones.",
+          "At your current caffeine load, hydrbrew° will modulate rather than amplify — sustaining your current state rather than pushing you into anxious overdrive.",
+          sleepInsight,
+          hasEvening ? "Creative energy carries through to evening with zero systemic debt — no hard stop, no crash before your evening begins." : null
+        ];
+
+      } else if (peaking && hasPhysical) {
+        time = t('1:45 PM', '1:30 PM');
+        sub = 'Fuel cognitive and physical output simultaneously';
+        setBadge('Dual Protocol', false); score = 5;
+        why = "You're in a strong energy state and heading into physical activity — this is the one scenario where both the cognitive and physical layers of hydrbrew° are fully activated. The 255mg ionic electrolyte stack supports physical output while L-Theanine and Lion's Mane maintain the cognitive baseline you'll need for everything that follows.";
+        insights = [
+          "Physical activity during the 2:00–3:00 PM window amplifies cortisol output — the buffered caffeine dose is calibrated to support this without compounding the hormonal load.",
+          "The ionic electrolyte stack is not a marketing addition — sodium, potassium, and magnesium are direct precursors to sustained neuromuscular performance.",
+          "Deploying 30 minutes before physical activity means peak electrolyte and caffeine levels align with your output window.",
+          sleepInsight,
+          hasEvening ? "Post-physical cognitive clarity is one of the hardest states to recover — Lion's Mane supports the transition from exertion back to sharp mental output for your evening." : null
+        ];
+
+      } else if (peaking && (hasSocial || hasCalls)) {
+        time = t('1:30 PM', '1:15 PM');
+        sub = 'Arrive present, sharp, and interference-free';
+        setBadge('Social Protocol', false); score = 5;
+        why = "You're already sharp — the goal for social and meeting performance is to maintain that edge without introducing any anxiety that undermines presence. Taking hydrbrew° at " + time + " means peak L-Theanine levels align with your social window, delivering calm confidence without the subtle anxious edge that standard caffeine creates under performance pressure.";
+        insights = [
+          "The 2:1 L-Theanine to caffeine ratio in hydrbrew° is the specific formulation the research points to for calm, confident communication — present and sharp without the edge.",
+          "High performers often mistake cortisol-driven alertness for readiness. The L-Theanine layer removes the cortisol component while preserving the focus.",
+          (hasSocial && hasCalls) ? "Back-to-back meetings and networking amplify cumulative cortisol load — the 85mg buffered dose keeps you sustained without compounding." : null,
+          hasEvening ? "The clean clearance profile means social energy carries through to evening without the hard stop or post-performance crash." : null
+        ];
+
+      } else if (peaking) {
+        time = t('2:00 PM', '1:30 PM');
+        sub = 'Protect your current baseline through the afternoon dip';
+        setBadge('Maintain', false); score = 5;
+        why = "You're already sharp — the goal here isn't to amplify, it's to protect that edge. The 2:15 PM cortisol dip is physiological — it happens regardless of how good you feel right now. Taking hydrbrew° at " + time + " extends your current performance window through that natural dip without creating a second caffeine peak that costs you your evening.";
+        insights = [
+          "Your current energy suggests morning caffeine is still partially active. Stacking too early creates a cortisol overlap — " + time + " is the precision window for your state.",
+          "The 85mg buffered dose is calibrated to extend — not restart — your current focus baseline.",
+          sleepInsight,
+          hasDeep ? "For deep work, Lion's Mane supports executive function depth in hours 3 and 4 — the window when caffeine-only options have typically started to degrade." : null,
+          hasEvening ? "Zero systemic debt means the 85mg dose clears completely before evening — the night stays yours." : null
+        ];
+
+      /* ════════════ MODERATE TIER · high caffeine load ════════════ */
+
+      } else if (moderate && highCoffee && (hasDeep || hasCreative)) {
+        time = t('1:00 PM', '12:45 PM');
+        sub = 'Get ahead of cortisol interference before your session';
+        setBadge('Pre-Session', false); score = 3;
+        why = hasCreative
+          ? "You're at a moderate energy level but your caffeine load is already building cortisol interference — and creative work is the first cognitive mode to degrade under it. Taking hydrbrew° at " + time + " gives L-Theanine time to clear the cortisol signal before your creative session begins, preserving the open, divergent thinking state that generates original ideas."
+          : "Moderate energy plus high caffeine load is the classic pre-crash pattern. The cortisol interference is building and will compound with the 2:15 PM dip. Taking hydrbrew° at " + time + " positions the buffered dose to bridge the gap cleanly before the deep work session — not as a recovery tool after the fade hits.";
+        insights = [
+          hasCreative ? "Cortisol interference collapses divergent thinking first — you'll feel it as ideas becoming more reactive and less original. L-Theanine specifically protects this mode." : "Deep work requires sustained executive function — Lion's Mane reaches full concentration by the time your focus session begins.",
+          "hydrbrew°'s buffered caffeine delivers activation without triggering an additional cortisol response — a fundamentally different mechanism than another cup of coffee.",
+          sleepInsight,
+          hasEvening ? "Early deployment today keeps systemic debt low enough that your evening output stays fully intact." : null
+        ];
+        warning = "Cortisol interference is already building from your caffeine load. More standard coffee before a deep or creative session will undermine the work — not support it.";
+
+      } else if (moderate && highCoffee && (hasCalls || hasSocial)) {
+        time = t('1:15 PM', '1:00 PM');
+        sub = 'Reduce cortisol interference before high-stakes conversations';
+        setBadge('Pre-Meeting', false); score = 3;
+        why = "Meetings and social performance under elevated cortisol load is one of the most common high-performer failure modes — you show up technically present but subtly anxious, less able to read the room. hydrbrew° at " + time + " gives L-Theanine time to modulate the cortisol signal before your first conversation begins.";
+        insights = [
+          "Cortisol interference under meeting pressure manifests as slight defensiveness, reduced empathy, and slower verbal retrieval — subtle but consequential.",
+          "The L-Theanine layer is the specific ingredient addressing this — calm, present, and sharp without the cortisol edge.",
+          (hasSocial && hasCalls) ? "Back-to-back meetings and networking amplify cumulative cortisol load across the afternoon — deploy early and let the modulation work continuously." : null,
+          sleepInsight
+        ];
+        warning = "High caffeine load before meetings creates a subtle anxiety edge most people don't recognize in themselves — but others notice. The L-Theanine ratio in hydrbrew° is designed to remove it.";
+
+      } else if (moderate && highCoffee && hasPhysical) {
+        time = t('1:30 PM', '1:15 PM');
+        sub = 'Prepare your system for physical and cognitive dual output';
+        setBadge('Pre-Physical', false); score = 3;
+        why = "Physical activity with a high caffeine load amplifies cortisol output significantly — which compounds with the afternoon dip to create a sharper crash after the session. Taking hydrbrew° at " + time + " gives the electrolyte stack time to load before physical output and positions L-Theanine to modulate the post-exercise cortisol spike that would otherwise cost you your evening.";
+        insights = [
+          "Post-exercise cognitive clarity is one of the most underestimated performance variables — the ionic electrolyte stack supports the transition from exertion back to sharp mental output.",
+          "High caffeine plus physical activity is a diuretic double-load — the 255mg electrolyte stack directly addresses the cellular hydration deficit this creates.",
+          sleepInsight,
+          hasEvening ? "Physical activity plus high caffeine plus evening commitments is a high-debt combination. hydrbrew° is the structural correction that makes all three manageable." : null
+        ];
+        warning = "Cortisol interference is already building from your caffeine load, and physical output will amplify it. hydrbrew°'s buffered formula is designed to interrupt the cycle before your session.";
+
+      } else if (moderate && highCoffee) {
+        time = t('1:15 PM', '1:00 PM');
+        sub = 'Get ahead of cortisol interference before it compounds';
+        setBadge('Today', false); score = 3;
+        why = "You're holding steady but your caffeine load is starting to work against you. The cortisol interference pattern from repeated dosing means the 2:15 PM window will hit harder than usual. Taking hydrbrew° at " + time + " positions the buffered caffeine to bridge the gap cleanly — without adding to the cortisol burden your system is already managing.";
+        insights = [
+          "Cortisol interference from repeated high-dose caffeine compounds throughout the day — the afternoon fade heading your way will be sharper than a baseline day.",
+          "hydrbrew°'s buffered caffeine delivers activation without triggering an additional cortisol response — a fundamentally different mechanism than another cup of coffee.",
+          sleepInsight,
+          hasEvening ? "Deploying earlier protects your evening — the clean clearance profile means no debt carries into your later commitments." : null
+        ];
+        warning = "Cortisol interference is already building from your caffeine load. More standard coffee will amplify this — hydrbrew°'s buffered formula is designed to interrupt the cycle.";
+
+      /* ════════════ MODERATE TIER · low caffeine load ════════════ */
+
+      } else if (moderate && lowCoffee && hasDeep) {
+        time = t('1:15 PM', '1:00 PM');
+        sub = '20 minutes before your deep work session begins';
+        setBadge('Pre-Session', false); score = 4;
+        why = "You're in a solid state with a light caffeine load — one of the cleanest setups for a high-performance deep work session. Taking hydrbrew° at " + time + " means peak caffeine and L-Theanine levels align precisely with your deep work window start, delivering clean focused output from minute one rather than building to a peak mid-session.";
+        insights = [
+          "Light current caffeine load means the 85mg buffered dose delivers a clear, noticeable effect — you're not dosing into a saturated system.",
+          "Lion's Mane reaches full concentration by hour 2 of your session — supporting the executive function depth that sustains output when the initial activation begins to normalize.",
+          "The L-Theanine layer keeps the focus state clean and anxiety-free — the mode where deep work actually happens rather than the mode where you feel productive but produce less.",
+          sleepInsight,
+          hasEvening ? "Deep work plus zero systemic debt means you arrive at evening commitments with a full cognitive baseline, not a depleted one." : null
+        ];
+
+      } else if (moderate && lowCoffee && hasCreative) {
+        time = t('1:30 PM', '1:15 PM');
+        sub = 'Protect divergent thinking through the afternoon window';
+        setBadge('Creative Protocol', false); score = 4;
+        why = "Creative work is uniquely sensitive to cortisol interference — the open, exploratory thinking state that generates original ideas is one of the first things to degrade under caffeine anxiety. With your current low caffeine load, a " + time + " hydrbrew° gives you clean, anxiety-free cognitive support through your creative window without the edge that kills divergent thinking.";
+        insights = [
+          "The L-Theanine in hydrbrew° produces alpha-wave activity — the same brain state associated with relaxed focus and creative insight rather than analytical execution.",
+          "Low current caffeine load means the 85mg buffered dose will be clearly and cleanly effective — not competing with existing stimulant activity.",
+          sleepDeprived ? "Sleep deprivation narrows creative bandwidth — L-Theanine is particularly effective at restoring the open cognitive state that short sleep closes down." : "Alpha-wave state is the creative mode. Cortisol state is the reactive mode. hydrbrew° is engineered to keep you in the first one through the afternoon.",
+          hasEvening ? "Clean caffeine profile means creative energy carries through to evening without the hard stop that standard coffee creates." : null
+        ];
+
+      } else if (moderate && lowCoffee && (hasCalls || hasSocial)) {
+        time = t('1:00 PM', '12:45 PM');
+        sub = 'Arrive optimized for high-stakes conversations';
+        setBadge('Social Protocol', false); score = 4;
+        why = "Meetings and social performance require a different cognitive state than solo deep work — you need presence, reading ability, and calm confidence, not just raw focus. The L-Theanine in hydrbrew° specifically supports this mode by blunting caffeine's anxiety edge while keeping you mentally sharp and fully present in the room.";
+        insights = [
+          "The 2:1 L-Theanine to caffeine ratio in hydrbrew° is the formulation the research consistently points to for calm, confident communication under pressure.",
+          "Low current caffeine load means L-Theanine reaches its full modulating effect cleanly — no competing stimulant activity to manage.",
+          (hasSocial && hasCalls) ? "If you have both meetings and networking today, one hydrbrew° covers the full social window — sustained modulation through the afternoon." : null,
+          hasDeep ? "If deep work follows your calls, Lion's Mane supports the transition from social mode to focused output mode — no re-calibration lag." : sleepInsight
+        ];
+
+      } else if (moderate && lowCoffee && hasPhysical) {
+        time = t('1:15 PM', '1:00 PM');
+        sub = 'Load the electrolyte stack before physical output';
+        setBadge('Pre-Physical', false); score = 4;
+        why = "For afternoon physical activity with minimal caffeine on board, hydrbrew° at " + time + " serves a dual function — the 255mg ionic electrolyte stack pre-loads your cellular hydration baseline before the physical demand, and the 85mg buffered caffeine provides clean energy activation without the cortisol amplification that higher doses would trigger under physical stress.";
+        insights = [
+          "Most people underestimate electrolyte demand during afternoon physical activity — morning caffeine diuresis plus afternoon exercise creates a significant cellular hydration deficit.",
+          "The 85mg buffered caffeine dose is specifically calibrated to stay below the threshold that amplifies cortisol under physical stress — clean energy without the hormonal cost.",
+          "Lion's Mane supports neuromuscular coordination as well as cognitive output — relevant for any precision physical activity.",
+          sleepInsight,
+          hasEvening ? "Post-physical cognitive recovery with zero systemic debt means you arrive at your evening fully restored rather than depleted." : null
+        ];
+
+      } else if (moderate && lowCoffee && hasEvening && !hasDeep && !hasCalls && !hasCreative && !hasPhysical && !hasSocial) {
+        time = t('2:00 PM', '1:45 PM');
+        sub = 'Protect your evening baseline from the afternoon dip';
+        setBadge('Evening Protocol', false); score = 4;
+        why = "With evening commitments as your priority, the afternoon protocol is about prevention not performance — stopping the 2:15 PM dip from carrying forward into your evening rather than fueling a specific afternoon work session. hydrbrew° at " + time + " intercepts the cortisol decline precisely, keeping your cognitive and social baseline intact through the transition from afternoon to evening.";
+        insights = [
+          "The afternoon cortisol dip doesn't reset before evening — it carries forward. Unaddressed, it compounds into social fatigue, reduced presence, and lower energy for evening commitments.",
+          "Zero systemic debt is the key metric for evening protection — the 85mg buffered dose clears completely by evening, leaving no sleep interference or residual stimulant load.",
+          "L-Theanine's calming modulation is particularly valuable for evening social contexts — it keeps you sharp and present without the stimulant edge that makes social performance feel effortful.",
+          sleepInsight
+        ];
+
+      /* ════════════ DEFAULT · standard afternoon protocol ════════════ */
+
+      } else {
+        time = t('1:45 PM', '1:15 PM');
+        sub = '30 minutes before your afternoon performance window';
+        setBadge('Today', false); score = 3;
+        why = "Your inputs suggest a standard afternoon protocol. Taking hydrbrew° at " + time + " positions the 85mg buffered caffeine to peak right as your natural cortisol curve begins its afternoon decline — keeping your cognitive baseline intact through the 2:15 PM window and into the evening without systemic debt." +
+          (sleepDeprived ? " The earlier window accounts for the compressed adenosine curve from last night's shorter sleep." : "");
+        insights = [
+          "The afternoon fade typically arrives between 2:00–2:30 PM — hydrbrew° works best deployed before onset, not as a recovery tool after the fade has set in.",
+          "200mg L-Theanine modulates the caffeine experience for interference-free focus — no edge, no anxiety cascade, no post-peak crash.",
+          sleepInsight,
+          hasDeep ? "For deep work this afternoon, Lion's Mane supports executive function depth in hours 3 and 4 — the window when caffeine-only options have typically started to degrade." : null,
+          hasPhysical ? "The ionic electrolyte stack addresses both cognitive and physical performance simultaneously." : null
+        ];
+      }
+
+      return { time, sub, why, insights, warning, score };
+    }
+
+    function update(isInitial) {
+      const result = compute();
+      currentResult = { time: result.time, why: result.why };
+
+      if (!isInitial && !auditFired) {
+        auditFired = true;
+        document.getElementById('cta-section').classList.add('show');
+        document.getElementById('sticky-cta').classList.add('show');
+        document.getElementById('cta-locked').style.display = 'none';
+        track('completed_protocol_audit', { window_time: result.time, goals: selectedGoals.join(',') });
+      }
+
+      animateResult(() => {
+        document.getElementById('result-time').textContent = result.time;
+        document.getElementById('result-sub').textContent  = result.sub;
+        document.getElementById('result-why').textContent  = result.why;
+
+        const wc = document.getElementById('warning-card');
+        document.getElementById('warning-text').textContent = result.warning;
+        wc.classList.toggle('show', !!result.warning);
+
+        setInsights(result.insights);
+        setScore(result.score);
+      });
+    }
+
+    update(true);
+  </script>
+
+</body>
+</html>
