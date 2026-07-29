@@ -78,6 +78,7 @@ export default hydrogenRoutes([
     ]),
     route("signup", "routes/signup.tsx"),
     route("protocol", "routes/others/protocol-redirect.tsx"),
+    route("dashboard/myreferralhub", "routes/others/referral-hub-redirect.tsx"),
     route("*", "routes/catch-all.tsx"),
   ]),
 ]) satisfies RouteConfig;

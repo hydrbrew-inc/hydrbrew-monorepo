@@ -1,11 +1,82 @@
 import { createSchema } from "@weaverse/hydrogen";
-import type { HydrogenComponentProps } from "@weaverse/hydrogen";
+import type {
+  ComponentLoaderArgs,
+  HydrogenComponentProps,
+} from "@weaverse/hydrogen";
 import { useState, useEffect } from "react";
 import { Send, X, FileText, ArrowUp, ChevronDown } from "lucide-react";
 import { useFetcher } from "react-router";
 
-function HbFooterCta(props: HydrogenComponentProps) {
-  const { ...rest } = props;
+type PressArticle = {
+  headline: string;
+  outlet: string;
+  url: string;
+  imageUrl?: string;
+  date?: string;
+};
+
+// Managed in Shopify Admin → Content → Metaobjects → "Press article".
+// Entries appear in the Press Coverage modal without code changes.
+const PRESS_ARTICLES_QUERY = `#graphql
+  query PressArticles {
+    metaobjects(type: "press_article", first: 24) {
+      nodes {
+        id
+        fields {
+          key
+          value
+          reference {
+            ... on MediaImage {
+              image {
+                url
+                altText
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+function parsePressArticles(loaderData: any): PressArticle[] {
+  const nodes = loaderData?.metaobjects?.nodes ?? [];
+  const articles: PressArticle[] = [];
+  for (const node of nodes) {
+    const field = (key: string) =>
+      node.fields?.find((f: { key: string }) => f.key === key);
+    const headline = field("headline")?.value;
+    const url = field("url")?.value;
+    if (!headline || !url) continue;
+    articles.push({
+      headline,
+      url,
+      outlet: field("outlet")?.value ?? "",
+      imageUrl: field("image")?.reference?.image?.url,
+      date: field("date")?.value,
+    });
+  }
+  // Newest first; entries without a date sink to the end
+  return articles.sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""));
+}
+
+function formatPressDate(date: string): string {
+  const parsed = new Date(date);
+  if (Number.isNaN(parsed.getTime())) return "";
+  return parsed.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}
+
+interface HbFooterCtaProps extends HydrogenComponentProps {
+  loaderData?: Awaited<ReturnType<typeof loader>>;
+}
+
+function HbFooterCta(props: HbFooterCtaProps) {
+  const { loaderData, ...rest } = props;
+  const pressArticles = parsePressArticles(loaderData);
   const fetcher = useFetcher<{ ok: boolean }>();
   const [email, setEmail] = useState("");
   const [isPressOpen, setIsPressOpen] = useState(false);
@@ -97,7 +168,7 @@ function HbFooterCta(props: HydrogenComponentProps) {
           <div>
             <h4 className="text-white mb-4" style={{ fontFamily: "'Urbanist',sans-serif" }}>Shop</h4>
             <ul className="space-y-2 text-sm text-white/60">
-              <li><a href="/products" className="hover:text-[#00FFFF] transition-colors">All Products</a></li>
+              <li><a href="https://hydrbrew.myshopify.com/products/hydrbrew-12-pack?variant=47538404982937" className="hover:text-[#00FFFF] transition-colors">All Products</a></li>
               <li><a href="/protocol" className="hover:text-[#00FFFF] transition-colors">Caffeine Audit</a></li>
               <li><a href="mailto:?subject=You%20need%20to%20try%20this&body=Hey%2C%0A%0AI%27ve%20been%20using%20hydrbrew%C2%B0" className="hover:text-[#00FFFF] transition-colors">Refer a Friend</a></li>
             </ul>
@@ -335,18 +406,40 @@ function HbFooterCta(props: HydrogenComponentProps) {
                   <span className="text-white/40 text-sm font-mono uppercase tracking-wider">As Featured In</span>
                 </div>
                 <h2 className="text-4xl md:text-5xl text-white mb-4 font-bold">Press <span className="text-[#00FFFF]">Coverage</span></h2>
-                <p className="text-white/40 font-mono text-sm">Media archive • Coming soon</p>
+                <p className="text-white/40 font-mono text-sm">{pressArticles.length > 0 ? "Media archive" : "Media archive • Coming soon"}</p>
               </div>
               <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                {["[ COVERAGE PENDING ]", "[ TRANSMISSION INCOMING ]", "[ AWAITING PUBLICATION ]"].map((label) => (
-                  <div key={label} className="h-48 bg-white/[0.02] border-2 border-dashed border-white/10 rounded-2xl flex items-center justify-center">
-                    <div className="text-center px-6">
-                      <FileText className="w-10 h-10 text-white/10 mx-auto mb-3" />
-                      <p className="text-white/20 font-mono text-sm uppercase tracking-wider">{label}</p>
-                      <div className="mt-2 flex justify-center"><span className="text-[#00FFFF]/30 font-mono text-lg animate-pulse">_</span></div>
-                    </div>
-                  </div>
-                ))}
+                {pressArticles.length > 0
+                  ? pressArticles.map((article) => (
+                      <a
+                        key={article.url}
+                        href={article.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex flex-col bg-white/[0.02] border-2 border-[#00FFFF]/15 hover:border-[#00FFFF]/60 rounded-2xl p-6 transition-all hover:bg-white/[0.04]"
+                      >
+                        {article.imageUrl ? (
+                          <img src={article.imageUrl} alt={article.outlet} className="h-10 self-start object-contain mb-4" loading="lazy" />
+                        ) : (
+                          <FileText className="w-8 h-8 text-[#00FFFF]/40 mb-4" />
+                        )}
+                        <div className="text-[#00FFFF]/60 font-mono text-xs uppercase tracking-wider mb-2">
+                          {article.outlet}
+                          {article.date ? ` • ${formatPressDate(article.date)}` : ""}
+                        </div>
+                        <p className="text-white text-lg font-semibold leading-snug group-hover:text-[#00FFFF] transition-colors">{article.headline}</p>
+                        <div className="mt-auto pt-4 text-white/40 text-sm font-mono group-hover:text-white/70 transition-colors">Read article ↗</div>
+                      </a>
+                    ))
+                  : ["[ COVERAGE PENDING ]", "[ TRANSMISSION INCOMING ]", "[ AWAITING PUBLICATION ]"].map((label) => (
+                      <div key={label} className="h-48 bg-white/[0.02] border-2 border-dashed border-white/10 rounded-2xl flex items-center justify-center">
+                        <div className="text-center px-6">
+                          <FileText className="w-10 h-10 text-white/10 mx-auto mb-3" />
+                          <p className="text-white/20 font-mono text-sm uppercase tracking-wider">{label}</p>
+                          <div className="mt-2 flex justify-center"><span className="text-[#00FFFF]/30 font-mono text-lg animate-pulse">_</span></div>
+                        </div>
+                      </div>
+                    ))}
               </div>
               <div className="pt-8 border-t border-[#00FFFF]/20 flex items-center justify-between">
                 <button type="button" onClick={() => setIsPressOpen(false)} className="flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 text-white rounded-xl hover:bg-white/10 transition-all">← Back</button>
@@ -384,6 +477,18 @@ function HbFooterCta(props: HydrogenComponentProps) {
 }
 
 export default HbFooterCta;
+
+export const loader = async ({ weaverse }: ComponentLoaderArgs) => {
+  const { storefront } = weaverse;
+  try {
+    return await storefront.query(PRESS_ARTICLES_QUERY);
+  } catch (err) {
+    // The press_article metaobject definition may not exist yet — the modal
+    // falls back to its "coming soon" placeholders when this returns null.
+    console.error("[hb-footer-cta] press metaobjects query failed", err);
+    return null;
+  }
+};
 
 export const schema = createSchema({
   type: "hb-footer-cta",
