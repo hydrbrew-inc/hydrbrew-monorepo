@@ -15,6 +15,24 @@ type PressArticle = {
   date?: string;
 };
 
+// Shown until the `press_article` metaobject definition has entries in Shopify
+// Admin. Any entry there replaces this list entirely — delete these once Louis
+// is managing press from Admin.
+// To add the press asset image: upload it in Admin → Content → Files, copy the
+// CDN URL, and set it as `imageUrl` below. Cards render fine without one.
+const FALLBACK_PRESS_ARTICLES: PressArticle[] = [
+  {
+    headline:
+      "Editor's Guide: The Luxury Fitness and Wellness Brands Worth Discovering",
+    outlet: "Sable West",
+    url: "https://www.sablewest.com/wellness/editors-guide-the-luxury-fitness-and-wellness-brands-worth-discovering",
+    date: "2026-07-16",
+  },
+];
+
+// The press section holds three cards across; extras are kept out of the grid.
+const MAX_PRESS_ARTICLES = 3;
+
 // Managed in Shopify Admin → Content → Metaobjects → "Press article".
 // Entries appear in the Press Coverage modal without code changes.
 const PRESS_ARTICLES_QUERY = `#graphql
@@ -76,7 +94,10 @@ interface HbFooterCtaProps extends HydrogenComponentProps {
 
 function HbFooterCta(props: HbFooterCtaProps) {
   const { loaderData, ...rest } = props;
-  const pressArticles = parsePressArticles(loaderData);
+  const articlesFromAdmin = parsePressArticles(loaderData);
+  const pressArticles = (
+    articlesFromAdmin.length > 0 ? articlesFromAdmin : FALLBACK_PRESS_ARTICLES
+  ).slice(0, MAX_PRESS_ARTICLES);
   const fetcher = useFetcher<{ ok: boolean }>();
   const [email, setEmail] = useState("");
   const [isPressOpen, setIsPressOpen] = useState(false);
@@ -409,37 +430,39 @@ function HbFooterCta(props: HbFooterCtaProps) {
                 <p className="text-white/40 font-mono text-sm">{pressArticles.length > 0 ? "Media archive" : "Media archive • Coming soon"}</p>
               </div>
               <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                {pressArticles.length > 0
-                  ? pressArticles.map((article) => (
-                      <a
-                        key={article.url}
-                        href={article.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group flex flex-col bg-white/[0.02] border-2 border-[#00FFFF]/15 hover:border-[#00FFFF]/60 rounded-2xl p-6 transition-all hover:bg-white/[0.04]"
-                      >
-                        {article.imageUrl ? (
-                          <img src={article.imageUrl} alt={article.outlet} className="h-10 self-start object-contain mb-4" loading="lazy" />
-                        ) : (
-                          <FileText className="w-8 h-8 text-[#00FFFF]/40 mb-4" />
-                        )}
-                        <div className="text-[#00FFFF]/60 font-mono text-xs uppercase tracking-wider mb-2">
-                          {article.outlet}
-                          {article.date ? ` • ${formatPressDate(article.date)}` : ""}
-                        </div>
-                        <p className="text-white text-lg font-semibold leading-snug group-hover:text-[#00FFFF] transition-colors">{article.headline}</p>
-                        <div className="mt-auto pt-4 text-white/40 text-sm font-mono group-hover:text-white/70 transition-colors">Read article ↗</div>
-                      </a>
-                    ))
-                  : ["[ COVERAGE PENDING ]", "[ TRANSMISSION INCOMING ]", "[ AWAITING PUBLICATION ]"].map((label) => (
-                      <div key={label} className="h-48 bg-white/[0.02] border-2 border-dashed border-white/10 rounded-2xl flex items-center justify-center">
-                        <div className="text-center px-6">
-                          <FileText className="w-10 h-10 text-white/10 mx-auto mb-3" />
-                          <p className="text-white/20 font-mono text-sm uppercase tracking-wider">{label}</p>
-                          <div className="mt-2 flex justify-center"><span className="text-[#00FFFF]/30 font-mono text-lg animate-pulse">_</span></div>
-                        </div>
+                {pressArticles.map((article) => (
+                  <a
+                    key={article.url}
+                    href={article.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex flex-col min-h-48 bg-white/[0.02] border-2 border-[#00FFFF]/15 hover:border-[#00FFFF]/60 rounded-2xl p-6 transition-all hover:bg-white/[0.04]"
+                  >
+                    {article.imageUrl ? (
+                      <img src={article.imageUrl} alt={article.outlet} className="h-12 self-start object-contain mb-4" loading="lazy" />
+                    ) : (
+                      <div className="text-white font-bold text-xl uppercase tracking-[0.15em] mb-4 leading-none">{article.outlet}</div>
+                    )}
+                    <div className="text-[#00FFFF]/60 font-mono text-xs uppercase tracking-wider mb-2">
+                      {article.imageUrl ? article.outlet : "Featured"}
+                      {article.date ? ` • ${formatPressDate(article.date)}` : ""}
+                    </div>
+                    <p className="text-white/90 text-base font-semibold leading-snug group-hover:text-[#00FFFF] transition-colors">{article.headline}</p>
+                    <div className="mt-auto pt-4 text-white/40 text-sm font-mono group-hover:text-white/70 transition-colors">Read article ↗</div>
+                  </a>
+                ))}
+                {/* Fill the remaining slots so the row always reads as three */}
+                {["[ COVERAGE PENDING ]", "[ TRANSMISSION INCOMING ]", "[ AWAITING PUBLICATION ]"]
+                  .slice(0, Math.max(0, MAX_PRESS_ARTICLES - pressArticles.length))
+                  .map((label) => (
+                    <div key={label} className="min-h-48 bg-white/[0.02] border-2 border-dashed border-white/10 rounded-2xl flex items-center justify-center">
+                      <div className="text-center px-6">
+                        <FileText className="w-10 h-10 text-white/10 mx-auto mb-3" />
+                        <p className="text-white/20 font-mono text-sm uppercase tracking-wider">{label}</p>
+                        <div className="mt-2 flex justify-center"><span className="text-[#00FFFF]/30 font-mono text-lg animate-pulse">_</span></div>
                       </div>
-                    ))}
+                    </div>
+                  ))}
               </div>
               <div className="pt-8 border-t border-[#00FFFF]/20 flex items-center justify-between">
                 <button type="button" onClick={() => setIsPressOpen(false)} className="flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 text-white rounded-xl hover:bg-white/10 transition-all">← Back</button>
