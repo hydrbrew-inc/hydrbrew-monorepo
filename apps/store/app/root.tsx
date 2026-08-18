@@ -4,7 +4,7 @@ import { TooltipProvider } from "@radix-ui/react-tooltip";
 import type { SeoConfig } from "@shopify/hydrogen";
 import { Analytics, getSeoMeta, useNonce } from "@shopify/hydrogen";
 import { useThemeSettings, withWeaverse } from "@weaverse/hydrogen";
-import type { CSSProperties } from "react";
+import { type CSSProperties, useEffect } from "react";
 import type { LinksFunction, LoaderFunctionArgs, MetaArgs } from "react-router";
 import {
   isRouteErrorResponse,
@@ -28,6 +28,7 @@ import { GlobalLoading } from "./components/root/global-loading";
 import { NotFound } from "./components/root/not-found";
 import styles from "./styles/app.css?url";
 import { DEFAULT_LOCALE } from "./utils/const";
+import { captureReferrerCode } from "./utils/referrer";
 import { GlobalStyle } from "./weaverse/style";
 
 export type RootLoader = typeof loader;
@@ -67,6 +68,13 @@ export const meta = ({ data }: MetaArgs<typeof loader>) => {
 };
 
 function App() {
+  const { search } = useLocation();
+
+  // Stash the VL referrer before the visitor navigates off the share link.
+  useEffect(() => {
+    captureReferrerCode(search);
+  }, [search]);
+
   return <Outlet />;
 }
 

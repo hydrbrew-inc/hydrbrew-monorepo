@@ -6,7 +6,11 @@ const SHOP_URL = "https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bun
 const CYAN = "#00FFFF";
 
 export default function SignupPage() {
-  const fetcher = useFetcher<{ ok: boolean }>();
+  const fetcher = useFetcher<{
+    ok: boolean;
+    operativeNumber?: string;
+    eventId?: string;
+  }>();
   const [email, setEmail] = useState("");
   const [emailFocused, setEmailFocused] = useState(false);
   const [btnHovered, setBtnHovered] = useState(false);
@@ -18,9 +22,16 @@ export default function SignupPage() {
 
   useEffect(() => {
     if (isSuccess) {
-      window.fbq?.("track", "Lead", { value: 5.00, currency: "USD" });
+      // eventID dedupes this against the CAPI Lead.
+      const eventId = fetcher.data?.eventId;
+      window.fbq?.(
+        "track",
+        "Lead",
+        { value: 5.00, currency: "USD" },
+        eventId ? { eventID: eventId } : undefined,
+      );
     }
-  }, [isSuccess]);
+  }, [isSuccess, fetcher.data?.eventId]);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
