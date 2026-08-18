@@ -28,6 +28,11 @@ declare global {
     KLAVIYO_PRIVATE_API_TOKEN: string;
     KLAVIYO_LIST_ID_OPTIMIZED_HUMAN?: string;
     KLAVIYO_LIST_ID_CAFFEINE_AUDIT?: string;
+    // Member pipeline. Without these, signups still reach Klaviyo — they just
+    // don't get an HB number.
+    SUPABASE_URL?: string;
+    SUPABASE_SECRET_KEY?: string;
+    PUBLIC_VIRAL_LOOPS_CAMPAIGN_ID?: string;
     PUBLIC_SHOPIFY_INBOX_SHOP_ID: string;
     WEAVERSE_HOST?: string;
   }

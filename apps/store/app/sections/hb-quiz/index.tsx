@@ -19,16 +19,26 @@ function HbQuiz(props: HydrogenComponentProps) {
   const [showResult, setShowResult] = useState(false);
   const [email, setEmail] = useState("");
   const [isExpanded, setIsExpanded] = useState(false);
-  const fetcher = useFetcher<{ ok: boolean }>();
+  const fetcher = useFetcher<{
+    ok: boolean;
+    operativeNumber?: string;
+    eventId?: string;
+  }>();
   const totalQuestions = 5;
   const progress = (currentStep / totalQuestions) * 100;
 
-  // Fire Meta Pixel Lead event on successful quiz email submission
+  // Fire Meta Pixel Lead on quiz submit. eventID dedupes it against the CAPI Lead.
   useEffect(() => {
     if (fetcher.data?.ok) {
-      window.fbq?.("track", "Lead", { value: 5.00, currency: "USD" });
+      const eventId = fetcher.data?.eventId;
+      window.fbq?.(
+        "track",
+        "Lead",
+        { value: 5.00, currency: "USD" },
+        eventId ? { eventID: eventId } : undefined,
+      );
     }
-  }, [fetcher.data?.ok]);
+  }, [fetcher.data?.ok, fetcher.data?.eventId]);
 
   const handleAnswer = (question: keyof QuizAnswers, value: string | string[]) =>
     setAnswers({ ...answers, [question]: value });
