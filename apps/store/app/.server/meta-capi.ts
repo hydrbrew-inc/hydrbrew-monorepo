@@ -5,6 +5,10 @@ type UserData = {
   userAgent?: string;
   fbp?: string;
   fbc?: string;
+  // Hashed before sending. Email is the strongest match signal Meta accepts.
+  email?: string;
+  firstName?: string;
+  externalId?: string;
 };
 
 type CapiEvent = {
@@ -51,6 +55,11 @@ export async function sendCapiEvent(
   if (event.userData.userAgent) ud.client_user_agent = event.userData.userAgent;
   if (event.userData.fbp) ud.fbp = event.userData.fbp;
   if (event.userData.fbc) ud.fbc = event.userData.fbc;
+  if (event.userData.email) ud.em = await sha256(event.userData.email);
+  if (event.userData.firstName) ud.fn = await sha256(event.userData.firstName);
+  if (event.userData.externalId) {
+    ud.external_id = await sha256(event.userData.externalId);
+  }
 
   const payload: Record<string, unknown> = {
     data: [
@@ -73,10 +82,13 @@ export async function sendCapiEvent(
   };
 
   const url = `https://graph.facebook.com/${META_GRAPH_VERSION}/${pixelId}/events?access_token=${encodeURIComponent(accessToken)}`;
-  // Fire-and-forget — don't block the response for analytics
-  fetch(url, {
+  // Returned, not awaited, so page loads stay fire-and-forget while the signup
+  // action can await delivery — the worker may be torn down once it responds.
+  return fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
-  }).catch((err) => console.error("[Meta CAPI]", err));
+  })
+    .then(() => undefined)
+    .catch((err) => console.error("[Meta CAPI]", err));
 }
