@@ -3,6 +3,7 @@ import type { HydrogenComponentProps } from "@weaverse/hydrogen";
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Menu, X } from "lucide-react";
+import { SHOP_ORIGIN, shopProductUrl } from "~/utils/shop";
 
 interface HbHeroProps extends HydrogenComponentProps {
   heroBgImage?: string;
@@ -207,7 +208,7 @@ function FixedUIPortal({
   );
 }
 
-const SHOP_URL = "https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937&ref=lp_hero_cta";
+const SHOP_URL = shopProductUrl("lp_hero_cta");
 
 function HbHero(props: HbHeroProps) {
   const {
@@ -217,7 +218,7 @@ function HbHero(props: HbHeroProps) {
     ...rest
   } = props;
   // Fall back to hardcoded URL if Weaverse has a stale non-Shopify value (e.g. "/products")
-  const shopLink = shopLinkProp?.startsWith("https://hydrbrew.myshopify.com") ? shopLinkProp : SHOP_URL;
+  const shopLink = shopLinkProp?.startsWith(SHOP_ORIGIN) ? shopLinkProp : SHOP_URL;
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -299,5 +300,5 @@ export const schema = createSchema({
       { type: "text", name: "discountCode", label: "Discount code", defaultValue: "HYDR15" },
     ]},
   ],
-  presets: { shopLink: "https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937&ref=lp_hero_cta", discountCode: "HYDR15" },
+  presets: { shopLink: shopProductUrl("lp_hero_cta"), discountCode: "HYDR15" },
 });

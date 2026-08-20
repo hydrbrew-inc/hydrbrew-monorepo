@@ -309,7 +309,7 @@ export default function SignupPage() {
 
           <a
             className="hb-shoplink"
-            href="https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937"
+            href="https://shop.hydrbrew.com/products/hydrbrew-12-pack?variant=47538404982937"
             target="_blank"
             rel="noopener noreferrer"
           >
