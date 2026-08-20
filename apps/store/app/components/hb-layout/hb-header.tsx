@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router";
+import { shopProductUrl } from "~/utils/shop";
 
 function HbSidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   const menuItems = [
-    { label: "SHOP", href: "https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937&ref=lp_hero_cta" },
+    { label: "SHOP", href: shopProductUrl("lp_hero_cta") },
     { label: "OPTIMIZE", href: "/#quiz" },
     { label: "KNOWLEDGE BASE", href: "/#knowledge-base" },
     { label: "FAQ", href: "/#faq" },
@@ -120,7 +121,7 @@ export function HbHeader() {
           <nav className="flex items-center justify-between">
             {/* Left Nav */}
             <div className="flex-1 flex items-center gap-8">
-              <a href="https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937&ref=lp_hero_cta" className="hidden md:block text-white hover:text-[#00FFFF] transition-colors" style={{ fontFamily: "'Space Grotesk',sans-serif" }}>
+              <a href={shopProductUrl("lp_hero_cta")} className="hidden md:block text-white hover:text-[#00FFFF] transition-colors" style={{ fontFamily: "'Space Grotesk',sans-serif" }}>
                 Shop
               </a>
             </div>

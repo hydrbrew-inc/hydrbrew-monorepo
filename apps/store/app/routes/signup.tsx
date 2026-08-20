@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useFetcher } from "react-router";
+import { shopProductUrl } from "~/utils/shop";
 
 const HERO_BG = "https://cdn.shopify.com/s/files/1/0714/4449/6537/files/hero-bg.webp?v=1784164453";
-const SHOP_URL = "https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937&ref=lp_signup_cta";
+const SHOP_URL = shopProductUrl("lp_signup_cta");
 const CYAN = "#00FFFF";
 
 export default function SignupPage() {

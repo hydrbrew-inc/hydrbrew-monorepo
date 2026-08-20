@@ -1,5 +1,5 @@
 const DEFAULT_DEV_STORE_URL = "http://127.0.0.1:3456";
-const DEFAULT_PREORDER_HANDLE = "hydrbrew-pre-order-bundle";
+const DEFAULT_PREORDER_HANDLE = "hydrbrew-12-pack";
 
 function normalizeBaseUrl(url: string): string {
   const trimmed = url.trim();

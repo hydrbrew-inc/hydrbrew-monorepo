@@ -3,6 +3,7 @@ import type { HydrogenComponentProps } from "@weaverse/hydrogen";
 import { useState, useEffect, useRef } from "react";
 import { Check } from "lucide-react";
 import MuxPlayer from "@mux/mux-player-react";
+import { shopProductUrl } from "~/utils/shop";
 
 interface HbProductProps extends HydrogenComponentProps {
   shopLink?: string;
@@ -133,7 +134,7 @@ function HbProduct(props: HbProductProps) {
 
             <p className="text-sm text-white/70 mb-2" style={{ fontFamily: "'Roboto Mono',monospace" }}>$59.95 // per 12-pack</p>
 
-            <a href="https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937&ref=lp_hero_cta" target="_blank" rel="noopener noreferrer" className="w-full py-4 mb-4 text-black font-bold uppercase tracking-wider transition-all hover:opacity-90 rounded-xl text-center block" style={{ backgroundColor: "#00FFFF", fontFamily: "'Urbanist',sans-serif", fontSize: "18px", fontWeight: 700 }}>
+            <a href={shopProductUrl("lp_hero_cta")} target="_blank" rel="noopener noreferrer" className="w-full py-4 mb-4 text-black font-bold uppercase tracking-wider transition-all hover:opacity-90 rounded-xl text-center block" style={{ backgroundColor: "#00FFFF", fontFamily: "'Urbanist',sans-serif", fontSize: "18px", fontWeight: 700 }}>
               SHOP NOW
             </a>
 
