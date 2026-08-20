@@ -3,6 +3,7 @@ import type { HydrogenComponentProps } from "@weaverse/hydrogen";
 import { useState, useEffect } from "react";
 import { ChevronLeft, ArrowRight, Check } from "lucide-react";
 import { useFetcher } from "react-router";
+import { shopProductUrl } from "~/utils/shop";
 
 type QuizAnswers = {
   frequency: string | null;
@@ -174,7 +175,7 @@ function HbQuiz(props: HydrogenComponentProps) {
               <div className="space-y-4">
                 <div className="w-full py-5 bg-[#00FFFF]/20 border border-[#00FFFF] text-[#00FFFF] rounded-2xl text-center text-xl font-bold">✓ You're in — check your email for your 20% off code</div>
                 <a
-                  href="https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937"
+                  href={shopProductUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full py-5 bg-[#00FFFF] text-black rounded-2xl hover:bg-[#00FFFF]/90 transition-all flex items-center justify-center gap-3 text-xl font-bold shadow-xl hover:shadow-[0_0_30px_rgba(0,255,255,0.5)]"
@@ -210,7 +211,7 @@ function HbQuiz(props: HydrogenComponentProps) {
                   {fetcher.state !== "idle" ? "Submitting…" : `${result.cta} →`}
                 </button>
                 <a
-                  href="https://hydrbrew.myshopify.com/products/hydrbrew-pre-order-bundle?variant=47538404982937"
+                  href={shopProductUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full py-4 border-2 border-[#00FFFF]/40 text-[#00FFFF] rounded-2xl hover:border-[#00FFFF] hover:bg-[#00FFFF]/5 transition-all flex items-center justify-center gap-3 text-lg font-semibold"
