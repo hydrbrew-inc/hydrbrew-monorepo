@@ -36,43 +36,77 @@ const MAX_PRESS_ARTICLES = 3;
 
 // Managed in Shopify Admin → Content → Metaobjects → "Press article".
 // Entries appear in the Press Coverage modal without code changes.
+//
+// Shopify derives the type handle from the definition name ("Press article" →
+// press_article). We query the likely handles rather than one, so a slightly
+// differently-named definition still works. Querying a type that doesn't exist
+// returns an empty node list rather than erroring, so the unused aliases cost
+// nothing.
 const PRESS_ARTICLES_QUERY = `#graphql
-  query PressArticles {
-    metaobjects(type: "press_article", first: 24) {
-      nodes {
-        id
-        fields {
-          key
-          value
-          reference {
-            ... on MediaImage {
-              image {
-                url
-                altText
-              }
-            }
+  fragment PressArticleFields on Metaobject {
+    id
+    fields {
+      key
+      value
+      reference {
+        ... on MediaImage {
+          image {
+            url
+            altText
           }
         }
       }
     }
   }
+  query PressArticles {
+    pressArticle: metaobjects(type: "press_article", first: 24) {
+      nodes { ...PressArticleFields }
+    }
+    press: metaobjects(type: "press", first: 24) {
+      nodes { ...PressArticleFields }
+    }
+    pressCoverage: metaobjects(type: "press_coverage", first: 24) {
+      nodes { ...PressArticleFields }
+    }
+  }
 `;
 
+// Shopify derives a metaobject field's key from the name typed in Admin
+// ("Article URL" → article_url). Accept the likely spellings so a reasonable
+// setup in Admin works without a code change.
+const FIELD_ALIASES = {
+  headline: ["headline", "title", "article_title", "name"],
+  outlet: ["outlet", "publication", "source", "publisher", "media_outlet"],
+  url: ["url", "link", "article_url", "article_link"],
+  image: ["image", "logo", "outlet_logo", "press_asset", "photo"],
+  date: ["date", "published_date", "publish_date", "published_at"],
+} as const;
+
 function parsePressArticles(loaderData: any): PressArticle[] {
-  const nodes = loaderData?.metaobjects?.nodes ?? [];
+  // Whichever of the queried type handles exists in Admin supplies the nodes;
+  // the rest come back empty.
+  const nodes = [
+    ...(loaderData?.pressArticle?.nodes ?? []),
+    ...(loaderData?.press?.nodes ?? []),
+    ...(loaderData?.pressCoverage?.nodes ?? []),
+  ];
   const articles: PressArticle[] = [];
   for (const node of nodes) {
-    const field = (key: string) =>
-      node.fields?.find((f: { key: string }) => f.key === key);
-    const headline = field("headline")?.value;
-    const url = field("url")?.value;
+    const pick = (aliases: readonly string[]) =>
+      node.fields?.find(
+        (f: { key: string; value?: string }) =>
+          aliases.includes(f.key) && f.value,
+      );
+    const headline = pick(FIELD_ALIASES.headline)?.value;
+    const url = pick(FIELD_ALIASES.url)?.value;
+    // An entry is only renderable with something to show and somewhere to go
     if (!headline || !url) continue;
     articles.push({
       headline,
       url,
-      outlet: field("outlet")?.value ?? "",
-      imageUrl: field("image")?.reference?.image?.url,
-      date: field("date")?.value,
+      outlet: pick(FIELD_ALIASES.outlet)?.value ?? "",
+      imageUrl: pick(FIELD_ALIASES.image)?.reference?.image?.url,
+      date: pick(FIELD_ALIASES.date)?.value,
     });
   }
   // Newest first; entries without a date sink to the end
