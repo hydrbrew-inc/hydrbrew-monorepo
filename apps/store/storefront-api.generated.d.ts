@@ -3030,12 +3030,57 @@ export type ProductsByIdsQuery = {
   >;
 };
 
+export type PressArticleFieldsFragment = Pick<
+  StorefrontAPI.Metaobject,
+  'id'
+> & {
+  fields: Array<
+    Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'> & {
+      reference?: StorefrontAPI.Maybe<{
+        image?: StorefrontAPI.Maybe<
+          Pick<StorefrontAPI.Image, 'url' | 'altText'>
+        >;
+      }>;
+    }
+  >;
+};
+
 export type PressArticlesQueryVariables = StorefrontAPI.Exact<{
   [key: string]: never;
 }>;
 
 export type PressArticlesQuery = {
-  metaobjects: {
+  pressArticle: {
+    nodes: Array<
+      Pick<StorefrontAPI.Metaobject, 'id'> & {
+        fields: Array<
+          Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'> & {
+            reference?: StorefrontAPI.Maybe<{
+              image?: StorefrontAPI.Maybe<
+                Pick<StorefrontAPI.Image, 'url' | 'altText'>
+              >;
+            }>;
+          }
+        >;
+      }
+    >;
+  };
+  press: {
+    nodes: Array<
+      Pick<StorefrontAPI.Metaobject, 'id'> & {
+        fields: Array<
+          Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'> & {
+            reference?: StorefrontAPI.Maybe<{
+              image?: StorefrontAPI.Maybe<
+                Pick<StorefrontAPI.Image, 'url' | 'altText'>
+              >;
+            }>;
+          }
+        >;
+      }
+    >;
+  };
+  pressCoverage: {
     nodes: Array<
       Pick<StorefrontAPI.Metaobject, 'id'> & {
         fields: Array<
@@ -3332,7 +3377,7 @@ interface GeneratedQueryTypes {
     return: ProductsByIdsQuery;
     variables: ProductsByIdsQueryVariables;
   };
-  '#graphql\n  query PressArticles {\n    metaobjects(type: "press_article", first: 24) {\n      nodes {\n        id\n        fields {\n          key\n          value\n          reference {\n            ... on MediaImage {\n              image {\n                url\n                altText\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n': {
+  '#graphql\n  fragment PressArticleFields on Metaobject {\n    id\n    fields {\n      key\n      value\n      reference {\n        ... on MediaImage {\n          image {\n            url\n            altText\n          }\n        }\n      }\n    }\n  }\n  query PressArticles {\n    pressArticle: metaobjects(type: "press_article", first: 24) {\n      nodes { ...PressArticleFields }\n    }\n    press: metaobjects(type: "press", first: 24) {\n      nodes { ...PressArticleFields }\n    }\n    pressCoverage: metaobjects(type: "press_coverage", first: 24) {\n      nodes { ...PressArticleFields }\n    }\n  }\n': {
     return: PressArticlesQuery;
     variables: PressArticlesQueryVariables;
   };
