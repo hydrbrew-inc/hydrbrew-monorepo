@@ -13,6 +13,15 @@ import type {
   ShopFragment,
 } from "storefront-api.generated";
 
+// hydrbrew.com and shop.hydrbrew.com serve the same Shopify catalog, pages and
+// blog. shop.hydrbrew.com is the SEO canonical, so overlapping routes point there.
+const CANONICAL_ORIGIN = "https://shop.hydrbrew.com";
+
+function canonical(url: Request["url"]) {
+  const path = new URL(url).pathname.replace(/^\/[a-z]{2}-[a-z]{2}(?=\/|$)/i, "");
+  return `${CANONICAL_ORIGIN}${path || "/"}`;
+}
+
 function root({
   shop,
   url,
@@ -32,28 +41,31 @@ function root({
     },
     jsonLd: {
       "@context": "https://schema.org",
-      "@type": "Organization",
+      "@type": "WebSite",
       name: shop.name,
-      logo: shop.brand?.logo?.image?.url,
-      sameAs: [
-        "https://twitter.com/tryhydrbrew",
-        "https://instagram.com/tryhydrbrew",
-      ],
-      url,
+      url: `${CANONICAL_ORIGIN}/`,
       potentialAction: {
         "@type": "SearchAction",
-        target: `${url}search?q={search_term}`,
+        target: `${CANONICAL_ORIGIN}/search?q={search_term}`,
         query: "required name='search_term'",
       },
     },
   };
 }
 
-function home(): SeoConfig {
+function home({
+  url,
+  isCustomPage,
+}: {
+  url: Request["url"];
+  isCustomPage: boolean;
+}): SeoConfig {
   return {
     title: "Home",
     titleTemplate: "%s | HydrBrew",
-    description: "hydrbrew° — functional iced coffee engineered for the 2:15 PM window. 85mg buffered caffeine, 200mg L-Theanine, 200mg Lion's Mane, 255mg ionic electrolytes. Zero systemic debt. The afternoon stays yours.",
+    description:
+      "hydrbrew° — functional iced coffee for the 2:15 PM window. 85mg buffered caffeine, 200mg L-Theanine, 200mg Lion's Mane. The afternoon stays yours.",
+    url: isCustomPage ? url : `${CANONICAL_ORIGIN}/`,
     robots: {
       noIndex: false,
       noFollow: false,
@@ -82,7 +94,6 @@ function productJsonLd({
   selectedVariant: ProductQuery["product"]["selectedOrFirstAvailableVariant"];
   url: Request["url"];
 }): SeoConfig["jsonLd"] {
-  const origin = new URL(url).origin;
   const description = truncate(
     productData?.seo?.description ?? productData?.description,
   );
@@ -135,7 +146,7 @@ function productJsonLd({
           "@type": "ListItem",
           position: 1,
           name: "Products",
-          item: `${origin}/products`,
+          item: `${CANONICAL_ORIGIN}/products`,
         },
         {
           "@type": "ListItem",
@@ -172,11 +183,17 @@ function product({
     productData?.seo?.description ?? productData?.description ?? "",
   );
   const selectedVariant = productData?.selectedOrFirstAvailableVariant;
+  const productUrl = canonical(url);
   return {
     title: productData?.seo?.title ?? productData?.title,
     description,
+    url: productUrl,
     media: selectedVariant?.image,
-    jsonLd: productJsonLd({ product: productData, selectedVariant, url }),
+    jsonLd: productJsonLd({
+      product: productData,
+      selectedVariant,
+      url: productUrl,
+    }),
   };
 }
 
@@ -325,7 +342,7 @@ function listCollections({
 
 function article({
   article: articleData,
-  url,
+  url: requestUrl,
 }: {
   article: Pick<
     Article,
@@ -338,6 +355,7 @@ function article({
   };
   url: Request["url"];
 }): SeoConfig {
+  const url = canonical(requestUrl);
   return {
     title: articleData?.seo?.title ?? articleData?.title,
     description: truncate(articleData?.seo?.description ?? ""),
@@ -368,11 +386,12 @@ function article({
 
 function blog({
   blog: blogData,
-  url,
+  url: requestUrl,
 }: {
   blog: Pick<Blog, "seo" | "title">;
   url: Request["url"];
 }): SeoConfig {
+  const url = canonical(requestUrl);
   return {
     title: blogData?.seo?.title,
     description: truncate(blogData?.seo?.description || ""),
@@ -399,7 +418,7 @@ function page({
     description: truncate(pageData?.seo?.description || ""),
     title: pageData?.seo?.title ?? pageData?.title,
     titleTemplate: "%s | Page",
-    url,
+    url: canonical(url),
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "WebPage",

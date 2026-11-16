@@ -110,7 +110,7 @@ function HbProduct(props: HbProductProps) {
             <p className="text-sm text-[#00FFFF] mb-6" style={{ fontFamily: "'Roboto Mono',monospace" }}>200mg L-Theanine // 200mg Lion's Mane // 85mg Caffeine</p>
 
             <p className="text-base text-white/80 mb-8 leading-relaxed" style={{ fontFamily: "'Urbanist',sans-serif", fontWeight: 300 }}>
-              hydrbrew° is a functional ready-to-drink iced coffee engineered for the afternoon window — the moment the back half of your day is still ahead, and your focus needs to hold. Light and crisp. Lightly sweetened with coconut sugar. Precision-dosed for the afternoon, calibrated to clear before evening. The afternoon stays yours. The night stays yours.
+              hydrbrew° is a ready-to-drink iced coffee built for one job — keeping your afternoon sharp. No blending, no brewing, no wait. Open, sip, and own the afternoon.
             </p>
 
             {/* Badges */}

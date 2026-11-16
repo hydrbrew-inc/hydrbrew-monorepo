@@ -262,6 +262,46 @@ export const Layout = withWeaverse(function RootLayout({
           children
         )}
         <GlobalLoading />
+        {/* Organization schema. Product and FAQ schema are emitted elsewhere -
+            adding them here would create conflicting duplicates. */}
+        <script
+          type="application/ld+json"
+          nonce={nonce}
+          suppressHydrationWarning
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: static JSON-LD, no user input
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "hydrbrew°",
+              legalName: "Hydrbrew, Inc.",
+              url: "https://shop.hydrbrew.com/",
+              logo: "https://shop.hydrbrew.com/cdn/shop/files/0bf82a61-2c7b-454e-96c1-b0e55ab24539.png",
+              description:
+                "Functional iced coffee in a 12oz can — 85mg caffeine, 200mg L-theanine, 200mg Lion's Mane, and 255mg electrolytes — built for steady afternoon focus without the crash.",
+              foundingDate: "2026-08-11",
+              founders: [
+                { "@type": "Person", name: "Louis Caverly" },
+                { "@type": "Person", name: "Fawne Caverly" },
+              ],
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Leucadia",
+                addressRegion: "CA",
+                addressCountry: "US",
+              },
+              sameAs: [
+                "https://hydrbrew.com/",
+                "https://www.instagram.com/tryhydrbrew/",
+              ],
+              contactPoint: {
+                "@type": "ContactPoint",
+                email: "support@hydrbrew.com",
+                contactType: "customer support",
+              },
+            }),
+          }}
+        />
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
       </body>

@@ -63,10 +63,10 @@ function HbSocial(props: HydrogenComponentProps) {
         </div>
 
         {/* Stay Connected */}
-        <div className="max-w-4xl mx-auto">
+        <div id="stay-connected" className="max-w-4xl mx-auto">
           <div className="bg-black border-2 border-[#00FFFF]/30 rounded-2xl p-8 md:p-12">
             <div className="text-[#00FFFF]/60 text-xs uppercase tracking-widest mb-4 text-center" style={{ fontFamily: "'Roboto Mono',monospace" }}>
-              COHORT ACCESS // SIGNAL DROPS
+              Light and Crisp, in Your Inbox
             </div>
             <h3
               className="text-4xl md:text-6xl text-white text-center mb-6"
@@ -78,12 +78,8 @@ function HbSocial(props: HydrogenComponentProps) {
               className="text-white/70 text-lg text-center mb-8"
               style={{ fontFamily: "'Space Grotesk',sans-serif" }}
             >
-              Join the cohort for exclusive drops, early access, and daily optimization intel
+              New flavors, product discounts, and the occasional note on the coffee-and-focus category we&apos;re building.
             </p>
-            <div className="text-center mb-8">
-              <span className="text-2xl md:text-3xl text-white font-bold" style={{ fontFamily: "'Urbanist',sans-serif" }}>Refer 2+ Members </span>
-              <span className="text-2xl md:text-3xl text-[#00FFFF] font-bold" style={{ fontFamily: "'Urbanist',sans-serif" }}>→ Unlock Rewards</span>
-            </div>
 
             {fetcher.data?.ok ? (
               <div className="text-center text-[#00FFFF] font-mono py-4 mb-8">✓ You&apos;re in — check your email!</div>

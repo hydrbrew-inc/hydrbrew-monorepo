@@ -140,6 +140,7 @@ function HbFooterCta(props: HbFooterCtaProps) {
   const [isTermsOpen, setIsTermsOpen] = useState(false);
   const [isFounderOpen, setIsFounderOpen] = useState(false);
   const [isShippingOpen, setIsShippingOpen] = useState(false);
+  const [isRefundOpen, setIsRefundOpen] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [isCredentialsExpanded, setIsCredentialsExpanded] = useState(false);
 
@@ -158,9 +159,9 @@ function HbFooterCta(props: HbFooterCtaProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const anyModalOpen = isPressOpen || isPrivacyOpen || isTermsOpen || isFounderOpen || isShippingOpen;
+  const anyModalOpen = isPressOpen || isPrivacyOpen || isTermsOpen || isFounderOpen || isShippingOpen || isRefundOpen;
   useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => { if (e.key === "Escape") { setIsPressOpen(false); setIsPrivacyOpen(false); setIsTermsOpen(false); setIsFounderOpen(false); setIsShippingOpen(false); } };
+    const handleEsc = (e: KeyboardEvent) => { if (e.key === "Escape") { setIsPressOpen(false); setIsPrivacyOpen(false); setIsTermsOpen(false); setIsFounderOpen(false); setIsShippingOpen(false); setIsRefundOpen(false); } };
     if (anyModalOpen) {
       const pos = window.scrollY;
       document.addEventListener("keydown", handleEsc);
@@ -233,7 +234,8 @@ function HbFooterCta(props: HbFooterCtaProps) {
             <h4 className="text-white mb-4" style={{ fontFamily: "'Urbanist',sans-serif" }}>Support</h4>
             <ul className="space-y-2 text-sm text-white/60">
               <li><a href="mailto:support@hydrbrew.com" className="hover:text-[#00FFFF] transition-colors">Contact Us</a></li>
-              <li><button type="button" onClick={() => setIsShippingOpen(true)} className="hover:text-[#00FFFF] transition-colors font-normal">Shipping &amp; Refunds</button></li>
+              <li><button type="button" onClick={() => setIsShippingOpen(true)} className="hover:text-[#00FFFF] transition-colors font-normal">Shipping Policy</button></li>
+              <li><button type="button" onClick={() => setIsRefundOpen(true)} className="hover:text-[#00FFFF] transition-colors font-normal">Refund Policy</button></li>
             </ul>
           </div>
           <div>
@@ -272,25 +274,79 @@ function HbFooterCta(props: HbFooterCtaProps) {
 
       {/* Shipping Modal */}
       {isShippingOpen && (
-        <div className={modalCls} style={{ alignItems: "center" }}>
+        <div className={modalCls}>
           <div className={backdropCls} onClick={() => setIsShippingOpen(false)} />
-          <div className="relative z-10 w-full max-w-xl mx-4">
-            <div className="bg-[#0A0A0A] border-2 border-[#00FFFF]/20 rounded-3xl overflow-hidden">
-              <div className="p-8">
-                <div className="flex items-start justify-between mb-6">
-                  <div><span className="text-[#00FFFF] text-xs font-mono uppercase tracking-widest">Shipping &amp; Refunds</span><h2 className="text-2xl text-white font-bold mt-2" style={{ fontFamily: "'Urbanist',sans-serif" }}>Delivery Policy</h2></div>
-                  <button type="button" onClick={() => setIsShippingOpen(false)} aria-label="Close shipping info" className="p-2 bg-[#00FFFF]/10 border border-[#00FFFF]/30 hover:border-[#00FFFF] rounded-lg text-[#00FFFF] hover:bg-[#00FFFF]/20 transition-all"><X className="w-5 h-5" /></button>
+          <div className="relative z-10 w-full max-w-4xl mx-auto px-4 py-8 md:py-16">
+            <button type="button" onClick={() => setIsShippingOpen(false)} className={closeBtnCls} aria-label="Close shipping policy"><X className="w-6 h-6" /></button>
+            <article className="bg-[#0A0A0A] border-2 border-[#00FFFF]/20 rounded-3xl overflow-hidden">
+              <div className="p-8 md:p-12">
+                <div className="mb-8 pb-8 border-b border-[#00FFFF]/20">
+                  <span className="px-4 py-2 bg-[#00FFFF]/10 border border-[#00FFFF] text-[#00FFFF] text-xs font-mono uppercase tracking-wider rounded-full">Support</span>
+                  <h2 className="text-4xl md:text-5xl text-white font-bold mt-6 mb-2" style={{ fontFamily: "'Urbanist',sans-serif" }}>Shipping Policy</h2>
+                  <p className="text-white/40 font-mono text-sm">Last updated: November 2026 · Hydrbrew, Inc.</p>
                 </div>
-                <div className="h-px bg-[#00FFFF]/10 mb-6" />
-                <p className="text-white/80 leading-relaxed" style={{ fontFamily: "'Inter',sans-serif", fontSize: "16px", lineHeight: "1.8" }}>
-                  We use a third-party shipper, ShipBob, for last-mile delivery. Standard delivery takes 2–5 business days. Due to the consumable nature of our products, all sales are final unless the product arrives damaged. Not satisfied? Contact{" "}
-                  <a href="mailto:support@hydrbrew.com" className="text-[#00FFFF] underline">support@hydrbrew.com</a>{" "}within 7 days of delivery for resolution.
-                </p>
-                <div className="mt-6 pt-6 border-t border-[#00FFFF]/10 flex justify-end">
-                  <button type="button" onClick={() => setIsShippingOpen(false)} className="px-6 py-2.5 bg-white/5 border border-white/10 text-white/70 rounded-xl hover:bg-white/10 transition-all text-sm">Close</button>
+                <div className="space-y-6 text-white/80" style={{ fontFamily: "'Inter',sans-serif", fontSize: "16px", lineHeight: "1.8" }}>
+                  {[
+                    { num: "1", title: "Domestic Delivery Focus", body: "hydrbrew° currently ships to addresses within the United States. We do not accept or process international orders at this stage." },
+                    { num: "2", title: "Timeline & Fulfillment", body: "Shipping is free in the Western US (states west of Colorado). Rates for the rest of the US are calculated at checkout." },
+                    { num: "3", title: "Tracking", body: "Orders are fulfilled by our logistics partner, ShipBob. The moment your 12-pack leaves their facility, a tracking number and delivery confirmation are sent automatically to your registered email address. Standard delivery takes 2–5 business days." },
+                    { num: "4", title: "Delivery Policy", body: "We use a third-party shipper, ShipBob, for last-mile delivery. Standard delivery takes 2–5 business days. If your order arrives damaged — or you try hydrbrew° and don't love it — email support@hydrbrew.com within 7 days of delivery for a full refund or free replacement." },
+                    { num: "5", title: "Delivery Notice", body: "Damaged order, or just not for you? Email support@hydrbrew.com within 7 days of delivery for a full refund or free replacement." },
+                    { num: "6", title: "Questions About Your Order?", body: "Our team is here to help. Reach out to support@hydrbrew.com with any shipping or delivery questions." },
+                  ].map((s) => (
+                    <div key={s.num}>
+                      <div className="p-4 bg-black/40 border-l-4 border-[#00FFFF] rounded-r-lg mb-3">
+                        <h3 className="text-lg md:text-xl text-[#00FFFF] font-bold" style={{ fontFamily: "'Urbanist',sans-serif" }}><span className="font-mono mr-2">{s.num}.</span>{s.title}</h3>
+                      </div>
+                      <p>{s.body}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-10 pt-8 border-t border-[#00FFFF]/20 flex items-center justify-between">
+                  <button type="button" onClick={() => setIsShippingOpen(false)} className="flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 text-white rounded-xl hover:bg-white/10 transition-all">← Close</button>
+                  <div className="text-sm text-white/40 font-mono">End of transmission //</div>
                 </div>
               </div>
-            </div>
+            </article>
+          </div>
+        </div>
+      )}
+
+      {/* Refund Modal */}
+      {isRefundOpen && (
+        <div className={modalCls}>
+          <div className={backdropCls} onClick={() => setIsRefundOpen(false)} />
+          <div className="relative z-10 w-full max-w-4xl mx-auto px-4 py-8 md:py-16">
+            <button type="button" onClick={() => setIsRefundOpen(false)} className={closeBtnCls} aria-label="Close refund policy"><X className="w-6 h-6" /></button>
+            <article className="bg-[#0A0A0A] border-2 border-[#00FFFF]/20 rounded-3xl overflow-hidden">
+              <div className="p-8 md:p-12">
+                <div className="mb-8 pb-8 border-b border-[#00FFFF]/20">
+                  <span className="px-4 py-2 bg-[#00FFFF]/10 border border-[#00FFFF] text-[#00FFFF] text-xs font-mono uppercase tracking-wider rounded-full">Support</span>
+                  <h2 className="text-4xl md:text-5xl text-white font-bold mt-6 mb-2" style={{ fontFamily: "'Urbanist',sans-serif" }}>Refund Policy</h2>
+                  <p className="text-white/40 font-mono text-sm">Last updated: November 2026 · Hydrbrew, Inc.</p>
+                </div>
+                <div className="space-y-6 text-white/80" style={{ fontFamily: "'Inter',sans-serif", fontSize: "16px", lineHeight: "1.8" }}>
+                  {[
+                    { num: "1", title: "Order Processing", body: "Payments are captured immediately at checkout to initiate fulfillment with our logistics partner." },
+                    { num: "2", title: "Fulfillment & Delivery", body: "Orders are fulfilled via ShipBob. Standard delivery takes 2–5 business days, and you will receive tracking by email as soon as your order leaves the facility. You may request a full refund at any time before your order ships." },
+                    { num: "3", title: "How to Request a Refund", body: "To request a refund or replacement, email support@hydrbrew.com with your order number. Our team will process your request promptly — no return shipping required." },
+                    { num: "4", title: "Post-Shipment Policy", body: "We stand behind every can. Because hydrbrew° is a consumable product, you never have to return or ship cans back to us. If you try hydrbrew° and don't love it, or if your shipment arrives damaged, email support@hydrbrew.com within 7 days of delivery and we'll issue a full refund or send a free replacement — no questions asked." },
+                    { num: "5", title: "Questions About Your Refund?", body: "Contact support@hydrbrew.com — we respond within 24-48 hours." },
+                  ].map((s) => (
+                    <div key={s.num}>
+                      <div className="p-4 bg-black/40 border-l-4 border-[#00FFFF] rounded-r-lg mb-3">
+                        <h3 className="text-lg md:text-xl text-[#00FFFF] font-bold" style={{ fontFamily: "'Urbanist',sans-serif" }}><span className="font-mono mr-2">{s.num}.</span>{s.title}</h3>
+                      </div>
+                      <p>{s.body}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-10 pt-8 border-t border-[#00FFFF]/20 flex items-center justify-between">
+                  <button type="button" onClick={() => setIsRefundOpen(false)} className="flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 text-white rounded-xl hover:bg-white/10 transition-all">← Close</button>
+                  <div className="text-sm text-white/40 font-mono">End of transmission //</div>
+                </div>
+              </div>
+            </article>
           </div>
         </div>
       )}
@@ -382,15 +438,19 @@ function HbFooterCta(props: HbFooterCtaProps) {
                 <div className="mb-8 pb-8 border-b border-[#00FFFF]/20">
                   <span className="px-4 py-2 bg-[#00FFFF]/10 border border-[#00FFFF] text-[#00FFFF] text-xs font-mono uppercase tracking-wider rounded-full">Legal</span>
                   <h2 className="text-4xl md:text-5xl text-white font-bold mt-6 mb-2" style={{ fontFamily: "'Urbanist',sans-serif" }}>Privacy Policy</h2>
-                  <p className="text-white/40 font-mono text-sm">Last updated: May 2026</p>
+                  <p className="text-white/40 font-mono text-sm">Last updated: November 2026</p>
                 </div>
                 <div className="space-y-6 text-white/80" style={{ fontFamily: "'Inter',sans-serif", fontSize: "16px", lineHeight: "1.8" }}>
                   {[
-                    { num: "1", title: "Information We Collect", body: "When you interact with the hydrbrew° website — joining our waitlist, placing a pre-order, or creating an account — we collect identity & contact data, purchase & transaction data, referral & rewards data, communications data, and technical data." },
+                    { num: "1", title: "Information We Collect", body: "When you interact with the hydrbrew° website — joining our waitlist, placing an order, or creating an account — we collect identity & contact data, purchase & transaction data, referral & rewards data, communications data, and technical data." },
                     { num: "2", title: "How We Use Your Information", body: "Processing and fulfilling your orders; securing your waitlist position; processing payments and preventing fraud; distributing referral rewards; sending launch updates and promotional communications; responding to customer support inquiries; improving our website and products; complying with legal obligations." },
-                    { num: "3", title: "How We Share Your Information", body: "We do not sell your personal data. We share only with trusted service providers: Shopify (e-commerce & payments), Viral Loops (referral tracking), Klaviyo (email communications), shipping carriers, and analytics providers in aggregated, anonymized form." },
+                    { num: "3", title: "How We Share Your Information", body: "We do not sell your personal data. We share only with trusted service providers: Shopify (e-commerce & payments), Klaviyo (email communications), shipping carriers, and analytics providers in aggregated, anonymized form." },
                     { num: "4", title: "Your Rights", body: "Depending on your location, you may request access, correction, deletion, opt-out of marketing, or data portability. Contact support@hydrbrew.com — we respond within 30 days." },
-                    { num: "5", title: "Contact", body: "Questions or requests: hydrbrew° — support@hydrbrew.com" },
+                    { num: "5", title: "Data Retention", body: "We retain your personal information only as long as necessary to fulfill the purposes outlined in this policy, comply with legal obligations, resolve disputes, and enforce our agreements." },
+                    { num: "6", title: "Cookies and Tracking", body: "We use cookies and similar tracking technologies to enhance your browsing experience, analyze site traffic, and understand where our visitors are coming from. You can control cookie preferences through your browser settings." },
+                    { num: "7", title: "International Transfers", body: "Your information may be transferred to and processed in countries other than your own. We ensure appropriate safeguards are in place to protect your data in accordance with this privacy policy." },
+                    { num: "8", title: "Changes to This Policy", body: "We may update this privacy policy from time to time. We will notify you of any changes by posting the new policy on this page and updating the last updated date." },
+                    { num: "9", title: "Contact", body: "Questions or requests: hydrbrew° — support@hydrbrew.com" },
                   ].map((s) => (
                     <div key={s.num}>
                       <div className="p-4 bg-black/40 border-l-4 border-[#00FFFF] rounded-r-lg mb-3">
@@ -421,14 +481,14 @@ function HbFooterCta(props: HbFooterCtaProps) {
                 <div className="mb-8 pb-8 border-b border-[#00FFFF]/20">
                   <span className="px-4 py-2 bg-[#00FFFF]/10 border border-[#00FFFF] text-[#00FFFF] text-xs font-mono uppercase tracking-wider rounded-full">Legal</span>
                   <h2 className="text-4xl md:text-5xl text-white font-bold mt-6 mb-2" style={{ fontFamily: "'Urbanist',sans-serif" }}>Terms of Service</h2>
-                  <p className="text-white/40 font-mono text-sm">Last updated: May 2026 · Hydrbrew, Inc.</p>
+                  <p className="text-white/40 font-mono text-sm">Last updated: November 2026 · Hydrbrew, Inc.</p>
                 </div>
                 <div className="space-y-6 text-white/80" style={{ fontFamily: "'Inter',sans-serif", fontSize: "16px", lineHeight: "1.8" }}>
                   {[
                     { num: "1", title: "Agreement to Terms", body: "By accessing or using hydrbrew.com or purchasing products from Hydrbrew, Inc., you agree to be bound by these Terms of Service." },
                     { num: "2", title: "Intellectual Property", body: "All content on the Site — including the hydrbrew° name, logo, trademarks, product formulations, copy, photography, design assets, and underlying code — is the exclusive property of Hydrbrew, Inc." },
-                    { num: "3", title: "Products & Purchases", body: "All prices are in USD and subject to change. We accept payments via Shopify Payments and Stripe. All sales are final unless the product arrives damaged. Pre-orders may be canceled for a full refund prior to shipment." },
-                    { num: "4", title: "Health & Product Disclaimer", body: "hydrbrew° is a functional beverage. These statements have not been evaluated by the FDA. Our products are not intended to diagnose, treat, cure, or prevent any disease. Consult your physician before consuming if pregnant, nursing, or sensitive to caffeine." },
+                    { num: "3", title: "Products & Purchases", body: "All prices are in USD and subject to change. We accept payments via Shopify Payments and Stripe. If your order arrives damaged — or you try hydrbrew° and don't love it — email support@hydrbrew.com within 7 days of delivery for a full refund or free replacement. Orders may be canceled for a full refund prior to shipment." },
+                    { num: "4", title: "Health Notice", body: "hydrbrew° is a functional beverage. These statements have not been evaluated by the FDA. Our products are not intended to diagnose, treat, cure, or prevent any disease. Consult your physician before consuming if pregnant, nursing, or sensitive to caffeine." },
                     { num: "5", title: "Contact", body: "Hydrbrew, Inc. · 2033 San Elijo Ave. Unit #1122, Cardiff, CA 92007 · support@hydrbrew.com" },
                   ].map((s) => (
                     <div key={s.num}>

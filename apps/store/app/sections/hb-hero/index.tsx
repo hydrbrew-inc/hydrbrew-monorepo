@@ -8,7 +8,6 @@ import { SHOP_ORIGIN, shopProductUrl } from "~/utils/shop";
 interface HbHeroProps extends HydrogenComponentProps {
   heroBgImage?: string;
   shopLink?: string;
-  discountCode?: string;
 }
 
 interface MenuItem {
@@ -27,14 +26,12 @@ function FixedUIPortal({
   onClose,
   isScrolled,
   shopLink,
-  discountCode,
 }: {
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
   isScrolled: boolean;
   shopLink: string;
-  discountCode: string;
 }) {
   const [mounted, setMounted] = useState(false);
   const [bootSequence, setBootSequence] = useState(false);
@@ -107,12 +104,12 @@ function FixedUIPortal({
         className="fixed top-0 left-0 right-0 backdrop-blur-md border-b border-[#00FFFF]/20"
         style={{ zIndex: 9990, background: "linear-gradient(to right,rgba(0,255,255,0.1),rgba(0,255,255,0.1))" }}
       >
-        <div className="container mx-auto px-4 py-2 text-center cursor-pointer group transition-all hover:bg-[#00FFFF]/20">
+        <a href="#stay-connected" className="container mx-auto px-4 py-2 text-center cursor-pointer group transition-all hover:bg-[#00FFFF]/20 block">
           <p className="text-sm text-[#00FFFF] group-hover:text-white transition-colors px-4 py-1 bg-black/80 backdrop-blur-sm rounded-full inline-block" style={{ textShadow: "0 0 10px rgba(0,255,255,0.5)" }}>
-            SAVE 15% on first order – Use code{" "}
-            <span className="font-bold px-2 py-1 bg-[#00FFFF]/30 rounded-full group-hover:bg-[#00FFFF] group-hover:text-black group-hover:scale-110 inline-block transition-all duration-300 border border-[#00FFFF]/50">{discountCode}</span>
+            <span className="font-bold px-2 py-1 bg-[#00FFFF]/30 rounded-full group-hover:bg-[#00FFFF] group-hover:text-black group-hover:scale-110 inline-block transition-all duration-300 border border-[#00FFFF]/50">Sign Up</span>{" "}
+            and get 25% off
           </p>
-        </div>
+        </a>
       </div>
 
       {/* ── Main Header ── */}
@@ -214,7 +211,6 @@ function HbHero(props: HbHeroProps) {
   const {
     heroBgImage = "https://i.imgur.com/VzCUpeT.png",
     shopLink: shopLinkProp = SHOP_URL,
-    discountCode = "HYDR15",
     ...rest
   } = props;
   // Fall back to hardcoded URL if Weaverse has a stale non-Shopify value (e.g. "/products")
@@ -244,7 +240,6 @@ function HbHero(props: HbHeroProps) {
         onClose={() => setIsSidebarOpen(false)}
         isScrolled={isScrolled}
         shopLink={shopLink}
-        discountCode={discountCode}
       />
 
       {/* Hero Section */}
@@ -260,9 +255,9 @@ function HbHero(props: HbHeroProps) {
         <div className="relative z-10 w-full h-full flex items-center">
           <div className="absolute left-[5%] md:left-[8%] top-[40%] md:top-1/2 -translate-y-1/2 space-y-4 md:space-y-6 z-20">
             <h1 className="text-6xl md:text-9xl text-white uppercase" style={{ fontFamily: "'Urbanist',sans-serif", fontWeight: 700, lineHeight: 1.0 }}>
-              COMMAND<br />YOUR<br />DAY.
+              A Lighter,<br />Second Lift
             </h1>
-            <p className="text-xl md:text-3xl text-[#00FFFF]" style={{ fontFamily: "'Roboto Mono',monospace" }}>The night stays yours.</p>
+            <p className="text-xl md:text-3xl text-[#00FFFF]" style={{ fontFamily: "'Roboto Mono',monospace" }}>Focus that holds.</p>
             <div className="pt-2 md:pt-4">
               <a href={shopLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-3 md:px-10 md:py-4 bg-[#00FFFF] text-black text-sm md:text-base tracking-wider rounded-full hover:bg-[#00FFFF]/90 transition-all hover:shadow-[0_0_40px_rgba(0,255,255,0.6)] hover:scale-105 font-bold" style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700 }}>
                 SHOP NOW
@@ -297,8 +292,7 @@ export const schema = createSchema({
     { group: "Content", inputs: [
       { type: "image", name: "heroBgImage", label: "Hero background image" },
       { type: "text", name: "shopLink", label: "Shop link", defaultValue: "/products" },
-      { type: "text", name: "discountCode", label: "Discount code", defaultValue: "HYDR15" },
     ]},
   ],
-  presets: { shopLink: shopProductUrl("lp_hero_cta"), discountCode: "HYDR15" },
+  presets: { shopLink: shopProductUrl("lp_hero_cta") },
 });
